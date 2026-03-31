@@ -1,0 +1,351 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-03-28",
+  "statuses": [
+    {
+      "key": "new",
+      "label": "新线索",
+      "labelEn": "New Lead",
+      "color": "#9E9E9E",
+      "description": "刚获取的线索，待评估",
+      "nextAction": "背调 + 初次联系",
+      "priority": "中",
+      "expectedResponse": "24-48 小时"
+    },
+    {
+      "key": "contacted",
+      "label": "已联系",
+      "labelEn": "Contacted",
+      "color": "#2196F3",
+      "description": "已首次触达，等待回复",
+      "nextAction": "跟进邮件/电话",
+      "priority": "高",
+      "expectedResponse": "3-5 天内跟进"
+    },
+    {
+      "key": "interested",
+      "label": "有意向",
+      "labelEn": "Interested",
+      "color": "#4CAF50",
+      "description": "客户表示有兴趣",
+      "nextAction": "深入沟通需求 + 准备报价",
+      "priority": "高",
+      "expectedResponse": "24 小时内响应"
+    },
+    {
+      "key": "quoted",
+      "label": "已报价",
+      "labelEn": "Quoted",
+      "color": "#FF9800",
+      "description": "已发送报价单",
+      "nextAction": "跟进报价反馈",
+      "priority": "高",
+      "expectedResponse": "3 天内跟进"
+    },
+    {
+      "key": "negotiating",
+      "label": "谈判中",
+      "labelEn": "Negotiating",
+      "color": "#9C27B0",
+      "description": "价格/条款谈判中",
+      "nextAction": "灵活调整 + 寻求决策",
+      "priority": "最高",
+      "expectedResponse": "即时响应"
+    },
+    {
+      "key": "meeting_set",
+      "label": "已预约会议",
+      "labelEn": "Meeting Set",
+      "color": "#00BCD4",
+      "description": "已安排视频会议/电话会议",
+      "nextAction": "准备会议资料",
+      "priority": "最高",
+      "expectedResponse": "会议前 1 天确认"
+    },
+    {
+      "key": "closed_won",
+      "label": "已成交",
+      "labelEn": "Closed Won",
+      "color": "#4CAF50",
+      "description": "订单确认",
+      "nextAction": "安排生产 + 售后跟进",
+      "priority": "高（售后）",
+      "expectedResponse": "成交后 7 天关怀"
+    },
+    {
+      "key": "closed_lost",
+      "label": "已流失",
+      "labelEn": "Closed Lost",
+      "color": "#F44336",
+      "description": "客户拒绝或无回复",
+      "nextAction": "分析原因 + 季度跟进",
+      "priority": "低",
+      "expectedResponse": "90 天后重新评估"
+    },
+    {
+      "key": "nurture",
+      "label": "培育中",
+      "labelEn": "Nurture",
+      "color": "#FFC107",
+      "description": "长期培育，暂不紧急",
+      "nextAction": "定期内容营销",
+      "priority": "低",
+      "expectedResponse": "每 2 周触达"
+    }
+  ],
+  "transitions": {
+    "allowed": [
+      ["new", "contacted"],
+      ["new", "nurture"],
+      ["contacted", "interested"],
+      ["contacted", "nurture"],
+      ["contacted", "closed_lost"],
+      ["interested", "quoted"],
+      ["interested", "meeting_set"],
+      ["interested", "closed_lost"],
+      ["quoted", "negotiating"],
+      ["quoted", "interested"],
+      ["quoted", "closed_lost"],
+      ["negotiating", "meeting_set"],
+      ["negotiating", "closed_won"],
+      ["negotiating", "closed_lost"],
+      ["meeting_set", "closed_won"],
+      ["meeting_set", "negotiating"],
+      ["meeting_set", "closed_lost"],
+      ["closed_won", "nurture"],
+      ["closed_lost", "nurture"],
+      ["nurture", "interested"],
+      ["nurture", "closed_lost"]
+    ],
+    "autoTriggers": {
+      "contacted_no_response_7days": "nurture",
+      "quoted_no_response_14days": "contacted",
+      "interested_no_response_30days": "nurture"
+    }
+  },
+  "gradeThresholds": {
+    "A": {
+      "min": 80,
+      "max": 100,
+      "label": "A级客户",
+      "priority": "最高",
+      "firstContact": "24 小时内",
+      "followUpFrequency": "每 3 天",
+      "description": "重点开发，快速跟进"
+    },
+    "B": {
+      "min": 60,
+      "max": 79,
+      "label": "B级客户",
+      "priority": "高",
+      "firstContact": "48 小时内",
+      "followUpFrequency": "每 5 天",
+      "description": "正常开发，保持联系"
+    },
+    "C": {
+      "min": 40,
+      "max": 59,
+      "label": "C级客户",
+      "priority": "中",
+      "firstContact": "1 周内",
+      "followUpFrequency": "每 7 天",
+      "description": "低频跟进，等待机会"
+    },
+    "D": {
+      "min": 0,
+      "max": 39,
+      "label": "D级客户",
+      "priority": "低",
+      "firstContact": "暂不开发",
+      "followUpFrequency": "不主动跟进",
+      "description": "归档，不投入资源"
+    }
+  },
+  "icpScoring": {
+    "dimensions": [
+      {
+        "key": "industryMatch",
+        "label": "行业匹配度",
+        "weight": 0.25,
+        "scoring": {
+          "high": 10,
+          "medium": 5,
+          "low": 0
+        },
+        "criteria": {
+          "high": ["输送带制造商", "矿山", "水泥厂", "港口"],
+          "medium": ["物流设备", "农业机械", "食品加工"],
+          "low": ["其他行业"]
+        }
+      },
+      {
+        "key": "purchaseCapacity",
+        "label": "采购能力",
+        "weight": 0.20,
+        "scoring": {
+          "S": 20,
+          "A": 16,
+          "B": 12,
+          "C": 8,
+          "D": 4,
+          "E": 0
+        },
+        "criteria": {
+          "S": "年采购额 ≥ $1,000,000",
+          "A": "年采购额 $500,000 - $1,000,000",
+          "B": "年采购额 $100,000 - $500,000",
+          "C": "年采购额 $50,000 - $100,000",
+          "D": "年采购额 $10,000 - $50,000",
+          "E": "年采购额 < $10,000"
+        }
+      },
+      {
+        "key": "purchaseFrequency",
+        "label": "采购频率",
+        "weight": 0.20,
+        "scoring": {
+          "high": 10,
+          "medium": 5,
+          "low": 2
+        },
+        "criteria": {
+          "high": "年采购 >10 次",
+          "medium": "年采购 3-10 次",
+          "low": "年采购 <3 次"
+        }
+      },
+      {
+        "key": "customerType",
+        "label": "客户类型",
+        "weight": 0.15,
+        "scoring": {
+          "manufacturer": 10,
+          "distributor": 8,
+          "endUser": 5
+        }
+      },
+      {
+        "key": "decisionCycle",
+        "label": "决策周期",
+        "weight": 0.15,
+        "scoring": {
+          "fast": 10,
+          "medium": 5,
+          "slow": 2
+        },
+        "criteria": {
+          "fast": "决策周期 <1 个月",
+          "medium": "决策周期 1-3 个月",
+          "slow": "决策周期 >3 个月"
+        }
+      },
+      {
+        "key": "decisionMakerAccess",
+        "label": "决策人联系",
+        "weight": 0.05,
+        "scoring": {
+          "direct": 10,
+          "indirect": 5,
+          "none": 0
+        },
+        "criteria": {
+          "direct": "直接联系到决策人",
+          "indirect": "通过中间人联系",
+          "none": "未联系到决策人"
+        }
+      }
+    ],
+    "dynamicAdjustments": [
+      {
+        "trigger": "quickReply",
+        "condition": "回复时间 <1 小时",
+        "adjustment": 1,
+        "maxPerDay": 2
+      },
+      {
+        "trigger": "proactiveInquiry",
+        "condition": "主动询价",
+        "adjustment": 2,
+        "maxPerDay": 3
+      },
+      {
+        "trigger": "mentionCompetitor",
+        "condition": "提及竞争对手",
+        "adjustment": 2,
+        "maxPerDay": 2
+      },
+      {
+        "trigger": "sendCompanyInfo",
+        "condition": "发送公司资料",
+        "adjustment": 1,
+        "maxPerDay": 1
+      },
+      {
+        "trigger": "askMOQ",
+        "condition": "询问 MOQ/交期",
+        "adjustment": 1,
+        "maxPerDay": 1
+      },
+      {
+        "trigger": "noReply7Days",
+        "condition": "7 天无回复",
+        "adjustment": -1,
+        "maxPerDay": 1
+      },
+      {
+        "trigger": "requestRemoval",
+        "condition": "要求移出名单",
+        "adjustment": -3,
+        "maxPerDay": 1
+      },
+      {
+        "trigger": "markedSpam",
+        "condition": "标记为垃圾",
+        "adjustment": -5,
+        "maxPerDay": 1
+      },
+      {
+        "trigger": "emailBounce",
+        "condition": "邮件退信",
+        "adjustment": -2,
+        "maxPerDay": 1
+      }
+    ]
+  },
+  "followUpRules": {
+    "sequences": [
+      {
+        "name": "新线索跟进",
+        "trigger": "status = new",
+        "steps": [
+          { "day": 1, "action": "发送介绍邮件" },
+          { "day": 3, "action": "LinkedIn 连接请求" },
+          { "day": 7, "action": "跟进邮件（案例分享）" },
+          { "day": 14, "action": "电话联系尝试" },
+          { "day": 30, "action": "最后跟进或移至 nurture" }
+        ]
+      },
+      {
+        "name": "报价后跟进",
+        "trigger": "status = quoted",
+        "steps": [
+          { "day": 1, "action": "确认报价单已收到" },
+          { "day": 3, "action": "跟进报价反馈" },
+          { "day": 7, "action": "提供竞品对比优势" },
+          { "day": 14, "action": "限时优惠或调整方案" },
+          { "day": 21, "action": "最后跟进或降级" }
+        ]
+      },
+      {
+        "name": "培育客户跟进",
+        "trigger": "status = nurture",
+        "steps": [
+          { "week": 2, "action": "行业资讯/新产品介绍" },
+          { "week": 4, "action": "客户案例分享" },
+          { "week": 8, "action": "节日问候/促销信息" },
+          { "week": 12, "action": "重新评估需求" }
+        ]
+      }
+    ]
+  }
+}

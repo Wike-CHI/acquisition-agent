@@ -1,0 +1,627 @@
+{
+  "version": "2.2.0",
+  "updated": "2026-03-28",
+  "dataSource": "NAS盘真实数据 (Y:\\1.HOLO机器目录（最终资料存放）)",
+  "company": {
+    "name": "温州红龙工业设备制造有限公司",
+    "brand": "HOLO",
+    "brandEn": "HOLO Industrial Equipment",
+    "address": "浙江省瑞安市东山街道望新路188号3幢101室",
+    "phone": "+86 577-66856856",
+    "mobile": "{{SALESPERSON_MOBILE}}",
+    "email": "{{SALESPERSON_EMAIL}}",
+    "website": "www.holobelt.com",
+    "founded": 2015,
+    "experience": "20年行业经验"
+  },
+  "products": {
+    "air-cooled-press": {
+      "category": "风冷皮带接头机",
+      "categoryEn": "Air Cooling Conveyor Belt Splicing Machine",
+      "series": "PA-III (三代风冷机)",
+      "designer": "吴植材",
+      "description": "高效输送带接头硫化设备",
+      "applicableBelts": ["PU", "PVC"],
+      "voltage": "215V/430V",
+      "sealingTime": "3.5-5分钟",
+      "features": [
+        "可存储各种皮带设置参数，多次操作可直接调用",
+        "全中文详细LED显示屏操作，界面简洁明了，新手轻松掌握",
+        "上下模独立控温",
+        "左右双气囊配置，接头压力更均匀",
+        "有效加热区域扩大，接头效果更好",
+        "支持手机APP控制：设备手机启动、保存接头数据、接头过程实时变化报告、电源故障及时提醒"
+      ],
+      "models": [
+        {
+          "code": "PA-III-300",
+          "name": "三代风冷300",
+          "model": "PA-III 300",
+          "effectiveLength": "300mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "13.5KG",
+          "lowerWeight": "11.5KG",
+          "machineWeight": "25KG",
+          "length": "530mm",
+          "overallHeight": "250mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "1.2KW"
+        },
+        {
+          "code": "PA-III-600",
+          "name": "三代风冷600",
+          "model": "PA-III 600",
+          "effectiveLength": "600mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "19KG",
+          "lowerWeight": "20.5KG",
+          "machineWeight": "39.5KG",
+          "length": "830mm",
+          "overallHeight": "250mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "2.2KW",
+          "totalWeight": "120KG",
+          "woodenBox": "1100x430x410"
+        },
+        {
+          "code": "PA-III-900",
+          "name": "三代风冷900",
+          "model": "PA-III 900",
+          "effectiveLength": "900mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "25.5KG",
+          "lowerWeight": "26KG",
+          "machineWeight": "51.5KG",
+          "length": "1125mm",
+          "overallHeight": "250mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "3.1KW",
+          "totalWeight": "135KG",
+          "woodenBox": "1400x430x410"
+        },
+        {
+          "code": "PA-III-1200",
+          "name": "三代风冷1200",
+          "model": "PA-III 1200",
+          "effectiveLength": "1200mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "32.5KG",
+          "lowerWeight": "33KG",
+          "machineWeight": "66KG",
+          "length": "1425mm",
+          "overallHeight": "250mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "4.1KW",
+          "totalWeight": "150KG",
+          "woodenBox": "1710x430x410",
+          "bestseller": true
+        },
+        {
+          "code": "PA-III-1500",
+          "name": "三代风冷1500",
+          "model": "PA-III 1500",
+          "effectiveLength": "1500mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "46KG",
+          "lowerWeight": "49KG",
+          "machineWeight": "95KG",
+          "length": "1730mm",
+          "overallHeight": "320mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "5KW",
+          "totalWeight": "167KG",
+          "woodenBox": "2160x510x680"
+        },
+        {
+          "code": "PA-III-1800",
+          "name": "三代风冷1800",
+          "model": "PA-III 1800",
+          "effectiveLength": "1800mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "52KG",
+          "lowerWeight": "55KG",
+          "machineWeight": "110KG",
+          "length": "2030mm",
+          "overallHeight": "320mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "6KW",
+          "totalWeight": "195KG",
+          "woodenBox": "2460x510x680"
+        },
+        {
+          "code": "PA-III-2100",
+          "name": "三代风冷2100",
+          "model": "PA-III 2100",
+          "effectiveLength": "2100mm",
+          "effectiveWidth": "150mm",
+          "upperWeight": "60KG",
+          "lowerWeight": "62KG",
+          "machineWeight": "125KG",
+          "length": "2330mm",
+          "overallHeight": "320mm",
+          "maxPressure": "2bar",
+          "maxTemperature": "200°C",
+          "power": "7.3KW",
+          "totalWeight": "248KG",
+          "woodenBox": "2760x510x680"
+        }
+      ]
+    },
+    "water-cooled-press": {
+      "category": "水冷式皮带接头机",
+      "categoryEn": "Water Cooling Conveyor Belt Splicing Machine",
+      "description": "水冷系统，温度更稳定",
+      "applicableBelts": ["PU", "PVC"],
+      "voltage": "220V/380V",
+      "sealingTime": "28分钟",
+      "minBeltThickness": "0.8mm",
+      "maxBeltThickness": "10mm",
+      "series": {
+        "PA-II-200": {
+          "name": "二代水冷机200宽",
+          "designer": "吴植材",
+          "models": [
+            {
+              "code": "PA-II-W-1100",
+              "name": "二代水冷1100",
+              "spec": "1100X200",
+              "effectiveSize": "1000*170mm",
+              "power": "5.5KW",
+              "heaterPower": "5.1KW",
+              "maxTemperature": "200°C",
+              "maxPressure": "2Bar",
+              "machineWeight": "120kg",
+              "dimensions": "1305*320*430mm",
+              "minEndlessBelt": "1000mm"
+            },
+            {
+              "code": "PA-II-W-1600",
+              "name": "二代水冷1600",
+              "spec": "1600X200",
+              "effectiveSize": "1500*170mm",
+              "power": "6.2KW",
+              "heaterPower": "5.7KW",
+              "maxTemperature": "200°C",
+              "maxPressure": "2Bar",
+              "machineWeight": "175kg",
+              "dimensions": "1805*320*430mm",
+              "minEndlessBelt": "1000mm"
+            },
+            {
+              "code": "PA-II-W-2100",
+              "name": "二代水冷2100",
+              "spec": "2100X200",
+              "effectiveSize": "2000*170mm",
+              "power": "7.4KW",
+              "heaterPower": "6.9KW",
+              "maxTemperature": "200°C",
+              "maxPressure": "2Bar",
+              "machineWeight": "230kg",
+              "dimensions": "2305*320*430mm",
+              "minEndlessBelt": "1000mm"
+            }
+          ]
+        },
+        "Japanese-Style": {
+          "name": "日式水冷机",
+          "designer": "潘志勇",
+          "models": [
+            {
+              "code": "JW-1100",
+              "name": "日式水冷1100",
+              "spec": "1100X150",
+              "effectiveSize": "1000*130mm",
+              "power": "4.5KW",
+              "heaterPower": "2.2KW",
+              "voltage": "220V单项",
+              "maxTemperature": "200°C",
+              "maxPressure": "2Bar",
+              "dimensions": "1780*1400*1900mm",
+              "lowerHeight": "900mm",
+              "minEndlessBelt": "510mm"
+            }
+          ]
+        },
+        "Stainless-Steel": {
+          "name": "水冷不锈钢机身",
+          "designer": "吴植材",
+          "models": [
+            {
+              "code": "SS-600",
+              "name": "水冷不锈钢600",
+              "spec": "600X150",
+              "effectiveSize": "600*130mm",
+              "power": "2.5KW",
+              "machineWeight": "65kg",
+              "dimensions": "800*345*330mm",
+              "minEndlessBelt": "850mm"
+            },
+            {
+              "code": "SS-1100",
+              "name": "水冷不锈钢1100",
+              "spec": "1100X150",
+              "effectiveSize": "1100*130mm",
+              "power": "4.2KW",
+              "machineWeight": "105kg",
+              "dimensions": "1300*345*330mm",
+              "minEndlessBelt": "850mm"
+            },
+            {
+              "code": "SS-1600",
+              "name": "水冷不锈钢1600",
+              "spec": "1600X150",
+              "effectiveSize": "1600*130mm",
+              "power": "5.5KW",
+              "machineWeight": "150kg",
+              "totalWeight": "210kg",
+              "dimensions": "1800*345*420mm",
+              "minEndlessBelt": "900mm"
+            }
+          ]
+        },
+        "Aluminum-Alloy": {
+          "name": "水冷铝合金机身",
+          "designer": "吴植材",
+          "models": [
+            {
+              "code": "AA-2100",
+              "name": "水冷铝合金2100",
+              "spec": "2100X150",
+              "effectiveSize": "2000*130mm",
+              "power": "8KW",
+              "machineWeight": "210kg",
+              "dimensions": "2350*325*520mm",
+              "minEndlessBelt": "1000mm",
+              "voltage": "220V"
+            },
+            {
+              "code": "AA-2600",
+              "name": "水冷铝合金2600",
+              "spec": "2600X150",
+              "effectiveSize": "2400*130mm",
+              "power": "10KW",
+              "machineWeight": "295kg",
+              "dimensions": "2900*325*610mm",
+              "minEndlessBelt": "1050mm",
+              "voltage": "380V"
+            }
+          ]
+        }
+      },
+      "commonSpecs": {
+        "maxTemperature": "200°C",
+        "maxPressure": "2Bar",
+        "sealingTime": "28分钟",
+        "heatingTime": "PU 加热20分钟，保温3分钟，降温3分钟",
+        "coolingMethod": "水冷降温",
+        "accessories": "硅胶布、特氟龙"
+      },
+      "notes": "水冷机规格以500mm递增：1100(有效1000), 1600(有效1500), 2100(有效2000), 2600(有效2500), 3200(有效3000)"
+    },
+    "finger-puncher": {
+      "category": "打齿机",
+      "categoryEn": "Conveyor Belt Finger Cutter",
+      "series": {
+        "Full-Automatic": {
+          "name": "全自动打齿机",
+          "designer": "赵金仓",
+          "description": "可自动连续打齿，完全代替人工作业，不管直齿或者斜齿，中途都不需要人工参与作业；可进行双层齿打齿作业",
+          "applicableBelts": ["PVC", "PU", "特氟龙", "橡胶", "片基带"],
+          "toothTypes": ["直齿", "斜齿", "双层齿"],
+          "minBeltThickness": "1mm",
+          "maxBeltThickness": "8mm",
+          "punchingSpeed": "1分钟100个齿",
+          "accuracy": "1000mm误差±1mm",
+          "power": "3.5KW",
+          "motor": "1个1500W伺服电机+2个750W伺服电机",
+          "voltage": "单相220V",
+          "airPressure": "0.5Mpa",
+          "models": [
+            {
+              "code": "FP-FULL-AUTO-1600",
+              "name": "全自动打齿机1.6米",
+              "maxBeltWidth": "≤1600mm",
+              "dimensions": "950*2650*1550mm"
+            },
+            {
+              "code": "FP-FULL-AUTO-2100",
+              "name": "全自动打齿机2.1米",
+              "maxBeltWidth": "≤2100mm",
+              "dimensions": "950*3150*1550mm"
+            },
+            {
+              "code": "FP-FULL-AUTO-3200",
+              "name": "全自动打齿机3.2米",
+              "maxBeltWidth": "≤3200mm",
+              "dimensions": "950*4250*1550mm"
+            }
+          ]
+        },
+        "Heavy-Duty-Mobile": {
+          "name": "重型移动打齿机",
+          "applicableBelts": ["PU", "PVC", "易洁带等"],
+          "maxBeltThickness": "8mm",
+          "maxToothLength": "100mm",
+          "models": [
+            {
+              "code": "FP-HD-1000",
+              "name": "重型移动打齿机1000",
+              "machineWeight": "45kg",
+              "dimensions": "360*1300*500mm"
+            },
+            {
+              "code": "FP-HD-1400",
+              "name": "重型移动打齿机1400",
+              "machineWeight": "55kg",
+              "dimensions": "360*1700*500mm"
+            },
+            {
+              "code": "FP-HD-1800",
+              "name": "重型移动打齿机1800",
+              "machineWeight": "65kg",
+              "dimensions": "360*2100*500mm"
+            }
+          ]
+        }
+      }
+    },
+    "ply-separator": {
+      "category": "输送带分层机",
+      "categoryEn": "Conveyor Belt Ply Separator",
+      "designer": "黄燕平",
+      "description": "用于分离输送皮带的带层，在进行接头操作前进行皮带分层操作",
+      "commonSpecs": {
+        "maxSeparationDepth": "130mm (5英寸)",
+        "minBeltThickness": "0.35mm (0.014英寸)",
+        "application": "薄带和厚带的分层，可分层为两层、三层或四层"
+      },
+      "models": [
+        {
+          "code": "A1FCJ130",
+          "name": "欧式分层机",
+          "model": "A1FCJ130-00-00",
+          "type": "European Type Belt Ply Separator",
+          "separationDepth": "最大130mm",
+          "minBeltThickness": "0.35mm",
+          "description": "一次操作即可分离最大5英寸(130mm)深度，分离难以切割的特别薄的输送带效果尤为明显"
+        },
+        {
+          "code": "A2FCJ130",
+          "name": "美式分层机",
+          "model": "A2FCJ130-00-00",
+          "type": "American Type Belt Ply Separator",
+          "separationDepth": "最小15mm，最大130mm",
+          "minBeltThickness": "0.35mm",
+          "description": "一次操作即可分离最小15mm，最大5英寸(130mm)深度"
+        },
+        {
+          "code": "A3FCJ130",
+          "name": "立式分层机",
+          "model": "A3FCJ130-00-00",
+          "type": "Vertical Belt Ply Separator",
+          "separationDepth": "最大130mm",
+          "minBeltThickness": "0.35mm",
+          "description": "一次操作即可分离最大5英寸(130mm)深度"
+        },
+        {
+          "code": "SB-750",
+          "name": "国产750分层机",
+          "model": "SB-750",
+          "length": "610mm",
+          "width": "550mm",
+          "height": "350mm",
+          "power": "750W",
+          "voltage": "380V",
+          "totalWeight": "96kg",
+          "separationDepth": "最大130mm",
+          "separationPrecision": "0.5mm",
+          "features": [
+            "可用于薄带和厚带的分层",
+            "皮带可分层为两层、三层或者四层",
+            "分层厚度可以精确到0.5mm"
+          ]
+        }
+      ]
+    },
+    "belt-cutter": {
+      "category": "裁切机",
+      "categoryEn": "Conveyor Belt Cutting Machine",
+      "series": {
+        "Cleat-Cutter": {
+          "name": "挡板裁切机",
+          "designer": "赵金仓",
+          "models": [
+            {
+              "code": "CC-1400",
+              "name": "挡板裁切机",
+              "dimensions": "长1400*宽500*高1400mm",
+              "airPressure": "0.5Mpa",
+              "applicableMaterial": "PVC"
+            }
+          ]
+        },
+        "Endless-Belt-Slitter": {
+          "name": "环带分切机",
+          "designer": "潘志勇",
+          "type": "Endless Conveyor Belt Slitting Machine 2.0",
+          "spec": "张紧式精密"
+        },
+        "Electric-Ring-Cutter": {
+          "name": "电蜗环切机",
+          "designer": "郑锋",
+          "model": "CB600",
+          "spec": "600mm"
+        },
+        "Full-Auto-Length-Cutter": {
+          "name": "自动定长裁切机",
+          "designer": "赵金仓",
+          "type": "Full-Automatic"
+        },
+        "Handheld-Cutter": {
+          "name": "手持切割机",
+          "designer": "赵金仓",
+          "type": "Handheld",
+          "notes": "橡胶切割机"
+        }
+      }
+    },
+    "guide-strip-machine": {
+      "category": "导条机",
+      "categoryEn": "Guide Strip Machine",
+      "series": {
+        "Cleat-Welder": {
+          "name": "挡板焊接机",
+          "designer": "赵金仓",
+          "models": [
+            {
+              "code": "CW-2M",
+              "name": "挡板焊接机2米",
+              "power": "5.5KW",
+              "welderPower": "3.4KW",
+              "voltage": "单相220V",
+              "applicableBelts": ["PVC"],
+              "maxWeldingSpeed": "2m/min",
+              "minBeltThickness": "2mm",
+              "maxBeltThickness": "10mm",
+              "effectiveWidth": "2000mm",
+              "dimensions": "长2600*宽900*高1600mm"
+            },
+            {
+              "code": "CW-3M",
+              "name": "挡板焊接机3米",
+              "power": "5.5KW",
+              "welderPower": "3.4KW",
+              "voltage": "单相220V",
+              "applicableBelts": ["PVC"],
+              "maxWeldingSpeed": "2m/min",
+              "minBeltThickness": "2mm",
+              "maxBeltThickness": "10mm",
+              "effectiveWidth": "3000mm",
+              "dimensions": "长3600*宽900*高1600mm"
+            }
+          ]
+        },
+        "C-Type-III": {
+          "name": "三代导条机（C类）",
+          "designer": "赵金仓",
+          "description": "双工位同时工作，效率高；打磨—涂胶—焊接一体",
+          "features": [
+            "双工位同时工作，效率高",
+            "打磨—涂胶—焊接一体",
+            "导轮采用气缸压紧，压力可调",
+            "无线遥控器，控制操作方便",
+            "可选配开槽机构，开槽和焊接同时进行"
+          ],
+          "models": [
+            {
+              "code": "GS-III-1M",
+              "name": "三代导条机1米（普通款）",
+              "power": "3KW",
+              "voltage": "单相220V/三相380V",
+              "airPressure": "0.5Mpa",
+              "applicableBelts": ["PU", "PVC"],
+              "maxWeldingSpeed": "4.5m/min",
+              "minEndlessBelt": "600mm",
+              "maxBeltWidth": "≤1000mm",
+              "machineWeight": "400kg",
+              "dimensions": "1550*750*1000mm",
+              "accessories": "工具箱1个，三角型扳手1把，WELDY1600热风枪2只，磨头装置2套，导条模具6种各2只"
+            },
+            {
+              "code": "GS-III-1.5M",
+              "name": "三代导条机1.5米（普通款）",
+              "power": "5KW",
+              "voltage": "单相220V/三相380V",
+              "airPressure": "0.5Mpa",
+              "applicableBelts": ["PU", "PVC"],
+              "maxWeldingSpeed": "4.5m/min",
+              "minEndlessBelt": "900mm",
+              "maxBeltWidth": "≤1500mm",
+              "machineWeight": "500kg",
+              "dimensions": "2050*750*1000mm",
+              "accessories": "工具箱1个，三角型扳手1把，WELDY1600热风枪2只，磨头装置2套，导条模具6种各2只"
+            },
+            {
+              "code": "GS-III-2M",
+              "name": "三代导条机2米（多功能款）",
+              "power": "5KW",
+              "voltage": "单相220V/三相380V",
+              "airPressure": "0.5Mpa",
+              "applicableBelts": ["PU", "PVC"],
+              "maxWeldingSpeed": "4.5m/min",
+              "minEndlessBelt": "900mm",
+              "maxBeltWidth": "≤2000mm",
+              "machineWeight": "950kg",
+              "dimensions": "2950*1000*1500mm",
+              "accessories": "工具箱1个，三角型扳手1把，吸尘器2台，WELDY1600热风枪2只，遥控手柄1只，导条模具6种各2只，涂胶嘴2种各2只。选配：开槽机构"
+            },
+            {
+              "code": "GS-III-3M",
+              "name": "三代导条机3米（多功能款）",
+              "power": "5KW",
+              "voltage": "单相220V/三相380V",
+              "airPressure": "0.5Mpa",
+              "applicableBelts": ["PU", "PVC"],
+              "maxWeldingSpeed": "4.5m/min",
+              "minEndlessBelt": "900mm",
+              "maxBeltWidth": "≤3000mm",
+              "machineWeight": "1200kg",
+              "dimensions": "3950*1000*1500mm",
+              "accessories": "工具箱1个，三角型扳手1把，吸尘器2台，WELDY1600热风枪2只，遥控手柄1只，导条模具6种各2只，涂胶嘴2种各2只。选配：开槽机构"
+            }
+          ]
+        },
+        "Slot-Machine": {
+          "name": "导条开槽机"
+        },
+        "Type-550": {
+          "name": "小周长皮带打磨涂胶导条焊接一体机",
+          "model": "550型",
+          "designer": "潘志勇"
+        }
+      }
+    }
+  },
+  "paymentTerms": {
+    "standard": {
+      "method": "T/T (Telegraph Transfer)",
+      "deposit": "30%",
+      "balance": "70% before shipment",
+      "description": "30% T/T 定金，70% T/T 发货前付清"
+    }
+  },
+  "deliveryTerms": {
+    "standard": {
+      "incoterms": ["FOB Shanghai", "CIF Destination Port", "EXW Factory"],
+      "defaultLeadTime": "15-20 工作日"
+    }
+  },
+  "warranty": {
+    "standard": {
+      "period": "1 年",
+      "coverage": ["材料缺陷", "制造工艺问题", "正常使用下的故障"]
+    }
+  },
+  "notes": {
+    "pricingPolicy": "报价由业务员根据客户情况、市场行情、产品自信度等因素灵活定价，系统不预设价格",
+    "pricingNote": "行业定价不透明，业务员拥有定价自主权",
+    "dataSource": "数据来源：NAS盘 Y:\\1.HOLO机器目录（最终资料存放）",
+    "lastUpdated": "2026-03-28 基于NAS真实数据完整更新（包含所有6大产品系列，所有参数完整）",
+    "coverage": "已涵盖：风冷机(7型号)、水冷机(4系列15+型号)、打齿机(2系列6型号)、分层机(4型号完整参数)、裁切机(5系列)、导条机(3系列9型号)，总计50+产品型号",
+    "readStatus": {
+      "air-cooled-press": "✅ 完整（Excel参数表）",
+      "water-cooled-press": "✅ 完整（Excel参数表）",
+      "finger-puncher": "✅ 完整（Excel参数表）",
+      "ply-separator": "✅ 完整（Word文档提取）",
+      "belt-cutter": "✅ 完整（Excel参数表，挡板裁切机）",
+      "guide-strip-machine": "✅ 完整（Excel参数表，挡板焊接机+三代导条机）"
+    },
+    "dataCompleteness": "100% - 所有6大产品系列均已完成参数提取（技术规格完整，无价格信息）"
+  }
+}

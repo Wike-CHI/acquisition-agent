@@ -1,0 +1,13 @@
+{
+  "name": "humanoid-memory",
+  "version": "1.0.0",
+  "description": "Humanoid Memory System - Brain-inspired memory with V-score and Ebbinghaus forgetting curve",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.test.js"
+  },
+  "keywords": ["memory", "openclaw", "ai", "embedding"],
+  "author": "",
+  "license": "MIT"
+}

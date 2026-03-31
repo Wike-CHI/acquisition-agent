@@ -1,0 +1,632 @@
+---
+name: global-customer-acquisition
+version: 2.3.0
+description: 红龙全网获客系统 v2.3.0 - 业务员说什么都能做的全能技能。触发场景：(1)获客指令"去哪找客户/哪个市场" (2)客户开发"帮我背调/写开发信/生成报价" (3)社媒运营"发什么文章/Facebook运营/Instagram内容" (4)账号操作"初始化系统/查看Pipeline/跟进提醒"。覆盖：客户发现→企业背调→开发信→邮件发送→报价单→社媒运营→Pipeline管理完整链路。内置4层抗遗忘系统+三层记忆系统（HOT/WARM/COLD）。LinkedIn决策人用Exa Free via mcporter（无需API Key）。⭐ 2026-04-01更新：v2.2.0开发信生成v2.0真正打磨流程（强制调用humanize-ai-text+评分≥9.0分）；v2.2.1新增客户群体ICP定义（基于15,885家客户数据验证）、防卡顿机制整合到TROUBLESHOOT.md；v2.3.0整合自我更新优化机制（三层记忆系统+5种学习信号+自动晋升/降级）。
+---
+
+# 红龙全网获客系统 v2.3.0
+
+> 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
+>
+> 详细文档：references/ARCHITECTURE.md（架构）| references/PIPELINE.md（流程）| references/SOCIAL-MEDIA.md（社媒运营）| references/TROUBLESHOOT.md（排错）
+>
+> ⭐ **2026-04-01 更新**：
+> - v2.2.0：开发信生成功能重构为 v2.0 真正打磨流程，强制调用 `humanize-ai-text` 技能，评分标准提升至≥9.0分。
+> - v2.2.1：新增客户群体ICP定义（基于15,885家客户数据验证）、防卡顿机制整合到TROUBLESHOOT.md。
+> - v2.3.0：整合自我更新优化机制（三层记忆系统+5种学习信号+自动晋升/降级）。
+
+---
+
+## 业务员全能指令表
+
+业务员只需要说这些，系统就知道做什么：
+
+| 业务员说 | AI做什么 |
+|---------|---------|
+| "帮我找美国传送带客户" | 深度调研：美国 conveyor belt |
+| "我想开发巴西市场" | 市场分析 + 批量获客 |
+| "帮我背调这家公司" | 6维度ICP评分 + 报告 |
+| "给这家公司发开发信" | 开发信生成v2.0（润色+评分≥9.0分） + 发送 |
+| "生成报价单" | .docx报价单 |
+| "帮我发一篇Facebook" | 生成帖子 + 发布 |
+| "Instagram发什么" | 内容建议 + Hashtag + 脚本 |
+| "帮我运营LinkedIn账号" | 内容日历 + 文章 + 互动策略 |
+| "查看Pipeline" | 客户状态报表 |
+| "哪些客户要跟进" | 日历提醒 + 待跟进列表 |
+| "初始化获客系统" | 引导配置凭据（见下方初始化指南）|
+
+---
+
+## 系统全景图
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Skills Router（技能路由器）⭐                              │
+│  意图识别 → 渠道选择 → 故障自动切换                        │
+├─────────────────────────────────────────────────────────────┤
+│  8层上下文系统                                            │
+│  IDENTITY → SOUL → AGENTS → USER → HEARTBEAT → MEMORY → TOOLS → EXTERNAL_SKILLS │
+├─────────────────────────────────────────────────────────────┤
+│  外部技能系统（20个技能）                                  │
+│  Office(docx/pptx/xlsx) + 搜索(tavily/brave) + 邮件 + PDF  │
+├─────────────────────────────────────────────────────────────┤
+│  获客流程                                                  │
+│  发现层 → 情报层 → 触达层 → 支持层 → 管理层              │
+├─────────────────────────────────────────────────────────────┤
+│  执行控制层（ECL）                                          │
+│  轨迹追踪 + 循环检测 + 置信度 + 状态监控                   │
+├─────────────────────────────────────────────────────────────┤
+│  自进化系统                                                │
+│  反馈收集 → 分析优化 → GitHub提交                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 7层上下文系统（v2.1.0）
+
+> 每次对话开始时，按以下顺序加载这 7 个文件注入上下文。
+
+| 层级 | 文件 | 用途 | 需修改 |
+|------|------|------|--------|
+| L1 身份 | `context/identity.md` | 公司身份（HOLO红龙、4个网站、产品线）| ❌ |
+| L2 人格 | `context/soul.md` | AI人格（INFJ、直接高效、铁律）| ❌ |
+| L3 手册 | `context/agents.md` | 销售手册索引（NAS文件、产品知识、ICP评分）| ❌ |
+| L4 用户 | `context/user.md` | 业务员个人信息 | ✅ 姓名/邮箱 |
+| L5 心跳 | `context/memory.md`#heartbeat | 13个定时任务（由 `HEARTBEAT.md` 详细定义）| ❌ |
+| L6 记忆 | `context/memory.md` | 4层抗遗忘配置参数 | ❌ |
+| L7 工具 | `TOOLS.md` | CRM/渠道/AI服务配置 | ⚠️ 凭据按需 |
+| L8 外部技能 | `external-skills/INDEX.md` | 20个外部技能索引（Office、搜索、邮件等）| ❌ |
+
+### 铁律
+- **无邮箱不进入开发信步骤**（定义于 `soul.md`）
+- **报价灵活**：由业务员根据成本参考定价，系统不预设
+
+---
+
+## 外部技能集成（v2.3.0 新增）
+
+> 本系统已集成**21个外部技能**，提供完整的Office文档生成、搜索、邮件、PDF处理、NAS访问等能力。
+> 详细索引见：[external-skills/INDEX.md](external-skills/INDEX.md)
+> 路由配置见：[skills/EXTERNAL-SKILLS-ROUTER.md](skills/EXTERNAL-SKILLS-ROUTER.md)
+
+### 💾 NAS存储访问（重要！）
+
+| 用户指令 | 调用技能 | 说明 |
+|----------|----------|------|
+| "读取NAS产品资料" | `nas-file-reader/` | 访问Y:\1.HOLO机器目录\ |
+| "查看企业宣传画册" | `nas-file-reader/` | 访问Y:\7.企业介绍宣传视频\ |
+| "挂载NAS盘" | `nas-file-reader/` | 执行mount-nas.ps1 |
+| "OCR识别扫描PDF" | `nas-file-reader/` | Tesseract OCR识别 |
+
+**NAS配置**（192.168.0.194）:
+- 用户：HOLO / 密码：Hl88889999
+- 映射：Y:盘
+- 产品目录：风冷机、水冷机、分层机、打齿机等
+- 宣传资料：企业画册（中/英文）、产品视频
+
+### Office文档生成
+
+| 用户指令 | 调用技能 | 输出 |
+|----------|----------|------|
+| "生成报价单" | `external-skills/docx/` | .docx报价单 |
+| "生成合同" | `external-skills/docx/` | .docx合同 |
+| "做产品演示PPT" | `external-skills/pptx/` | .pptx演示文稿 |
+| "生成客户表格" | `external-skills/xlsx/` | .xlsx电子表格 |
+
+### 搜索与调研
+
+| 用户指令 | 调用技能 | 备选方案 |
+|----------|----------|----------|
+| "背调这家公司" | `external-skills/tavily-search/` | `brave-web-search/` |
+| "搜索产品信息" | `external-skills/tavily-search/` | `brave-web-search/` |
+
+### 邮件与通信
+
+| 用户指令 | 调用技能 | 说明 |
+|----------|----------|------|
+| "发送开发信" | `external-skills/email-skill/` | SMTP发送 |
+| "发跟进邮件" | `external-skills/email-skill/` | SMTP发送 |
+
+### PDF处理
+
+| 用户指令 | 调用技能 | 说明 |
+|----------|----------|------|
+| "生成产品PDF" | `external-skills/pdf/` | PDF生成 |
+| "处理PDF表单" | `external-skills/pdf/` | PDF表单 |
+
+### 笔记与记忆
+
+| 用户指令 | 调用技能 | 说明 |
+|----------|----------|------|
+| "保存到Memos" | `external-skills/memos-memory-guide/` | Memos笔记 |
+| "记录到Notion" | `external-skills/notion-skill/` | Notion数据库 |
+
+### 日程与规划
+
+| 用户指令 | 调用技能 | 说明 |
+|----------|----------|------|
+| "查看日程" | `external-skills/calendar-skill/` | 日历视图 |
+| "规划任务" | `external-skills/planning-with-files/` | 任务规划 |
+
+---
+
+## 目标客户群体ICP（v2.2.1 新增）
+
+> 基于15,885家客户数据验证，明确红龙的目标客户群体和获客策略。
+
+### 核心客户群体（ICP）
+
+**A. 输送带分销商/代理商（首选）**
+
+| 客户类型 | 客户数 | 占比 | 特点 |
+|---------|--------|------|------|
+| **PVC PU输送带分销商** | 2,451家 | 15.4% | 采购输送带销售给终端工厂 |
+| **橡胶输送带分销商** | 427家 | 2.7% | 采购输送带销售给终端工厂 |
+
+**业务特点**：
+- 行业：PVC PU输送带、橡胶输送带
+- 业务：采购输送带销售给终端工厂
+- 需求：稳定供货、质量保证、价格竞争力
+
+**获客策略**：
+- 搜索关键词："conveyor belt distributor"、"industrial belt supplier"
+- 社媒：Facebook群组（输送带、工业设备）、LinkedIn公司页
+- 开发信重点：产品多样性、质量认证、交货速度
+
+---
+
+**B. 皮带加工厂（次选）**
+
+| 客户类型 | 客户数 | 特点 |
+|---------|--------|------|
+| **皮带加工厂** | 276家 | 采购原带进行加工（接头、打孔、加导条） |
+
+**业务特点**：
+- 行业：PVC PU输送带 + 加工服务
+- 业务：采购原带进行接头、打孔、加导条
+- 需求：原材料质量、加工设备采购
+
+**获客策略**：
+- 搜索关键词："belt splicing services"、"conveyor belt fabrication"
+- 开发信重点：原带质量、加工设备（硫化机、打齿机）
+
+---
+
+**C. 工程公司/集成商**
+
+| 客户类型 | 客户数 | 特点 |
+|---------|--------|------|
+| **工程公司 / 集成商/输送机设备** | 95家 | 设计和安装输送系统 |
+
+**业务特点**：
+- 行业：工程公司 / 集成商/输送机设备
+- 业务：设计和安装输送系统
+- 需求：技术支持、定制规格、整体解决方案
+
+**获客策略**：
+- 搜索关键词："conveyor system integrator"、"material handling engineer"
+- 开发信重点：技术能力、定制解决方案、项目经验
+
+---
+
+### 主要产品类型
+
+| 产品类型 | 客户数 | 占比 |
+|---------|--------|------|
+| **PVC PU输送带** | 2,451 | 15.4% |
+| **橡胶输送带** | 427 | 2.7% |
+| **PU同步带** | 71 | 0.4% |
+| **传动带** | 20 | 0.1% |
+| **PTFE特氟龙** | 11 | 0.1% |
+
+---
+
+### ⚠️ 重要：避免矿业客户
+
+**验证结果**：15,885家客户中，**0家矿业相关客户** ✅
+
+**推荐搜索关键词（不含矿业）**：
+- ✅ "conveyor belt distributor"（输送带分销商）
+- ✅ "industrial belt supplier"（工业带供应商）
+- ✅ "belt splicing services"（皮带接头服务）
+- ✅ "conveyor system integrator"（输送系统集成商）
+
+**避免的关键词**：
+- ❌ "mining conveyor belt"（矿业输送带）
+- ❌ "coal conveyor"（煤炭输送带）
+- ❌ "mining equipment supplier"（矿业设备供应商）
+- ❌ "ore handling"（矿石处理）
+- ❌ "quarry conveyor"（采石场输送带）
+
+---
+
+### 数据来源
+
+- **客户数据**：15,885家客户（Excel文件：红龙客户信息.xlsx）
+- **验证时间**：2026-04-01
+- **验证结果**：当前客户库完全符合"避免矿业客户"策略
+
+---
+
+## 系统文件索引
+
+> 理解整个技能的结构，记住关键文件位置。
+
+| 文件 | 用途 |
+|------|------|
+| `SKILL.md` | **主入口**。说这句话做那个操作 |
+| `AGENTS.md` | 产品知识库。设备型号参数、BOM、选型建议 |
+| `ANTI-AMNESIA.md` | **4层抗遗忘技术规范**。L1/L2/L3/L4各层机制 |
+| `HEARTBEAT.md` | 13个定时任务详细定义。含每个任务的功能和触发条件 |
+| `TOOLS.md` | CRM/邮件/社媒/API服务的配置和命令 |
+| `context/identity.md` | 公司身份 |
+| `context/soul.md` | AI人格 |
+| `context/agents.md` | 销售手册索引 |
+| `context/user.md` | 业务员信息 |
+| `context/memory.md` | 4层抗遗忘配置 + HEARTBEAT索引 |
+| `references/` | 详细参考文档（架构/流程/社媒/排错）|
+| `skills/chroma-memory/` | L3向量存储 + L4快照命令 |
+| `skills/supermemory/` | 增强记忆层命令 |
+| `skills/honglong-products/` | HOLO全系列产品知识 |
+
+---
+
+## 首次使用初始化（业务员配置）
+
+> ⚠️ **首次使用前必须完成**，否则无法发开发信。
+
+### 第一步：填写业务员信息
+
+打开 `context/user.md`，填写以下 3 项：
+
+| 字段 | 说明 |
+|------|------|
+| 姓名 | 你的名字，用于开发信落款 |
+| 邮箱 | 你的销售邮箱，用于发送开发信 |
+| 电话 | 你的联系电话，用于 WhatsApp/邮件签名 |
+| 职位 | 你的职位，用于开发信签名 |
+
+### 第二步：配置凭据
+
+| 凭据 | 命令 | 用途 |
+|------|------|------|
+| 邮箱 SMTP | `配置邮箱` | 发开发信的邮箱 |
+| Exa API | `配置 Exa` | 客户发现和背调 |
+| DeepSeek API | `配置 DeepSeek` | 开发信生成和润色 |
+| 孚盟MX | `配置孚盟账号` | CRM 数据同步（可选）|
+
+### AI 自动检测
+
+每次对话开始时，AI 会读取 `context/user.md`。
+**如果检测到"请填写"字样，AI 会主动提醒你填写。**
+
+---
+
+## 4层抗遗忘系统（ANTI-AMNESIA）
+
+> 详细规范见 `ANTI-AMNESIA.md`。
+
+```
+┌──────────────────────────────────────────┐
+│ L1: MemOS 结构化内存 — 每轮自动提取/注入    │
+├──────────────────────────────────────────┤
+│ L2: 主动摘要压缩 — Token ≥ 65% 触发        │
+├──────────────────────────────────────────┤
+│ L3: ChromaDB 向量存储 — 每轮存储+语义检索   │
+│     skills/chroma-memory/                │
+├──────────────────────────────────────────┤
+│ L4: CRM 每日快照 — 每天 12:00 灾难恢复     │
+│     skills/chroma-memory/ + chroma:snapshot │
+└──────────────────────────────────────────┘
+```
+
+### 核心命令
+
+**ChromaDB（L3+L4）**：
+- `chroma:store` — 存储一轮对话（每轮后自动）
+- `chroma:search <query>` — 语义搜索
+- `chroma:recall <customer_id>` — 客户历史召回
+- `chroma:snapshot` — 每日 CRM 快照（HEARTBEAT #9）
+- `chroma:stats` — 存储统计
+
+**Supermemory（增强 L1）**：
+- `memory:add --type <type> --content <text>` — 添加记忆
+- `memory:search <query>` — 语义搜索
+- `memory:list --type <type>` — 列表查看
+- `memory:stats` — 存储统计
+
+---
+
+## Skills Router 完整路由表
+
+### 6种意图 × 渠道选择
+
+```javascript
+decision_maker_search: {   // ⭐ LinkedIn决策人搜索（已修正2026-04-01）
+  domestic:  [
+    { skill: 'exa-free-via-mcporter', priority: 5, desc: 'Exa Free via mcporter，无需API Key' },
+    { skill: 'exa-search', priority: 3, desc: 'Exa API版本（需要EXA_API_KEY）' }
+  ],
+  overseas:  [
+    { skill: 'exa-free-via-mcporter', priority: 5, desc: 'Exa Free via mcporter，无需API Key' },
+    { skill: 'exa-search', priority: 3, desc: 'Exa API版本（需要EXA_API_KEY）' }
+  ],
+  fallback: [
+    { skill: 'web_search', priority: 1, desc: 'Google搜索（LinkedIn有限制）' }
+  ]
+}
+
+customer_discovery: {        // 客户发现
+  domestic:  ['weibo', 'wechat', 'baidu'],
+  overseas:  ['teyi', 'exa-search', 'facebook']
+}
+
+company_research: {           // 企业背调
+  domestic:  ['baidu'],
+  overseas:  ['teyi', 'exa-search']
+}
+
+email_outreach: {             // 邮件触达
+  domestic:  ['email-sender', 'delivery-queue'],
+  overseas:  ['delivery-queue', 'email-sender', 'email-outreach-ops']
+}
+
+social_media_outreach: {      // 社媒运营 ⭐新增
+  facebook:   ['ai-social-media-content', 'facebook-acquisition'],
+  instagram:  ['ai-social-media-content'],
+  linkedin:   ['ai-social-media-content', 'linkedin-writer']
+}
+
+full_pipeline: {
+  overseas:  ['acquisition-coordinator']
+}
+```
+
+### 故障自动切换（已修正2026-04-01）
+
+| 主渠道 | 不可用时切换 | 说明 |
+|--------|-------------|------|
+| LinkedIn MCP via mcporter | → Exa Free via mcporter | LinkedIn服务需要启动，Exa Free现成可用 |
+| Exa Free via mcporter | → Exa API (exa-search) | 如果mcporter不可用，用exa-search（需API Key）|
+| Exa API (exa-search) | → web_search (Google) | 最后降级，LinkedIn可能受限 |
+| teyi | → exa-search + customs | 特易RPA失败时用Exa+海关数据 |
+| email-sender | → delivery-queue | 邮件发送队列降级 |
+
+---
+
+## 11步获客流程
+
+```
+Step 0: 智能路由 → 自动选渠道（国内/海外/采购记录）
+Step 1: 客户发现 → 搜索潜在客户
+Step 1.5: ⚠️ 联系方式获取 → 无邮箱不继续
+Step 2: 客户查重 → 防止重复开发
+Step 3: 企业背调 → ICP 6维度评分
+Step 4: LinkedIn决策人 → Exa搜索 ⭐（不是LinkedIn MCP）
+Step 5: 竞品分析 → 差异化话术
+Step 6: 开发信生成 → v2.0真正打磨流程，≥9.0分通过
+Step 6.5: 报价单 → .docx
+Step 7: 邮件发送 → 分段队列模拟真人
+Step 8: Pipeline更新 → .xlsx
+Step 8.5: 跟进管理 → 日历提醒
+Step 9: 日报生成
+```
+
+### 联系方式获取优先级 ⚠️
+
+**铁律：无邮箱不能进入开发信步骤！**
+
+| 优先级 | 方法 | 等级 |
+|--------|------|------|
+| ⭐⭐⭐⭐⭐ | 特易"易搜邮" | S级：决策人邮箱 |
+| ⭐⭐⭐⭐⭐ | 客户详情页 | A级：联系人邮箱 |
+| ⭐⭐⭐⭐ | LinkedIn个人资料 | B级 |
+| ⭐⭐⭐ | 官网Contact页面 | C级：通用邮箱 |
+
+---
+
+## ICP评分体系（6维度×100分）
+
+| 维度 | 权重 | 评分依据 |
+|------|------|----------|
+| 行业匹配度 | 20% | 传送带相关采购占比 |
+| 采购能力 | 20% | 海关金额（S/A/B/C/D/E级）|
+| 采购频率 | 20% | 交易次数+最新日期 |
+| 客户类型 | 15% | 制造商=10/经销商=8/终端=5 |
+| 决策周期 | 15% | 企业规模推断 |
+| 决策人联系 | 10% | LinkedIn/官网联系方式 |
+
+**客户等级**：A级≥70分（重点开发）| B级50-69分 | C级30-49分 | D级<30分（暂不开发）
+
+---
+
+## 开发信生成（v2.0 真正打磨流程）
+
+**强制调用**：`cold-email-generator` 技能 v2.0 + `humanize-ai-text`
+
+**标准打磨流程**（2026-04-01重构）：
+```python
+开发信生成
+  ↓
+第1轮润色（humanize-ai-text 自动检测+修复）
+  ↓
+第1轮评分（满分10分）
+  ↓
+评分 < 9.0分？
+  ├─ 是 → 第2轮润色 → 第2轮评分
+  └─ 否 → 最终版本（≥9.0分）
+```
+
+**评分标准**（满分10分）：
+
+| 维度 | 权重 | 评分标准 |
+|------|------|---------|
+| 个性化程度 | 2.0 | 包含客户特定信息（公司名、产品线、近期动态） |
+| 相关性 | 2.0 | 产品匹配度高，解决客户痛点 |
+| 简洁性 | 2.0 | 字数 ≤ 150词，段落 ≤ 4 |
+| 语法质量 | 2.0 | 无语法错误，专业语气 |
+| 去AI味 | 2.0 | AI密度 < 2%，无明显的AI模式 |
+| CTA有效性 | 2.0 | 明确但不过于强硬的行动号召 |
+
+**通过标准**：总分 ≥ 9.0分
+
+**润色禁用陈词滥调**：
+- "In today's rapidly evolving landscape"
+- "game-changer" / "cutting-edge" / "revolutionary"
+- "state-of-the-art" / "leverage" / "synergy"
+
+---
+
+## 社媒运营完整指令 ⭐
+
+### Facebook运营
+
+| 业务员说 | AI做什么 |
+|---------|---------|
+| "帮我发一条Facebook" | 生成产品展示帖/行业资讯帖/客户案例帖 |
+| "Facebook发什么内容" | 根据当周节奏推荐内容类型 |
+| "生成Facebook广告" | 线索广告模板 + 受众设置 |
+| "分析Facebook数据" | 汇总触达/互动/粉丝数据 |
+
+### Instagram运营
+
+| 业务员说 | AI做什么 |
+|---------|---------|
+| "Instagram发什么" | 内容建议 + Hashtag策略 |
+| "生成Reels脚本" | 30秒设备演示脚本 |
+| "帮我规划内容日历" | 每周内容安排（图文/Reels/Stories） |
+| "Instagram运营建议" | 发布频率 + 互动策略 |
+
+### LinkedIn运营
+
+| 业务员说 | AI做什么 |
+|---------|---------|
+| "帮我写一篇LinkedIn文章" | SEO优化文章（800-1200词） |
+| "LinkedIn内容日历" | 周计划：行业洞察→产品→案例→互动 |
+| "生成LinkedIn互动帖" | 提问帖模板 |
+| "LinkedIn运营策略" | 发布节奏 + 互动策略 + 时间建议 |
+
+### 社媒内容生成
+
+```
+生成Facebook产品帖：HOLO风冷机PA-III-1200
+生成Instagram Reels脚本：分层机操作演示
+生成LinkedIn文章：传送带维护5大技巧（SEO关键词：conveyor belt maintenance）
+生成本周内容日历：Facebook 3篇 + Instagram 5篇
+```
+
+---
+
+## 完整触发命令
+
+### 获客类
+
+| 命令 | 作用 |
+|------|------|
+| `深度调研：[国家] [产品]` | ⭐推荐！系统性深挖一个市场 |
+| `批量获客：[国家] [关键词]` | 批量找客户 |
+| `LinkedIn 决策人：[国家] [关键词]` | 用Exa Free穿透搜索（无需API Key）|
+| `背调：[公司名]` | 快速背调 + ICP评分 |
+| `开发信：[公司] [类型] [产品]` | 生成邮件（v2.0打磨+评分≥9.0分）|
+| `生成报价单：[公司]` | .docx报价单 |
+| `发送：[公司] [邮箱]` | 邮件发送 |
+
+### 社媒运营类
+
+| 命令 | 作用 |
+|------|------|
+| `生成Facebook帖子：[产品/话题]` | 生成可发布的帖子 |
+| `生成Instagram内容：[产品]` | 内容建议 + Hashtag |
+| `生成LinkedIn文章：[主题]` | SEO优化长文 |
+| `生成本周内容日历` | 多平台内容安排 |
+| `Facebook运营建议` | 发布策略 + 数据分析 |
+| `Instagram内容策略` | 内容类型 + 频率 |
+| `LinkedIn运营策略` | 文章节奏 + 互动策略 |
+
+### 管理类
+
+| 命令 | 作用 |
+|------|------|
+| `查看Pipeline` | 客户状态报表 |
+| `待跟进客户` | 日历提醒 + 跟进列表 |
+| `生成日报` | 当天获客汇总 |
+| `初始化获客系统` | 首次配置凭据/NAS/邮箱 |
+| `检查获客状态` | ECL健康指标 |
+
+---
+
+## 海关数据操作
+
+**数据源**：特易（Topease）- 无API，使用agent-browser RPA
+
+**特易专属变量**：
+- 国家代码：US/DE/GB/BR/MX/IN/VN/TH...
+- HS编码：4010.31（尼龙输送带）/4010.32/4010.34...
+- 筛选：交易次数>10 / 近1年 / 排除物流
+
+**浏览器RPA流程**：
+```
+browser action=start
+→ 打开 et.topease.net/login?product=gt
+→ 填入TEYI_USER / TEYI_PASS
+→ 选择产品 → 输入关键词和国家
+→ 提取采购数据
+→ 详情页"易搜邮"获取联系方式
+```
+
+---
+
+## 执行控制层（ECL）
+
+| 功能 | 说明 |
+|------|------|
+| 轨迹追踪 | 每一步记录到 `~/.openclaw/traces/*.jsonl` |
+| 循环检测 | 同状态重复≥3次触发报警 |
+| 置信度评估 | 平均≥0.7为健康 |
+| 状态变化监控 | 客户状态流转监控 |
+
+### CLI命令
+
+```bash
+node ~/.agent-reach/execution-cli.js stats   # 查看ECL统计
+node ~/.agent-reach/execution-cli.js test    # 测试执行
+```
+
+---
+
+## ContextManager（防遗忘机制）
+
+解决AI执行大任务时"忘记任务目标"的问题：
+
+```javascript
+// 4层防护：压缩 → 分层加载 → 锚定 → 监控
+// goal/target/constraints 永不压缩
+// 上下文使用率：110% → 35%
+// 任务成功率：50% → 95%
+```
+
+---
+
+## 7层上下文系统
+
+```
+L1. IDENTITY  → 公司身份（HOLO红龙）
+L2. SOUL      → AI人格（红龙小助手）
+L3. AGENTS    → 销售手册（产品知识+话术模板）
+L4. USER      → 负责人画像（wike业务偏好）
+L5. HEARTBEAT → 自动化巡检（每分钟，含ECL检查）
+L6. MEMORY    → 跨会话持久记忆
+L7. TOOLS     → 工具使用指南
+```
+
+---
+
+## 文件索引
+
+| 文件 | 用途 |
+|------|------|
+| references/ARCHITECTURE.md | Skills Router完整表/ECL/ContextManager/7层上下文/自进化 |
+| references/PIPELINE.md | 11步详解/ICP评分/开发信打磨/联系方式/回退方案 |
+| references/SOCIAL-MEDIA.md | Facebook/Instagram/LinkedIn运营策略/内容模板/发布频率 |
+| references/TROUBLESHOOT.md | 常见错误清单/回退方案/重试机制/ECL异常处理 |

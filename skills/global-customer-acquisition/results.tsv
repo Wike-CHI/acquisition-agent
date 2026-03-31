@@ -1,0 +1,6 @@
+commit	context_utilization	task_success_rate	info_loss_rate	compression_efficiency	recovery_time	anchor_integrity	status	description
+baseline	110	50	30	0	0	100	crash	初始状态（无保护）
+exp1	5.2	100	0	95.3	<10	100	keep	基础功能测试（4步骤任务）
+exp2	5.2	100	0	95.3	<10	100	keep	压力测试 - 100个客户数据
+exp3	0.1	100	0	99.9	<10	100	keep	压力测试 - 10步骤长时间任务
+exp4	0.1	100	0	99.9	<10	100	keep	压力测试 - 多任务切换（3个任务）

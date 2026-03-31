@@ -1,0 +1,29 @@
+{
+  "ownerId": "Wike-CHI",
+  "slug": "customer-acquisition-skills",
+  "version": "1.2.0",
+  "publishedAt": 1743076800000,
+  "description": "全网获客系统 - 基于官方5种Skill设计模式",
+  "repository": "https://github.com/Wike-CHI/customer-acquisition-skills",
+  "license": "MIT",
+  "keywords": [
+    "customer-acquisition",
+    "skill-design-patterns",
+    "linkedin",
+    "email-outreach",
+    "openclaw"
+  ],
+  "features": [
+    "smart-routing",
+    "email-quality-check",
+    "fallback-plan",
+    "competitor-analysis",
+    "linkedin-decision-maker",
+    "self-evolution"
+  ],
+  "dependencies": {
+    "skills": 12,
+    "tools": 4,
+    "channels": 9
+  }
+}
