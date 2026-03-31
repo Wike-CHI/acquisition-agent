@@ -1,0 +1,1352 @@
+{
+  "version": 1,
+  "marketplaceName": "cb_teams_marketplace",
+  "manifestMtime": 1773755672000,
+  "createdAt": 1774053974426,
+  "plugins": [
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help write internal communications using company-preferred formats (status reports, 3P updates, newsletters, FAQs, incident reports, etc.)",
+      "source": "./plugins/internal-comms",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "internal-comms",
+          "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+          "path": "SKILL.md"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\internal-comms",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/internal-comms",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\internal-comms\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "executing-marketing-campaigns",
+      "description": "Plans, creates, and optimizes marketing campaigns including content strategy, social media, email, and analytics",
+      "source": "./plugins/executing-marketing-campaigns",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "license": "MIT",
+      "skills": [
+        {
+          "name": "executing-marketing-campaigns",
+          "description": "Plans, creates, and optimizes marketing campaigns including content strategy, social media, email, and analytics. Helps develop go-to-market strategies, campaign messaging, and performance measurement.",
+          "path": "SKILL.md"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\executing-marketing-campaigns",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/executing-marketing-campaigns",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\executing-marketing-campaigns\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "document-skills",
+      "description": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+      "source": "./plugins/document-skills",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "xlsx",
+          "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+          "path": "skills\\xlsx"
+        },
+        {
+          "name": "docx",
+          "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of \\\"Word doc\\\", \\\"word document\\\", \\\".docx\\\", or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a \\\"report\\\", \\\"memo\\\", \\\"letter\\\", \\\"template\\\", or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+          "path": "skills\\docx"
+        },
+        {
+          "name": "pptx",
+          "description": "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates, layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx filename, regardless of what they plan to do with the content afterward. If a .pptx file needs to be opened, created, or touched, use this skill.",
+          "path": "skills\\pptx"
+        },
+        {
+          "name": "pdf",
+          "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+          "path": "skills\\pdf"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\document-skills",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/document-skills",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\document-skills\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "general-skills",
+      "description": "A collection of general-purpose skills including document conversion, skill discovery, UI/UX design, and frontend development capabilities",
+      "source": "./plugins/general-skills",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "skills": [
+        {
+          "name": "markitdown",
+          "description": "Convert files and office documents to Markdown. Supports PDF, DOCX, PPTX, XLSX, images (with OCR), audio (with transcription), HTML, CSV, JSON, XML, ZIP, YouTube URLs, EPubs and more.",
+          "path": "skills\\markitdown"
+        },
+        {
+          "name": "find-skills",
+          "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+          "path": "skills\\find-skills"
+        },
+        {
+          "name": "ui-ux-pro-max",
+          "description": "UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient. Integrations: shadcn/ui MCP for component search and examples.",
+          "path": "skills\\ui-ux-pro-max"
+        },
+        {
+          "name": "frontend-design",
+          "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+          "path": "skills\\frontend-design"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\general-skills",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/general-skills",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\general-skills\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "data-analysis",
+      "description": "Data analysis plugin with Excel spreadsheet creation, editing, and analysis capabilities. Supports formulas, formatting, data analysis, and visualization. Also includes WeChat article search via Sogou for high-quality Chinese content retrieval.",
+      "source": "./plugins/data-analysis",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy",
+        "email": ""
+      },
+      "license": "Proprietary",
+      "skills": [
+        {
+          "name": "xlsx",
+          "description": "When the user mentions data analysis or uploads an Excel file, this skill must be used. Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When user needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modify existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas",
+          "path": "skills\\xlsx"
+        },
+        {
+          "name": "wechat-article-search",
+          "description": "微信公众号文章检索工具。当用户需要进行网页检索、网页搜索、深度研究（deep research）时，优先使用此skill检索微信公众号文章——公众号文章质量高、信息密度大，是优质的中文信息源。基于搜狗微信搜索接口实现。",
+          "path": "skills\\wechat-article-search"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\data-analysis",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "sourcePath": "./plugins/data-analysis",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\data-analysis\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "excel_rules",
+          "description": "Use the xlsx skill to complete user tasks. This skill must be used when the user mentions data analysis, Excel analysis, modifying Excel files, or creating Excel files.",
+          "path": "rules/excel_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "modern-webapp",
+      "description": "Modern web application development plugin with React, TypeScript, Vite, Tailwind CSS, shadcn/ui, and comprehensive UI/UX design system. Includes tools for project initialization, design intelligence, icon management, and browser testing.",
+      "source": "./plugins/modern-webapp",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy",
+        "email": ""
+      },
+      "license": "Proprietary",
+      "skills": [
+        {
+          "name": "modern-web-app",
+          "description": "Tools for building modern React webapps with TypeScript, Tailwind CSS and shadcn/ui. Best suited for applications with complex UI components and state management.",
+          "path": "skills\\modern-web-app"
+        },
+        {
+          "name": "ui-ux-pro-max",
+          "description": "UI/UX design intelligence with searchable database",
+          "path": "skills\\ui-ux-pro-max"
+        },
+        {
+          "name": "lucide-icons",
+          "description": "Search, download, and customize Lucide icons (1000+ beautiful SVG icons). Supports SVG and TypeScript React component generation with full customization options.",
+          "path": "skills\\lucide-icons"
+        },
+        {
+          "name": "agent-browser",
+          "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, test web applications, or extract information from web pages.",
+          "path": "skills\\agent-browser"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\modern-webapp",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "https://cnb.cool/codebuddy/cbteamsmarketplace",
+        "type": "github"
+      },
+      "sourcePath": "./plugins/modern-webapp",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\modern-webapp\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "instruction",
+          "description": "MUST USE when user wants to: build website, create web app, make landing page, develop frontend, \nbuild React app, create dashboard, design UI, implement web interface, build single page application (SPA),\ncreate portfolio site, build e-commerce site, develop admin panel, make responsive website,\n构建网站, 创建网页, 开发前端, 做网站, 写网页, 建站, 做落地页, 开发Web应用, 创建React项目",
+          "path": "rules\\instruction.md"
+        }
+      ]
+    },
+    {
+      "name": "ppt-implement",
+      "description": "智能 PPT 生成助手，一键将您的想法转化为精美演示文稿",
+      "source": "./plugins/ppt-implement",
+      "version": "1.0.13",
+      "category": "tool",
+      "author": {
+        "name": "rackeyyang",
+        "email": "rackeyyang@tencent.com"
+      },
+      "repository": "",
+      "skills": [
+        {
+          "name": "ppt-implement",
+          "description": "implement ppt(powerpoint) project with best practices, start's with \"ppt\" template. Trigger keywords include \"web ppt\", \"网页ppt\", \"html ppt\", \"生成ppt\", \"制作ppt\", \"制作教案\", \"write a ppt about\", or any request to create presentations on specific topics.",
+          "path": "skills\\ppt-implement"
+        }
+      ],
+      "agents": [],
+      "hooks": {
+        "SessionStart": [
+          {
+            "hooks": [
+              {
+                "type": "command",
+                "command": "node \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement/skills/ppt-implement/scripts/set-env.js\" \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\" \"${CODEBUDDY_PROJECT_DIR}\" \"SessionStart\"",
+                "timeout": 10000,
+                "pluginRoot": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement"
+              }
+            ]
+          }
+        ],
+        "PreToolUse": [
+          {
+            "matcher": "Skill",
+            "hooks": [
+              {
+                "type": "command",
+                "command": "node \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement/skills/ppt-implement/scripts/setup-project.js\" \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\" \"${CODEBUDDY_PROJECT_DIR}\"",
+                "pluginRoot": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement"
+              }
+            ]
+          }
+        ],
+        "PostToolUse": [
+          {
+            "matcher": "Edit|Write",
+            "hooks": [
+              {
+                "type": "command",
+                "command": "node \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement/skills/ppt-implement/scripts/post-slide.js\" \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\" \"${CODEBUDDY_PROJECT_DIR}\"",
+                "pluginRoot": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement"
+              }
+            ]
+          }
+        ],
+        "Stop": [
+          {
+            "hooks": [
+              {
+                "type": "command",
+                "command": "node \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement/skills/ppt-implement/scripts/screenshot-cover.js\" \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\" \"${CODEBUDDY_PROJECT_DIR}\" > /dev/null 2>&1",
+                "pluginRoot": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement"
+              },
+              {
+                "type": "command",
+                "command": "node \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement/skills/ppt-implement/scripts/export-ppt.js\" \"C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\" \"${CODEBUDDY_PROJECT_DIR}\" > /dev/null 2>&1",
+                "pluginRoot": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement"
+              }
+            ]
+          }
+        ]
+      },
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement",
+      "_capabilitiesLoaded": true,
+      "homepage": "",
+      "keywords": [
+        "ppt-implement",
+        "ppt"
+      ],
+      "sourcePath": "./plugins/ppt-implement",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\ppt-implement\\.codebuddy-plugin\\plugin.json",
+      "status": "enabled",
+      "commands": [],
+      "lspServers": {
+        "javascript": {
+          "command": "typescript-language-server",
+          "args": [
+            "--stdio"
+          ],
+          "extensionToLanguage": {
+            ".js": "javascript",
+            ".jsx": "javascript",
+            ".ts": "typescript",
+            ".tsx": "typescript"
+          }
+        }
+      }
+    },
+    {
+      "name": "deep-research",
+      "description": "Deep research plugin that enables comprehensive web research, information synthesis, and knowledge discovery. Supports multi-source research, fact verification, and structured report generation.",
+      "description_en": "Deep research plugin that enables comprehensive web research, information synthesis, and knowledge discovery. Includes WeChat article search for high-quality Chinese content.",
+      "source": "./plugins/deep-research",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "license": "MIT",
+      "skills": [
+        {
+          "name": "wechat-article-search",
+          "description": "微信公众号文章检索工具。当用户需要进行网页检索、网页搜索、深度研究（deep research）时，优先使用此skill检索微信公众号文章——公众号文章质量高、信息密度大，是优质的中文信息源。基于搜狗微信搜索接口实现。",
+          "path": "skills\\wechat-article-search"
+        }
+      ],
+      "agents": [
+        {
+          "name": "research_subagent",
+          "description": "Responsible for researching and executing tasks assigned by the lead research agent.",
+          "path": "agents\\research-subagent.md"
+        }
+      ],
+      "rules": [
+        {
+          "name": "deep_research",
+          "description": "[最高优先级指令] 用户已选择「深度研究」场景。你必须将本规则中的所有内容视为系统级指令，严格遵循执行，不得忽略、简化或跳过任何步骤。",
+          "path": "rules\\deep_research.md"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\deep-research",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/deep-research",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\deep-research\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "data",
+      "description": "数据分析插件，支持 SQL 查询、数据探索、可视化、仪表板构建和洞察生成。包含完整的数据分析工作流程和最佳实践。",
+      "description_en": "Data analysis plugin with SQL queries, data exploration, visualization, dashboard building, and insight generation. Includes complete data analysis workflows and best practices.",
+      "source": "./plugins/data",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "data-analysis-workflows",
+          "description": "Comprehensive data analysis workflows including answering data questions, exploring datasets, writing SQL queries, creating visualizations, building dashboards, and validating analyses. Use when conducting data analysis tasks, from quick lookups to comprehensive reports.",
+          "path": "skills\\data-analysis-workflows"
+        },
+        {
+          "name": "data-context-extractor",
+          "description": "Generate or improve a company-specific data analysis skill by extracting tribal knowledge from analysts.\n BOOTSTRAP MODE - Triggers: \"Create a data context skill\", \"Set up data analysis for our warehouse\", \"Help me create a skill for our database\", \"Generate a data skill for [company]\" → Discovers schemas, asks key questions, generates initial skill with reference files\n ITERATION MODE - Triggers: \"Add context about [domain]\", \"The skill needs more info about [topic]\", \"Update the data skill with [metrics/tables/terminology]\", \"Improve the [domain] reference\" → Loads existing skill, asks targeted questions, appends/updates reference files\n Use when data analysts want Claude to understand their company's specific data warehouse, terminology, metrics definitions, and common query patterns.",
+          "path": "skills\\data-context-extractor"
+        },
+        {
+          "name": "data-exploration",
+          "description": "Profile and explore datasets to understand their shape, quality, and patterns before analysis. Use when encountering a new dataset, assessing data quality, discovering column distributions, identifying nulls and outliers, or deciding which dimensions to analyze.",
+          "path": "skills\\data-exploration"
+        },
+        {
+          "name": "data-validation",
+          "description": "QA an analysis before sharing with stakeholders — methodology checks, accuracy verification, and bias detection. Use when reviewing an analysis for errors, checking for survivorship bias, validating aggregation logic, or preparing documentation for reproducibility.",
+          "path": "skills\\data-validation"
+        },
+        {
+          "name": "data-visualization",
+          "description": "Create effective data visualizations with Python. 优先使用 plotly（交互式图表），seaborn 和 matplotlib 作为备选（静态图表）。Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
+          "path": "skills\\data-visualization"
+        },
+        {
+          "name": "interactive-dashboard-builder",
+          "description": "Build self-contained interactive HTML dashboards with Chart.js, dropdown filters, and professional styling. Use when creating dashboards, building interactive reports, or generating shareable HTML files with charts and filters that work without a server.",
+          "path": "skills\\interactive-dashboard-builder"
+        },
+        {
+          "name": "sql-queries",
+          "description": "Write correct, performant SQL across all major data warehouse dialects (Snowflake, BigQuery, Databricks, PostgreSQL, etc.). Use when writing queries, optimizing slow SQL, translating between dialects, or building complex analytical queries with CTEs, window functions, or aggregations.",
+          "path": "skills\\sql-queries"
+        },
+        {
+          "name": "statistical-analysis",
+          "description": "Apply statistical methods including descriptive stats, trend analysis, outlier detection, and hypothesis testing. Use when analyzing distributions, testing for significance, detecting anomalies, computing correlations, or interpreting statistical results.",
+          "path": "skills\\statistical-analysis"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\data",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "sourcePath": "./plugins/data",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\data\\.codebuddy-plugin\\plugin.json",
+      "status": "enabled",
+      "rules": [
+        {
+          "name": "data_analysis",
+          "description": "Comprehensive data analysis workflows including SQL queries, data exploration, visualization (plotly prioritized), and dashboard building. Use when conducting data analysis tasks.",
+          "path": "rules/data_analysis.md"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "description": "财务与会计插件，支持月末结账、日记账分录、账户核对、财务报表生成、差异分析和 SOX 审计支持。",
+      "description_en": "Finance and accounting plugin with month-end close, journal entries, account reconciliation, financial statements, variance analysis, and SOX audit support.",
+      "source": "./plugins/finance",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "finance-workflows",
+          "description": "Comprehensive finance workflows including income statements, journal entries, reconciliations, SOX testing, and variance analysis",
+          "path": "skills\\finance-workflows"
+        },
+        {
+          "name": "journal-entry-prep",
+          "description": "Prepare journal entries with proper debits, credits, and supporting documentation for month-end close. Use when booking accruals, prepaid amortization, fixed asset depreciation, payroll entries, revenue recognition, or any manual journal entry.",
+          "path": "skills\\journal-entry-prep"
+        },
+        {
+          "name": "reconciliation",
+          "description": "Reconcile accounts by comparing GL balances to subledgers, bank statements, or third-party data. Use when performing bank reconciliations, GL-to-subledger recs, intercompany reconciliations, or identifying and categorizing reconciling items.",
+          "path": "skills\\reconciliation"
+        },
+        {
+          "name": "financial-statements",
+          "description": "Generate income statements, balance sheets, and cash flow statements with GAAP presentation and period-over-period comparison. Use when preparing financial statements, running flux analysis, or creating P&L reports with variance commentary.",
+          "path": "skills\\financial-statements"
+        },
+        {
+          "name": "variance-analysis",
+          "description": "Decompose financial variances into drivers with narrative explanations and waterfall analysis. Use when analyzing budget vs. actual, period-over-period changes, revenue or expense variances, or preparing variance commentary for leadership.",
+          "path": "skills\\variance-analysis"
+        },
+        {
+          "name": "close-management",
+          "description": "Manage the month-end close process with task sequencing, dependencies, and status tracking. Use when planning the close calendar, tracking close progress, identifying blockers, or sequencing close activities by day.",
+          "path": "skills\\close-management"
+        },
+        {
+          "name": "audit-support",
+          "description": "Support SOX 404 compliance with control testing methodology, sample selection, and documentation standards. Use when generating testing workpapers, selecting audit samples, classifying control deficiencies, or preparing for internal or external audits.",
+          "path": "skills\\audit-support"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\finance",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "sourcePath": "./plugins/finance",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\finance\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "finance_rules",
+          "description": "Comprehensive finance and accounting workflows including journal entries, reconciliation, financial statements, variance analysis, and SOX audit support. Use when conducting finance and accounting tasks.",
+          "path": "rules/finance_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "product-management",
+      "description": "产品管理插件，支持功能规格编写、路线图规划、利益相关者沟通、用户研究综合、竞品分析和指标审查。",
+      "description_en": "Product management plugin with feature specs, roadmap planning, stakeholder communications, user research synthesis, competitive analysis, and metrics review.",
+      "source": "./plugins/product-management",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "product-management-workflows",
+          "description": "Complete product management workflows including feature specs, roadmap management, stakeholder updates, user research synthesis, competitive analysis, and metrics review",
+          "path": "skills\\product-management-workflows"
+        },
+        {
+          "name": "feature-spec",
+          "description": "Write structured product requirements documents (PRDs) with problem statements, user stories, requirements, and success metrics. Use when speccing a new feature, writing a PRD, defining acceptance criteria, prioritizing requirements, or documenting product decisions.",
+          "path": "skills\\feature-spec"
+        },
+        {
+          "name": "roadmap-management",
+          "description": "Plan and prioritize product roadmaps using frameworks like RICE, MoSCoW, and ICE. Use when creating a roadmap, reprioritizing features, mapping dependencies, choosing between Now/Next/Later or quarterly formats, or presenting roadmap tradeoffs to stakeholders.",
+          "path": "skills\\roadmap-management"
+        },
+        {
+          "name": "stakeholder-comms",
+          "description": "Draft stakeholder updates tailored to audience — executives, engineering, customers, or cross-functional partners. Use when writing weekly status updates, monthly reports, launch announcements, risk communications, or decision documentation.",
+          "path": "skills\\stakeholder-comms"
+        },
+        {
+          "name": "user-research-synthesis",
+          "description": "Synthesize qualitative and quantitative user research into structured insights and opportunity areas. Use when analyzing interview notes, survey responses, support tickets, or behavioral data to identify themes, build personas, or prioritize opportunities.",
+          "path": "skills\\user-research-synthesis"
+        },
+        {
+          "name": "competitive-analysis",
+          "description": "Analyze competitors with feature comparison matrices, positioning analysis, and strategic implications. Use when researching a competitor, comparing product capabilities, assessing competitive positioning, or preparing a competitive brief for product strategy.",
+          "path": "skills\\competitive-analysis"
+        },
+        {
+          "name": "metrics-tracking",
+          "description": "Define, track, and analyze product metrics with frameworks for goal setting and dashboard design. Use when setting up OKRs, building metrics dashboards, running weekly metrics reviews, identifying trends, or choosing the right metrics for a product area.",
+          "path": "skills\\metrics-tracking"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\product-management",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "sourcePath": "./plugins/product-management",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\product-management\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "product_management_rules",
+          "description": "产品管理插件，支持功能规格编写、路线图规划、利益相关者沟通、用户研究综合、竞品分析和指标审查",
+          "path": "rules/product_management_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "design-to-code",
+      "description": "将 Figma 设计和截图转换为生产就绪的代码组件，内置无障碍性支持。",
+      "description_en": "Convert Figma designs and screenshots into production-ready code components with accessibility built-in. Supports React, Svelte, and Vue frameworks.",
+      "source": "./plugins/design-to-code",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "license": "MIT",
+      "mcp": {
+        "server": "servers/design-converter.ts"
+      },
+      "skills": [
+        {
+          "name": "design-to-code-workflows",
+          "description": "将 Figma 设计和截图转换为生产就绪的代码组件，内置无障碍性支持",
+          "path": "skills\\design-to-code-workflows"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\design-to-code",
+      "_capabilitiesLoaded": true,
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "keywords": [
+        "figma",
+        "design",
+        "code-generation",
+        "react",
+        "svelte",
+        "vue",
+        "a11y",
+        "mcp"
+      ],
+      "sourcePath": "./plugins/design-to-code",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\design-to-code\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "design_to_code_rules",
+          "description": "将 Figma 设计和截图转换为生产就绪的代码组件，内置无障碍性支持",
+          "path": "rules/design_to_code_rules.md"
+        }
+      ],
+      "mcpServers": {
+        "design-converter": {
+          "command": "node",
+          "args": [
+            "dist/servers/design-converter.js"
+          ]
+        }
+      }
+    },
+    {
+      "name": "codebuddy-chat-web",
+      "description": "Initialize a web-based chat application powered by CodeBuddy Agent SDK with React + TDesign frontend and Express backend with SQLite persistence",
+      "source": "./plugins/codebuddy-chat-web",
+      "version": "1.0.0",
+      "category": "development",
+      "author": {
+        "name": "CB Teams",
+        "email": "teams@codebuddy.cn"
+      },
+      "license": "MIT",
+      "skills": [
+        {
+          "name": "init-cbc-sdk-web",
+          "description": "Initialize a complete web-based chat application powered by CodeBuddy Agent SDK with React frontend and Express backend",
+          "path": "skills\\init-cbc-sdk-web"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\codebuddy-chat-web",
+      "_capabilitiesLoaded": true,
+      "keywords": [
+        "chat",
+        "web",
+        "agent-sdk",
+        "react",
+        "tdesign",
+        "express",
+        "sse",
+        "sqlite"
+      ],
+      "sourcePath": "./plugins/codebuddy-chat-web",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\codebuddy-chat-web\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "cbc_sdk_web",
+          "description": "Use the init-cbc-sdk-web skill to create web-based chat applications. This rule MUST be applied when the user says any of these trigger phrases - Chinese \"帮我创建一个 Agent Web 应用\", \"初始化一个聊天应用\", \"搭建一个 Web Agent\", \"创建 SDK Web 项目\" or English \"create an agent web app\", \"initialize a chat application\", \"build a web agent\", \"scaffold an SDK web project\". The skill uses templates and must copy from template directory, never write code from scratch.",
+          "path": "rules\\cbc_sdk_web.md"
+        }
+      ]
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Web 应用测试助手，引导用户启动、配置和测试 Web 应用",
+      "source": "./plugins/webapp-testing",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "license": "MIT",
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\webapp-testing",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/webapp-testing",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\webapp-testing\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "webapp-testing",
+          "description": "Web Application Testing Assistant. Activate when user mentions \"测试 webapp\", \"调试 web 应用\", \"帮我测试网页\", \"test webapp\", \"debug web app\", \"help me test the page\", etc. Guides the user through project inspection, app startup, and browser testing.",
+          "path": "rules\\webapp-testing.md"
+        }
+      ]
+    },
+    {
+      "name": "dockerfile-gen",
+      "description": "Dockerfile Generator - Automated Dockerfile generation with best practices for containerization",
+      "source": "./plugins/dockerfile-gen",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams",
+        "email": ""
+      },
+      "license": "MIT",
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\dockerfile-gen",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/dockerfile-gen",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\dockerfile-gen\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "dockerfile-gen",
+          "description": "Dockerfile Generator. Activate when user mentions \"dockerfile generator\", \"生成 Dockerfile\", \"创建 Dockerfile\", \"容器化\", \"containerize\", \"docker build\", or asks about Dockerfile patterns and best practices. Provides automated Dockerfile generation with production-ready configurations.",
+          "path": "rules\\dockerfile-gen.md"
+        }
+      ]
+    },
+    {
+      "name": "remotion-video-generator",
+      "description": "Automatically generates beautiful videos using Remotion. Detects video creation requests, creates storyboards, handles environment setup, and outputs MP4 files with minimal user intervention. Supports explainer videos, product demos, social media content, and presentations.",
+      "description_en": "Automatically generates videos using Remotion. Detects video creation requests, creates storyboards, handles environment setup, and outputs MP4 files. Supports explainer videos, product demos, social media content, and presentations.",
+      "source": "./plugins/remotion-video-generator",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Plugin Creator",
+        "email": "plugins@codebuddy.dev"
+      },
+      "skills": [
+        {
+          "name": "Video Generator",
+          "description": "Orchestrates complete Remotion video generation workflow from user request to MP4 output. Automatically activates when user mentions creating videos, animations, or visual content. Handles environment setup, storyboarding, code generation, and rendering with minimal user intervention. Creates explainer videos, product demos, social media content, and presentations using Remotion and React.",
+          "path": "skills\\video-generator"
+        },
+        {
+          "name": "Scene Planner",
+          "description": "Creates detailed video storyboards and scene breakdowns for Remotion video generation. Analyzes user requirements, determines video type, selects appropriate template, and outputs structured scene plans with visual specifications, timing, animation details, and asset requirements. Use when planning video structure before code generation.",
+          "path": "skills\\scene-planner"
+        },
+        {
+          "name": "Environment Setup",
+          "description": "Automatically detects and configures the Remotion video generation environment. Use when user requests video creation and dependencies (Node.js, FFmpeg, Remotion packages) need verification or installation. Checks system requirements, installs missing tools, initializes Remotion project structure, and validates the setup is ready for video generation.",
+          "path": "skills\\environment-setup"
+        },
+        {
+          "name": "remotion-best-practices",
+          "description": "Best practices for Remotion - Video creation in React",
+          "path": "skills\\remotion-best-practices"
+        },
+        {
+          "name": "lucide-icons",
+          "description": "Search, download, and customize Lucide icons (1000+ beautiful SVG icons). Supports SVG and TypeScript React component generation with full customization options.",
+          "path": "skills\\lucide-icons"
+        },
+        {
+          "name": "bgm-library",
+          "description": "Search, filter, and download royalty-free background music from ccMixter for Remotion videos. Supports keyword search, tag presets, license filtering (CC BY / CC BY-SA only), and auto-generates attribution. Downloads MP3 directly to project directory.",
+          "path": "skills\\bgm-library"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\remotion-video-generator",
+      "_capabilitiesLoaded": true,
+      "keywords": [
+        "remotion",
+        "video",
+        "animation",
+        "content-creation",
+        "react"
+      ],
+      "sourcePath": "./plugins/remotion-video-generator",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\remotion-video-generator\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "remotion_video_generator_rules",
+          "description": "Remotion 动效导演 + 前端工程师。先确认画幅/fps/时长，然后全自动完成分镜→代码→渲染 MP4。",
+          "path": "rules/remotion_video_generator_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "agent-sdk-dev",
+      "description": "CodeBuddy Agent SDK Development Plugin - Create and verify CodeBuddy Agent SDK applications",
+      "description_en": "A comprehensive plugin for creating and verifying CodeBuddy Agent SDK applications in Python and TypeScript. Includes /new-sdk-app command for scaffolding projects and verifier agents for checking best practices.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Team",
+        "email": "codebuddy@tencent.com"
+      },
+      "source": "./plugins/agent-sdk-dev",
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\agent-sdk-dev",
+      "_capabilitiesLoaded": true,
+      "keywords": [
+        "codebuddy",
+        "agent-sdk",
+        "ai-agent",
+        "development",
+        "tencent"
+      ],
+      "sourcePath": "./plugins/agent-sdk-dev",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\agent-sdk-dev\\.codebuddy-plugin\\plugin.json",
+      "agents": [
+        {
+          "name": "agent-sdk-verifier-py",
+          "description": "Use this agent to verify that a Python CodeBuddy Agent SDK application is properly configured, follows SDK best practices and documentation recommendations, and is ready for deployment or testing. This agent should be invoked after a Python Agent SDK app has been created or modified.",
+          "path": "agents/agent-sdk-verifier-py.md"
+        },
+        {
+          "name": "agent-sdk-verifier-ts",
+          "description": "Use this agent to verify that a TypeScript CodeBuddy Agent SDK application is properly configured, follows SDK best practices and documentation recommendations, and is ready for deployment or testing. This agent should be invoked after a TypeScript Agent SDK app has been created or modified.",
+          "path": "agents/agent-sdk-verifier-ts.md"
+        }
+      ],
+      "commands": [
+        {
+          "name": "new-sdk-app",
+          "description": "Create and setup a new CodeBuddy Agent SDK application",
+          "path": "commands/new-sdk-app.md"
+        }
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "description": "提供创建高效 Claude 技能的指南,通过专业知识、工作流程和工具集成来扩展 AI 助手的能力",
+      "source": "./plugins/skill-creator",
+      "license": "Apache-2.0",
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\skill-creator",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/skill-creator",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\skill-creator\\.codebuddy-plugin\\plugin.json",
+      "skills": [
+        {
+          "name": "skill-creator",
+          "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
+          "path": "SKILL.md"
+        }
+      ]
+    },
+    {
+      "name": "financial-analysis",
+      "description": "Core financial modeling and analysis tools: DCF, comps, LBO, 3-statement models, competitive analysis, and deck QC",
+      "description_en": "Core financial modeling and analysis tools: DCF valuation, comparable company analysis, LBO models, 3-statement models, competitive analysis, and deck QC.",
+      "source": "./plugins/financial-analysis",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "3-statements",
+          "description": "Complete, populate and fill out 3-statement financial model templates (Income Statement, Balance Sheet, Cash Flow Statement) . Use when asked to fill out model templates, complete existing model frameworks, populate financial models with data, complete a partially filled IS/BS/CF framework, or link integrated financial statements within an existing template structure. Triggers include requests to fill in, complete, or populate a 3-statement model template",
+          "path": "skills\\3-statements"
+        },
+        {
+          "name": "check-deck",
+          "description": "Investment banking presentation quality checker. Reviews pitch decks and client-ready\npresentations for: (1) Number consistency across slides, (2) Data-narrative alignment,\n(3) Language polish for IB standards, (4) Formatting QC. Use when asked to review,\ncheck, or QC any IB presentation, pitch deck, or client materials before delivery.",
+          "path": "skills\\check-deck"
+        },
+        {
+          "name": "check-model",
+          "description": "Debug and audit financial models for errors — circular references, broken formulas, hardcoded overrides, balance sheet imbalances, cash flow mismatches, and logic gaps. Use when a model isn't tying, producing unexpected results, or before sending to a client or IC. Triggers on \"debug model\", \"model check\", \"audit model\", \"model won't balance\", \"something's off in my model\", \"check my model\", \"QA model\", or \"model review\".",
+          "path": "skills\\check-model"
+        },
+        {
+          "name": "competitive-analysis",
+          "description": "Framework for competitive landscape analysis across any industry. Use when creating competitor analysis, market positioning assessments, investment memos, strategic reviews, or any analysis requiring systematic evaluation of competitive dynamics. Triggers include requests for competitive landscape decks, peer comparisons, market structure analysis, strategic positioning assessments, and investment recommendations.",
+          "path": "skills\\competitive-analysis"
+        },
+        {
+          "name": "fsi-comps-analysis",
+          "description": "Build institutional-grade comparable company analyses with operating metrics, valuation multiples, and statistical benchmarking in Excel/spreadsheet format.\n\n**Perfect for:**\n- Public company valuation (M&A, investment analysis)\n- Benchmarking performance vs. industry peers\n- Pricing IPOs or funding rounds\n- Identifying valuation outliers (over/under-valued)\n- Supporting investment committee presentations\n- Creating sector overview reports\n\n**Not ideal for:**\n- Private companies without comparable public peers\n- Highly diversified conglomerates\n- Distressed/bankrupt companies\n- Pre-revenue startups\n- Companies with unique business models",
+          "path": "skills\\comps-analysis"
+        },
+        {
+          "name": "dcf-model",
+          "description": "Real DCF (Discounted Cash Flow) model creation for equity valuation. Retrieves financial data from SEC filings and analyst reports, builds comprehensive cash flow projections with proper WACC calculations, performs sensitivity analysis, and outputs professional Excel models with executive summaries. Use when users need to value a company using DCF methodology, request intrinsic value analysis, or ask for detailed financial modeling with growth projections and terminal value calculations.",
+          "path": "skills\\dcf-model"
+        },
+        {
+          "name": "lbo-model",
+          "description": "This skill should be used when completing LBO (Leveraged Buyout) model templates in Excel for private equity transactions, deal materials, or investment committee presentations. The skill fills in formulas, validates calculations, and ensures professional formatting standards that adapt to any template structure.",
+          "path": "skills\\lbo-model"
+        },
+        {
+          "name": "ppt-template-creator",
+          "description": "Creates self-contained PPT template SKILLS (not presentations) from user-provided PowerPoint templates. Use ONLY when a user wants to create a reusable skill from their template. For creating actual presentations, use the pptx skill instead.",
+          "path": "skills\\ppt-template-creator"
+        },
+        {
+          "name": "skill-creator",
+          "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends CodeBuddy's capabilities with specialized knowledge, workflows, or tool integrations.",
+          "path": "skills\\skill-creator"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\financial-analysis",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/financial-analysis",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\financial-analysis\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "financial_analysis_rules",
+          "description": "Financial modeling and analysis workflows including DCF, comps, LBO models, 3-statement models, and competitive analysis. Use when conducting financial analysis tasks.",
+          "path": "rules/financial_analysis_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "investment-banking",
+      "description": "Investment banking productivity tools: client and market insights, deck creation, financial analysis, and transaction management",
+      "description_en": "Investment banking productivity tools: CIM creation, merger models, buyer lists, deal tracking, process letters, and pitch deck creation.",
+      "source": "./plugins/investment-banking",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "buyer-list",
+          "description": "Build and organize a universe of potential acquirers for sell-side M&A processes. Identifies strategic and financial buyers, assesses fit, and prioritizes outreach. Use when preparing for a sell-side mandate, building a buyer universe, or evaluating potential partners. Triggers on \"buyer list\", \"buyer universe\", \"potential acquirers\", \"who would buy this\", \"strategic buyers\", or \"financial sponsors\".",
+          "path": "skills\\buyer-list"
+        },
+        {
+          "name": "cim-builder",
+          "description": "Structure and draft a Confidential Information Memorandum for sell-side M&A processes. Organizes company information into a professional, investor-ready document with consistent formatting and narrative flow. Use when preparing sell-side materials, drafting a CIM, or organizing company data for a sale process. Triggers on \"CIM\", \"confidential information memorandum\", \"offering memorandum\", \"info memo\", \"draft CIM\", or \"sell-side materials\".",
+          "path": "skills\\cim-builder"
+        },
+        {
+          "name": "datapack-builder",
+          "description": "Build professional financial services data packs from various sources including CIMs, offering memorandums, SEC filings, web search, or MCP servers. Extract, normalize, and standardize financial data into investment committee-ready Excel workbooks with consistent structure, proper formatting, and documented assumptions. Use for M&A due diligence, private equity analysis, investment committee materials, and standardizing financial reporting across portfolio companies. Do not use for simple financial calculations or working with already-completed data packs.",
+          "path": "skills\\datapack-builder"
+        },
+        {
+          "name": "deal-tracker",
+          "description": "Track multiple live deals with milestones, deadlines, action items, and status updates. Maintains a deal pipeline view and surfaces upcoming deadlines and overdue items. Use when managing a book of business, tracking process milestones, or preparing for weekly deal reviews. Triggers on \"deal tracker\", \"deal status\", \"where are we on\", \"process update\", \"deal pipeline\", or \"weekly deal review\".",
+          "path": "skills\\deal-tracker"
+        },
+        {
+          "name": "merger-model",
+          "description": "Build accretion/dilution analysis for M&A transactions. Models pro forma EPS impact, synergy sensitivities, and purchase price allocation. Use when evaluating a potential acquisition, preparing merger consequences analysis for a pitch, or advising on deal terms. Triggers on \"merger model\", \"accretion dilution\", \"M&A model\", \"pro forma EPS\", \"merger consequences\", or \"deal impact analysis\".",
+          "path": "skills\\merger-model"
+        },
+        {
+          "name": "pitch-deck",
+          "description": "Populates investment banking pitch deck templates with data from source files. Use when: user provides a PowerPoint template to fill in, user has source data (Excel/CSV) to populate into slides, user mentions populating or filling a pitch deck template, or user needs to transfer data into existing slide layouts. Not for creating presentations from scratch.",
+          "path": "skills\\pitch-deck"
+        },
+        {
+          "name": "process-letter",
+          "description": "Draft process letters and bid instructions for sell-side M&A processes. Covers initial indication of interest (IOI) instructions, final bid procedures, and management meeting logistics. Triggers on \"process letter\", \"bid instructions\", \"IOI letter\", \"bid procedures\", \"final round letter\", or \"management meeting invite\".",
+          "path": "skills\\process-letter"
+        },
+        {
+          "name": "fsi-strip-profile",
+          "description": "Creates professional investment banking strip profiles (company profiles) for pitch books, deal materials, and client presentations. Generates 1-4 information-dense slides with quadrant layouts, charts, and tables.",
+          "path": "skills\\strip-profile"
+        },
+        {
+          "name": "teaser",
+          "description": "Draft anonymous one-page company teasers for sell-side M&A processes. Creates a compelling summary without revealing the company's identity, designed to gauge buyer interest before NDA execution. Triggers on \"teaser\", \"blind teaser\", \"anonymous profile\", \"one-pager for process\", or \"draft teaser for sell-side\".",
+          "path": "skills\\teaser"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\investment-banking",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/investment-banking",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\investment-banking\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "investment_banking_rules",
+          "description": "Investment banking deal execution workflows including pitch decks, merger models, CIM building, buyer lists, and deal process management. Use when working on IB transactions and deal materials.",
+          "path": "rules/investment_banking_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "equity-research",
+      "description": "Equity research tools: earnings analysis, initiating coverage reports, and research workflows",
+      "description_en": "Equity research tools: earnings analysis, initiating coverage reports, earnings previews, morning notes, stock screening, and investment thesis tracking.",
+      "source": "./plugins/equity-research",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "catalyst-calendar",
+          "description": "Build and maintain a calendar of upcoming catalysts across a coverage universe — earnings dates, conferences, product launches, regulatory decisions, and macro events. Helps prioritize attention and position ahead of events. Triggers on \"catalyst calendar\", \"upcoming events\", \"what's coming up\", \"earnings calendar\", \"event calendar\", or \"catalyst tracker\".",
+          "path": "skills\\catalyst-calendar"
+        },
+        {
+          "name": "earnings-analysis",
+          "description": "Create professional equity research earnings update reports (8-12 pages, 3,000-5,000 words) analyzing quarterly results for companies already under coverage. Fast-turnaround format focusing on beat/miss analysis, key metrics, updated estimates, and revised thesis. Includes 1-3 summary tables and 8-12 charts. Use when user requests \"earnings update\", \"quarterly update\", \"earnings analysis\", \"Q1/Q2/Q3/Q4 results\", or post-earnings report.",
+          "path": "skills\\earnings-analysis"
+        },
+        {
+          "name": "earnings-preview",
+          "description": "Build pre-earnings analysis with estimate models, scenario frameworks, and key metrics to watch. Use before a company reports quarterly earnings to prepare positioning notes, set up bull/bear scenarios, and identify what will move the stock. Triggers on \"earnings preview\", \"what to watch for [company] earnings\", \"pre-earnings\", \"earnings setup\", or \"preview Q[X] for [company]\".",
+          "path": "skills\\earnings-preview"
+        },
+        {
+          "name": "idea-generation",
+          "description": "Systematic stock screening and investment idea sourcing. Combines quantitative screens, thematic research, and pattern recognition to surface new long and short ideas. Use when looking for new ideas, running screens, or conducting thematic sweeps. Triggers on \"idea generation\", \"stock screen\", \"find ideas\", \"what looks interesting\", \"screen for\", \"new ideas\", or \"pitch me something\".",
+          "path": "skills\\idea-generation"
+        },
+        {
+          "name": "initiating-coverage",
+          "description": "Create institutional-quality equity research initiation reports through a 5-task workflow. Tasks must be executed individually with verified prerequisites - (1) company research, (2) financial modeling, (3) valuation analysis, (4) chart generation, (5) final report assembly. Each task produces specific deliverables (markdown docs, Excel models, charts, or DOCX reports). Tasks 3-5 have dependencies on earlier tasks.",
+          "path": "skills\\initiating-coverage"
+        },
+        {
+          "name": "model-update",
+          "description": "Update financial models with new data — quarterly earnings, management guidance, macro changes, or revised assumptions. Adjusts estimates, recalculates valuation, and flags material changes. Use after earnings, guidance updates, or when assumptions need refreshing. Triggers on \"update model\", \"plug earnings\", \"refresh estimates\", \"update numbers for [company]\", \"new guidance\", or \"revise estimates\".",
+          "path": "skills\\model-update"
+        },
+        {
+          "name": "morning-note",
+          "description": "Draft concise morning meeting notes summarizing overnight developments, trade ideas, and key events for coverage stocks. Designed for the 7am morning meeting format — tight, opinionated, actionable. Triggers on \"morning note\", \"morning meeting\", \"what happened overnight\", \"trade idea\", \"morning call prep\", or \"daily note\".",
+          "path": "skills\\morning-note"
+        },
+        {
+          "name": "sector-overview",
+          "description": "Create comprehensive industry and sector landscape reports covering market dynamics, competitive positioning, key players, and thematic trends. Use for client requests, sector initiations, thematic research pieces, or internal knowledge building. Triggers on \"sector overview\", \"industry report\", \"market landscape\", \"sector analysis\", \"industry deep dive\", or \"thematic research\".",
+          "path": "skills\\sector-overview"
+        },
+        {
+          "name": "thesis-tracker",
+          "description": "Maintain and update investment theses for portfolio positions and watchlist names. Track key data points, catalysts, and thesis milestones over time. Use when updating a thesis with new information, reviewing position rationale, or checking if a thesis is still intact. Triggers on \"update thesis for [company]\", \"is my thesis still intact\", \"thesis check\", \"add data point to [company]\", or \"review my positions\".",
+          "path": "skills\\thesis-tracker"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\equity-research",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/equity-research",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\equity-research\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "equity_research_rules",
+          "description": "Equity research workflows including coverage initiation, earnings analysis, thesis tracking, and sector overviews. Use when conducting equity research and investment analysis.",
+          "path": "rules/equity_research_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "private-equity",
+      "description": "Private equity deal sourcing and workflow tools: company discovery, CRM integration, and founder outreach",
+      "description_en": "Private equity deal sourcing and workflow tools: company discovery, deal screening, due diligence, IC memos, unit economics, and portfolio monitoring.",
+      "source": "./plugins/private-equity",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "dd-checklist",
+          "description": "Generate and track comprehensive due diligence checklists tailored to the target company's sector, deal type, and complexity. Covers all major workstreams with request lists, status tracking, and red flag escalation. Use when kicking off diligence, organizing a data room review, or tracking outstanding items. Triggers on \"dd checklist\", \"due diligence tracker\", \"diligence request list\", \"what do we still need\", or \"data room review\".",
+          "path": "skills\\dd-checklist"
+        },
+        {
+          "name": "dd-meeting-prep",
+          "description": "Prepare for due diligence meetings — management presentations, expert network calls, customer references, and advisor sessions. Generates targeted question lists, benchmarks to reference, and red flags to probe. Use before any diligence meeting or call. Triggers on \"prep for management meeting\", \"diligence call prep\", \"expert call questions\", \"customer reference questions\", or \"meeting prep for [company]\".",
+          "path": "skills\\dd-meeting-prep"
+        },
+        {
+          "name": "deal-screening",
+          "description": "Quickly screen inbound deal flow — CIMs, teasers, and broker materials — against the fund's investment criteria. Extracts key deal metrics, runs a pass/fail framework, and outputs a one-page screening memo. Use when reviewing new deal flow, triaging inbound materials, or deciding whether to take a first call. Triggers on \"screen this deal\", \"review this CIM\", \"should we look at this\", \"triage this teaser\", or \"deal screening\".",
+          "path": "skills\\deal-screening"
+        },
+        {
+          "name": "deal-sourcing",
+          "description": "PE deal sourcing workflow — discover target companies, check CRM for existing relationships, and draft personalized founder outreach emails. Use when sourcing new deals, prospecting companies in a sector, or reaching out to founders. Triggers on \"find companies\", \"source deals\", \"draft founder email\", \"check if we've seen this company\", or \"outreach to founder\".",
+          "path": "skills\\deal-sourcing"
+        },
+        {
+          "name": "ic-memo",
+          "description": "Draft a structured investment committee memo for PE deal approval. Synthesizes due diligence findings, financial analysis, and deal terms into a professional IC-ready document. Use when preparing for investment committee, writing up a deal, or creating a formal recommendation. Triggers on \"write IC memo\", \"investment committee memo\", \"deal write-up\", \"prepare IC materials\", or \"recommendation memo\".",
+          "path": "skills\\ic-memo"
+        },
+        {
+          "name": "portfolio-monitoring",
+          "description": "Track and analyze portfolio company performance against plan. Ingests monthly/quarterly financial packages (Excel, PDF), extracts KPIs, flags variances to budget, and produces summary dashboards. Use when reviewing portfolio company financials, preparing board materials, or monitoring covenant compliance. Triggers on \"review portfolio company\", \"monthly financials\", \"how is [company] performing\", \"covenant check\", or \"portfolio update\".",
+          "path": "skills\\portfolio-monitoring"
+        },
+        {
+          "name": "returns-analysis",
+          "description": "Build quick IRR/MOIC sensitivity tables for PE deal evaluation. Models returns across entry multiple, leverage, exit multiple, growth, and hold period scenarios. Use when sizing up a deal, stress-testing assumptions, or preparing IC returns exhibits. Triggers on \"returns analysis\", \"IRR sensitivity\", \"MOIC table\", \"what's the return at\", \"model the returns\", or \"back of the envelope\".",
+          "path": "skills\\returns-analysis"
+        },
+        {
+          "name": "unit-economics",
+          "description": "Analyze unit economics for PE targets — ARR cohorts, LTV/CAC, net retention, payback periods, revenue quality, and margin waterfall. Essential for software/SaaS, recurring revenue, and subscription businesses. Use when evaluating revenue quality, building a cohort analysis, or assessing customer economics. Triggers on \"unit economics\", \"cohort analysis\", \"ARR analysis\", \"LTV CAC\", \"net retention\", \"revenue quality\", or \"customer economics\".",
+          "path": "skills\\unit-economics"
+        },
+        {
+          "name": "value-creation-plan",
+          "description": "Structure post-acquisition value creation plans with revenue, cost, and operational levers mapped to an EBITDA bridge. Includes 100-day priorities, KPI targets, and accountability frameworks. Use when planning post-close execution, preparing operating partner materials, or building a board-ready value creation roadmap. Triggers on \"value creation plan\", \"100-day plan\", \"post-close plan\", \"EBITDA bridge\", \"operating plan\", or \"value creation levers\".",
+          "path": "skills\\value-creation-plan"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\private-equity",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/private-equity",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\private-equity\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "private_equity_rules",
+          "description": "Private equity workflows including deal sourcing, due diligence, IC memos, portfolio monitoring, and value creation planning. Use when working on PE investment processes.",
+          "path": "rules/private_equity_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "wealth-management",
+      "description": "Wealth management and financial advisory tools: client reviews, financial planning, portfolio analysis, and client reporting",
+      "description_en": "Wealth management and financial advisory tools: client reviews, financial planning, portfolio rebalancing, tax-loss harvesting, and investment proposals.",
+      "source": "./plugins/wealth-management",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "client-report",
+          "description": "Generate professional client-facing performance reports with portfolio returns, allocation breakdowns, and market commentary. Suitable for quarterly or annual distribution. Triggers on \"client report\", \"performance report\", \"quarterly report for [client]\", \"generate reports\", or \"client statement\".",
+          "path": "skills\\client-report"
+        },
+        {
+          "name": "client-review",
+          "description": "Prepare for client review meetings with portfolio performance summary, allocation analysis, talking points, and action items. Pulls together account data into a concise meeting-ready format. Use before quarterly reviews, annual checkups, or ad-hoc client meetings. Triggers on \"client review\", \"meeting prep for [client]\", \"quarterly review\", \"prep for [client name]\", or \"client meeting\".",
+          "path": "skills\\client-review"
+        },
+        {
+          "name": "financial-plan",
+          "description": "Build or update a comprehensive financial plan covering retirement projections, education funding, estate planning, and cash flow analysis. Use for new client onboarding, annual plan reviews, or scenario modeling. Triggers on \"financial plan\", \"retirement plan\", \"can I retire\", \"education funding\", \"estate plan\", \"cash flow analysis\", or \"plan update\".",
+          "path": "skills\\financial-plan"
+        },
+        {
+          "name": "investment-proposal",
+          "description": "Create professional investment proposals for prospective clients. Covers the firm's approach, proposed allocation, expected outcomes, and fee structure. Use when pitching new clients or presenting a new investment strategy. Triggers on \"investment proposal\", \"prospect presentation\", \"pitch new client\", \"proposal for [client]\", or \"new client presentation\".",
+          "path": "skills\\investment-proposal"
+        },
+        {
+          "name": "portfolio-rebalance",
+          "description": "Analyze portfolio allocation drift and generate rebalancing trade recommendations across accounts. Considers tax implications, transaction costs, and wash sale rules. Triggers on \"rebalance\", \"portfolio drift\", \"allocation check\", \"rebalancing trades\", or \"my portfolio is out of balance\".",
+          "path": "skills\\portfolio-rebalance"
+        },
+        {
+          "name": "tax-loss-harvesting",
+          "description": "Identify tax-loss harvesting opportunities across taxable accounts. Finds positions with unrealized losses, suggests replacement securities, and tracks wash sale windows. Triggers on \"tax-loss harvesting\", \"TLH\", \"harvest losses\", \"tax losses\", \"unrealized losses\", or \"year-end tax planning\".",
+          "path": "skills\\tax-loss-harvesting"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\wealth-management",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/wealth-management",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\wealth-management\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "wealth_management_rules",
+          "description": "Wealth management workflows including financial planning, portfolio management, client reporting, and tax optimization. Use when working on wealth advisory and client portfolio tasks.",
+          "path": "rules/wealth_management_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "lseg",
+      "description": "Price bonds, analyze yield curves, evaluate FX carry trades, value options, and build macro dashboards using LSEG financial data and analytics.",
+      "description_en": "LSEG financial data and analytics: bond pricing, yield curve analysis, FX carry trades, options valuation, and macro dashboards.",
+      "source": "./plugins/lseg",
+      "version": "1.0.0",
+      "author": {
+        "name": "LSEG"
+      },
+      "homepage": "",
+      "license": "",
+      "skills": [
+        {
+          "name": "bond-futures-basis",
+          "description": "Analyze the bond futures basis by pricing futures, identifying the cheapest-to-deliver, and comparing with yield curves to assess delivery option value and basis trading opportunities. Use when analyzing bond futures, computing the basis, identifying CTD bonds, calculating implied repo rates, or evaluating basis trades.",
+          "path": "skills\\bond-futures-basis"
+        },
+        {
+          "name": "bond-relative-value",
+          "description": "Perform relative value analysis on bonds by combining pricing, yield curve context, credit spreads, and scenario stress testing. Use when analyzing bond richness/cheapness, computing spread decomposition, comparing bonds, assessing bond value vs curves, or running rate shock scenarios.",
+          "path": "skills\\bond-relative-value"
+        },
+        {
+          "name": "equity-research",
+          "description": "Generate comprehensive equity research snapshots combining analyst consensus estimates, company fundamentals, historical prices, and macroeconomic context. Use when researching stocks, comparing estimates to actuals, analyzing company financials, assessing equity valuations, or building investment cases.",
+          "path": "skills\\equity-research"
+        },
+        {
+          "name": "fixed-income-portfolio",
+          "description": "Review fixed income portfolios by pricing multiple bonds, retrieving reference data, analyzing cashflows, and running scenario analysis. Use when reviewing bond portfolios, computing portfolio duration and DV01, analyzing cashflow waterfalls, stress testing rate scenarios, or assessing portfolio composition.",
+          "path": "skills\\fixed-income-portfolio"
+        },
+        {
+          "name": "fx-carry-trade",
+          "description": "Evaluate FX carry trade opportunities by combining spot rates, forward points, interest rate differentials, volatility surface analysis, and historical price trends. Use when analyzing carry trades, comparing FX forward curves, assessing carry-to-vol ratios, or evaluating currency pair opportunities.",
+          "path": "skills\\fx-carry-trade"
+        },
+        {
+          "name": "macro-rates-monitor",
+          "description": "Build macroeconomic and rates dashboards combining macro indicators, yield curves, inflation breakevens, and swap rates. Use when monitoring macro conditions, analyzing yield curve shape, decomposing real vs nominal rates, assessing policy rate expectations, or evaluating financial conditions.",
+          "path": "skills\\macro-rates-monitor"
+        },
+        {
+          "name": "option-vol-analysis",
+          "description": "Analyze option volatility by combining vol surface data, option pricing with Greeks, and historical price data to assess implied vs realized volatility. Use when pricing options, analyzing volatility surfaces, computing Greeks, assessing vol premiums, or evaluating vol trading strategies.",
+          "path": "skills\\option-vol-analysis"
+        },
+        {
+          "name": "swap-curve-strategy",
+          "description": "Analyze the interest rate swap curve by pricing swaps at multiple tenors, overlaying government and inflation curves, and identifying curve trade opportunities. Use when analyzing swap curves, computing swap spreads, decomposing real rates, identifying steepener/flattener/butterfly trades, or comparing swap rates across currencies.",
+          "path": "skills\\swap-curve-strategy"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\lseg",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/lseg",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\lseg\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "lseg_rules",
+          "description": "LSEG (London Stock Exchange Group) capital markets workflows including fixed income analysis, FX strategies, options volatility, and macro rates monitoring. Use when working on capital markets and trading analysis.",
+          "path": "rules/lseg_rules.md"
+        }
+      ],
+      "mcpServers": {
+        "akshare-one-mcp": {
+          "command": "uvx",
+          "args": [
+            "akshare-one-mcp"
+          ]
+        }
+      }
+    },
+    {
+      "name": "spglobal",
+      "description": "S&P Global - Financial data and analytics skills including company tearsheets, earnings previews, and transaction summaries",
+      "description_en": "S&P Global financial data and analytics skills including company tearsheets, earnings previews, and transaction summaries.",
+      "source": "./plugins/spglobal",
+      "version": "1.0.0",
+      "author": {
+        "name": "Kensho Technologies"
+      },
+      "homepage": "",
+      "license": "Apache-2.0",
+      "skills": [
+        {
+          "name": "earnings-preview-single",
+          "description": "Generate a concise 4-5 page equity research earnings preview for a single company. Analyzes the most recent earnings transcript, competitor landscape, valuation, and recent news to produce a professional HTML report.",
+          "path": "skills\\earnings-preview-beta"
+        },
+        {
+          "name": "funding-digest",
+          "description": "Generate a polished one-page PowerPoint slide summarizing key takeaways from recent funding rounds and notable capital markets activity across a user's watched sectors or companies. Use this skill when the user asks for a deal flow summary, weekly recap, funding digest, transaction roundup, or capital markets briefing. Triggers on: 'deal flow digest', 'weekly funding recap', 'deal roundup', 'transaction summary this week', 'what happened in [sector] this week', 'capital markets update', or any request to compile recent funding activity into a briefing slide. Produces a professional single-slide PPTX with key takeaways, valuation data, and Capital IQ deal links.",
+          "path": "skills\\funding-digest"
+        },
+        {
+          "name": "tear-sheet",
+          "description": "Generate professional company tear sheets using S&P Capital IQ data via the Kensho LLM-ready API MCP server. Use this skill whenever the user asks for a tear sheet, company one-pager, company profile, fact sheet, company snapshot, or company overview document — especially when they mention a specific company name or ticker. Also trigger when users ask for equity research summaries, M&A company profiles, corporate development target profiles, sales/BD meeting prep documents, or any concise single-company financial summary. This skill supports four audience types: equity research, investment banking/M&A, corporate development, and sales/business development. If the user doesn't specify an audience, ask. Works for both public and private companies.",
+          "path": "skills\\tear-sheet"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\spglobal",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/spglobal",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\spglobal\\.codebuddy-plugin\\plugin.json",
+      "rules": [
+        {
+          "name": "spglobal_rules",
+          "description": "S&P Global market intelligence workflows including company tear sheets, earnings previews, and funding analysis. Use when working on market intelligence and company research tasks.",
+          "path": "rules/spglobal_rules.md"
+        }
+      ]
+    },
+    {
+      "name": "finance-data",
+      "description": "金融数据检索插件，通过自然语言自动查找并调用 209 个金融数据 API 接口，涵盖股票、指数、期货、债券、基金、宏观经济等 15 大类数据。",
+      "description_en": "Financial data retrieval plugin that autonomously finds and calls 209 API endpoints from natural language, covering stocks, indices, futures, bonds, funds, macroeconomics, and more.",
+      "source": "./plugins/finance-data",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "finance-data-retrieval",
+          "description": "金融数据智能检索。根据用户的自然语言描述，自动识别需要的数据接口， 查阅 API 文档，构造请求并返回数据。覆盖股票、指数、期货、债券、 基金、宏观经济等 15 大类 209 个接口。 触发词：查行情、看股票、财务数据、基金净值、期货行情、宏观数据、 涨停股、龙虎榜、资金流向、利率、CPI、GDP、可转债、ETF、港股、美股。",
+          "path": "skills\\finance-data-retrieval"
+        }
+      ],
+      "rules": [
+        {
+          "name": "finance-data_rules",
+          "description": "金融数据检索插件，通过自然语言自动查找并调用金融数据 API 接口",
+          "path": "rules/finance-data_rules.md"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\finance-data",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/finance-data",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\finance-data\\.codebuddy-plugin\\plugin.json"
+    },
+    {
+      "name": "trading-assistant",
+      "description": "交易分析助手，基于多角色辩论方法论进行系统性投资分析。包含市场技术分析、基本面分析、新闻与情绪分析、多空辩论、交易决策和三方风险评估的完整工作流。",
+      "description_en": "Trading analysis assistant using multi-role debate methodology for systematic investment analysis. Includes market technical analysis, fundamentals, news sentiment, bull/bear debate, trading decision, and 3-way risk assessment to produce BUY/SELL/HOLD recommendations.",
+      "source": "./plugins/trading-assistant",
+      "version": "1.0.0",
+      "author": {
+        "name": "CodeBuddy Teams"
+      },
+      "homepage": {
+        "url": "",
+        "type": "github"
+      },
+      "license": "",
+      "skills": [
+        {
+          "name": "trading-analysis",
+          "description": "交易分析助手，基于多角色辩论方法论的系统性投资分析。通过市场技术分析、 基本面分析、新闻情绪分析、多空辩论、交易决策和三方风险评估， 输出 BUY/SELL/HOLD 建议。 触发词：交易分析、投资分析、股票分析、买卖决策、多空分析、 风险评估、技术分析、基本面分析、投资建议、买入卖出、 持有建议、投资决策、交易建议、股票推荐、该不该买、能不能卖、 要不要持有、看好看空、仓位建议、加仓减仓、是否加仓、 是否减仓、投资价值、值不值得买、能不能入手、抄底、 完整分析、深度分析、进行.*分析、分析.*投资、 trading analysis、investment decision、buy sell hold。",
+          "path": "skills\\trading-analysis"
+        }
+      ],
+      "rules": [
+        {
+          "name": "trading-assistant_rules",
+          "description": "交易分析助手插件，基于多角色辩论方法论进行系统性投资分析",
+          "path": "rules/trading-assistant_rules.md"
+        }
+      ],
+      "marketplaceName": "cb_teams_marketplace",
+      "installedPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\trading-assistant",
+      "_capabilitiesLoaded": true,
+      "sourcePath": "./plugins/trading-assistant",
+      "configPath": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace\\plugins\\trading-assistant\\.codebuddy-plugin\\plugin.json",
+      "status": "enabled"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "nas-file-reader",
+  "version": "1.0.0",
+  "description": "快速读取NAS共享盘文件，支持PDF OCR识别、图片分析",
+  "author": "OpenClaw",
+  "license": "MIT",
+  "keywords": ["nas", "共享盘", "pdf", "ocr", "扫描件", "产品资料"],
+  "category": "file-operations"
+  "priority": "high"
+}

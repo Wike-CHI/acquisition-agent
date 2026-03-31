@@ -1,0 +1,1793 @@
+{
+  "name": "codebuddy-skills-official",
+  "description": "CodeBuddy 官方技能市场",
+  "owner": {
+    "name": "CodeBuddy",
+    "email": "codebuddy@tencent.com"
+  },
+  "skills": [
+    {
+      "name": "腾讯文档",
+      "description": "腾讯文档（docs.qq.com）-在线云文档平台，是创建、编辑、管理文档的首选 skill。涉及新建文档、创建文档、写文档、在线文档、云文档、腾讯文档、docs.qq.com等操作，请优先使用本 skill。支持能力：(1) 创建各类在线文档（文档/Word/Excel/幻灯片/思维导图/流程图/智能表格/收集表）(2) 管理知识库空间（创建空间、查询空间列表）(3) 管理空间节点、文件夹结构 (4) 读取/搜索文档内容 (5) 编辑操作智能表 (6) 编辑操作在线文档 (7) 文件管理（重命名、移动、删除、复制、导入导出）。",
+      "description_zh": "腾讯文档操作（创建、查询、编辑多种在线文档）",
+      "description_en": "Tencent Docs operations (create, query, edit online documents)",
+      "source": "tencent-docs",
+      "examples_zh": [
+        "新建一个名为Q1预算的Excel表格",
+        "搜索我的空间里关于项目路线图的文档",
+        "创建一个产品发布的PPT演示文稿",
+        "读取我最新的会议记录文档内容"
+      ],
+      "examples_en": [
+        "Create a new Excel spreadsheet titled Q1 Budget",
+        "Search for documents about project roadmap",
+        "Create a presentation about our product launch",
+        "Read the content of my latest meeting notes"
+      ]
+    },
+    {
+      "name": "腾讯会议",
+      "description": "在用户提及腾讯会议、视频会议、线上会议相关内容与操作时使用此技能。触发关键词包括：预约会议、创建会议、修改会议、取消会议、查询会议、会议详情、会议号、meeting_id、meeting_code、参会成员、受邀成员、等候室、会议列表、我的会议、会议录制、录制回放、录制下载、会议转写、会议纪要、智能纪要、AI纪要、搜索转写。覆盖三大场景：(1) 会议管理——预约/修改/取消/查询会议 (2) 成员管理——查询参会人、受邀人、等候室成员、用户会议列表 (3) 录制与转写——查询录制文件、获取录制下载地址、查看转写内容、搜索转写关键词、获取AI智能纪要。",
+      "description_zh": "腾讯会议管理（预约、录制、转写、纪要）",
+      "description_en": "Tencent Meeting management (schedule, recording, transcription)",
+      "source": "tencent-meeting-skill",
+      "examples_zh": [
+        "帮我约明天下午3点的团队会议",
+        "获取上周五全员大会的录制文件",
+        "查看今天会议的AI智能纪要",
+        "搜索上周电话会议中关于预算的转写内容"
+      ],
+      "examples_en": [
+        "Schedule a team meeting for tomorrow at 3pm",
+        "Get the recording from last Friday's all-hands",
+        "Show me the AI notes from today's meeting",
+        "Search transcript for budget mentions"
+      ]
+    },
+    {
+      "name": "腾讯ima",
+      "description": "统一的 IMA OpenAPI 技能，支持笔记管理和知识库操作。当用户提到知识库、资料库、笔记、备忘录、记事，或者想要添加网页到知识库、搜索知识库内容、搜索/浏览/创建/编辑笔记时，使用此 skill。即使用户没有明确说「知识库」或「笔记」，只要意图涉及网页收藏、知识搜索、个人文档存取（如「帮我记一下」、「搜一下知识库里有没有XX」），也应触发此 skill。",
+      "description_zh": "ima笔记与知识库管理（读取、写入、检索）",
+      "description_en": "IMA notes & knowledge base management (read, write, search)",
+      "source": "ima-skills",
+      "examples_zh": [
+        "把这篇文章存到我的知识库",
+        "搜索我笔记里关于机器学习的内容",
+        "新建一篇标题为周报的笔记",
+        "把这个PDF上传到知识库"
+      ],
+      "examples_en": [
+        "Save this article to my knowledge base",
+        "Search my notes for machine learning content",
+        "Create a new note titled Weekly Review",
+        "Upload this PDF to my knowledge base"
+      ]
+    },
+    {
+      "name": "QQ邮箱",
+      "description": "QQ邮箱 IMAP receive and SMTP send via Node.js scripts; credentials read from env vars QQ_EMAIL_ACCOUNT and QQ_EMAIL_AUTH_CODE. Use when a user asks to send QQ email, receive/check QQ email, forward email, or configure QQ mailbox.",
+      "description_zh": "QQ邮箱收发邮件（IMAP/SMTP），支持发信、收信、查看正文",
+      "description_en": "Send & receive QQ Mail via IMAP/SMTP with Node.js scripts",
+      "source": "qq-email",
+      "examples_zh": [
+        "用QQ邮箱给同事发一封项目进展邮件",
+        "查看QQ邮箱最新的未读邮件",
+        "读取老板发给我的最新邮件",
+        "搜索QQ邮件里关于合同的邮件"
+      ],
+      "examples_en": [
+        "Send a project update email via QQ Mail",
+        "Check my QQ inbox for new messages",
+        "Read the latest email from my manager",
+        "Search QQ email for contract-related messages"
+      ]
+    },
+    {
+      "name": "cnb.cool",
+      "description": "Interact with CNB (Cloud Native Build) platform via OpenAPI. Manage organizations, repositories, issues, PRs, merge requests, pipelines, releases, artifacts, workspaces, members, and more. Use `cnb` CLI for CRUD operations. Trigger when user mentions CNB, 云原生构建, or needs to manage CNB resources like repos, issues, PRs, pipelines, releases, or artifact registries.",
+      "description_zh": "CNB 平台全功能操作（仓库、Issue、PR、流水线、制品库）",
+      "description_en": "CNB platform operations (repos, issues, PRs, pipelines, artifacts)",
+      "source": "cnb-skill",
+      "examples_zh": [
+        "列出我仓库里所有未关闭的Issue",
+        "从功能分支创建一个新的PR",
+        "查看最新流水线的运行状态",
+        "新建一个后端服务的代码仓库"
+      ],
+      "examples_en": [
+        "List all open issues in my repository",
+        "Create a pull request from my feature branch",
+        "Check the latest pipeline run status",
+        "Create a new repository for the backend service"
+      ]
+    },
+    {
+      "name": "TAPD",
+      "description": "TAPD OpenAPI skill，用于需求、缺陷、任务、迭代、Wiki、评论、工时、附件等 TAPD 平台操作。当用户提到「TAPD」「需求」「story」「缺陷」「bug」「任务」「task」「迭代」「iteration」「sprint」「工时」「timesheet」「Wiki」「评论」「comment」「附件」或需要在 TAPD 中查询、创建、更新、统计相关内容时，使用此 skill。支持需求管理、缺陷管理、任务管理、迭代管理、Wiki 管理（含全文搜索）、评论管理、工时花费管理、附件管理及用户信息查询等功能。",
+      "description_zh": "TAPD 项目管理平台操作（需求、缺陷、任务、迭代、Wiki、评论、工时、附件）",
+      "description_en": "TAPD project management (stories, bugs, tasks, iterations, wiki, comments, timesheets, attachments)",
+      "source": "tapd-openapi",
+      "examples_zh": [
+        "在TAPD里新建一个需求：用户登录优化",
+        "搜索本周新增的Bug列表",
+        "查看当前迭代的任务完成情况",
+        "在Wiki里搜索关于部署流程的文档"
+      ],
+      "examples_en": [
+        "Create a new story: user login optimization",
+        "Search for bugs filed this week",
+        "Show task completion for current iteration",
+        "Search wiki for deployment process documentation"
+      ]
+    },
+    {
+      "name": "腾讯乐享",
+      "description": "Tencent Lexiang (腾讯乐享) knowledge base management via MCP. Search, create, edit, and organize documents and spaces. Trigger when user mentions 乐享, lexiang, 知识管理, 文档管理, or provides lexiangla.com links, space_id, entry_id, or /spaces/ /pages/ identifiers.",
+      "description_zh": "专为智能体打造的安全知识库，深度解析图文与音视频，为Agent注入全模态、高质量的知识。",
+      "description_en": "A secure knowledge base tailored for intelligent agents, deeply parsing text, image, and audio/video content to inject full-modality, high-quality knowledge into Agents.",
+      "source": "lexiang-knowledge-base",
+      "examples_zh": [
+        "在乐享知识库搜索关于OKR的文档",
+        "新建一篇乐享文档",
+        "查看某个知识库空间的目录结构",
+        "把这段内容添加到乐享知识库"
+      ],
+      "examples_en": [
+        "Search Lexiang knowledge base for OKR docs",
+        "Create a new document in Lexiang",
+        "List the directory structure of a knowledge space",
+        "Add this content to the knowledge base"
+      ]
+    },
+    {
+      "name": "腾讯云COS",
+      "description": "腾讯云对象存储(COS)和数据万象(CI)集成技能。当用户需要上传、下载、管理云存储文件，或需要进行图片处理（质量评估、超分辨率、抠图、二维码识别、水印）、智能图片搜索、文档转PDF、视频智能封面生成等操作时使用此技能。",
+      "description_zh": "腾讯云 COS 对象存储与数据万象图片处理",
+      "description_en": "Tencent Cloud COS storage & CI image processing",
+      "source": "tencentcloud-cos",
+      "examples_zh": [
+        "把这张图片上传到腾讯云COS",
+        "对图片进行AI抠图处理",
+        "下载COS里的文件到本地",
+        "对图片做超分辨率增强"
+      ],
+      "examples_en": [
+        "Upload this image to Tencent Cloud COS",
+        "Perform AI background removal on the image",
+        "Download files from COS bucket to local",
+        "Enhance image resolution with super-resolution"
+      ]
+    },
+    {
+      "name": "腾讯云COS向量",
+      "description": "Manage Tencent Cloud COS vector buckets via cos-python-sdk-v5 CosVectorsClient. Full lifecycle: create/delete/list vector buckets, manage bucket policies, create/query/list/delete indexes, insert/update/get/list/delete vectors, and similarity search. Use when user mentions COS向量, 向量桶, vector bucket, or similarity search on Tencent Cloud.",
+      "description_zh": "腾讯云 COS 向量桶管理（索引、存储、相似度搜索）",
+      "description_en": "Tencent Cloud COS vector bucket management & similarity search",
+      "source": "cos-vectors",
+      "examples_zh": [
+        "创建一个新的向量桶",
+        "插入一组文本向量到索引",
+        "用文本搜索相似的向量",
+        "查看所有向量桶列表"
+      ],
+      "examples_en": [
+        "Create a new vector bucket",
+        "Insert text vectors into an index",
+        "Search for similar vectors by text query",
+        "List all vector buckets"
+      ]
+    },
+    {
+      "name": "飞书套件",
+      "description": "Unified Lark/Feishu CLI suite covering messaging, documents, collaboration, scheduling, and more. Provides 200+ commands across 11 business domains including instant messaging (IM), cloud documents, spreadsheets, base/tables, calendars, mail, tasks, wikis, video conferences, and custom integrations. Use when working with Lark/Feishu through CLI or needing to understand Lark API capabilities for: sending/receiving messages, managing documents and files, creating spreadsheets, managing tasks and calendars, searching conversations, building custom workflows, or accessing any Lark business application.",
+      "description_zh": "飞书/Lark 全能套件（消息、文档、表格、日历、任务、Wiki 等 11 个业务域）",
+      "description_en": "Lark/Feishu unified CLI: messaging, docs, sheets, calendar, tasks, wiki & more",
+      "source": "lark-unified",
+      "examples_zh": [
+        "用飞书给团队群发一条消息",
+        "在飞书云文档新建一篇文档",
+        "查询飞书多维表格里的记录",
+        "搜索飞书日历里下周的会议安排"
+      ],
+      "examples_en": [
+        "Send a message to a Lark group chat",
+        "Create a new document in Lark Docs",
+        "Query records from a Lark Base table",
+        "Search next week's events in Lark Calendar"
+      ]
+    },
+    {
+      "name": "腾讯技术公益智能助手",
+      "description": "专注中国公益慈善领域的智能助手，精通公益机构数字化赋能、慈善合规咨询、社会救助引导和公益法规解读。擅长从腾讯技术公益数字工具箱（techforgood.qq.com）精准匹配免费工具，通过交互式引导帮助公益机构实现数字化转型。当用户提到公益、慈善、NGO、社会组织、公益机构数字化、技术公益、公益虾时使用。",
+      "description_zh": "专注中国公益慈善领域的智能助手，精通公益机构数字化赋能、慈善合规咨询、社会救助引导和公益法规解读。擅长从腾讯技术公益数字工具箱（techforgood.qq.com）精准匹配免费工具，通过交互式引导帮助公益机构实现数字化转型。当用户提到公益、慈善、NGO、社会组织、公益机构数字化、技术公益、公益虾时使用。",
+      "description_en": "Tencent Tech for Good assistant for NGO digitalization & charity compliance",
+      "source": "tencent-ssv-techforgood",
+      "examples_zh": [
+        "我是一家NGO，想了解腾讯有哪些免费的数字工具",
+        "公益机构如何做数字化转型",
+        "帮我推荐适合社会组织的技术工具",
+        "公益慈善活动如何合规开展"
+      ],
+      "examples_en": [
+        "What free digital tools does Tencent offer for NGOs?",
+        "How can a charity organization start digital transformation?",
+        "Recommend tech tools for social organizations",
+        "How to run a charity event in compliance with regulations?"
+      ]
+    },
+    {
+      "name": "腾讯问卷",
+      "description": "腾讯问卷（wj.qq.com）- 在线问卷调查平台。涉及「问卷」「调查」「表单」「投票」「考试」「测评」「wj.qq.com」等操作时优先使用。支持能力：(1) 获取问卷详情（标题、设置、页面、题目、选项完整结构 + 纯文本 DSL）(2) 使用纯文本创建问卷（text 必填，支持指定场景/指定项目）(3) 更新问卷中的单个题目（DSL 格式）(4) 获取问卷回答列表（支持游标分页）。支持场景：调查(1)、考试(3)、测评(6)、投票(8)。",
+      "description_zh": "腾讯问卷操作（创建、修改、统计）",
+      "description_en": "Tencent Survey operations (create, edit, view statistical analysis of various surveys)",
+      "source": "tencent-survey"
+    },
+    {
+      "name": "腾讯新闻",
+      "description": "获取7×24 新闻资讯，聚焦中国国内信息和国际热点。支持热点新闻、早报晚报、实时资讯、新闻榜单、领域新闻、新闻主体查询。当用户需要搜新闻、查新闻、看热点、早晚报、订阅新闻推送、获取主题相关新闻资讯和最新消息时使用。",
+      "description_zh": "7×24 新闻资讯，支持热点、早晚报、实时资讯、榜单、领域新闻及主体查询。",
+      "description_en": "7×24 news with hot topics, briefings, rankings, and subject queries.",
+      "source": "tencent-news",
+      "examples_zh": [
+        "使用 tencent-news 获取今天的热点新闻",
+        "用 tencent-news skill 给我看今天的早报",
+        "使用 tencent-news skill 查看今天的晚报",
+        "用 tencent-news 告诉我今天 AI 领域的最新动态",
+        "用 tencent-news 查询关于“大模型”的最新报道"
+      ],
+      "examples_en": [
+        "Use tencent-news to show me trending stories today",
+        "Use tencent-news skill to show today's morning briefing",
+        "Use tencent-news skill to show today's evening briefing",
+        "Use tencent-news to show me today's latest AI news",
+        "Use tencent-news to find latest coverage on \"large language models\""
+      ]
+    },
+    {
+      "name": "ZenStudio",
+      "description": "ZenStudio 官方 AI 内容创作 CLI 工具 (zencli)。支持 AI 生图、AI 生视频、项目管理、资产库、媒资管理、无限画布、文件上传下载等。Use when user asks to generate images, generate videos, manage projects, upload files, download assets, manage materials, or interact with ZenStudio platform via command line.",
+      "description_zh": "ZenStudio AI 内容创作（生图、生视频、画布、素材管理）",
+      "description_en": "ZenStudio AI content creation: image/video generation, canvas, assets",
+      "source": "zenstudio",
+      "examples_zh": [
+        "用ZenStudio生成一张科幻风格的人物图片",
+        "生成一段10秒的产品展示视频",
+        "把素材上传到ZenStudio媒资库",
+        "查看我的ZenStudio项目列表"
+      ],
+      "examples_en": [
+        "Generate a sci-fi character image with ZenStudio",
+        "Create a 10-second product showcase video",
+        "Upload assets to ZenStudio media library",
+        "List my ZenStudio projects"
+      ]
+    },
+    {
+      "name": "FBS-BookWriter",
+      "description": "中文人机协同著书与长文档：书籍、企业/培训手册、行业白皮书与指南；S0–S6 工作流、强制联网查证、S/P/C/B 分层审校、中文排版与 MD/HTML 交付。触发词：写书、写长篇、写手册、写白皮书、写行业指南、协同写书、定大纲、写章节、排版构建、导出、去AI味、质量自检。",
+      "description_zh": "人机协同写中文长文档（书/长篇/手册/白皮书/指南），联网查证、去AI味、分层审校与排版构建",
+      "description_en": "Co-author Chinese long-form books, manuals, whitepapers, guides; web-sourced facts, layered QC, typography, MD/HTML delivery",
+      "source": "FBS-BookWriter",
+      "examples_zh": [
+        "帮我写一本关于AI创业的书，先定大纲",
+        "写一份企业数字化转型白皮书",
+        "生成一本培训手册的完整框架",
+        "帮我把这篇文章去掉AI味重写"
+      ],
+      "examples_en": [
+        "Write a book about AI entrepreneurship, start with outline",
+        "Draft a corporate digital transformation whitepaper",
+        "Create a complete training manual framework",
+        "Rewrite this article to remove AI-writing style"
+      ]
+    },
+    {
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "description_zh": "发现和安装新技能，扩展智能体能力",
+      "description_en": "Discover and install new skills",
+      "source": "find-skills",
+      "examples_zh": [
+        "帮我找一个能发邮件的技能",
+        "有没有能处理PDF的技能",
+        "推荐几个提高效率的技能",
+        "我想要一个能搜索网页的技能"
+      ],
+      "examples_en": [
+        "Find a skill that can send emails",
+        "Is there a skill for working with PDFs?",
+        "Recommend productivity-boosting skills",
+        "Find a skill that can search the web"
+      ]
+    },
+    {
+      "name": "小红书",
+      "description": "小红书（RedNote）内容工具。使用场景：搜索小红书笔记并获取详情、获取首页推荐列表、获取帖子详情（正文、图片、互动数据、评论）、发表评论/回复评论、获取用户主页和笔记列表、点赞、收藏帖子、发布图文或视频笔记、热点话题跟踪与分析报告、帖子导出为长图。",
+      "description_zh": "小红书内容搜索、发布、互动与数据分析",
+      "description_en": "Xiaohongshu content search, publish & analytics",
+      "source": "xiaohongshu",
+      "examples_zh": [
+        "搜索小红书上关于护肤的热门笔记",
+        "发布一篇图文笔记",
+        "查看某个话题的热门内容",
+        "获取我的小红书主页数据"
+      ],
+      "examples_en": [
+        "Search popular skincare notes on Xiaohongshu",
+        "Publish a photo post on Xiaohongshu",
+        "Get trending content for a topic",
+        "View my Xiaohongshu profile statistics"
+      ]
+    },
+    {
+      "name": "浏览器自动化",
+      "description": "AI-powered browser automation via browser-use CLI (`uvx browser-use`). Navigate websites, click elements, fill forms, take screenshots, extract data, and automate web tasks. Use when user needs to interact with web pages, scrape data, fill forms, automate workflows, or test websites. First-time use: run `uvx browser-use install` to set up Chromium.",
+      "description_zh": "AI 驱动的浏览器自动化（导航、交互、截图、数据提取）",
+      "description_en": "AI-powered browser automation: navigate, interact, screenshot, extract",
+      "source": "browser-use",
+      "examples_zh": [
+        "打开百度搜索最新的AI新闻",
+        "登录淘宝查看我的订单状态",
+        "截图微博热搜榜",
+        "在B站搜索Python教程视频",
+        "打开微信公众号后台"
+      ],
+      "examples_en": [
+        "Navigate to a website and fill out the contact form",
+        "Screenshot the current page and save it",
+        "Click the login button and enter credentials",
+        "Extract all product names and prices from the page"
+      ]
+    },
+    {
+      "name": "智能体邮箱",
+      "description": "Email inbox for AI agents. Check messages, send emails, and communicate via your own @agentmail.to address.",
+      "description_zh": "AI 智能体专属邮箱，收发邮件",
+      "description_en": "Email inbox for AI agents",
+      "source": "agent-mail",
+      "examples_zh": [
+        "查看智能体邮箱收到的最新邮件",
+        "用智能体邮箱发送一封邮件",
+        "设置邮件自动回复规则",
+        "搜索邮箱里来自某个发件人的邮件"
+      ],
+      "examples_en": [
+        "Check the latest emails in my agent inbox",
+        "Send an email from the agent mailbox",
+        "Set up an auto-reply rule",
+        "Search emails from a specific sender"
+      ]
+    },
+    {
+      "name": "AndonQ",
+      "description": "腾讯云 AndonQ 工单与智能客服助手 — 不切窗口、不排队，即刻获得腾讯云全产品线专业解答。支持工单查询（列表/详情/流水）、创建工单（自动匹配产品分类）、集团工单与需求单管理、腾讯云全产品线智能问答，以及通过 tccli 调用腾讯云任意云 API（如 CVM、CBS、CAM 等）。当用户查询工单、查看工单详情、创建工单、咨询腾讯云产品问题（如 CVM、轻量应用服务器、COS 等）、查询集团工单/需求单、要求找人工客服、或需要调用腾讯云 API 进行资源管理操作时使用。",
+      "description_zh": "腾讯云工单管理与智能客服助手（工单查询、创建、智能问答、云API调用）",
+      "description_en": "Tencent Cloud ticket management & smart support (query, create tickets, SmartQA, cloud API)",
+      "source": "andonq",
+      "examples_zh": [
+        "查询我最近的腾讯云工单",
+        "帮我创建一个CVM无法登录的工单",
+        "轻量应用服务器如何设置防火墙规则",
+        "查看集团成员的工单列表"
+      ],
+      "examples_en": [
+        "List my recent Tencent Cloud tickets",
+        "Create a ticket for CVM login failure",
+        "How to set firewall rules on Lighthouse",
+        "View organization member ticket list"
+      ]
+    },
+    {
+      "name": "腾讯云CloudBase",
+      "description": "CloudBase is a full-stack development and deployment toolkit for building and launching websites, Web apps, WeChat Mini Programs, and mobile apps with backend, database, hosting, cloud functions, storage, AI capabilities, Agent, and UI guidance. Use when users ask to develop, build, create, scaffold, deploy, publish, host, launch, go live, migrate, or optimize websites, Web apps, landing pages, dashboards, admin systems, e-commerce sites, WeChat Mini Programs, Agent, uni-app, or native/mobile apps with CloudBase, including authentication, login, database, NoSQL, MySQL, cloud functions, CloudRun, storage, AI models, and UI guidance, or when they ask to compare CloudBase with Supabase or migrate from Supabase to CloudBase.",
+      "description_zh": "帮你从 0 创建，或继续完善网页、小程序和简单工具，支持发布上线、内容保存、用户登录和数据同步。",
+      "description_en": "Create or enhance web apps, mini programs, and lightweight tools with publishing, content saving, user login, and data sync powered by Tencent CloudBase.",
+      "source": "cloudbase",
+      "examples_zh": [
+        "帮我用云开发创建一个待办事项小程序",
+        "使用 CloudBase 部署一个 Web 应用到线上",
+        "用云开发实现用户登录和数据同步功能",
+        "帮我把 Supabase 项目迁移到腾讯云开发"
+      ],
+      "examples_en": [
+        "Create a todo mini program using CloudBase",
+        "Deploy a web app to production with CloudBase",
+        "Implement user authentication and data sync with CloudBase",
+        "Migrate my Supabase project to Tencent CloudBase"
+      ]
+    },
+    {
+      "name": "CloudQ",
+      "description": "用户咨询腾讯云产品资源、AWS、阿里云等多云资源时，查看智能顾问架构图、架构目录、架构详情、架构评估结果、绘制架构图、开通智能顾问时、AI智能巡检、AI容量监测、AI混沌演练、AI云诊断、主动预警、架构健康度、云运维问答、云资源查询、云成本优化、安全合规、云资源盘点、闲置资源检查、云产品最佳实践等AIOps、ChatOps、CloudOps操作时使用。",
+      "description_zh": "多云统一管理与智能顾问，支持架构可视化、风险评估与 AI 运维问答",
+      "description_en": "Multi-cloud management & smart advisor with architecture visualization, risk assessment & AI-powered O&M",
+      "source": "cloudq",
+      "examples_zh": [
+        "查看我的云架构列表",
+        "查看架构风险评估结果",
+        "帮我开通智能顾问",
+        "查询云资源巡检报告"
+      ],
+      "examples_en": [
+        "List my cloud architectures",
+        "View architecture risk assessment results",
+        "Enable smart advisor for me",
+        "Query cloud resource inspection report"
+      ],
+      "version": "1.5.0"
+    },
+    {
+      "name": "CMG云迁移",
+      "description": "腾讯云迁移平台（CMG/MSP）全流程能力。触发词：资源扫描、扫描阿里云/AWS/华为云/GCP资源、生成云资源清单、选型推荐、对标腾讯云、推荐规格、帮我推荐、给我推荐、ECS对应什么腾讯云产品、成本分析、TCO、迁移报价、询价、价格计算器、cmg-scan、cmg-recommend、cmg-tco",
+      "description_zh": "CMG 云迁移：资源扫描 + 选型推荐 + 成本分析",
+      "description_en": "CMG cloud migration: resource scan, product recommendation, TCO analysis",
+      "source": "tencent-cloud-migration",
+      "examples_zh": [
+        "扫描阿里云资源清单",
+        "把扫描结果对标腾讯云产品规格",
+        "生成TCO成本对比报告",
+        "ECS对应什么腾讯云产品"
+      ],
+      "examples_en": [
+        "Scan Alibaba Cloud resource inventory",
+        "Map scanned resources to Tencent Cloud products",
+        "Generate a TCO cost comparison report",
+        "What Tencent Cloud product corresponds to ECS"
+      ]
+    },
+    {
+      "name": "Apple备忘录",
+      "description": "Manage Apple Notes via the `memo` CLI on macOS (create, view, edit, delete, search, move, and export notes). Use when a user asks to add a note, list notes, search notes, or manage note folders.",
+      "description_zh": "管理 Apple 备忘录（创建、搜索、导出）",
+      "description_en": "Manage Apple Notes (create, search, export)",
+      "source": "apple-notes",
+      "examples_zh": [
+        "新建一篇Apple备忘录，标题为读书笔记",
+        "搜索备忘录里关于会议的内容",
+        "把所有备忘录导出为文本",
+        "把这段文字保存到备忘录"
+      ],
+      "examples_en": [
+        "Create a new Apple Note titled Reading Notes",
+        "Search notes for meeting-related content",
+        "Export all notes to text format",
+        "Save this text to Apple Notes"
+      ]
+    },
+    {
+      "name": "Apple提醒事项",
+      "description": "Manage Apple Reminders via the `remindctl` CLI on macOS (list, add, edit, complete, delete). Supports lists, date filters, and JSON/plain output.",
+      "description_zh": "管理 Apple 提醒事项（添加、编辑、完成）",
+      "description_en": "Manage Apple Reminders (add, edit, complete)",
+      "source": "apple-reminders",
+      "examples_zh": [
+        "添加一个明天早上9点的提醒：吃药",
+        "查看今天所有未完成的提醒",
+        "把这个任务标记为已完成",
+        "新建一个购物清单提醒"
+      ],
+      "examples_en": [
+        "Add a reminder for tomorrow at 9am to take medicine",
+        "Show all incomplete reminders for today",
+        "Mark this task as completed",
+        "Create a shopping list reminder"
+      ]
+    },
+    {
+      "name": "博客监控",
+      "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+      "description_zh": "监控博客和 RSS 订阅源更新",
+      "description_en": "Monitor blogs and RSS feeds for updates",
+      "source": "blogwatcher",
+      "examples_zh": [
+        "监控36氪的最新文章更新",
+        "添加一个RSS订阅源",
+        "获取今天所有博客的新文章列表",
+        "搜索订阅源里关于人工智能的文章"
+      ],
+      "examples_en": [
+        "Monitor a blog for new posts",
+        "Add a new RSS feed to watch",
+        "Get today's new articles from all subscriptions",
+        "Search subscribed feeds for AI articles"
+      ]
+    },
+    {
+      "name": "GIF搜索",
+      "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets.",
+      "description_zh": "搜索和下载 GIF 动图",
+      "description_en": "Search and download GIFs",
+      "source": "gifgrep",
+      "examples_zh": [
+        "搜索一个表示开心的GIF",
+        "下载一个猫咪搞笑GIF",
+        "找一个适合发在微信群的庆祝GIF",
+        "搜索'加班'相关的GIF表情包"
+      ],
+      "examples_en": [
+        "Search for a happy reaction GIF",
+        "Download a funny cat GIF",
+        "Find a celebration GIF for sharing",
+        "Search for work-related GIF memes"
+      ]
+    },
+    {
+      "name": "github",
+      "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+      "description_zh": "管理 GitHub Issues、PR 和 CI",
+      "description_en": "Manage GitHub issues, PRs, and CI runs",
+      "source": "github",
+      "examples_zh": [
+        "列出我GitHub仓库里所有开放的Issue",
+        "查看最新PR的审查意见",
+        "检查CI流水线是否通过",
+        "搜索仓库里包含某关键词的代码"
+      ],
+      "examples_en": [
+        "List all open issues in my GitHub repo",
+        "Check the review comments on the latest PR",
+        "Verify if the CI pipeline passed",
+        "Search code in the repository for a keyword"
+      ]
+    },
+    {
+      "name": "健康打卡",
+      "description": "Track water and sleep with JSON file storage.",
+      "description_zh": "追踪每日饮水和睡眠记录",
+      "description_en": "Track daily water intake and sleep",
+      "source": "healthcheck",
+      "examples_zh": [
+        "记录今天喝了2000ml水",
+        "今晚睡了7小时，记录一下",
+        "查看本周的健康打卡数据",
+        "设置每天喝水目标为2500ml"
+      ],
+      "examples_en": [
+        "Log that I drank 2000ml of water today",
+        "Record 7 hours of sleep last night",
+        "Show my health tracking data for this week",
+        "Set daily water intake goal to 2500ml"
+      ]
+    },
+    {
+      "name": "Himalaya邮件",
+      "description": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language).",
+      "description_zh": "终端邮件管理（收发、搜索、多账户）",
+      "description_en": "Terminal email client with multi-account support",
+      "source": "himalaya",
+      "examples_zh": [
+        "在终端查看163邮箱的未读邮件",
+        "发一封邮件给同事",
+        "搜索企业邮箱里上周的邮件",
+        "列出所有邮件文件夹"
+      ],
+      "examples_en": [
+        "Check unread emails in the terminal",
+        "Send an email to a colleague",
+        "Search last week's emails in my work account",
+        "List all email folders"
+      ]
+    },
+    {
+      "name": "去AI味",
+      "description": "Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Detects and fixes patterns including: inflated symbolism, promotional language, superficial analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, and excessive conjunctive phrases.",
+      "description_zh": "去除文本中的 AI 写作痕迹",
+      "description_en": "Remove AI writing patterns from text",
+      "source": "humanizer",
+      "examples_zh": [
+        "把这段AI生成的文章改得更自然",
+        "去掉这段文字里明显的AI写作痕迹",
+        "用口语化的方式重写这段内容",
+        "这段文案感觉太机器人了，帮我优化一下"
+      ],
+      "examples_en": [
+        "Rewrite this AI-generated text to sound more human",
+        "Remove the robotic tone from this paragraph",
+        "Make this content sound more conversational",
+        "Polish this copy to remove AI writing patterns"
+      ]
+    },
+    {
+      "name": "iMessage",
+      "description": "iMessage/SMS CLI for listing chats, history, watch, and sending.",
+      "description_zh": "iMessage/短信收发与历史查看",
+      "description_en": "Send and browse iMessage/SMS history",
+      "source": "imsg",
+      "examples_zh": [
+        "发一条iMessage给妈妈说我到家了",
+        "查看和某个联系人的iMessage记录",
+        "搜索聊天记录里关于会议的消息",
+        "发一条短信给没有iPhone的朋友"
+      ],
+      "examples_en": [
+        "Send an iMessage to mom saying I'm home",
+        "View iMessage history with a contact",
+        "Search chat history for meeting mentions",
+        "Send an SMS to a non-iPhone user"
+      ]
+    },
+    {
+      "name": "MCP管理器",
+      "description": "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.",
+      "description_zh": "管理和调用 MCP 服务器与工具",
+      "description_en": "Manage and call MCP servers & tools",
+      "source": "mcporter",
+      "examples_zh": [
+        "列出所有已安装的MCP服务器",
+        "调用某个MCP工具并传入参数",
+        "查看某个MCP工具的参数说明",
+        "启动高德地图MCP服务"
+      ],
+      "examples_en": [
+        "List all installed MCP servers",
+        "Call a specific MCP tool with parameters",
+        "View the parameter schema for an MCP tool",
+        "Start the map MCP service"
+      ]
+    },
+    {
+      "name": "AI绘图",
+      "description": "Generate/edit images with Nano Banana Pro (Gemini 3 Pro Image). Use for image create/modify requests incl. edits. Supports text-to-image + image-to-image; 1K/2K/4K; use --input-image.",
+      "description_zh": "AI 图片生成与编辑（支持 4K）",
+      "description_en": "AI image generation & editing (up to 4K)",
+      "source": "nano-banana-pro",
+      "examples_zh": [
+        "生成一张赛博朋克风格的城市夜景图",
+        "用AI画一只可爱的卡通猫咪",
+        "生成一张适合用作头像的人物插画",
+        "把这张图片风格转换为水墨画风格"
+      ],
+      "examples_en": [
+        "Generate a cyberpunk city night scene",
+        "Draw a cute cartoon cat with AI",
+        "Create an avatar-style character illustration",
+        "Transform this image to ink wash painting style"
+      ]
+    },
+    {
+      "name": "轻量PDF编辑器",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "description_zh": "用自然语言编辑 PDF 文件",
+      "description_en": "Edit PDFs with natural language",
+      "source": "nano-pdf",
+      "examples_zh": [
+        "把PDF第3页的标题改为新标题",
+        "从PDF中提取第5到10页的内容",
+        "合并两个PDF文件",
+        "给PDF加上水印"
+      ],
+      "examples_en": [
+        "Change the title on page 3 of this PDF",
+        "Extract pages 5 to 10 from the PDF",
+        "Merge two PDF files into one",
+        "Add a watermark to this PDF"
+      ]
+    },
+    {
+      "name": "obsidian",
+      "description": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.",
+      "description_zh": "Obsidian 知识库管理与自动化",
+      "description_en": "Manage and automate Obsidian vaults",
+      "source": "obsidian",
+      "examples_zh": [
+        "在Obsidian里创建一篇新笔记",
+        "搜索Obsidian知识库里关于产品设计的内容",
+        "查看笔记的关系图谱",
+        "在Obsidian里运行一个模板"
+      ],
+      "examples_en": [
+        "Create a new note in Obsidian",
+        "Search my Obsidian vault for product design notes",
+        "View the knowledge graph",
+        "Run a template in Obsidian"
+      ]
+    },
+    {
+      "name": "批量绘图",
+      "description": "Batch-generate images via OpenAI Images API. Random prompt sampler + `index.html` gallery.",
+      "description_zh": "批量生成图片并创建图库",
+      "description_en": "Batch image generation with gallery view",
+      "source": "openai-image-gen",
+      "examples_zh": [
+        "批量生成10张不同风格的产品展示图",
+        "为这些关键词各生成一张配图",
+        "生成一组社交媒体封面图",
+        "批量生成带有品牌色调的Banner图"
+      ],
+      "examples_en": [
+        "Generate 10 product showcase images in different styles",
+        "Create images for each of these keywords",
+        "Generate a set of social media cover images",
+        "Batch create banner images with brand colors"
+      ]
+    },
+    {
+      "name": "本地语音转文字",
+      "description": "Local speech-to-text with the Whisper CLI (no API key).",
+      "description_zh": "本地语音转文字（无需 API 密钥）",
+      "description_en": "Local speech-to-text (no API key needed)",
+      "source": "openai-whisper",
+      "examples_zh": [
+        "把这个MP3文件转录成文字",
+        "转录这段会议录音，输出中文",
+        "把视频里的音频提取并转文字",
+        "转录这个播客片段"
+      ],
+      "examples_en": [
+        "Transcribe this MP3 file to text",
+        "Transcribe this meeting recording in Chinese",
+        "Extract and transcribe audio from this video",
+        "Transcribe this podcast episode"
+      ]
+    },
+    {
+      "name": "语音转文字API",
+      "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+      "description_zh": "通过 OpenAI API 转录音频",
+      "description_en": "Transcribe audio via OpenAI Whisper API",
+      "source": "openai-whisper-api",
+      "examples_zh": [
+        "用Whisper API把这段音频转成文字",
+        "转录这段英文演讲内容",
+        "把客服录音批量转文字",
+        "转录这段视频的音轨"
+      ],
+      "examples_en": [
+        "Transcribe this audio file using Whisper API",
+        "Convert this English speech to text",
+        "Batch transcribe customer service recordings",
+        "Transcribe the audio track of this video"
+      ]
+    },
+    {
+      "name": "AI交叉审查",
+      "description": "Use the @steipete/oracle CLI to bundle a prompt plus the right files and get a second-model review (API or browser) for debugging, refactors, design checks, or cross-validation.",
+      "description_zh": "调用第二个 AI 模型交叉审查代码",
+      "description_en": "Cross-validate code with a second AI model",
+      "source": "oracle",
+      "examples_zh": [
+        "用另一个AI模型审查这段代码有没有Bug",
+        "让第二个模型交叉验证这个方案是否可行",
+        "用Claude审查GPT的回答是否正确",
+        "对这段代码做安全性交叉审查"
+      ],
+      "examples_en": [
+        "Have a second AI model review this code for bugs",
+        "Cross-validate this solution with another model",
+        "Use Claude to review GPT's response for accuracy",
+        "Do a security cross-review of this code"
+      ]
+    },
+    {
+      "name": "macOS界面自动化",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "description_zh": "截取和自动化 macOS 界面操作",
+      "description_en": "Capture and automate macOS UI",
+      "source": "peekaboo",
+      "examples_zh": [
+        "截取当前macOS桌面的截图",
+        "点击屏幕上的某个按钮",
+        "读取屏幕上某个窗口的文字内容",
+        "自动化操作Finder打开文件夹"
+      ],
+      "examples_en": [
+        "Take a screenshot of the current macOS desktop",
+        "Click a button on the screen",
+        "Read text content from a window on screen",
+        "Automate Finder to open a folder"
+      ]
+    },
+    {
+      "name": "笔记搜索",
+      "description": "Local hybrid search for markdown notes and docs. Use when searching notes, finding related content, or retrieving documents from indexed collections.",
+      "description_zh": "本地 Markdown 笔记搜索引擎",
+      "description_en": "Local search engine for Markdown notes",
+      "source": "qmd",
+      "examples_zh": [
+        "搜索我本地笔记里包含'OKR'的文件",
+        "列出最近修改的Markdown文件",
+        "在笔记中全文搜索某个关键词",
+        "找出所有包含某标签的笔记"
+      ],
+      "examples_en": [
+        "Search local notes for files containing OKR",
+        "List recently modified Markdown files",
+        "Full-text search notes for a keyword",
+        "Find all notes with a specific tag"
+      ]
+    },
+    {
+      "name": "文字转语音",
+      "description": "ElevenLabs text-to-speech with mac-style say UX.",
+      "description_zh": "文字转语音（ElevenLabs）",
+      "description_en": "Text-to-speech powered by ElevenLabs",
+      "source": "sag",
+      "examples_zh": [
+        "把这段文字转成语音文件",
+        "用中文女声朗读这篇文章",
+        "生成一段适合视频配音的音频",
+        "把这段博客内容转成播客音频"
+      ],
+      "examples_en": [
+        "Convert this text to a speech audio file",
+        "Read this article aloud in a female voice",
+        "Generate audio suitable for video voiceover",
+        "Convert this blog post to podcast audio"
+      ]
+    },
+    {
+      "name": "技能创建指南",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends agent capabilities with specialized knowledge, workflows, or tool integrations.",
+      "description_zh": "创建和维护自定义技能的指南",
+      "description_en": "Guide for creating custom skills",
+      "source": "skill-creator",
+      "examples_zh": [
+        "帮我创建一个能查询天气的自定义技能",
+        "如何为企业内部工具写一个Skill",
+        "创建一个包装CLI工具的技能",
+        "指导我如何编写SKILL.md文件"
+      ],
+      "examples_en": [
+        "Help me create a custom weather query skill",
+        "How to write a skill for internal tools?",
+        "Create a skill that wraps a CLI tool",
+        "Guide me through writing a SKILL.md file"
+      ]
+    },
+    {
+      "name": "Skill安全审计（云鼎实验室）",
+      "description": "腾讯云鼎实验室出品，Skill安全审查工具。对用户指定的skill.md文件及其配套的文档、程序、脚本等进行全面安全审计，确保引用安全",
+      "description_zh": "腾讯云鼎出品，Skill 安全审计工具",
+      "description_en": "Tencent YunDing skill security auditing tool",
+      "source": "skills-security-check",
+      "examples_zh": [
+        "对这个社区技能做安全审计",
+        "检查技能里是否有敏感信息泄漏风险",
+        "审计技能的网络访问权限",
+        "对这个技能做全面的安全评估"
+      ],
+      "examples_en": [
+        "Audit this community skill for security issues",
+        "Check for sensitive data leak risks in the skill",
+        "Review the network access permissions",
+        "Perform a comprehensive security assessment"
+      ]
+    },
+    {
+      "name": "音频可视化",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "description_zh": "从音频生成频谱图和可视化",
+      "description_en": "Generate spectrograms from audio",
+      "source": "songsee",
+      "examples_zh": [
+        "把这首歌生成频谱可视化图",
+        "从这段音频生成波形图",
+        "分析这段音频的频率分布",
+        "生成这首歌的音频可视化动画"
+      ],
+      "examples_en": [
+        "Generate a spectrogram for this audio file",
+        "Create a waveform visualization for this song",
+        "Analyze the frequency distribution of this audio",
+        "Generate an audio visualization animation"
+      ]
+    },
+    {
+      "name": "内容总结",
+      "description": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
+      "description_zh": "总结网页、PDF、音频和视频内容",
+      "description_en": "Summarize web pages, PDFs, audio & video",
+      "source": "summarize",
+      "examples_zh": [
+        "总结这篇36kr的文章",
+        "把这个B站视频的内容总结一下",
+        "总结这个PDF报告的核心观点",
+        "把这期播客的内容提炼成要点"
+      ],
+      "examples_en": [
+        "Summarize this article from the URL",
+        "Summarize the content of this YouTube video",
+        "Extract key points from this PDF report",
+        "Condense this podcast episode into bullet points"
+      ]
+    },
+    {
+      "name": "Things任务",
+      "description": "Manage Things 3 via the `things` CLI on macOS (add/update projects+todos via URL scheme; read/search/list from the local Things database). Use when a user asks to add a task to Things, list inbox/today/upcoming, search tasks, or inspect projects/areas/tags.",
+      "description_zh": "管理 Things 3 任务和项目",
+      "description_en": "Manage Things 3 tasks and projects",
+      "source": "things-mac",
+      "examples_zh": [
+        "在Things里添加一个今天要做的任务",
+        "查看我Things收件箱里的所有任务",
+        "把这个任务标记为已完成",
+        "搜索Things里包含某关键词的任务"
+      ],
+      "examples_en": [
+        "Add a task to Things for today",
+        "Show all tasks in my Things inbox",
+        "Mark this task as completed in Things",
+        "Search Things for tasks containing a keyword"
+      ]
+    },
+    {
+      "name": "TDesign 微信小程序组件",
+      "description": "TDesign WeChat Mini Program UI component library by Tencent. Use when building WeChat mini apps with TDesign components (Button, Dialog, Input, Tabs, Chat, etc.), implementing TDesign design system, customizing themes/dark mode, or building AI chat interfaces in mini programs.",
+      "description_zh": "TDesign 微信小程序组件库（60+ 组件、主题定制、AI 聊天）",
+      "description_en": "TDesign WeChat Mini Program UI components, themes & AI chat",
+      "source": "tdesign-miniprogram",
+      "examples_zh": [
+        "在微信小程序里使用TDesign的Button组件",
+        "查看TDesign的Toast组件用法",
+        "用TDesign实现一个底部导航栏",
+        "搜索TDesign中的表单组件文档"
+      ],
+      "examples_en": [
+        "Use TDesign Button component in WeChat Mini Program",
+        "Check usage of TDesign Toast component",
+        "Implement a bottom navigation bar with TDesign",
+        "Search TDesign form component documentation"
+      ]
+    },
+    {
+      "name": "tmux",
+      "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+      "description_zh": "远程控制 tmux 交互式终端会话",
+      "description_en": "Remote-control tmux terminal sessions",
+      "source": "tmux",
+      "examples_zh": [
+        "在tmux里新建一个会话",
+        "列出所有活跃的tmux会话",
+        "向tmux面板发送一条命令",
+        "把当前tmux面板的内容截取出来"
+      ],
+      "examples_en": [
+        "Create a new tmux session",
+        "List all active tmux sessions",
+        "Send a command to a tmux pane",
+        "Capture the current tmux pane output"
+      ]
+    },
+    {
+      "name": "trello",
+      "description": "Manage Trello boards, lists, and cards via the Trello REST API.",
+      "description_zh": "管理 Trello 看板、列表和卡片",
+      "description_en": "Manage Trello boards, lists, and cards",
+      "source": "trello",
+      "examples_zh": [
+        "在Trello看板里新建一张卡片",
+        "把某张卡片移到'进行中'列表",
+        "查看今天到期的所有Trello卡片",
+        "给Trello卡片添加一个标签"
+      ],
+      "examples_en": [
+        "Create a new card on the Trello board",
+        "Move a card to the In Progress list",
+        "Show all Trello cards due today",
+        "Add a label to a Trello card"
+      ]
+    },
+    {
+      "name": "视频截帧",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "description_zh": "从视频提取帧或短片段",
+      "description_en": "Extract frames or clips from videos",
+      "source": "video-frames",
+      "examples_zh": [
+        "从这个视频中每隔1秒截取一帧",
+        "提取视频的第10秒到第20秒片段",
+        "把视频的关键帧保存为图片",
+        "从这段视频中提取指定时间点的画面"
+      ],
+      "examples_en": [
+        "Extract a frame every 1 second from this video",
+        "Extract the 10-20 second segment of the video",
+        "Save key frames as images",
+        "Extract a frame at a specific timestamp"
+      ]
+    },
+    {
+      "name": "微信小程序开发框架",
+      "description": "WeChat Mini Program (微信小程序) development framework. Use when building WeChat mini apps with WXML templates, WXSS styles, WXS scripting, component development, WeChat API integration, cloud development (云开发), and Mini Program lifecycle/performance optimization.",
+      "description_zh": "微信小程序开发框架（模板、组件、API、云开发）",
+      "description_en": "WeChat Mini Program framework (templates, components, APIs, cloud)",
+      "source": "wechat-miniprogram",
+      "examples_zh": [
+        "查看微信小程序的API文档",
+        "用云开发创建一个数据库",
+        "实现微信小程序的用户登录",
+        "查看某个小程序组件的使用示例"
+      ],
+      "examples_en": [
+        "View WeChat Mini Program API documentation",
+        "Create a database with WeChat cloud development",
+        "Implement user login for WeChat Mini Program",
+        "Check usage examples for a mini program component"
+      ]
+    },
+    {
+      "name": "WhatsApp",
+      "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+      "description_zh": "发送 WhatsApp 消息和同步历史",
+      "description_en": "Send WhatsApp messages & sync history",
+      "source": "wacli",
+      "examples_zh": [
+        "通过WhatsApp发一条消息给朋友",
+        "查看WhatsApp最新收到的消息",
+        "发送一张图片到WhatsApp群组",
+        "同步WhatsApp聊天记录"
+      ],
+      "examples_en": [
+        "Send a WhatsApp message to a friend",
+        "Check the latest WhatsApp messages",
+        "Send an image to a WhatsApp group",
+        "Sync WhatsApp chat history"
+      ]
+    },
+    {
+      "name": "天气查询",
+      "description": "Get current weather and forecasts (no API key required).",
+      "description_zh": "查询天气预报，无需 API 密钥",
+      "description_en": "Weather forecasts, no API key needed",
+      "source": "weather",
+      "examples_zh": [
+        "查一下北京明天的天气",
+        "本周上海的天气预报",
+        "深圳明天会下雨吗",
+        "查询成都未来3天的气温"
+      ],
+      "examples_en": [
+        "What's the weather in Beijing tomorrow?",
+        "Show the weekly forecast for Shanghai",
+        "Will it rain in Shenzhen tomorrow?",
+        "Get the 3-day temperature forecast for Chengdu"
+      ]
+    },
+    {
+      "name": "Twitter分析",
+      "description": "A Twitter research and content intelligence skill. Use to analyze Twitter profiles, threads, and conversations for identifying pain points, extracting content angles, and converting Twitter intelligence into actionable insights.",
+      "description_zh": "Twitter 研究与内容情报分析",
+      "description_en": "Twitter research & content intelligence",
+      "source": "xurl",
+      "examples_zh": [
+        "分析这个Twitter账号的内容风格",
+        "提取这个推文串的核心观点",
+        "研究某个话题在Twitter上的讨论热度",
+        "把这个Twitter帖子的内容总结一下"
+      ],
+      "examples_en": [
+        "Analyze the content style of this Twitter account",
+        "Extract key insights from this tweet thread",
+        "Research how hot a topic is on Twitter",
+        "Summarize the content of this Twitter post"
+      ]
+    },
+    {
+      "name": "自动安装IM渠道",
+      "description": "Automate WorkBuddy channel integration setup using playwright-cli. Supports Feishu and QQ Bot channels. Creates apps, configures bot capabilities, permissions, event subscriptions, callbacks, and publishes. Trigger when user mentions: 配置飞书, 接入飞书, WorkBuddy飞书, feishu setup, 飞书机器人配置, 配置QQ, 接入QQ, QQ机器人, qq bot setup, WorkBuddy QQ.",
+      "description_zh": "自动配置飞书、QQ Bot 渠道集成",
+      "description_en": "Auto-setup Feishu & QQ Bot channels",
+      "source": "workbuddy-channel-setup",
+      "examples_zh": [
+        "自动配置飞书机器人渠道",
+        "帮我接入QQ Bot渠道",
+        "配置WorkBuddy的飞书集成",
+        "一键完成飞书机器人的权限配置"
+      ],
+      "examples_en": [
+        "Auto-configure Feishu bot channel",
+        "Set up QQ Bot channel integration",
+        "Configure WorkBuddy Feishu integration",
+        "One-click setup Feishu bot permissions"
+      ]
+    },
+    {
+      "name": "skill-vetter",
+      "description": "Security-first skill vetting for AI agents. Use before installing any skill from community, GitHub, or other sources. Checks for red flags, permission scope, and suspicious patterns.",
+      "description_zh": "安装前审查技能的安全性",
+      "description_en": "Security-first skill vetting before install",
+      "source": "skill-vetter",
+      "examples_zh": [
+        "安装这个技能前帮我检查安全性",
+        "审查这个社区技能有没有风险",
+        "检查技能的权限范围是否合理",
+        "这个第三方技能可信吗？帮我评估一下"
+      ],
+      "examples_en": [
+        "Check this skill for security issues before installing",
+        "Review this community skill for risks",
+        "Verify if the skill's permission scope is reasonable",
+        "Is this third-party skill trustworthy? Evaluate it."
+      ]
+    },
+    {
+      "name": "MBTI人格诊断",
+      "description": "AI Agent personality diagnosis and configuration system based on MBTI framework. Use when users want to (1) test/diagnose an Agent's personality type, (2) understand the gap between Agent's actual personality and user's desired personality, (3) generate configuration recommendations to adjust Agent behavior, (4) customize Agent's communication style, proactivity, reasoning approach, or execution patterns. Supports both free tier (quick assessment) and premium tier (full 93-question assessment with detailed diagnostics).",
+      "description_zh": "基于 MBTI 框架的 AI Agent 人格诊断与配置系统",
+      "description_en": "AI Agent personality diagnosis and configuration based on MBTI framework",
+      "source": "agent-mbti",
+      "examples_zh": [
+        "诊断一下当前Agent的MBTI人格类型",
+        "我希望Agent更主动，帮我调整配置",
+        "测试Agent的沟通风格偏向哪种类型",
+        "生成Agent的人格优化建议"
+      ],
+      "examples_en": [
+        "Diagnose the current Agent's MBTI personality type",
+        "I want the Agent to be more proactive, adjust its config",
+        "Test which personality type the Agent's style fits",
+        "Generate personality optimization recommendations for Agent"
+      ],
+      "version": "0.1.1"
+    },
+    {
+      "name": "Skill安全扫描（朱雀实验室）",
+      "description": "Scan any agent skill for security risks before you install or use it. Powered by Tencent Zhuque Lab A.I.G (AI-Infra-Guard). 100% local static analysis — no file contents or credentials leave your device. Triggers on: 这个 skill 安全吗, skill 安全扫描, 检查 skill 安全, audit skill, scan skill, check skill safety, analyze skill, inspect skill, verify skill, skill security, skill supply chain.",
+      "description_zh": "朱雀实验室出品，Skill 安全风险扫描",
+      "description_en": "Tencent Zhuque skill security scanner (local-only)",
+      "source": "skill-scanner",
+      "examples_zh": [
+        "扫描这个技能文件有没有安全风险",
+        "检查某个skill是否存在恶意代码",
+        "审查技能的权限是否过于宽泛",
+        "对这个第三方技能做安全扫描"
+      ],
+      "examples_en": [
+        "Scan this skill file for security risks",
+        "Check if this skill contains malicious code",
+        "Review if the skill's permissions are too broad",
+        "Run a security scan on this third-party skill"
+      ]
+    },
+    {
+      "name": "ArXiv论文精读",
+      "description": "利用python，指定某个arxiv_id/url， 基于 LLM Agent 对这篇arxiv论文进行分类与深度阅读，直接print打印阅读笔记",
+      "description_zh": "基于 LLM 的 ArXiv 论文分类与深度阅读工具",
+      "description_en": "LLM-based ArXiv paper classification and in-depth reading tool",
+      "source": "arxiv-reader",
+      "examples_zh": [
+        "深度阅读 arxiv.org/abs/2303.08774 这篇论文",
+        "帮我精读并总结这篇ArXiv论文",
+        "对这篇LLM论文做分类和阅读笔记",
+        "分析这篇RAG相关论文的核心贡献"
+      ],
+      "examples_en": [
+        "Deep read the paper at arxiv.org/abs/2303.08774",
+        "Summarize and annotate this ArXiv paper",
+        "Classify and take notes on this LLM paper",
+        "Analyze the core contributions of this RAG paper"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "name": "ArXiv论文追踪",
+      "description": "Search and summarize papers from ArXiv. Use when the user asks for the latest research, specific topics on ArXiv, or a daily summary of AI papers.",
+      "description_zh": "搜索和总结 ArXiv 最新研究论文",
+      "description_en": "Search and summarize the latest research papers from ArXiv",
+      "source": "arxiv-watcher",
+      "examples_zh": [
+        "搜索ArXiv上最新的大语言模型论文",
+        "今天有哪些关于Agent的新论文",
+        "追踪ArXiv上关于RAG的最新研究",
+        "每日总结AI领域的新论文"
+      ],
+      "examples_en": [
+        "Search for latest LLM papers on ArXiv",
+        "What new agent-related papers came out today?",
+        "Track latest RAG research on ArXiv",
+        "Daily summary of new AI papers on ArXiv"
+      ]
+    },
+    {
+      "name": "品牌设计规范",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "description_zh": "应用 Anthropic 品牌配色和排版到设计产物",
+      "description_en": "Apply Anthropic brand colors and typography to design artifacts",
+      "source": "brand-guidelines",
+      "examples_zh": [
+        "按照Anthropic品牌规范设计这个页面",
+        "用品牌色生成一张Banner图",
+        "检查这个设计是否符合品牌配色规范",
+        "为这个组件应用Anthropic的排版样式"
+      ],
+      "examples_en": [
+        "Design this page following Anthropic brand guidelines",
+        "Generate a banner with brand colors",
+        "Check if this design follows brand color standards",
+        "Apply Anthropic typography to this component"
+      ]
+    },
+    {
+      "name": "canvas-design（视觉设计）",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+      "description_zh": "基于设计哲学创作精美视觉艺术（PNG/PDF）",
+      "description_en": "Create beautiful visual art in PNG and PDF using design philosophy",
+      "source": "canvas-design",
+      "examples_zh": [
+        "设计一张赛博朋克风格的海报",
+        "制作一张活动宣传图（PNG格式）",
+        "设计一组社交媒体图片素材",
+        "创作一张科技感的封面图"
+      ],
+      "examples_en": [
+        "Design a cyberpunk-style poster",
+        "Create an event promotional image in PNG format",
+        "Design a set of social media images",
+        "Create a tech-themed cover image"
+      ]
+    },
+    {
+      "name": "内容工厂",
+      "description": "Multi-agent content production system. One piece of source content becomes many formats — social posts, email, scripts, headlines, and more. Five specialized agent personas: Writer, Remixer, Editor, Scriptwriter, and Headline Machine.",
+      "description_zh": "多智能体内容生产系统，一份素材生成多种格式",
+      "description_en": "Multi-agent content production system, one source to many formats",
+      "source": "content-factory",
+      "examples_zh": [
+        "把这篇文章拆解成微博、微信、邮件等多种格式",
+        "把这个产品发布稿改写成5种不同的内容形式",
+        "用内容工厂批量生产这个主题的内容",
+        "把这篇长文转化为社交媒体推文和邮件模板"
+      ],
+      "examples_en": [
+        "Repurpose this article into multiple formats",
+        "Rewrite this press release into 5 different content forms",
+        "Mass-produce content on this topic",
+        "Transform this long article into social posts and email templates"
+      ]
+    },
+    {
+      "name": "内容分发",
+      "description": "Transform long-form content into platform-optimized snippets. Your agent takes one blog post, video transcript, or podcast notes and generates ready-to-publish Twitter threads, LinkedIn posts, email newsletters, and Instagram captions. Maintains voice consistency while adapting to each platform's format, length, and engagement patterns. Configure tone preferences, platform priorities, and output formats. Use when publishing content across multiple channels, repurposing existing material, or maximizing reach from a single piece of content.",
+      "description_zh": "将长文内容转化为多平台优化的社交媒体片段",
+      "description_en": "Transform long-form content into platform-optimized social media snippets",
+      "source": "content-repurposer",
+      "examples_zh": [
+        "把这篇博客改成微信公众号文章格式",
+        "把这篇文章拆解为微博短文和抖音脚本",
+        "把这段视频转录改写为小红书笔记",
+        "把这个播客内容整理成知乎文章"
+      ],
+      "examples_en": [
+        "Transform this blog post for Xiaohongshu",
+        "Break this article into short social posts and video scripts",
+        "Rewrite this video transcript as a platform-optimized post",
+        "Adapt this podcast content as a LinkedIn article"
+      ],
+      "version": "1.1.0"
+    },
+    {
+      "name": "财报追踪",
+      "description": "AI 驱动的财报追踪器，自动扫描 A 股/美股财报日历，推送重要财报更新",
+      "description_zh": "AI 驱动的 A 股/美股财报追踪与智能分析推送",
+      "description_en": "AI-powered earnings tracker for A-share and US stock financial reports",
+      "source": "earnings-tracker",
+      "examples_zh": [
+        "帮我查看下周A股的重要财报日历",
+        "追踪腾讯下季度的财报发布时间",
+        "扫描美股本周的财报预告",
+        "提醒我关注的A股公司的业绩公告"
+      ],
+      "examples_en": [
+        "Show me next week's important A-share earnings calendar",
+        "Track when Tencent's quarterly report will be released",
+        "Scan US stock earnings announcements this week",
+        "Alert me to earnings reports for companies I follow"
+      ],
+      "version": "1.1.0"
+    },
+    {
+      "name": "邮件管理",
+      "description": "Email management and automation. Send, read, search, and organize emails across multiple providers.",
+      "description_zh": "邮件管理与自动化，支持多邮件服务商收发搜索",
+      "description_en": "Email management and automation across multiple providers",
+      "source": "email-skill",
+      "examples_zh": [
+        "发一封邮件到企业邮箱",
+        "查看163邮箱的未读邮件",
+        "把这封邮件转发给同事",
+        "搜索邮箱里关于合同的往来邮件"
+      ],
+      "examples_en": [
+        "Send an email to a work address",
+        "Check unread emails in my inbox",
+        "Forward this email to a colleague",
+        "Search for contract-related email correspondence"
+      ],
+      "version": "0.1.0"
+    },
+    {
+      "name": "GitHub热门项目",
+      "description": "GitHub Trending Monitor. Fetch GitHub trending repos by daily/weekly/monthly period using real GitHub Search API. Runs scripts/github_trending.py (no pip deps, stdlib only). Use when user asks for 今日热门, 本周热门, 本月热门, GitHub trending, 开源动态, or popular repos. Supports language filter (python/javascript/go/rust etc.) and GITHUB_TOKEN for higher rate limits. 触发词：GitHub、trending、开源、热门项目.",
+      "description_zh": "获取 GitHub 今日/本周/本月热门项目，支持语言过滤",
+      "description_en": "Fetch GitHub trending repos (daily/weekly/monthly) with language filter",
+      "source": "github-trending-cn",
+      "examples_zh": [
+        "获取今天GitHub上最热门的项目",
+        "本周GitHub上Python最热门的仓库有哪些",
+        "本月GitHub开源项目趋势排行榜",
+        "查看GitHub上最近活跃的Rust项目"
+      ],
+      "examples_en": [
+        "Get today's hottest GitHub repositories",
+        "Show this week's trending Python repos on GitHub",
+        "Monthly GitHub open source project rankings",
+        "Check recently active Rust projects on GitHub"
+      ]
+    },
+    {
+      "name": "GitHub AI趋势追踪",
+      "description": "Generate GitHub AI trending project reports as formatted text leaderboards. Fetches top-starred AI/ML/LLM repos by daily, weekly, or monthly period and renders a styled leaderboard. Use when the user asks for AI project trends, GitHub trending, AI leaderboard, or wants to see popular AI repos.",
+      "description_zh": "生成 GitHub AI 热门项目趋势排行榜报告",
+      "description_en": "Generate GitHub AI trending project leaderboard reports",
+      "source": "github-ai-trends",
+      "examples_zh": [
+        "生成本周GitHub上AI项目热度排行榜",
+        "查看今天GitHub上最热的LLM项目",
+        "获取本月AI/ML领域最受关注的仓库列表",
+        "生成一份GitHub AI趋势周报"
+      ],
+      "examples_en": [
+        "Generate this week's GitHub AI project rankings",
+        "Show today's hottest LLM repos on GitHub",
+        "Get the most starred AI/ML repos this month",
+        "Create a GitHub AI trends weekly report"
+      ],
+      "version": "1.1.0"
+    },
+    {
+      "name": "goal-tracker（目标追踪）",
+      "description": "Track long-term goals with milestones, daily logging, and accountability. Use when users want to set goals, log daily progress, update milestones, generate weekly summaries, or view an HTML dashboard of their goal progress.",
+      "description_zh": "追踪长期目标、里程碑、每日记录与问责系统",
+      "description_en": "Track long-term goals with milestones, daily logging, and accountability",
+      "source": "goal-tracker",
+      "examples_zh": [
+        "设定一个新目标：30天读完5本书",
+        "记录今天完成了目标里的哪些里程碑",
+        "查看我本月目标的完成进度",
+        "生成本周目标追踪的HTML仪表盘"
+      ],
+      "examples_en": [
+        "Set a new goal: read 5 books in 30 days",
+        "Log today's milestone completions",
+        "Check my goal completion progress this month",
+        "Generate an HTML dashboard for my weekly goals"
+      ]
+    },
+    {
+      "name": "习惯打卡",
+      "description": "Build habits with streaks, reminders, and progress visualization. Use when users want to create daily/weekly habits, track streaks, set reminders, or view habit progress over time.",
+      "description_zh": "通过打卡、连续记录和可视化培养良好习惯",
+      "description_en": "Build habits with streaks, reminders, and progress visualization",
+      "source": "habit-tracker",
+      "examples_zh": [
+        "打卡今天的跑步习惯",
+        "查看我的习惯连续打卡天数",
+        "新增一个每天冥想10分钟的习惯",
+        "查看本月习惯完成率统计"
+      ],
+      "examples_en": [
+        "Check in for my running habit today",
+        "View my habit streak count",
+        "Add a new daily 10-minute meditation habit",
+        "See my habit completion rate for this month"
+      ]
+    },
+    {
+      "name": "IMAP/SMTP邮件",
+      "description": "Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, mark as read/unread, and send emails with attachments. Supports multiple accounts. Works with any IMAP/SMTP server including Gmail, Outlook, 163.com, vip.163.com, 126.com, vip.126.com, 188.com, and vip.188.com.",
+      "description_zh": "通过 IMAP/SMTP 收发邮件，支持多账户和附件",
+      "description_en": "Read and send email via IMAP/SMTP with multi-account and attachment support",
+      "source": "imap-smtp-email",
+      "examples_zh": [
+        "用IMAP收取163邮箱的新邮件",
+        "通过SMTP发送一封邮件",
+        "搜索企业邮箱里来自某人的邮件",
+        "把邮件标记为已读"
+      ],
+      "examples_en": [
+        "Fetch new emails from 163 via IMAP",
+        "Send an email via SMTP",
+        "Search work email for messages from a specific person",
+        "Mark emails as read"
+      ],
+      "version": "0.0.10"
+    },
+    {
+      "name": "宏观数据监控",
+      "description": "每日宏观数据监控和推送。自动浏览免费数据源（Trading Economics、FRED、国家统计局、央行官网、财联社等），整理整合过去24小时发布的宏观数据和政策信息，并推送给用户。通过 cron 每天晚上10点自动触发。",
+      "description_zh": "每日自动采集宏观经济数据和政策信息并推送",
+      "description_en": "Daily macro economic data monitoring and push notifications",
+      "source": "macro-monitor",
+      "examples_zh": [
+        "获取今天发布的A股宏观经济数据",
+        "查看央行最新的货币政策动态",
+        "总结本周重要的宏观经济事件",
+        "追踪CPI和PPI最新数据"
+      ],
+      "examples_en": [
+        "Get today's released A-share macroeconomic data",
+        "Check the latest central bank monetary policy updates",
+        "Summarize this week's major macroeconomic events",
+        "Track the latest CPI and PPI figures"
+      ],
+      "version": "1.0.2"
+    },
+    {
+      "name": "MCP开发指南",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "description_zh": "MCP 服务器开发指南，集成外部 API 和服务",
+      "description_en": "Guide for creating MCP servers to integrate external APIs and services",
+      "source": "mcp-builder",
+      "examples_zh": [
+        "帮我用Python的FastMCP创建一个MCP服务器",
+        "如何用Node.js实现一个MCP工具",
+        "帮我设计一个调用高德地图API的MCP工具",
+        "如何为MCP服务器写测试用例"
+      ],
+      "examples_en": [
+        "Help me create an MCP server with Python FastMCP",
+        "How to implement an MCP tool in Node.js?",
+        "Design an MCP tool that calls a map API",
+        "How to write tests for an MCP server?"
+      ]
+    },
+    {
+      "name": "多引擎搜索",
+      "description": "Multi search engine integration with 17 engines (8 CN + 9 Global). Supports advanced search operators, time filters, site search, privacy engines, and WolframAlpha knowledge queries. No API keys required.",
+      "description_zh": "集成 17 个搜索引擎（8 国内 + 9 国际），无需 API",
+      "description_en": "Multi search engine integration with 17 engines (8 CN + 9 Global), no API keys",
+      "source": "multi-search-engine",
+      "examples_zh": [
+        "用百度搜索人工智能最新进展",
+        "同时在多个搜索引擎搜索某关键词",
+        "用必应搜索技术文档",
+        "在Wolfram Alpha查询数学公式"
+      ],
+      "examples_en": [
+        "Search for AI latest developments with Baidu",
+        "Search a keyword across multiple engines simultaneously",
+        "Use Bing to search technical documentation",
+        "Query a math formula on Wolfram Alpha"
+      ],
+      "version": "2.0.1"
+    },
+    {
+      "name": "新闻摘要",
+      "description": "This skill should be used when the user asks for news updates, daily briefings, or what's happening in the world. Fetches news from trusted international RSS feeds and can create voice summaries.",
+      "description_zh": "从国际 RSS 源获取新闻并生成摘要和语音播报",
+      "description_en": "Fetch and summarize news from international RSS feeds with voice support",
+      "source": "news-summary",
+      "examples_zh": [
+        "总结今天的科技新闻要点",
+        "获取36氪今天的头条新闻",
+        "把虎嗅最新文章总结成语音播报",
+        "给我一份今日AI领域新闻摘要"
+      ],
+      "examples_en": [
+        "Summarize today's top tech news",
+        "Get today's headlines from tech media",
+        "Convert latest articles to audio briefing",
+        "Give me a daily AI news digest"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "name": "Joplin笔记管理",
+      "description": "Joplin — Note Manager — personal knowledge base. Personal productivity tool. Use when you need Joplin capabilities for personal organization, tracking, or management.",
+      "description_zh": "基于 Joplin 的个人笔记管理与知识库工具",
+      "description_en": "Joplin-based personal note manager and knowledge base tool",
+      "source": "note-organizer",
+      "examples_zh": [
+        "在Joplin里新建一篇笔记",
+        "搜索Joplin知识库里关于编程的内容",
+        "把这段文字保存到Joplin",
+        "整理并归类我的Joplin笔记"
+      ],
+      "examples_en": [
+        "Create a new note in Joplin",
+        "Search Joplin knowledge base for programming content",
+        "Save this text to Joplin",
+        "Organize and categorize my Joplin notes"
+      ]
+    },
+    {
+      "name": "学术引用管理",
+      "description": "Add real references and standardize citations for research papers and theses. Supports CrossRef integration, multiple citation formats (APA/MLA/Chicago/GB-T), batch import, and auto-detection of citation needs.",
+      "description_zh": "学术引用管理，为论文添加真实参考文献并规范引用标注",
+      "description_en": "Academic citation manager for papers and theses with CrossRef integration",
+      "source": "citation-manager",
+      "examples_zh": [
+        "为这篇论文添加APA格式的参考文献",
+        "自动补全这篇毕业论文的引用标注",
+        "把参考文献列表转换为MLA格式",
+        "用CrossRef查找并添加真实引用"
+      ],
+      "examples_en": [
+        "Add APA-formatted references to this paper",
+        "Auto-complete citations in this thesis",
+        "Convert reference list to MLA format",
+        "Find and add real citations using CrossRef"
+      ]
+    },
+    {
+      "name": "创业验证",
+      "description": "Validate startup ideas using Hexa's Opportunity Memo framework and Perceived Created Value (PCV) methodology. Assess problem-solution fit, market opportunity, and determine if an idea is worth pursuing.",
+      "description_zh": "创业想法验证，评估问题-方案匹配度与市场机会",
+      "description_en": "Validate startup ideas with problem-solution fit and market assessment",
+      "source": "idea-validator",
+      "examples_zh": [
+        "验证一下'AI辅助写作工具'这个创业方向",
+        "评估我的商业想法可行性",
+        "分析这个产品的市场机会大小",
+        "帮我判断这个创业方向值不值得做"
+      ],
+      "examples_en": [
+        "Validate my startup idea for an AI writing tool",
+        "Evaluate the feasibility of my business idea",
+        "Analyze the market opportunity for this product",
+        "Should I pursue this startup direction? Help me decide."
+      ]
+    },
+    {
+      "name": "市场调研",
+      "description": "Market research specialist focused on comprehensive market analysis, consumer behavior insights, and market opportunity identification. Excels at quantitative market sizing (TAM/SAM/SOM), qualitative consumer research, and strategic market positioning analysis.",
+      "description_zh": "市场调研专家，提供市场分析、消费者洞察与机会评估",
+      "description_en": "Market research specialist for analysis, consumer insights, and sizing",
+      "source": "market-researcher",
+      "examples_zh": [
+        "帮我估算国内AI写作工具的市场规模",
+        "分析目标用户的消费行为和痛点",
+        "对比分析竞品的优劣势",
+        "帮我生成一份市场调研报告框架"
+      ],
+      "examples_en": [
+        "Estimate the market size for AI writing tools in China",
+        "Analyze target user behavior and pain points",
+        "Compare advantages and disadvantages of competitors",
+        "Create a market research report framework"
+      ]
+    },
+    {
+      "name": "skyline渲染引擎",
+      "description": "WeChat Mini Program Skyline rendering engine. Use when developing with Skyline renderer, including components (scroll-view, swiper, draggable-sheet), WXSS styles, worklet animations, custom routes/transitions, scroll APIs, and Skyline configuration/migration.",
+      "description_zh": "微信小程序 Skyline 渲染引擎（组件、动画、路由、样式）",
+      "description_en": "WeChat Mini Program Skyline engine (components, animations, routes, styles)",
+      "source": "skyline",
+      "examples_zh": [
+        "在微信小程序里使用Skyline渲染引擎",
+        "如何在Skyline里实现流畅的滚动动画",
+        "用worklet实现Skyline的手势交互",
+        "查看Skyline的scroll-view组件文档"
+      ],
+      "examples_en": [
+        "Use Skyline rendering engine in WeChat Mini Program",
+        "Implement smooth scroll animation in Skyline",
+        "Use worklet to implement gesture interaction in Skyline",
+        "Check Skyline scroll-view component documentation"
+      ]
+    },
+    {
+      "name": "Google全家桶",
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+      "description_zh": "Google Workspace 全家桶（邮件、日历、文档等）",
+      "description_en": "Google Workspace: Gmail, Calendar, Drive & more",
+      "source": "gog",
+      "examples_zh": [
+        "查看我的Gmail未读邮件",
+        "在Google日历新建一个会议",
+        "搜索我的Google Drive文档",
+        "给联系人发一封邮件"
+      ],
+      "examples_en": [
+        "Check my unread Gmail messages",
+        "Create a new event in Google Calendar",
+        "Search my Google Drive for documents",
+        "Send an email to a contact"
+      ]
+    },
+    {
+      "name": "Android 原生开发",
+      "description": "Android native application development and UI design guide. Covers Material Design 3, Kotlin/Compose development, project configuration, accessibility, and build troubleshooting. Read this before Andr",
+      "description_zh": "安卓原生应用开发指南",
+      "description_en": "Android native development guide (Material Design 3, Kotlin/Compose)",
+      "source": "android-native-dev",
+      "examples_zh": [
+        "帮我用 Kotlin 实现一个列表页",
+        "用 Jetpack Compose 写一个卡片组件",
+        "检查我的 Android 代码是否符合 Material Design 3"
+      ],
+      "examples_en": [
+        "Implement a list screen in Kotlin",
+        "Create a card component with Jetpack Compose",
+        "Review my Android code for Material Design 3 compliance"
+      ]
+    },
+    {
+      "name": "Flutter 开发",
+      "description": "Flutter cross-platform development guide covering widget patterns, Riverpod/Bloc state management, GoRouter navigation, performance optimization, and platform-specific implementations. Includes const ",
+      "description_zh": "Flutter 跨平台开发指南",
+      "description_en": "Flutter cross-platform development guide",
+      "source": "flutter-dev",
+      "examples_zh": [
+        "用 Riverpod 实现状态管理",
+        "帮我写一个 Flutter 底部导航栏",
+        "用 GoRouter 配置页面路由"
+      ],
+      "examples_en": [
+        "Implement state management with Riverpod",
+        "Build a bottom navigation bar in Flutter",
+        "Configure page routing with GoRouter"
+      ]
+    },
+    {
+      "name": "前端开发",
+      "description": "Full-stack frontend development combining premium UI design, cinematic animations,  AI-generated media assets, persuasive copywriting, and visual art. Builds complete,  visually striking web pages wit",
+      "description_zh": "前端开发与 AI 媒体生成",
+      "description_en": "Frontend development with AI media and animations",
+      "source": "frontend-dev",
+      "examples_zh": [
+        "帮我做一个产品落地页",
+        "给这个页面加上动效",
+        "用 AI 生成配图并插入页面"
+      ],
+      "examples_en": [
+        "Build a product landing page",
+        "Add cinematic animations to this page",
+        "Generate AI images and embed them in the page"
+      ]
+    },
+    {
+      "name": "全栈开发",
+      "description": "Full-stack backend architecture and frontend-backend integration guide.  TRIGGER when: building a full-stack app, creating REST API with frontend, scaffolding backend service,  building todo app, buil",
+      "description_zh": "全栈应用架构与开发指南",
+      "description_en": "Full-stack architecture and development guide",
+      "source": "fullstack-dev",
+      "examples_zh": [
+        "帮我搭建一个 Express + React 全栈项目",
+        "设计用户登录的 REST API",
+        "用 Next.js 实现前后端一体化"
+      ],
+      "examples_en": [
+        "Scaffold an Express + React full-stack project",
+        "Design a user login REST API",
+        "Implement full-stack with Next.js API routes"
+      ]
+    },
+    {
+      "name": "GIF 贴纸制作",
+      "description": "Convert photos (people, pets, objects, logos) into 4 animated GIF stickers with captions.  Use when: user wants to create cartoon stickers, GIF expressions, emoji packs, animated avatars,  or convert ",
+      "description_zh": "照片转动态 GIF 贴纸",
+      "description_en": "Convert photos to 4 animated GIF stickers with captions",
+      "source": "gif-sticker-maker",
+      "examples_zh": [
+        "把这张照片做成表情包",
+        "把我的宠物照片转成 GIF 贴纸",
+        "生成4个带字幕的动态表情"
+      ],
+      "examples_en": [
+        "Turn this photo into a GIF sticker pack",
+        "Convert my pet photo to animated stickers",
+        "Generate 4 GIF stickers with captions from this image"
+      ]
+    },
+    {
+      "name": "iOS 应用开发",
+      "description": "iOS application development guide covering UIKit, SnapKit, and SwiftUI. Includes touch targets, safe areas, navigation patterns, Dynamic Type, Dark Mode, accessibility, collection views, common UI com",
+      "description_zh": "iOS 应用开发指南",
+      "description_en": "iOS development guide (UIKit, SnapKit, SwiftUI)",
+      "source": "ios-application-dev",
+      "examples_zh": [
+        "用 SwiftUI 实现一个设置页面",
+        "检查我的 UIKit 代码是否符合 Apple HIG",
+        "帮我写一个自定义 iOS 导航栏"
+      ],
+      "examples_en": [
+        "Build a settings screen with SwiftUI",
+        "Review my UIKit code for Apple HIG compliance",
+        "Create a custom iOS navigation bar"
+      ]
+    },
+    {
+      "name": "Word 文档生成",
+      "description": "Professional DOCX document creation, editing, and formatting using OpenXML SDK (.NET).  Three pipelines: (A) create new documents from scratch, (B) fill/edit content in existing  documents, (C) apply ",
+      "description_zh": "Word 文档生成与编辑",
+      "description_en": "Generate and edit Word documents from scratch",
+      "source": "minimax-docx",
+      "examples_zh": [
+        "生成一份项目方案 Word 文档",
+        "帮我把这段内容写成 Word 报告",
+        "创建一个带表格的合同模板"
+      ],
+      "examples_en": [
+        "Generate a project proposal as a Word document",
+        "Write this content as a Word report",
+        "Create a contract template with tables"
+      ]
+    },
+    {
+      "name": "PDF 文档生成",
+      "description": "Use this skill when visual quality and design identity matter for a PDF.  CREATE (generate from scratch): \"make a PDF\", \"generate a report\", \"write a proposal\",  \"create a resume\", \"beautiful PDF\", \"p",
+      "description_zh": "高质量 PDF 文档生成",
+      "description_en": "Generate high-quality designed PDF documents",
+      "source": "minimax-pdf",
+      "examples_zh": [
+        "生成一份精美排版的 PDF 报告",
+        "把这份内容做成简历 PDF",
+        "帮我做一个产品介绍 PDF"
+      ],
+      "examples_en": [
+        "Generate a beautifully designed PDF report",
+        "Create a resume PDF from this content",
+        "Make a product introduction PDF"
+      ]
+    },
+    {
+      "name": "Excel 文件处理",
+      "description": "\"Open, create, read, analyze, edit, or validate Excel/spreadsheet files (.xlsx, .xlsm, .csv, .tsv). Use when the user asks to create, build, modify, analyze, read, validate, or format any Excel spread",
+      "description_zh": "Excel 文件创建与分析",
+      "description_en": "Create, edit, and analyze Excel spreadsheets",
+      "source": "minimax-xlsx",
+      "examples_zh": [
+        "创建一个季度财务报表 Excel",
+        "读取这个 Excel 文件并分析数据",
+        "帮我添加一个数据透视表"
+      ],
+      "examples_en": [
+        "Create a quarterly financial report in Excel",
+        "Read and analyze this Excel file",
+        "Add a pivot table to this spreadsheet"
+      ]
+    },
+    {
+      "name": "PPT 演示文稿",
+      "description": "\"Generate, edit, and read PowerPoint presentations. Create from scratch with PptxGenJS (cover, TOC, content, section divider, summary slides), edit existing PPTX via XML workflows, or extract text wit",
+      "description_zh": "PowerPoint 演示文稿生成",
+      "description_en": "Generate and edit PowerPoint presentations",
+      "source": "pptx-generator",
+      "examples_zh": [
+        "帮我生成一份产品发布 PPT",
+        "把这份大纲做成演示文稿",
+        "给这个 PPT 添加一个目录页"
+      ],
+      "examples_en": [
+        "Generate a product launch presentation",
+        "Turn this outline into a slide deck",
+        "Add a table of contents slide to this PPT"
+      ]
+    },
+    {
+      "name": "React Native 开发",
+      "description": "React Native and Expo development guide covering components, styling, animations, navigation,  state management, forms, networking, performance optimization, testing, native capabilities,  and enginee",
+      "description_zh": "React Native 跨平台开发指南",
+      "description_en": "React Native & Expo development guide",
+      "source": "react-native-dev",
+      "examples_zh": [
+        "用 Expo 创建一个新项目",
+        "实现 React Native 页面跳转动画",
+        "帮我优化这个 React Native 列表性能"
+      ],
+      "examples_en": [
+        "Create a new project with Expo",
+        "Implement page transition animations in React Native",
+        "Optimize this React Native list performance"
+      ]
+    },
+    {
+      "name": "GLSL Shader 开发",
+      "description": "Comprehensive GLSL shader techniques for creating stunning visual effects — ray marching, SDF modeling, fluid simulation, particle systems, procedural generation, lighting, post-processing, and more.",
+      "description_zh": "GLSL Shader 视觉效果开发",
+      "description_en": "GLSL shader techniques for stunning visual effects",
+      "source": "shader-dev",
+      "examples_zh": [
+        "写一个流体模拟的 GLSL Shader",
+        "帮我实现一个射线行进效果",
+        "创建一个粒子系统 Shader"
+      ],
+      "examples_en": [
+        "Write a fluid simulation GLSL shader",
+        "Implement a ray marching effect",
+        "Create a particle system shader"
+      ]
+    }
+  ]
+}

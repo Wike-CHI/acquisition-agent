@@ -1,0 +1,152 @@
+{
+  "industry": [
+    {
+      "title": "关于人工智能引发的错觉的最难回答的问题",
+      "original_title": "The hardest question to answer about AI-fueled delusions",
+      "link": "https://www.technologyreview.com/2026/03/23/1134527/the-hardest-question-to-answer-about-ai-fueled-delusions/",
+      "summary": "这个故事最初出现在我们关于人工智能的每周通讯《算法》中。要首先在您的收件箱中收到此类报道，请在此处注册。我原本打算写本周关于 A 的时事通讯",
+      "source": "MIT Technology Review",
+      "published": "Mon, 23 Mar 2026 16:31:20 +0000",
+      "fetched_at": "2026-03-24T14:12:45.150799",
+      "category": "industry"
+    },
+    {
+      "title": "Luma AI 推出 Uni-1，该模型的性能优于 Google 和 OpenAI，同时成本降低高达 30%",
+      "original_title": "Luma AI launches Uni-1, a model that outscores Google and OpenAI while costing up to 30 percent less",
+      "link": "https://venturebeat.com/technology/luma-ai-launches-uni-1-a-model-that-outscores-google-and-openai-while",
+      "summary": "",
+      "source": "VentureBeat AI",
+      "published": "Mon, 23 Mar 2026 08:00:00 GMT",
+      "fetched_at": "2026-03-24T14:13:09.507189",
+      "category": "industry"
+    },
+    {
+      "title": "又一华为天才少年入局具身创业！用视频生成数据训家用机器人，首个模型登顶具身基模榜单",
+      "original_title": "",
+      "link": "https://www.qbitai.com/category/%e8%b5%84%e8%ae%af",
+      "summary": "",
+      "source": "量子位",
+      "published": "",
+      "fetched_at": "2026-03-24T14:13:16.346677",
+      "category": "industry"
+    }
+  ],
+  "tech": [
+    {
+      "title": "伯尼·桑德斯的人工智能“陷阱”视频失败了，但模因很棒",
+      "original_title": "Bernie Sanders&#8217; AI &#8216;gotcha&#8217; video flops, but the memes are great",
+      "link": "https://techcrunch.com/2026/03/23/bernie-sanders-ai-gotcha-video-flops-but-the-memes-are-great/",
+      "summary": "参议员伯尼·桑德斯 (Bernie Sanders) 认为他欺骗了克劳德 (Claude) 揭露人工智能行业的秘密，但他实际上只是暴露了聊天机器人可以变得多么令人愉快。",
+      "source": "TechCrunch AI",
+      "published": "Mon, 23 Mar 2026 20:15:59 +0000",
+      "fetched_at": "2026-03-24T14:12:40.175517",
+      "category": "tech"
+    },
+    {
+      "title": "下载：动物福利受到 AGI 的影响，白宫公布了人工智能政策",
+      "original_title": "The Download: animal welfare gets AGI-pilled, and the White House unveils its AI policy",
+      "link": "https://www.technologyreview.com/2026/03/23/1134509/the-download-animal-welfare-agi-pilled-white-house-unveils-ai-policy/",
+      "summary": "这是今天的《下载》版本，这是我们的工作日时事通讯，每天提供技术世界中正在发生的事情。湾区的动物福利运动希望重新",
+      "source": "MIT Technology Review",
+      "published": "Mon, 23 Mar 2026 12:17:33 +0000",
+      "fetched_at": "2026-03-24T14:12:46.429197",
+      "category": "tech"
+    },
+    {
+      "title": "湾区动物福利运动希望招募人工智能",
+      "original_title": "The Bay Area’s animal welfare movement wants to recruit AI",
+      "link": "https://www.technologyreview.com/2026/03/23/1134491/the-bay-areas-animal-welfare-movement-wants-to-recruit-ai/",
+      "summary": "2 月初，动物福利倡导者和人工智能研究人员穿着袜子聚集在 Mox，这是旧金山一个杂乱的、不穿鞋的联合办公空间。黄色和红色的檐篷在头顶翻腾，佩斯",
+      "source": "MIT Technology Review",
+      "published": "Mon, 23 Mar 2026 09:00:00 +0000",
+      "fetched_at": "2026-03-24T14:12:47.781079",
+      "category": "tech"
+    },
+    {
+      "title": "下载：OpenAI 正在构建一个完全自动化的研究人员和一个迷幻试验盲点",
+      "original_title": "The Download: OpenAI is building a fully automated researcher, and a psychedelic trial blind spot",
+      "link": "https://www.technologyreview.com/2026/03/20/1134448/the-download-openai-building-fully-automated-researcher-psychedelic-drug-trial/",
+      "summary": "这是今天的《下载》版本，这是我们的工作日时事通讯，每天提供技术世界中正在发生的事情。 OpenAI 正在全力打造一个完整的",
+      "source": "MIT Technology Review",
+      "published": "Fri, 20 Mar 2026 13:15:45 +0000",
+      "fetched_at": "2026-03-24T14:12:49.320624",
+      "category": "tech"
+    },
+    {
+      "title": "OpenAI 正在全力打造全自动研究人员",
+      "original_title": "OpenAI is throwing everything into building a fully automated researcher",
+      "link": "https://www.technologyreview.com/2026/03/20/1134438/openai-is-throwing-everything-into-building-a-fully-automated-researcher/",
+      "summary": "OpenAI 正在重新调整其研究工作重点，并将其资源投入到新的重大挑战中。这家旧金山公司的目标是建立所谓的人工智能研究人员，一个完全自动化的人",
+      "source": "MIT Technology Review",
+      "published": "Fri, 20 Mar 2026 11:57:16 +0000",
+      "fetched_at": "2026-03-24T14:12:50.587195",
+      "category": "tech"
+    },
+    {
+      "title": "下载：五角大楼的新人工智能计划和下一代核反应堆",
+      "original_title": "The Download: The Pentagon&#8217;s new AI plans, and next-gen nuclear reactors",
+      "link": "https://www.technologyreview.com/2026/03/18/1134371/the-download-the-pentagons-new-ai-plans-and-next-gen-nuclear-reactors/",
+      "summary": "这是今天的《下载》版本，这是我们的工作日时事通讯，每天提供技术世界中正在发生的事情。五角大楼正在计划对人工智能公司进行培训",
+      "source": "MIT Technology Review",
+      "published": "Wed, 18 Mar 2026 12:38:00 +0000",
+      "fetched_at": "2026-03-24T14:12:57.516080",
+      "category": "tech"
+    },
+    {
+      "title": "向我们展示您的代理：VB Transform 2026 正在寻找最具创新性的代理 AI 技术",
+      "original_title": "Show us your agents: VB Transform 2026 is looking for the most innovative agentic AI technologies",
+      "link": "https://venturebeat.com/technology/calling-all-gen-ai-disruptors-of-the-enterprise-apply-now-to-present-at-transform-2026",
+      "summary": "<p>创新展示会于<a href=\"https://venturebeat.com/vbtransform2026\">2026年转型：大规模企业代理人工智能的编排</a>再次回归，将于 7 月 14 日至 15 日在门洛帕举行",
+      "source": "VentureBeat AI",
+      "published": "Mon, 23 Mar 2026 21:30:00 GMT",
+      "fetched_at": "2026-03-24T14:13:03.787623",
+      "category": "tech"
+    },
+    {
+      "title": "量子位 – 追踪人工智能新趋势，报道科技行业新突破",
+      "original_title": "",
+      "link": "http://www.qbitai.com/",
+      "summary": "",
+      "source": "量子位",
+      "published": "",
+      "fetched_at": "2026-03-24T14:13:16.346657",
+      "category": "tech"
+    }
+  ],
+  "product": [
+    {
+      "title": "什么是DeerFlow 2.0？企业应该了解这个新的、强大的本地人工智能代理编排器的哪些知识？",
+      "original_title": "What is DeerFlow 2.0 and what should enterprises know about this new, powerful local AI agent orchestrator?",
+      "link": "https://venturebeat.com/orchestration/what-is-deerflow-and-what-should-enterprises-know-about-this-new-local-ai",
+      "summary": "<p>TikTok 背后的中国科技巨头字节跳动上个月发布了可能是迄今为止最雄心勃勃的开源人工智能代理框架之一：<a href=\"https://github.com/bytedance/deer-flow\">",
+      "source": "VentureBeat AI",
+      "published": "Tue, 24 Mar 2026 02:16:00 GMT",
+      "fetched_at": "2026-03-24T14:13:01.944028",
+      "category": "product"
+    },
+    {
+      "title": "将 AI 代理演示与实际部署分开的三个学科",
+      "original_title": "The three disciplines separating AI agent demos from real-world deployment",
+      "link": "https://venturebeat.com/orchestration/the-three-disciplines-separating-ai-agent-demos-from-real-world-deployment",
+      "summary": "<p>事实证明，让人工智能代理在生产中（而不仅仅是在演示中）可靠地运行比企业预期的要困难。数据碎片化、工作流程不清晰、升级速度失控",
+      "source": "VentureBeat AI",
+      "published": "Mon, 23 Mar 2026 16:00:00 GMT",
+      "fetched_at": "2026-03-24T14:13:06.016329",
+      "category": "product"
+    }
+  ],
+  "policy": [],
+  "investment": [
+    {
+      "title": "Air Street 凭借 2.32 亿美元资金成为欧洲最大的独立风险投资公司之一",
+      "original_title": "Air Street becomes one of the largest solo VCs in Europe with $232M fund",
+      "link": "https://techcrunch.com/2026/03/23/air-street-becomes-one-of-the-largest-solo-vcs-in-europe-with-232m-fund/",
+      "summary": "伦敦的 Air Street Capital 筹集了一支大型基金 III，重点支持欧洲和北美的早期人工智能公司。",
+      "source": "TechCrunch AI",
+      "published": "Mon, 23 Mar 2026 22:36:39 +0000",
+      "fetched_at": "2026-03-24T14:12:34.894797",
+      "category": "investment"
+    }
+  ],
+  "research": []
+}

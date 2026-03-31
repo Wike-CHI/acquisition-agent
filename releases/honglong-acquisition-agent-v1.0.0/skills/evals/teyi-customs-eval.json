@@ -1,0 +1,55 @@
+{
+  "test_inputs": [
+    {
+      "id": "test_1",
+      "input": "搜索印度的输送带采购商",
+      "context": "从特易海关数据搜索印度采购商"
+    },
+    {
+      "id": "test_2",
+      "input": "查询巴西的HS编码4010进口商",
+      "context": "用HS编码搜索巴西进口商"
+    },
+    {
+      "id": "test_3",
+      "input": "获取德国客户的联系方式",
+      "context": "获取客户的邮箱和电话"
+    }
+  ],
+  
+  "evals": [
+    {
+      "name": "mentions_login_process",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["登录", "login", "特易", "fumamx"]
+    },
+    {
+      "name": "provides_search_steps",
+      "type": "llm",
+      "question": "Does the output provide clear steps for searching customs data?",
+      "pass_description": "Output includes clear search steps",
+      "fail_description": "Output lacks search guidance"
+    },
+    {
+      "name": "mentions_data_fields",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["公司名", "国家", "采购商", "供应商", "交易次数"],
+      "min_matches": 2
+    },
+    {
+      "name": "warns_about_credentials",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["账号", "密码", "凭据", "credential"]
+    },
+    {
+      "name": "has_troubleshooting",
+      "type": "llm",
+      "question": "Does the output include troubleshooting guidance for common issues?",
+      "pass_description": "Output includes troubleshooting tips",
+      "fail_description": "Output lacks troubleshooting guidance"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "codebuddy-plugins-official": {
+    "type": "zip",
+    "source": {
+      "source": "zip",
+      "url": "https://acc-1258344699.cos.accelerate.myqcloud.com/plugin-marketplace/codebuddy-plugins-official.zip",
+      "path": "https://acc-1258344699.cos.accelerate.myqcloud.com/plugin-marketplace/codebuddy-plugins-official.zip"
+    },
+    "installLocation": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\codebuddy-plugins-official",
+    "description": "Built-in marketplace: codebuddy-plugins-official",
+    "isBuiltIn": true
+  },
+  "cb_teams_marketplace": {
+    "type": "zip",
+    "source": {
+      "source": "zip",
+      "url": "https://acc-1258344699.cos.accelerate.myqcloud.com/plugin-marketplace/cb_teams_marketplace.zip",
+      "path": "https://acc-1258344699.cos.accelerate.myqcloud.com/plugin-marketplace/cb_teams_marketplace.zip"
+    },
+    "installLocation": "C:\\Users\\Administrator\\.workbuddy\\plugins\\marketplaces\\cb_teams_marketplace",
+    "description": "Built-in marketplace: cb_teams_marketplace",
+    "isBuiltIn": true
+  }
+}

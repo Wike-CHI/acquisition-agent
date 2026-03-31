@@ -1,0 +1,147 @@
+# ============================================================
+# 安全扫描插件 — 权限白名单配置参考
+# ============================================================
+#
+# 用途：记录插件运行过程中需要自动授权的所有工具调用模式。
+#       编排器在扫描初始化阶段检测用户的 .codebuddy/settings.json，
+#       如果缺失这些权限白名单，应引导用户配置以避免频繁手动授权。
+#
+# 配置位置（优先级从高到低）：
+#   1. 命令行参数（临时覆盖）
+#   2. 项目 .codebuddy/settings.local.json（个人，不提交 Git）
+#   3. 项目 .codebuddy/settings.json（团队共享）— 编排器自动配置的目标路径
+#   4. 用户 ~/.codebuddy/settings.json（全局，所有项目生效）— 需用户手动配置
+#
+# ⚠️ denyWrite 限制：
+#   settings.json 在 denyWrite 中保护了自身，插件无法直接写入用户级
+#   (~/.codebuddy/settings.json) 配置。项目级 .codebuddy/settings.json
+#   可通过编排器自动配置写入。
+#
+# 编排器自动配置：
+#   - 用户选择「自动配置」→ 写入项目 .codebuddy/settings.json（方案 3）
+#   - 用户选择「跳过」→ 不写入，用户可稍后手动编辑任意级别配置
+#
+# 建议：
+#   - 团队项目 → 自动配置（项目级，可提交 Git 共享）
+#   - 个人开发者 → 自动配置后，可手动复制到 ~/.codebuddy/settings.json 实现全局生效
+#
+# ============================================================
+
+# ---- 需要授权的工具（默认每次调用都弹出确认） ----
+#
+#   Bash    — 执行 Shell 命令（index_db.py、merge_findings.py 等）
+#   Write   — 创建/覆盖文件（Agent JSON 输出、报告等）
+#   Edit    — 编辑现有文件（内联修复）
+#   MultiEdit — 批量编辑文件（内联修复）
+#   WebSearch — 网络搜索（CVE 情报增强）
+#
+# ---- 不需要授权的工具 ----
+#
+#   Read, Grep, Glob, LSP, Task, AskUserQuestion
+
+# ============================================================
+# permissions.allow — 自动放行规则
+# ============================================================
+# 语法：ToolName(glob_pattern)
+# - 通配符 * 匹配任意字符（含路径分隔符）
+# - 匹配时为前缀匹配
+
+permissions_allow:
+  # ---- Bash：扫描脚本 ----
+  - "Bash(python3 *index_db.py*)"           # SQLite 索引库操作（init/write/query/export-json/memory-sync/update-findings）
+  - "Bash(python3 *merge_findings.py*)"      # 扫描结果合并（merge-scan / merge-verify）
+  - "Bash(python3 *generate_report.py*)"     # HTML 报告生成
+  - "Bash(python3 *checkpoint_verify.py*)"   # Agent 产物完整性校验
+
+  # ---- Bash：Git 只读操作 ----
+  - "Bash(git diff*)"                        # diff 模式获取变更文件
+  - "Bash(git ls-files*)"                    # indexer 枚举源文件
+  - "Bash(git log*)"                         # 提交历史查询
+  - "Bash(git status*)"                      # 工作区状态
+  - "Bash(git rev-parse*)"                   # Git 仓库元信息
+
+  # ---- Bash：辅助工具 ----
+  - "Bash(wc -l*)"                           # 代码行数统计
+  - "Bash(wc *)"                             # 文件统计
+  - "Bash(mkdir -p security-scan-output*)"   # 创建扫描输出目录
+  - "Bash(python3 -c*)"                      # 编排器内联 Python 片段（JSON 处理等）
+
+  # ---- Write：扫描输出目录 ----
+  - "Write(security-scan-output/*)"          # 所有扫描产物（JSON/HTML/DB）
+  - "Write(*/security-scan-output/*)"        # 兼容不同工作目录前缀
+
+# ============================================================
+# permissions.deny — 强制拦截规则（安全护栏）
+# ============================================================
+
+permissions_deny:
+  - "Bash(rm -rf /)"                         # 防止根目录删除
+  - "Bash(git push --force*)"               # 防止强制推送
+  - "Read(./.env)"                           # 保护环境变量文件
+  - "Read(./.env.*)"                         # 保护环境变量文件
+
+# ============================================================
+# 仍需手动授权的操作（不建议加入白名单）
+# ============================================================
+#
+# 以下操作具有破坏性或涉及网络请求，保留手动确认：
+#
+#   Edit(src/*)       — 内联修复修改项目源代码，用户应逐一确认
+#   MultiEdit(src/*)  — 同上
+#   WebSearch(*)      — CVE 情报增强涉及网络请求
+#   WebFetch(*)       — 暂未使用
+#
+# ============================================================
+
+# ============================================================
+# settings.json 完整示例（可直接复制到配置文件）
+# ============================================================
+#
+# {
+#   "permissions": {
+#     "allow": [
+#       "Bash(python3 *index_db.py*)",
+#       "Bash(python3 *merge_findings.py*)",
+#       "Bash(python3 *generate_report.py*)",
+#       "Bash(python3 *checkpoint_verify.py*)",
+#       "Bash(git diff*)",
+#       "Bash(git ls-files*)",
+#       "Bash(git log*)",
+#       "Bash(git status*)",
+#       "Bash(git rev-parse*)",
+#       "Bash(wc -l*)",
+#       "Bash(wc *)",
+#       "Bash(mkdir -p security-scan-output*)",
+#       "Bash(python3 -c*)",
+#       "Write(security-scan-output/*)",
+#       "Write(*/security-scan-output/*)"
+#     ],
+#     "deny": [
+#       "Bash(rm -rf /)",
+#       "Bash(git push --force*)",
+#       "Read(./.env)",
+#       "Read(./.env.*)"
+#     ]
+#   }
+# }
+#
+# ============================================================
+
+# ============================================================
+# 效果预估
+# ============================================================
+#
+# 配置前（一次 Deep 扫描）：
+#   - index_db.py Bash 调用 ~30 次 → 全部需要手动确认
+#   - git 操作 ~5 次 → 全部需要手动确认
+#   - 工具脚本 Bash ~5 次 → 全部需要手动确认
+#   - 内联 Python ~10 次 → 全部需要手动确认
+#   - Write 输出文件 ~15 次 → 全部需要手动确认
+#   - 合计约 70 次手动授权
+#
+# 配置后：
+#   - 上述操作全部自动通过
+#   - 仅 Edit/MultiEdit（修复）~5 次 + WebSearch ~3 次 需手动确认
+#   - 合计约 8 次手动授权（减少 ~90%）
+#
+# ============================================================

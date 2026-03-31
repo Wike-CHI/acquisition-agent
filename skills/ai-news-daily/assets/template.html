@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 新闻日报 - {date}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">⚡</span>
+                    AI 新闻日报
+                </h1>
+                <div class="date-display">{date}</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Overview -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">{total_count}</div>
+                    <div class="stat-label">新闻总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{industry_count}</div>
+                    <div class="stat-label">行业大事件</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{tech_count}</div>
+                    <div class="stat-label">技术突破</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{product_count}</div>
+                    <div class="stat-label">新产品发布</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{policy_count}</div>
+                    <div class="stat-label">政策法规</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{investment_count}</div>
+                    <div class="stat-label">投融资</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{research_count}</div>
+                    <div class="stat-label">学术研究</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-category="all">全部</button>
+                <button class="nav-tab" data-category="industry">行业大事件</button>
+                <button class="nav-tab" data-category="tech">技术突破</button>
+                <button class="nav-tab" data-category="product">新产品发布</button>
+                <button class="nav-tab" data-category="policy">政策法规</button>
+                <button class="nav-tab" data-category="investment">投融资</button>
+                <button class="nav-tab" data-category="research">学术研究</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Industry News -->
+            <section class="news-section" id="industry">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏢</span>
+                        行业大事件
+                    </h2>
+                    <span class="news-count">{industry_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {industry_news}
+                </div>
+            </section>
+
+            <!-- Tech Breakthroughs -->
+            <section class="news-section" id="tech">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🔬</span>
+                        技术突破
+                    </h2>
+                    <span class="news-count">{tech_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {tech_news}
+                </div>
+            </section>
+
+            <!-- New Products -->
+            <section class="news-section" id="product">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🚀</span>
+                        新产品发布
+                    </h2>
+                    <span class="news-count">{product_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {product_news}
+                </div>
+            </section>
+
+            <!-- Policy & Regulations -->
+            <section class="news-section" id="policy">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">⚖️</span>
+                        政策法规动态
+                    </h2>
+                    <span class="news-count">{policy_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {policy_news}
+                </div>
+            </section>
+
+            <!-- Investment & Financing -->
+            <section class="news-section" id="investment">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">💰</span>
+                        投融资新闻
+                    </h2>
+                    <span class="news-count">{investment_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {investment_news}
+                </div>
+            </section>
+
+            <!-- Academic Research -->
+            <section class="news-section" id="research">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎓</span>
+                        学术研究进展
+                    </h2>
+                    <span class="news-count">{research_count} 条</span>
+                </div>
+                <div class="news-list">
+                    {research_news}
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                AI 新闻日报 | 自动生成于 {generated_time} | 
+                <a href="https://github.com" target="_blank">反馈与建议</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Category filter functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update active tab
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // Show/hide sections
+                if (category === 'all') {
+                    document.querySelectorAll('.news-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                } else {
+                    document.querySelectorAll('.news-section').forEach(section => {
+                        if (section.id === category) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

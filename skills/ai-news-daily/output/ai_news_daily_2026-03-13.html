@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 新闻日报 - 2026-03-13</title>
+    <style>
+/* AI News Daily - Tech Style Theme */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #00D9FF;
+    --secondary-color: #7B2CBF;
+    --accent-color: #FF6B6B;
+    --bg-dark: #0A0E27;
+    --bg-card: #151B3B;
+    --bg-hover: #1E2744;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A9C0;
+    --border-color: #2D3561;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #00D9FF 0%, #7B2CBF 100%);
+}
+
+body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #0A0E27 0%, #151B3B 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 30px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.date-display {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 8px 20px;
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+}
+
+/* Stats Bar */
+.stats-bar {
+    background: var(--bg-card);
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 217, 255, 0.2);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Category Navigation */
+.category-nav {
+    background: var(--bg-card);
+    padding: 15px 0;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-tab:hover {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.nav-tab.active {
+    background: var(--gradient-2);
+    border-color: transparent;
+    color: white;
+}
+
+/* News Sections */
+.news-section {
+    margin-bottom: 40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    font-size: 26px;
+}
+
+.news-count {
+    font-size: 14px;
+    color: var(--text-secondary);
+    background: rgba(123, 44, 191, 0.2);
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+/* News Cards */
+.news-list {
+    display: grid;
+    gap: 20px;
+}
+
+.news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.news-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(0, 217, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.news-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.news-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-title a:hover {
+    color: var(--primary-color);
+}
+
+.news-summary {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.news-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.source-badge {
+    background: rgba(0, 217, 255, 0.15);
+    color: var(--primary-color);
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.news-time {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-card);
+    padding: 30px 0;
+    margin-top: 50px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-text {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.footer-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nav-tabs {
+        justify-content: center;
+    }
+    
+    .news-title {
+        font-size: 16px;
+    }
+    
+    .news-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 22px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-tab {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    text-align: center;
+    padding: 50px;
+    color: var(--text-secondary);
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Glow Effects */
+.glow-primary {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.glow-secondary {
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+}
+
+/* Tags */
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--accent-color);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.tag.breaking {
+    background: rgba(255, 107, 107, 0.2);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.6; }
+}
+
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">⚡</span>
+                    AI 新闻日报
+                </h1>
+                <div class="date-display">2026-03-13</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Overview -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">新闻总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">行业大事件</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">技术突破</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">新产品发布</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">政策法规</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">投融资</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">学术研究</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-category="all">全部</button>
+                <button class="nav-tab" data-category="industry">行业大事件</button>
+                <button class="nav-tab" data-category="tech">技术突破</button>
+                <button class="nav-tab" data-category="product">新产品发布</button>
+                <button class="nav-tab" data-category="policy">政策法规</button>
+                <button class="nav-tab" data-category="investment">投融资</button>
+                <button class="nav-tab" data-category="research">学术研究</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Industry News -->
+            <section class="news-section" id="industry">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏢</span>
+                        行业大事件
+                    </h2>
+                    <span class="news-count">4 条</span>
+                </div>
+                <div class="news-list">
+                    
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/10/1133972/prioritizing-energy-intelligence-for-sustainable-growth/" target="_blank" rel="noopener noreferrer">Prioritizing energy intelligence for sustainable growth</a>
+        </h3>
+        
+        <p class="news-summary">Loudoun County, Virginia, once known for its pastoral scenery and proximity to Washington, DC, has earned a more modern reputation in recent years: The area has the highest concentration of data cente</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-10 13:00</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/10/1134077/the-download-ai-iran-war-theater-anthropic-sues-us/" target="_blank" rel="noopener noreferrer">The Download: AI&#8217;s role in the Iran war, and an escalating legal fight</a>
+        </h3>
+        
+        <p class="news-summary">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. How AI is turning the Iran conflict into&#160;thea</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-10 12:55</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://venturebeat.com/orchestration/anthropic-gives-claude-shared-context-across-microsoft-excel-and-powerpoint" target="_blank" rel="noopener noreferrer">Anthropic gives Claude shared context across Microsoft Excel and PowerPoint, enabling reusable workflows in multiple applications</a>
+        </h3>
+        
+        <p class="news-summary"><p>Anthropic has upgraded its Claude AI model with new capabilities for Microsoft Excel and PowerPoint, marking a strategic move to expand its enterprise footprint and potentially challenging Microsof</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">VentureBeat AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-11 18:13</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.qbitai.com/category/%e8%b5%84%e8%ae%af" target="_blank" rel="noopener noreferrer">我用10块钱的「熟虾」，搞了个AI编辑部！</a>
+        </h3>
+        
+        <p class="news-summary"></p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">量子位</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-13</span>
+            </div>
+        </div>
+    </article>
+    
+                </div>
+            </section>
+
+            <!-- Tech Breakthroughs -->
+            <section class="news-section" id="tech">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🔬</span>
+                        技术突破
+                    </h2>
+                    <span class="news-count">3 条</span>
+                </div>
+                <div class="news-list">
+                    
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/11/1134174/the-download-pokemon-go-train-world-models-us-china-race-find-aliens/" target="_blank" rel="noopener noreferrer">The Download: Pokémon Go to train world models, and the US-China race to find aliens</a>
+        </h3>
+        
+        <p class="news-summary">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. How Pokémon Go is giving delivery robots an inch-p</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-11 12:38</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://venturebeat.com/technology/nvidias-new-open-weights-nemotron-3-super-combines-three-different" target="_blank" rel="noopener noreferrer">Nvidia's new open weights Nemotron 3 super combines three different architectures to beat gpt-oss and Qwen in throughput</a>
+        </h3>
+        
+        <p class="news-summary"><p>Multi-agent systems, designed to handle long-horizon tasks like software engineering or cybersecurity triaging, can generate up to 15 times the token volume of standard chats — threatening their co</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">VentureBeat AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-11 23:42</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="http://www.qbitai.com/" target="_blank" rel="noopener noreferrer">量子位 – 追踪人工智能新趋势，报道科技行业新突破</a>
+        </h3>
+        
+        <p class="news-summary"></p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">量子位</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-13</span>
+            </div>
+        </div>
+    </article>
+    
+                </div>
+            </section>
+
+            <!-- New Products -->
+            <section class="news-section" id="product">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🚀</span>
+                        新产品发布
+                    </h2>
+                    <span class="news-count">7 条</span>
+                </div>
+                <div class="news-list">
+                    
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://techcrunch.com/2026/03/12/sales-automation-startup-rox-ai-hits-1-2b-valuation-sources-say/" target="_blank" rel="noopener noreferrer">Sales automation startup Rox AI hits $1.2B valuation, sources say</a>
+        </h3>
+        
+        <p class="news-summary">Rox, founded in 2024 by the former chief growth officer of New Relic, offers an AI-native alternative to CRM tools.</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">TechCrunch AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-12 22:25</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/12/1134243/defense-official-military-use-ai-chatbots-targeting-decisions/" target="_blank" rel="noopener noreferrer">A defense official reveals how AI chatbots could be used for targeting decisions</a>
+        </h3>
+        
+        <p class="news-summary">The US military might use generative AI systems to rank lists of targets and make recommendations—which would be vetted by humans—about which to strike first, according to a Defense Department officia</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-12 22:23</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/12/1133675/pragmatic-by-design-engineering-ai-for-the-real-world/" target="_blank" rel="noopener noreferrer">Pragmatic by design: Engineering AI for the real world</a>
+        </h3>
+        
+        <p class="news-summary">The impact of artificial intelligence extends far beyond the digital world and into our everyday lives, across the cars we drive, the appliances in our homes, and medical devices that keep people aliv</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-12 13:00</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/11/1134179/china-openclaw-gold-rush/" target="_blank" rel="noopener noreferrer">Hustlers are cashing in on China&#8217;s OpenClaw AI craze</a>
+        </h3>
+        
+        <p class="news-summary">Feng Qingyang had always hoped to launch his own company, but he never thought this would be how—or that the day would come this fast.&#160; Feng, a 27-year-old software engineer based in Beijing, sta</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-11 12:46</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://www.technologyreview.com/2026/03/10/1134083/building-a-strong-data-infrastructure-for-ai-agent-success/" target="_blank" rel="noopener noreferrer">Building a strong data infrastructure for AI agent success</a>
+        </h3>
+        
+        <p class="news-summary">In the race to adopt and show value from AI, enterprises are moving faster than ever to deploy agentic AI as copilots, assistants, and autonomous task-runners. In late 2025, nearly two-thirds of compa</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">MIT Technology Review</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-10 14:00</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://venturebeat.com/orchestration/y-combinator-backed-random-labs-launches-slate-v1-claiming-the-first-swarm" target="_blank" rel="noopener noreferrer">Y Combinator-backed Random Labs launches Slate V1, claiming the first 'swarm-native' coding agent</a>
+        </h3>
+        
+        <p class="news-summary"><p>The software engineering world is currently wrestling with a fundamental paradox of the AI era: as models become more capable, the &quot;systems problem&quot; of managing them has become the primar</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">VentureBeat AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-13 00:00</span>
+            </div>
+        </div>
+    </article>
+    
+
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://venturebeat.com/infrastructure/manufact-raises-usd6-3m-as-mcp-becomes-the-usb-c-for-ai-powering-chatgpt-and" target="_blank" rel="noopener noreferrer">Manufact raises $6.3M as MCP becomes the ‘USB-C for AI’ powering ChatGPT and Claude apps</a>
+        </h3>
+        
+        <p class="news-summary"><p>For decades, software companies designed their products for a single type of customer: a human being staring at a screen. Every button, menu, and dashboard existed to translate a person’s intention</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">VentureBeat AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-11 16:01</span>
+            </div>
+        </div>
+    </article>
+    
+                </div>
+            </section>
+
+            <!-- Policy & Regulations -->
+            <section class="news-section" id="policy">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">⚖️</span>
+                        政策法规动态
+                    </h2>
+                    <span class="news-count">0 条</span>
+                </div>
+                <div class="news-list">
+                    <p class="no-news">暂无相关新闻</p>
+                </div>
+            </section>
+
+            <!-- Investment & Financing -->
+            <section class="news-section" id="investment">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">💰</span>
+                        投融资新闻
+                    </h2>
+                    <span class="news-count">1 条</span>
+                </div>
+                <div class="news-list">
+                    
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://techcrunch.com/2026/03/12/atlassian-follows-blocks-footsteps-and-cuts-staff-in-the-name-of-ai/" target="_blank" rel="noopener noreferrer">Atlassian follows Block’s footsteps and cuts staff in the name of AI</a>
+        </h3>
+        
+        <p class="news-summary">Atlassian laid off 10% of its workforce, around 1,600 people, as the company looks to funnel more funds to AI.</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">TechCrunch AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-12 17:20</span>
+            </div>
+        </div>
+    </article>
+    
+                </div>
+            </section>
+
+            <!-- Academic Research -->
+            <section class="news-section" id="research">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎓</span>
+                        学术研究进展
+                    </h2>
+                    <span class="news-count">1 条</span>
+                </div>
+                <div class="news-list">
+                    
+    <article class="news-card">
+        <h3 class="news-title">
+            <a href="https://techcrunch.com/2026/03/12/facebook-marketplace-now-lets-meta-ai-respond-to-buyers-messages/" target="_blank" rel="noopener noreferrer">Facebook Marketplace now lets Meta AI respond to buyers&#8217; messages</a>
+        </h3>
+        
+        <p class="news-summary">When buyers inquire about an item’s availability, sellers can use Meta AI to automatically draft replies using information from their listing, such as the description, availability, pickup location, a</p>
+        <div class="news-meta">
+            <div class="news-source">
+                <span class="source-badge">TechCrunch AI</span>
+            </div>
+            <div class="news-time">
+                <span>时间: 2026-03-12 18:20</span>
+            </div>
+        </div>
+    </article>
+    
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                AI 新闻日报 | 自动生成于 2026-03-13 16:04:20 | 
+                <a href="https://github.com" target="_blank">反馈与建议</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Category filter functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update active tab
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // Show/hide sections
+                if (category === 'all') {
+                    document.querySelectorAll('.news-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                } else {
+                    document.querySelectorAll('.news-section').forEach(section => {
+                        if (section.id === category) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

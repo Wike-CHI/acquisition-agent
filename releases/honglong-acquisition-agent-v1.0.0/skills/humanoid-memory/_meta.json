@@ -1,0 +1,9 @@
+{
+  "name": "humanoid-memory",
+  "version": "1.0.0",
+  "description": "Brain-inspired memory with V-score and Ebbinghaus forgetting",
+  "author": "Humanoid Team",
+  "tags": ["memory", "ai", "embedding", "cognitive"],
+  "license": "MIT",
+  "created": "2026-03-23"
+}

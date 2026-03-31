@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "workflow.search-policy",
+  "description": "联网检索强制策略：与 SKILL.md、references/01-core/section-3-workflow.md 对齐",
+  "version": "1.18.9",
+  "mandatoryWebSearchStages": ["S0", "S1", "S2", "S2.5", "S3", "S5"],
+  "topicLock": {
+    "description": "主题锁定机制：防止上下文跳变",
+    "enabled": true,
+    "requiredFields": ["topic", "lockedAt", "confirmedByUser"],
+    "s0Output": {
+      "mustInclude": ["**主题**：{topic}"],
+      "position": "首行"
+    },
+    "driftDetection": {
+      "enabled": true,
+      "triggerOn": ["用户说确认", "读取历史文件", "阶段切换"],
+      "actionOnDrift": "ASK_CONFIRMATION"
+    }
+  },
+  "userMemoryIntegration": {
+    "description": "WorkBuddy 用户记忆仍在演进：本节约束摄取方式，提升体验的同时避免静默污染本书语境",
+    "versionNote": "文件名与目录布局可能随宿主升级变化；以 opt-in CLI 输出与人工确认 为准",
+    "mode": "opt_in",
+    "requireExplicitBookRootForWrite": true,
+    "maxBytesPerFile": 32768,
+    "maxTotalDigestChars": 12000,
+    "workspaceMemory": {
+      "relativeDir": ".workbuddy/memory",
+      "preferFilenames": ["MEMORY.md"],
+      "includeDateLogsMax": 3
+    },
+    "userProfileDir": {
+      "relativeToUserHome": ".workbuddy",
+      "preferFilenames": ["USER.md", "BOOTSTRAP.md", "IDENTITY.md", "SOUL.md"]
+    },
+    "injectIntoBookAs": ".fbs/workbuddy-memory-digest.json",
+    "mustPassGatesBeforeUse": ["topic-consistency-gate", "C0-4"],
+    "cliEntry": "integration/workbuddy-memory-digest.mjs"
+  },
+  "environmentSnapshot": {
+    "description": "本书侧环境指纹：路径存在性 + search-policy 版本；不含记忆文件内容 hash",
+    "mode": "opt_in",
+    "relativeOutputFile": ".fbs/workbuddy-environment.json",
+    "cliEntry": "integration/workbuddy-environment-snapshot.mjs",
+    "versionNote": "与 userMemoryIntegration 路径列表对齐探测；宿主升级后建议重跑并查看 diff 提示"
+  },
+  "s5FinalReviewNotes": "S5 终审：对拟发布的事实句、统计数据与引用进行按需 WebSearch/WebFetch 复核；与 SKILL.md §0 联网规范一致",
+  "chapterWriting": {
+    "description": "每一章进入成文前至少完成一轮主题相关检索并记录检索意图",
+    "minQueriesPerChapter": 2,
+    "notes": "由宿主（CodeBuddy / WorkBuddy 等）执行 WebSearch/WebFetch；编排层应记录每章检索次数以供门禁校验",
+    "markdownEvidenceHeadings": [
+      "检索记录",
+      "检索与来源",
+      "检索摘要",
+      "联网检索摘要",
+      "检索",
+      "检索执行情况",
+      "检索执行记录",
+      "本章数据来源索引",
+      "关键数据来源索引",
+      "数据来源索引"
+    ],
+    "parallelProjectBootstrap": "node scripts/init-fbs-multiagent-artifacts.mjs --book-root <本书根>（生成 .fbs/chapter-status.md、search-ledger.jsonl 等）"
+  },
+  "s0ParallelQueries": {
+    "competitorDomestic": 3,
+    "competitorOverseas": 3,
+    "readerAnalysis": 4,
+    "monetization": 4
+  },
+  "s0ParallelQueriesSemantics": "与 section-3-workflow.md「主体内涵锚定」一致：competitor* 轮次检索**内容竞品**（同类书/白皮书/深度长文/付费内容等可替代本稿者），非默认扫主题产业链上的商业产品；monetization* 轮次检索**本书/本稿**的变现与分发路径。行业规模/融资仅作简报「市场背景」，不得顶替上述默认列。",
+  "qualityGate": {
+    "minConvertedScore": 7.5,
+    "minRawScore": 15,
+    "minBLayerScore": 4,
+    "aiContrastMax": 8,
+    "aiAdverbMax": 12,
+    "minAnchorCoverage": 0.5,
+    "minRhythmCv": 0.2,
+    "requireBookLevelC0": false,
+    "emDashPerThousandWarnAbove": 1,
+    "emDashPerThousandBlockAbove": 3
+  },
+  "searchAccessPolicy": {
+    "singlePageTimeoutMs": 15000,
+    "blockOnTimeoutInCurrentRun": true,
+    "dailyTimeoutLimitPerDomain": 3,
+    "blockDaysAfterDailyLimit": 7,
+    "persistentBlocklistFile": ".fbs/domain-blocklist.json"
+  },
+  "writingNotes": {
+    "enabled": true,
+    "dir": ".fbs/writing-notes",
+    "filePattern": "{chapterId}.writing-notes.md"
+  }
+}

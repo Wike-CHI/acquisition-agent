@@ -1,0 +1,62 @@
+{
+  "test_inputs": [
+    {
+      "id": "test_1",
+      "input": "给这些客户发开发信：ABC Industrial, XYZ Belting",
+      "context": "批量发送开发信给多个客户"
+    },
+    {
+      "id": "test_2",
+      "input": "发送跟进邮件给 abc@company.com，Day 3",
+      "context": "发送第3天跟进邮件"
+    },
+    {
+      "id": "test_3",
+      "input": "检查邮箱发送状态",
+      "context": "查看邮件发送结果"
+    }
+  ],
+  
+  "evals": [
+    {
+      "name": "mentions_email_config",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["配置邮箱", "SMTP", "163", "QQ邮箱"]
+    },
+    {
+      "name": "warns_about_limits",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["50", "200", "限制", "每小时", "每天"],
+      "min_matches": 2
+    },
+    {
+      "name": "provides_email_template",
+      "type": "llm",
+      "question": "Does the output provide or reference email templates for cold outreach?",
+      "pass_description": "Output includes email templates",
+      "fail_description": "Output lacks email templates"
+    },
+    {
+      "name": "mentions_personalization",
+      "type": "llm",
+      "question": "Does the output emphasize personalization in emails?",
+      "pass_description": "Output mentions personalization techniques",
+      "fail_description": "Output suggests generic copy-paste approach"
+    },
+    {
+      "name": "has_compliance_warning",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["退订", "CAN-SPAM", "GDPR", "隐私"]
+    },
+    {
+      "name": "professional_structure",
+      "type": "llm",
+      "question": "Is the output structured with clear steps for sending emails?",
+      "pass_description": "Output has clear email sending workflow",
+      "fail_description": "Output lacks clear workflow"
+    }
+  ]
+}

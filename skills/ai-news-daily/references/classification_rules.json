@@ -1,0 +1,83 @@
+{
+  "industry": {
+    "name": "行业大事件",
+    "description": "大公司战略调整、重大合作、行业会议、组织变动",
+    "keywords": [
+      "合作", "partnership", "战略合作", "合并", "merger", "acquisition",
+      "收购", "并购", "ipo", "上市", "高管", "ceo", "cto", "裁员",
+      "layoff", "招聘", "大会", "conference", "峰会",
+      "google", "微软", "microsoft", "百度", "阿里巴巴", "腾讯", "字节跳动",
+      "华为", "anthropic", "stability ai", "midjourney", "hugging face",
+      "战略", "布局", "生态", "平台化"
+    ],
+    "priority": 1
+  },
+  "tech": {
+    "name": "技术突破",
+    "description": "新算法、新模型、技术里程碑、性能突破",
+    "keywords": [
+      "突破", "breakthrough", "sota", "state-of-the-art", "新算法",
+      "algorithm", "新模型", "model", "架构", "architecture",
+      "性能", "performance", "benchmark", "基准", "精度", "accuracy",
+      "gpt-4", "gpt-5", "llama", "gemini", "claude", "mistral",
+      "transformer", "attention", "diffusion", "gan", "vae",
+      "训练", "training", "推理", "inference", "优化", "optimization",
+      "量子", "quantum", "芯片", "chip", "gpu", "tpu", "npu",
+      "技术", "研究", "research", "论文", "paper"
+    ],
+    "priority": 2
+  },
+  "product": {
+    "name": "新产品发布",
+    "description": "AI产品、工具、平台更新、应用发布",
+    "keywords": [
+      "发布", "launch", "推出", "release", "新品", "产品",
+      "product", "工具", "tool", "平台", "platform", "api",
+      "chatgpt", "copilot", "assistant", "助手", "机器人", "bot",
+      "应用", "app", "软件", "software", "服务", "service",
+      "功能", "feature", "更新", "update", "升级", "upgrade",
+      "开源", "open source", "免费", "free"
+    ],
+    "priority": 3
+  },
+  "policy": {
+    "name": "政策法规",
+    "description": "AI监管政策、法律动态、政府报告、伦理讨论",
+    "keywords": [
+      "政策", "policy", "法规", "regulation", "法律", "law",
+      "监管", "regulate", "合规", "compliance", "伦理", "ethics",
+      "安全", "safety", "隐私", "privacy", "数据保护", "data protection",
+      "政府", "government", "国会", "congress", "欧盟", "eu",
+      "人工智能法案", "ai act", "监管框架", "framework",
+      "禁止", "ban", "限制", "restriction", "审查", "censorship"
+    ],
+    "priority": 4
+  },
+  "investment": {
+    "name": "投融资",
+    "description": "融资、并购、IPO、投资动态",
+    "keywords": [
+      "融资", "funding", "投资", "investment", "融资轮", "round",
+      "a轮", "b轮", "c轮", "series a", "series b", "series c",
+      "估值", "valuation", "独角兽", "unicorn",
+      "风投", "vc", "venture capital", "投资人", "investor",
+      "募资", "raise", "注资", "inject", "ipo", "上市",
+      "并购", "m&a", "收购", "acquire", "亿美元", "million", "billion"
+    ],
+    "priority": 5
+  },
+  "research": {
+    "name": "学术研究",
+    "description": "论文、开源项目、研究成果、学术会议",
+    "keywords": [
+      "论文", "paper", "arxiv", "研究", "research", "实验室", "lab",
+      "大学", "university", "学院", "institute", "学者", "researcher",
+      "教授", "professor", "博士", "phd", "学术", "academic",
+      "发表", "publish", "期刊", "journal", "会议", "conference",
+      "neurips", "icml", "iclr", "cvpr", "acl", "emnlp",
+      "开源", "open source", "github", "代码", "code", "数据集", "dataset",
+      "实验", "experiment", "验证", "validate"
+    ],
+    "priority": 6
+  }
+}

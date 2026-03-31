@@ -1,0 +1,19 @@
+{
+  "name": "security-scan",
+  "version": "2.3.7",
+  "description": "腾讯云鼎实验室出品，基于多位安全专家经验组成 AI 代码安全团队（AI agents team），通过五重验证机制消除误报，帮助业务团队在开发阶段就发现并修复常见安全问题，从源头保障代码安全质量。",
+  "keywords": ["security", "code-review", "vulnerability", "audit", "agent-teams"],
+  "category": "security",
+  "features": [
+    "分级扫描 — 基于文件数量与代码行数复合指标，自动适配 Light / Deep 两级扫描策略",
+    "双引擎检测 — Grep 模式匹配实现广覆盖，LSP 语义追踪实现跨文件数据流精确分析",
+    "五步对抗验证 — 代码存在性校验 → 攻击链验证 → 红队对抗审查 → 审计质量评估 → 置信度评分",
+    "流式验证 — 扫描与验证并行执行，消除串行瓶颈，缩短审计关键路径",
+    "量化置信度 — 三维度独立评分（攻击链可达性 + 防御措施 + 数据源可控性），高置信度门控驱动自动修复",
+    "审计质量保障 — 覆盖率评估、盲区识别与漏报检查，确保审计全面性"
+  ],
+  "agents": "./agents/",
+  "commands": "./commands/",
+  "references": "./references/",
+  "skills": "./skills/"
+}

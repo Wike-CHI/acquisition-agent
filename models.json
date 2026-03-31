@@ -1,0 +1,34 @@
+{
+  "models": [
+    {
+      "id": "glm-5",
+      "name": "GLM-5",
+      "vendor": "GLM Coding Plan",
+      "url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+      "apiKey": "435900f6a834416aabfb6b16760ab9ec.uvpb3JgwteWNS6Dn",
+      "supportsToolCall": true,
+      "supportsImages": false,
+      "supportsReasoning": false
+    },
+    {
+      "id": "MiniMax-M2.5-highspeed",
+      "name": "MiniMax-M2.5 High Speed",
+      "vendor": "MiniMax",
+      "url": "https://api.minimaxi.com/v1/chat/completions",
+      "apiKey": "sk-cp-S_pFOs4MlWebZucZuBsuuCOgSlOx0URVw2tndwNJ36hMClHHNM0pHvqZZzHfHEhkAYhT1BOP7kndMmwCf3w4v43GH7_XgkDs7o08Y7AgqG1uOJ7qFyow8d4",
+      "supportsToolCall": true,
+      "supportsImages": true,
+      "supportsReasoning": false
+    },
+    {
+      "id": "kimi-k2.5",
+      "name": "Kimi K2.5",
+      "vendor": "Kimi",
+      "url": "https://api.moonshot.cn/v1/chat/completions",
+      "apiKey": "sk-kimi-hbv5ah0E1RVDlcapZioERNbKhwVrMeHam8Ff9d4SFH6MwTeHAghBqEmgAE7194Jw",
+      "supportsToolCall": true,
+      "supportsImages": true,
+      "supportsReasoning": false
+    }
+  ]
+}

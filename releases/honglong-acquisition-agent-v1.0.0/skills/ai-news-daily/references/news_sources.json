@@ -1,0 +1,182 @@
+{
+  "international": [
+    {
+      "name": "TechCrunch AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/",
+      "rss": "https://techcrunch.com/feed/",
+      "type": "tech",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "The Verge AI",
+      "url": "https://www.theverge.com/ai-artificial-intelligence",
+      "rss": "https://www.theverge.com/rss/index.xml",
+      "type": "tech",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/",
+      "rss": "https://www.technologyreview.com/feed/",
+      "type": "tech",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "VentureBeat AI",
+      "url": "https://venturebeat.com/category/ai/",
+      "rss": "https://venturebeat.com/feed/",
+      "type": "tech",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "Wired AI",
+      "url": "https://www.wired.com/tag/artificial-intelligence/",
+      "rss": "https://www.wired.com/feed/",
+      "type": "tech",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "OpenAI Blog",
+      "url": "https://openai.com/blog/",
+      "rss": "",
+      "type": "company",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "https://blog.google/technology/ai/",
+      "rss": "",
+      "type": "company",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "DeepMind Blog",
+      "url": "https://deepmind.com/blog",
+      "rss": "",
+      "type": "company",
+      "region": "UK",
+      "language": "en"
+    },
+    {
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog",
+      "rss": "",
+      "type": "company",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "Anthropic Blog",
+      "url": "https://www.anthropic.com/news",
+      "rss": "",
+      "type": "company",
+      "region": "US",
+      "language": "en"
+    }
+  ],
+  "domestic": [
+    {
+      "name": "机器之心",
+      "url": "https://www.jiqizhixin.com/",
+      "rss": "",
+      "type": "ai-specialized",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "量子位",
+      "url": "https://www.qbitai.com/",
+      "rss": "",
+      "type": "ai-specialized",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "新智元",
+      "url": "https://www.sohu.com/a/",
+      "rss": "",
+      "type": "ai-specialized",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "36氪 AI",
+      "url": "https://36kr.com/motor/channel/281",
+      "rss": "",
+      "type": "tech",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "钛媒体 AI",
+      "url": "https://www.tmtpost.com/",
+      "rss": "",
+      "type": "tech",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "InfoQ AI",
+      "url": "https://www.infoq.cn/topic/artificial-intelligence",
+      "rss": "",
+      "type": "tech",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "AI科技评论",
+      "url": "https://www.jiqizhixin.com/",
+      "rss": "",
+      "type": "ai-specialized",
+      "region": "CN",
+      "language": "zh"
+    },
+    {
+      "name": "雷锋网 AI",
+      "url": "https://www.leiphone.com/category/ai",
+      "rss": "",
+      "type": "tech",
+      "region": "CN",
+      "language": "zh"
+    }
+  ],
+  "academic": [
+    {
+      "name": "arXiv AI Papers",
+      "url": "https://arxiv.org/list/cs.AI/recent",
+      "rss": "http://export.arxiv.org/rss/cs.AI",
+      "type": "academic",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "Papers With Code",
+      "url": "https://paperswithcode.com/",
+      "rss": "",
+      "type": "academic",
+      "region": "US",
+      "language": "en"
+    },
+    {
+      "name": "Hugging Face Papers",
+      "url": "https://huggingface.co/papers",
+      "rss": "",
+      "type": "academic",
+      "region": "US",
+      "language": "en"
+    }
+  ],
+  "notes": [
+    "国际源可能需要稳定网络访问",
+    "RSS源优先使用，解析更可靠",
+    "Web源需要HTML解析，可能随网站结构变化而失效",
+    "可根据需要添加或删除新闻源"
+  ]
+}

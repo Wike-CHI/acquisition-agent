@@ -1,0 +1,13 @@
+#!/bin/sh
+# FBS-BookWriter：提交前一致性审计（示例钩子）
+# 用法：复制到仓库 .git/hooks/pre-commit（Git 根目录须为含本技能包的父仓，或调整 ROOT）
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+SKILL_ROOT="$ROOT"
+if [ ! -f "$SKILL_ROOT/scripts/audit-skill-consistency.mjs" ]; then
+  # 技能包在子目录时：例如 monorepo 下 dist/FBS-BookWriter-skill
+  for d in "$ROOT/FBS-BookWriter-skill" "$ROOT/dist/FBS-BookWriter-skill"; do
+    if [ -f "$d/scripts/audit-skill-consistency.mjs" ]; then SKILL_ROOT="$d"; break; fi
+  done
+fi
+[ -f "$SKILL_ROOT/scripts/audit-skill-consistency.mjs" ] || exit 0
+cd "$SKILL_ROOT" && node scripts/audit-skill-consistency.mjs || exit 1

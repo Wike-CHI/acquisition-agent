@@ -1,0 +1,23 @@
+{
+  "enabledPlugins": {
+    "pptx@codebuddy-plugins-official": true,
+    "pdf@codebuddy-plugins-official": true,
+    "docx@codebuddy-plugins-official": true,
+    "xlsx@codebuddy-plugins-official": true,
+    "agent-browser@codebuddy-plugins-official": true,
+    "playwright-cli@codebuddy-plugins-official": true,
+    "hotskills@codebuddy-plugins-official": true,
+    "skills-sec-audit@codebuddy-plugins-official": true,
+    "atuin@codebuddy-plugins-official": true,
+    "accessibility-compliance@codebuddy-plugins-official": true,
+    "agent-team-agile-workflow@codebuddy-plugins-official": true,
+    "cloudbase@codebuddy-plugins-official": true,
+    "api-testing-observability@codebuddy-plugins-official": true,
+    "ppt-implement@cb_teams_marketplace": true,
+    "data@cb_teams_marketplace": true,
+    "trading-assistant@cb_teams_marketplace": true,
+    "find-skills@codebuddy-plugins-official": true,
+    "agent-orchestration@codebuddy-plugins-official": true,
+    "doc-coauthoring@codebuddy-plugins-official": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "test_inputs": [
+    {
+      "id": "test_1",
+      "input": "帮我找10个美国的工业皮带分销商",
+      "context": "用户想找美国市场的潜在客户"
+    },
+    {
+      "id": "test_2", 
+      "input": "从海关数据查秘鲁的输送带采购商",
+      "context": "用户想用海关数据找南美客户"
+    },
+    {
+      "id": "test_3",
+      "input": "帮我开发德国市场，找输送带经销商并发开发信",
+      "context": "完整获客流程：搜索→背调→触达"
+    },
+    {
+      "id": "test_4",
+      "input": "在LinkedIn上搜索越南的皮带制造商",
+      "context": "用户想用LinkedIn找东南亚客户"
+    }
+  ],
+  
+  "evals": [
+    {
+      "name": "has_clear_structure",
+      "type": "llm",
+      "question": "Is the output organized with clear sections, bullet points, or numbered lists?",
+      "pass_description": "Output has clear structure with headers/bullets/lists",
+      "fail_description": "Output is unstructured wall of text"
+    },
+    {
+      "name": "mentions_target_market",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["美国", "德国", "秘鲁", "越南", "USA", "Germany", "Peru", "Vietnam"]
+    },
+    {
+      "name": "provides_actionable_steps",
+      "type": "llm",
+      "question": "Does the output provide clear, actionable steps the user can follow?",
+      "pass_description": "Output includes specific, actionable steps",
+      "fail_description": "Output is vague or lacks actionable guidance"
+    },
+    {
+      "name": "mentions_acquisition_channels",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["LinkedIn", "Facebook", "海关数据", "特易", "Instagram"],
+      "min_matches": 1
+    },
+    {
+      "name": "appropriate_length",
+      "type": "rule",
+      "rule": "word_count",
+      "min": 50,
+      "max": 1000
+    },
+    {
+      "name": "professional_tone",
+      "type": "llm",
+      "question": "Is the tone professional and business-appropriate?",
+      "pass_description": "Tone is professional and suitable for B2B sales",
+      "fail_description": "Tone is too casual, unprofessional, or robotic"
+    },
+    {
+      "name": "no_emoji_overuse",
+      "type": "rule",
+      "rule": "regex",
+      "pattern": "[\ud83d\ude00-\ud83d\ude7f]",
+      "max_matches": 3,
+      "description": "No more than 3 emojis in output"
+    }
+  ]
+}

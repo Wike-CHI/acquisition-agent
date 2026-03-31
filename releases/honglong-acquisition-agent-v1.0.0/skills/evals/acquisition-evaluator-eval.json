@@ -1,0 +1,64 @@
+{
+  "test_inputs": [
+    {
+      "id": "test_1",
+      "input": "验收这份背调报告: ABC Industrial (秘鲁)，输送带制造商，2025年采购12次$180k，联系人Carlos Mendoza (采购经理)",
+      "context": "测试A级背调报告验收"
+    },
+    {
+      "id": "test_2",
+      "input": "验收这份开发信: Hi [Name], We are HOLO...",
+      "context": "测试低分开发信验收"
+    },
+    {
+      "id": "test_3",
+      "input": "验收这份报价单: 风冷机 A2FRJ-1200, $8,500",
+      "context": "测试报价单验收"
+    }
+  ],
+  
+  "evals": [
+    {
+      "name": "outputs_score",
+      "type": "rule",
+      "rule": "regex",
+      "pattern": "\\d+/100|\\d+分",
+      "description": "必须输出总分"
+    },
+    {
+      "name": "outputs_grade",
+      "type": "rule",
+      "rule": "contains",
+      "pattern": ["A级", "B级", "C级", "A", "B", "C"],
+      "description": "必须输出等级"
+    },
+    {
+      "name": "identifies_issues",
+      "type": "llm",
+      "question": "Does the evaluator identify specific issues or problems?",
+      "pass_description": "Evaluator identifies concrete issues",
+      "fail_description": "Evaluator does not identify issues"
+    },
+    {
+      "name": "provides_suggestions",
+      "type": "llm",
+      "question": "Does the evaluator provide actionable improvement suggestions?",
+      "pass_description": "Evaluator provides specific suggestions",
+      "fail_description": "Evaluator lacks suggestions"
+    },
+    {
+      "name": "strict_judgment",
+      "type": "llm",
+      "question": "Is the evaluator's judgment appropriately strict (not too lenient)?",
+      "pass_description": "Evaluator is appropriately strict",
+      "fail_description": "Evaluator is too lenient"
+    },
+    {
+      "name": "uses_criteria",
+      "type": "llm",
+      "question": "Does the evaluator reference specific criteria or standards?",
+      "pass_description": "Evaluator references specific criteria",
+      "fail_description": "Evaluator does not reference criteria"
+    }
+  ]
+}

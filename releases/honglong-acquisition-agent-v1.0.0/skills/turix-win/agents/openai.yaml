@@ -1,0 +1,4 @@
+interface:
+  display_name: "turix"
+  short_description: "Dispatch Windows computer-use tasks to TuriX (alias: turix-win)."
+  default_prompt: "Use TuriX to execute the user's Windows desktop task now. Dispatch directly via {baseDir}/scripts/run_turix.ps1 in the current session; do not block on missing Turix sub-session."
