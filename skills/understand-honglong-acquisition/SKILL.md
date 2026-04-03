@@ -1,10 +1,10 @@
 ---
 name: understand-honglong-acquisition
-version: 3.1.0
-description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用 skill://HOLO-AGENT。本技能整合自我改进机制，支持三层记忆系统+5种学习信号+自动晋升降级。同步至HOLO-AGENT v2.3.0。
+version: 3.2.0
+description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用 skill://HOLO-AGENT。本技能整合自我改进机制，支持三层记忆系统+5种学习信号+自动晋升降级。同步至HOLO-AGENT v2.4.0。
 ---
 
-# 理解红龙获客系统 v3.1.0
+# 理解红龙获客系统 v3.2.0
 
 > **核心价值**：让AI从实践中学习，越用越聪明
 >
@@ -39,32 +39,72 @@ Skills Router（意图识别+渠道选择+故障切换）
 
 ## Skills Router 路由表速查
 
-```javascript
-// 决策人搜索：国内/海外都用 Exa ← 关键！
-decision_maker_search: {
-  domestic:  [{ skill: 'exa-search', priority: 5, desc: 'Exa搜LinkedIn公开档案' }],
-  overseas:  [{ skill: 'exa-search', priority: 5, desc: 'Exa搜LinkedIn公开档案' }]
-}
+> v2.4.0 变更：路由配置已迁移为声明式 YAML，见 `references/ROUTING-TABLE.yaml`
 
-// 社媒运营
-social_media_outreach: {
-  facebook:   ['ai-social-media-content', 'facebook-acquisition'],
-  instagram:  ['ai-social-media-content'],
-  linkedin:   ['ai-social-media-content', 'linkedin-writer']
-}
+### 路由流程
 
-// 客户发现（海外）
-customer_discovery: {
-  overseas: ['teyi', 'exa-search', 'facebook']
-}
-
-// 邮件触达（海外）
-email_outreach: {
-  overseas: ['delivery-queue', 'email-sender', 'email-outreach-ops']
-}
+```
+用户请求 → 匹配意图关键词 → 查ROUTING-TABLE.yaml → 选择技能 → 读取SKILL.md → 按步骤执行
 ```
 
-> 完整路由表（含故障切换）见主技能 `references/ARCHITECTURE.md`
+### 路由摘要
+
+| 意图 | 海外首选 | 国内首选 | 故障备选 |
+|------|----------|----------|----------|
+| 客户发现 | teyi-customs (P5) | exa-search (P5) | exa-search |
+| 企业背调 | teyi-customs (P5) | company-research (P5) | exa-search |
+| 决策人搜索 | exa-search (P5) ⭐ | exa-search (P5) ⭐ | company-research |
+| 邮件触达 | cold-email-generator (P5) | email-sender (P5) | delivery-queue |
+| 社媒运营 | ai-social-media-content (P5) | 同左 | 按平台备选 |
+| 完整流程 | acquisition-coordinator (P5) | 同左 | 无 |
+
+> ⭐ **决策人搜索**：国内/海外都用 Exa，不走 LinkedIn MCP！
+
+> 完整路由表（含故障切换）见主技能 `references/ROUTING-TABLE.yaml`
+
+## Exa MCP 工具链（exa-search v2.0）⭐
+
+> exa-search 已从付费 REST API 迁移为免费 MCP（via mcporter），8个工具全开，无需 API Key。
+
+### 8个可用工具
+
+| 工具 | 用途 | 获客场景 |
+|------|------|----------|
+| `web_search_exa` | 通用网页搜索 | 客户发现、行业调研 |
+| `web_search_advanced_exa` | 高级过滤搜索（日期/域名/文本） | 精准搜索 |
+| `company_research_exa` ⭐ | 企业情报（收入/员工/竞品/LinkedIn） | 企业背调 |
+| `people_search_exa` ⭐ | 职业档案搜索 | 决策人定位 |
+| `deep_search_exa` | 深度查询扩展 | 复杂调研 |
+| `crawling_exa` | 抓取网页全文 | 搜索后深入读取 |
+| `get_code_context_exa` | 代码/文档搜索 | 技术调研 |
+| `deep_researcher_start/check` | AI深度调研（异步） | 深度研究 |
+
+### 调用方式
+
+```bash
+# 通用搜索
+cmd /c "mcporter call exa.web_search_exa query=""industrial belt manufacturer"" numResults:5"
+
+# 企业情报 ⭐
+cmd /c "mcporter call exa.company_research_exa companyName=""Flexco"" numResults:3"
+
+# 人员搜索 ⭐
+cmd /c "mcporter call exa.people_search_exa query=""procurement manager conveyor belt"" numResults:5"
+```
+
+**⚠️ PowerShell 注意**：必须用 `cmd /c` 包一层，否则引号转义出错。
+
+### company_research_exa 返回情报示例
+
+调用 `company_research_exa companyName="Flexco"` 返回：
+- 行业分类 + 年收入（$64.3M）
+- 员工数（390人）+ 增长趋势
+- LinkedIn 粉丝数 + 官网
+- 竞争对手列表
+- 近期收购/动态
+- 联系方式（邮箱/电话）
+
+> 配置 URL：`https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check`
 
 ## 联系方式验证优先级 ⚠️
 
@@ -194,7 +234,33 @@ Step 9: 日报生成
 
 ---
 
-## v2.3.0 新特性速查
+## v2.4.0 新特性速查
+
+### Exa MCP 工具链升级（3→8工具）⭐
+
+从默认 3 个工具升级为 8 个全工具版（免费，无需 API Key）：
+- 新增 `company_research_exa`：企业情报（收入/员工/竞品/LinkedIn/动态）
+- 新增 `people_search_exa`：职业档案搜索（决策人定位）
+- 新增 `deep_search_exa`：深度查询扩展
+- 新增 `web_search_advanced_exa`：高级过滤（日期/域名/文本）
+- 新增 `crawling_exa`：网页全文抓取
+- 新增 `deep_researcher_start/check`：AI 深度调研
+
+配置方式：
+```bash
+mcporter config remove exa
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,...（全部8个）"
+mcporter list exa  # 验证显示 8 tools
+```
+
+### YAML 声明式路由（v2.4.0）
+
+路由表从 JS 代码迁移为 `references/ROUTING-TABLE.yaml`：
+- intents：7种意图 × 关键词匹配
+- routing：按意图+市场选择技能（含 priority 和 fallback）
+- fallback_map：故障切换映射
+- iron_rules：8条质量铁律
+- skills_index：所有子技能索引
 
 ### ICP客户群体定义
 
@@ -259,4 +325,4 @@ Step 9: 日报生成
 
 ---
 
-*版本：v3.1.0 | 同步至 HOLO-AGENT v2.3.0 | 更新时间：2026-04-03*
+*版本：v3.2.0 | 同步至 HOLO-AGENT v2.4.0 | 更新时间：2026-04-03*

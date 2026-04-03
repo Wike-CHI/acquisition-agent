@@ -94,15 +94,39 @@
 
 ### 故障切换映射
 
-```javascript
-const FALLBACK_MAP = {
-  'linkedin': ['exa-search'],
-  'teyi': ['exa-search'],
-  'email-sender': ['delivery-queue'],
-  'ai-social-media-content': ['facebook-acquisition']
-};
+> v2.4.0: 故障切换定义在 `references/ROUTING-TABLE.yaml` 的 `fallback_map` 节
+
+| 主技能 | 备选顺序 |
+|--------|----------|
+| teyi-customs | exa-search |
+| linkedin | exa-search |
+| facebook-acquisition | exa-search |
+| exa-search | web_search（内置工具） |
+| email-sender | delivery-queue |
+| cold-email-generator | email-outreach-ops |
+| ai-social-media-content | 按平台备选 |
+
+### 错误6：exa-search 调用失败
+
+**症状**：mcporter call exa 报错或返回不相关结果
+
+**原因**：
+1. mcporter 配置 URL 不正确（缺少 tools 参数，只有3个工具）
+2. PowerShell 引号转义问题
+
+**解决**：
+```bash
+# 确认配置是全工具版（应显示 8 tools）
+mcporter list exa
+
+# 如果只有3个工具，重新配置：
+mcporter config remove exa
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# PowerShell 下必须用 cmd /c 包一层：
+cmd /c "mcporter call exa.web_search_exa query=""your query"" numResults:5"
 ```
 
 ---
 
-_版本：v3.1.0 | 同步至 HOLO-AGENT v2.3.0 | 更新时间：2026-04-03_
+_版本：v3.2.0 | 同步至 HOLO-AGENT v2.4.0 | 更新时间：2026-04-03_
