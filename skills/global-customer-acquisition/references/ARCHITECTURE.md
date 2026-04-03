@@ -6,83 +6,57 @@
 
 ## 1. Skills Router（技能路由器）
 
-**文件**: `lib/skills-router.js`
+**配置文件**: `references/ROUTING-TABLE.yaml`
+**使用说明**: `SKILLS-ROUTER.md`
 
-### 完整路由表
+> v2.4.0 变更：路由配置从 JS 代码迁移为纯 YAML 声明式配置。
+> AI Agent 读取 YAML 做路由决策，无需运行任何代码。
+> 旧文件 `lib/skills-router.js` 已标记为 deprecated，仅供参考。
 
-```javascript
-const ROUTING_TABLE = {
-  customer_discovery: {
-    domestic: [
-      { skill: 'weibo',    priority: 5, desc: '微博搜索' },
-      { skill: 'wechat',   priority: 4, desc: '微信公众号' },
-      { skill: 'baidu',    priority: 3, desc: '百度' }
-    ],
-    overseas: [
-      { skill: 'teyi',     priority: 5, desc: '特易海关数据' },
-      { skill: 'exa-search', priority: 5, desc: 'Exa语义搜索' },
-      { skill: 'facebook', priority: 4, desc: 'Facebook' }
-    ]
-  },
-  company_research: {
-    domestic: [
-      { skill: 'baidu',   priority: 4, desc: '百度' }
-    ],
-    overseas: [
-      { skill: 'teyi',       priority: 5, desc: '特易海关' },
-      { skill: 'exa-search', priority: 4, desc: 'Exa' }
-    ]
-  },
-  decision_maker_search: {  // ⭐ 关键：国内/海外都用Exa
-    domestic: [
-      { skill: 'exa-search', priority: 5, desc: 'Exa搜LinkedIn公开档案' }
-    ],
-    overseas: [
-      { skill: 'exa-search', priority: 5, desc: 'Exa搜LinkedIn公开档案' }
-    ]
-  },
-  email_outreach: {
-    domestic: [
-      { skill: 'email-sender',      priority: 5, desc: 'SMTP发送' },
-      { skill: 'delivery-queue',    priority: 4, desc: '分段队列' }
-    ],
-    overseas: [
-      { skill: 'delivery-queue',    priority: 5, desc: '分段队列' },
-      { skill: 'email-sender',      priority: 4, desc: 'SMTP发送' },
-      { skill: 'email-outreach-ops', priority: 3, desc: '开发信运营' }
-    ]
-  },
-  social_media_outreach: {    // ⭐新增：社媒运营
-    facebook: [
-      { skill: 'ai-social-media-content', priority: 5, desc: 'AI社媒内容生成' },
-      { skill: 'facebook-acquisition',      priority: 4, desc: 'Facebook获客' }
-    ],
-    instagram: [
-      { skill: 'ai-social-media-content', priority: 5, desc: 'AI社媒内容生成' }
-    ],
-    linkedin: [
-      { skill: 'ai-social-media-content', priority: 5, desc: 'AI社媒内容生成' },
-      { skill: 'linkedin-writer',          priority: 4, desc: 'LinkedIn内容' }
-    ]
-  },
-  linkedin_outreach: {
-    overseas: [{ skill: 'linkedin', priority: 5, desc: 'LinkedIn私信/连接请求' }],
-    domestic: [{ skill: 'linkedin', priority: 5, desc: 'LinkedIn私信/连接请求' }]
-  },
-  full_pipeline: {
-    overseas: [{ skill: 'acquisition-coordinator', priority: 5, desc: '获客编排器' }]
-  }
-};
+### 路由流程
 
-// 故障切换映射
-const FALLBACK_MAP = {
-  'linkedin': ['exa-search'],
-  'teyi': ['exa-search', 'customs'],
-  'weibo': ['wechat', 'baidu'],
-  'email-sender': ['delivery-queue'],
-  'ai-social-media-content': ['facebook-acquisition']  // 社媒备选
-};
 ```
+用户请求
+    ↓
+Step 1: 意图识别 — 匹配 intents 中的关键词
+    ↓
+Step 2: 条件判断 — 根据市场/平台/需求选择技能
+    ↓
+Step 3: 技能选择 — 按 priority 排序，选最高可用
+    ↓
+Step 4: 读取目标技能 SKILL.md → 按步骤执行
+    ↓
+Step 5: 故障切换 — 不可用时查 fallback_map
+```
+
+### 路由表摘要
+
+完整配置见 `references/ROUTING-TABLE.yaml`，以下为摘要：
+
+| 意图 | 海外首选 | 国内首选 | 故障备选 |
+|------|----------|----------|----------|
+| customer_discovery | teyi-customs (P5) | exa-search (P5) | exa-search |
+| company_research | teyi-customs (P5) | company-research (P5) | exa-search |
+| decision_maker_search | exa-search (P5) | exa-search (P5) | company-research |
+| email_outreach | cold-email-generator (P5) | email-sender (P5) | delivery-queue |
+| social_media_outreach | ai-social-media-content (P5) | ai-social-media-content (P5) | 按平台备选 |
+| full_pipeline | acquisition-coordinator (P5) | acquisition-coordinator (P5) | 无 |
+
+### 铁律配置
+
+8条铁律定义在 `ROUTING-TABLE.yaml` 的 `iron_rules` 节，每条标注阻断阶段和是否阻断。
+
+### 故障切换映射
+
+定义在 `ROUTING-TABLE.yaml` 的 `fallback_map` 节：
+
+| 主技能 | 备选顺序 |
+|--------|----------|
+| teyi-customs | exa-search |
+| linkedin | exa-search |
+| facebook-acquisition | exa-search |
+| email-sender | delivery-queue |
+| cold-email-generator | email-outreach-ops |
 
 ---
 
@@ -416,6 +390,6 @@ global-customer-acquisition/
 
 ---
 
-_更新时间：2026-04-01_
-_版本: v2.3.0_
-_状态: 已整合三层记忆系统 + proactivity系统_
+_更新时间：2026-04-03_
+_版本: v2.4.0_
+_状态: 路由器已迁移至YAML声明式配置，子技能调用已去sessions_spawn_

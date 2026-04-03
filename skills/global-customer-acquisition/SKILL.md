@@ -1,6 +1,6 @@
 ---
 name: HOLO-AGENT
-version: 2.3.0
+version: 2.4.0
 description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong
 triggers:
   - 找客户
@@ -14,11 +14,13 @@ triggers:
   - 红龙
 ---
 
-# HOLO智能获客Agent v2.3.0
+# HOLO智能获客Agent v2.4.0
 
 > 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
 >
 > 详细文档：references/ARCHITECTURE.md | references/PIPELINE.md | references/SOCIAL-MEDIA.md | references/TROUBLESHOOT.md
+>
+> 路由配置：references/ROUTING-TABLE.yaml | SKILLS-ROUTER.md
 
 ---
 
@@ -45,14 +47,16 @@ triggers:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Skills Router（技能路由器）⭐                              │
-│  意图识别 → 渠道选择 → 故障自动切换                        │
+│  Skills Router（声明式路由）⭐ v2.4.0                       │
+│  读ROUTING-TABLE.yaml → 意图匹配 → 技能选择 → 故障切换     │
 ├─────────────────────────────────────────────────────────────┤
 │  7层上下文系统                                            │
 │  IDENTITY → SOUL → AGENTS → USER → HEARTBEAT → MEMORY → TOOLS │
 ├─────────────────────────────────────────────────────────────┤
 │  获客流程                                                  │
 │  发现层 → 情报层 → 触达层 → 支持层 → 管理层              │
+├─────────────────────────────────────────────────────────────┤
+│  纯Markdown指令 · 零代码依赖 · 跨平台兼容                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -98,38 +102,27 @@ triggers:
 
 ## Skills Router 核心路由表
 
-### 6种意图 × 渠道选择
+> 完整声明式路由配置见：**references/ROUTING-TABLE.yaml**
+> 路由使用说明见：**SKILLS-ROUTER.md**
 
-```javascript
-decision_maker_search: {   // LinkedIn决策人搜索
-  domestic:  [{ skill: 'exa-free-via-mcporter', priority: 5 }],
-  overseas:  [{ skill: 'exa-free-via-mcporter', priority: 5 }]
-}
+### 6种意图 × 路由摘要
 
-customer_discovery: {        // 客户发现
-  overseas: ['teyi', 'exa-search', 'facebook']
-}
+| 意图 | 关键词 | 海外首选 | 国内首选 |
+|------|--------|----------|----------|
+| 客户发现 | 找客户/获客 | teyi-customs (P5) | exa-search (P5) |
+| 企业背调 | 背调/评估 | teyi-customs (P5) | company-research (P5) |
+| 决策人搜索 | 决策人/LinkedIn | exa-search (P5) | exa-search (P5) |
+| 邮件触达 | 发邮件/开发信 | cold-email-generator (P5) | email-sender (P5) |
+| 社媒运营 | Facebook/LinkedIn | ai-social-media-content (P5) | ai-social-media-content (P5) |
+| 完整流程 | 全流程/端到端 | acquisition-coordinator (P5) | acquisition-coordinator (P5) |
 
-company_research: {           // 企业背调
-  overseas: ['teyi', 'exa-search']
-}
+### 路由执行方式
 
-email_outreach: {             // 邮件触达
-  overseas: ['delivery-queue', 'email-sender']
-}
-
-social_media_outreach: {      // 社媒运营
-  facebook:   ['ai-social-media-content', 'facebook-acquisition'],
-  instagram:  ['ai-social-media-content'],
-  linkedin:   ['ai-social-media-content', 'linkedin-writer']
-}
-
-full_pipeline: {
-  overseas:  ['acquisition-coordinator']
-}
+```
+用户请求 → 匹配意图关键词 → 查ROUTING-TABLE.yaml → 选择技能 → 读取SKILL.md → 按步骤执行
 ```
 
-> 完整路由表（含故障切换）见：references/ARCHITECTURE.md
+**故障切换**：主技能不可用时，自动按 fallback 顺序尝试备选技能。
 
 ---
 
@@ -267,4 +260,5 @@ Step 9: 日报生成
 
 ---
 
-*版本：v2.3.0 | 更新时间：2026-04-02*
+*版本：v2.4.0 | 更新时间：2026-04-03*
+*变更：路由表JS→YAML声明式，子技能调用去sessions_spawn，跨平台兼容*

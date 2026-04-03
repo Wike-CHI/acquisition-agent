@@ -1,0 +1,325 @@
+# ============================================================
+# 红龙获客系统 - 技能路由表（声明式配置）
+# 版本: 2.0.0 | 更新时间: 2026-04-03
+#
+# 用途：AI Agent 读取此文件进行意图识别 → 技能选择 → 调用
+# 格式：纯 YAML 声明，无代码依赖，跨平台兼容
+# ============================================================
+
+# ── 意图识别 ──────────────────────────────────────────────
+#
+# AI 根据用户输入匹配意图关键词，确定用户要做什么。
+# 匹配规则：关键词命中即触发对应意图。
+
+intents:
+  customer_discovery:
+    keywords: [找客户, 搜索客户, 获客, 批量搜索, 搜索公司, find customers, lead generation, prospecting]
+    description: "发现潜在客户"
+    market_aware: true        # 需要区分国内/海外
+
+  company_research:
+    keywords: [背调, 评估, ICP, 调研, 公司分析, 背景调查, research, due diligence, evaluate]
+    description: "企业背调和评估"
+    market_aware: true
+
+  decision_maker_search:
+    keywords: [决策人, 联系人, 采购经理, LinkedIn搜索, decision maker, contact, buyer, procurement]
+    description: "搜索企业决策人/采购负责人"
+    market_aware: false       # 国内海外统一用Exa
+
+  email_outreach:
+    keywords: [发邮件, 开发信, 邮件, 发送, outreach, cold email, send email]
+    description: "邮件触达（开发信生成+发送）"
+    market_aware: true
+
+  social_media_outreach:
+    keywords: [Facebook, Instagram, LinkedIn运营, 社媒, 发帖, social media, post]
+    description: "社交媒体运营和内容发布"
+    platform_aware: true      # 需要区分平台
+
+  quotation:
+    keywords: [报价, 报价单, 价格, quote, quotation, pricing]
+    description: "生成产品报价单"
+
+  full_pipeline:
+    keywords: [完整流程, 端到端, 全流程, 全套, full pipeline, end to end]
+    description: "完整获客流程（搜索→背调→筛选→触达）"
+
+
+# ── 技能路由 ──────────────────────────────────────────────
+#
+# 根据意图+市场/平台条件选择技能。
+# priority: 数字越大优先级越高
+# fallback: 主技能不可用时的备选（按顺序尝试）
+
+routing:
+  customer_discovery:
+    overseas:
+      - skill: teyi-customs
+        priority: 5
+        condition: "需要采购记录数据"
+        fallback: [exa-search]
+      - skill: exa-search
+        priority: 4
+        condition: "通用语义搜索"
+        fallback: []
+      - skill: facebook-acquisition
+        priority: 3
+        condition: "Facebook渠道"
+        fallback: [exa-search]
+    domestic:
+      - skill: exa-search
+        priority: 5
+        condition: "通用搜索"
+        fallback: []
+
+  company_research:
+    overseas:
+      - skill: teyi-customs
+        priority: 5
+        condition: "需要海关采购数据"
+        fallback: [exa-search]
+      - skill: company-research
+        priority: 4
+        condition: "通用企业背调"
+        fallback: [exa-search]
+      - skill: deep-research
+        priority: 3
+        condition: "深度调研"
+        fallback: [company-research]
+    domestic:
+      - skill: company-research
+        priority: 5
+        condition: "通用企业背调"
+        fallback: [exa-search]
+
+  decision_maker_search:
+    all_markets:
+      - skill: exa-search
+        priority: 5
+        condition: "通过Exa搜索LinkedIn公开档案"
+        fallback: []
+      - skill: company-research
+        priority: 3
+        condition: "通过企业背调获取联系人"
+        fallback: []
+
+  email_outreach:
+    overseas:
+      - skill: cold-email-generator
+        priority: 5
+        condition: "开发信生成（v2.0打磨流程）"
+        next: [email-sender]
+      - skill: email-sender
+        priority: 4
+        condition: "SMTP邮件发送"
+        next: [delivery-queue]
+      - skill: delivery-queue
+        priority: 3
+        condition: "分段队列发送"
+        fallback: [email-sender]
+      - skill: email-outreach-ops
+        priority: 2
+        condition: "开发信运营（供应商询价等）"
+        fallback: [cold-email-generator]
+    domestic:
+      - skill: email-sender
+        priority: 5
+        condition: "SMTP邮件发送"
+        next: [delivery-queue]
+      - skill: delivery-queue
+        priority: 4
+        condition: "分段队列发送"
+        fallback: [email-sender]
+
+  social_media_outreach:
+    facebook:
+      - skill: ai-social-media-content
+        priority: 5
+        condition: "AI社媒内容生成（9平台）"
+        fallback: [facebook-acquisition]
+      - skill: facebook-acquisition
+        priority: 4
+        condition: "Facebook获客操作"
+        fallback: []
+    instagram:
+      - skill: ai-social-media-content
+        priority: 5
+        condition: "AI社媒内容生成"
+        fallback: []
+    linkedin:
+      - skill: ai-social-media-content
+        priority: 5
+        condition: "AI社媒内容生成"
+        fallback: [linkedin-writer]
+      - skill: linkedin-writer
+        priority: 4
+        condition: "LinkedIn专属内容"
+        fallback: []
+
+  quotation:
+    all_markets:
+      - skill: honglong-products
+        priority: 5
+        condition: "产品匹配+报价"
+        fallback: []
+
+  full_pipeline:
+    overseas:
+      - skill: acquisition-coordinator
+        priority: 5
+        condition: "完整获客编排"
+        fallback: []
+    domestic:
+      - skill: acquisition-coordinator
+        priority: 5
+        condition: "完整获客编排"
+        fallback: []
+
+
+# ── 故障切换映射 ──────────────────────────────────────────
+#
+# 当主技能不可用时，按 fallback 顺序尝试备选。
+# "不可用"的定义：技能文件不存在 / 技能执行失败 / 平台不支持
+
+fallback_map:
+  teyi-customs: [exa-search]
+  linkedin: [exa-search]
+  facebook-acquisition: [exa-search]
+  exa-search: [web-search]
+  email-sender: [delivery-queue]
+  cold-email-generator: [email-outreach-ops]
+  ai-social-media-content: [facebook-acquisition]
+
+
+# ── 质量铁律 ──────────────────────────────────────────────
+#
+# 以下规则在任何情况下都必须遵守，不可绕过。
+
+iron_rules:
+  - id: email_rule
+    description: "必须用决策人邮箱，禁用info@"
+    stage: phase_1.5
+    blocking: true
+
+  - id: icp_score_rule
+    description: "ICP评分≥75分才发邮件"
+    stage: phase_3
+    blocking: true
+
+  - id: email_quality_rule
+    description: "开发信评分≥9.0分才发送"
+    stage: phase_4
+    blocking: true
+
+  - id: contact_verification
+    description: "禁止未经验证的单一来源联系方式"
+    stage: phase_1.5
+    blocking: true
+
+  - id: no_email_no_continue
+    description: "无有效邮箱不继续触达流程"
+    stage: phase_1.5
+    blocking: true
+
+  - id: no_mining
+    description: "禁止矿业客户"
+    stage: phase_3
+    blocking: true
+
+  - id: email_polish
+    description: "开发信必须经过打磨流程"
+    stage: phase_4
+    blocking: false
+
+  - id: skill_protocol
+    description: "使用skill://协议引用技能"
+    stage: all
+    blocking: false
+
+
+# ── 子技能索引 ─────────────────────────────────────────────
+#
+# 所有可被路由的技能及其 SKILL.md 位置。
+# AI 通过 skill://协议 或 读取文件路径 来获取技能指令。
+
+skills_index:
+  # ── 编排层 ──
+  acquisition-coordinator:
+    path: "skill://acquisition-coordinator"
+    role: "任务协调器"
+    layer: orchestration
+  acquisition-workflow:
+    path: "skill://acquisition-workflow"
+    role: "流程定义"
+    layer: orchestration
+  acquisition-evaluator:
+    path: "skill://acquisition-evaluator"
+    role: "质量验收"
+    layer: orchestration
+
+  # ── 发现层 ──
+  teyi-customs:
+    path: "skill://teyi-customs"
+    role: "特易海关数据"
+    layer: discovery
+  exa-search:
+    path: "skill://exa-search"
+    role: "Exa语义搜索"
+    layer: discovery
+  facebook-acquisition:
+    path: "skill://facebook-acquisition"
+    role: "Facebook获客"
+    layer: discovery
+
+  # ── 情报层 ──
+  company-research:
+    path: "skill://company-research"
+    role: "企业背调"
+    layer: intelligence
+  deep-research:
+    path: "skill://deep-research"
+    role: "深度调研"
+    layer: intelligence
+
+  # ── 触达层 ──
+  cold-email-generator:
+    path: "skill://cold-email-generator"
+    role: "开发信生成v2.0"
+    layer: outreach
+  email-sender:
+    path: "skill://email-sender"
+    role: "SMTP邮件发送"
+    layer: outreach
+  delivery-queue:
+    path: "skill://delivery-queue"
+    role: "分段队列发送"
+    layer: outreach
+  email-outreach-ops:
+    path: "skill://email-outreach-ops"
+    role: "开发信运营"
+    layer: outreach
+
+  # ── 社媒层 ──
+  ai-social-media-content:
+    path: "skill://ai-social-media-content"
+    role: "AI社媒内容生成（9平台）"
+    layer: social
+
+  # ── 支持层 ──
+  honglong-products:
+    path: "skill://honglong-products"
+    role: "产品库+报价"
+    layer: support
+  nas-file-reader:
+    path: "skill://nas-file-reader"
+    role: "NAS存储访问"
+    layer: support
+  crm:
+    path: "skill://crm"
+    role: "CRM/Pipeline管理"
+    layer: support
+  customer-deduplication:
+    path: "skill://customer-deduplication"
+    role: "客户去重"
+    layer: support
