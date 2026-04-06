@@ -32,6 +32,16 @@ intents:
     description: "邮件触达（开发信生成+发送）"
     market_aware: true
 
+  whatsapp_outreach:
+    keywords: [WhatsApp, 发WhatsApp, WhatsApp消息, wa消息, whatsapp, whatsapp outreach]
+    description: "WhatsApp消息触达"
+    market_aware: false
+
+  multi_channel_outreach:
+    keywords: [智能触达, 多渠道触达, 多通道, 双通道, 全渠道触达, omni-channel]
+    description: "智能选择触达渠道（邮箱/WhatsApp）"
+    market_aware: true
+
   social_media_outreach:
     keywords: [Facebook, Instagram, LinkedIn运营, 社媒, 发帖, social media, post]
     description: "社交媒体运营和内容发布"
@@ -132,6 +142,35 @@ routing:
         condition: "分段队列发送"
         fallback: [email-sender]
 
+  whatsapp_outreach:
+    all_markets:
+      - skill: whatsapp-outreach
+        priority: 5
+        condition: "WhatsApp消息触达"
+        next: [delivery-queue]
+        fallback: [email-sender]
+      - skill: delivery-queue
+        priority: 3
+        condition: "WhatsApp分段队列"
+        fallback: [whatsapp-outreach]
+
+  multi_channel_outreach:
+    overseas:
+      - skill: whatsapp-outreach
+        priority: 5
+        condition: "有WhatsApp号码 → WhatsApp触达"
+        fallback: [cold-email-generator]
+      - skill: cold-email-generator
+        priority: 4
+        condition: "只有邮箱 → 邮件触达"
+        next: [email-sender]
+        fallback: [whatsapp-outreach]
+    domestic:
+      - skill: email-sender
+        priority: 5
+        condition: "邮件触达"
+        fallback: []
+
   social_media_outreach:
     facebook:
       - skill: ai-social-media-content
@@ -189,6 +228,7 @@ fallback_map:
   exa-search: [web-search]
   email-sender: [delivery-queue]
   cold-email-generator: [email-outreach-ops]
+  whatsapp-outreach: [cold-email-generator]
   ai-social-media-content: [facebook-acquisition]
 
 
@@ -225,6 +265,16 @@ iron_rules:
   - id: no_mining
     description: "禁止矿业客户"
     stage: phase_3
+    blocking: true
+
+  - id: whatsapp_safety
+    description: "WhatsApp消息必须用户确认后才发送，禁止群发"
+    stage: phase_4
+    blocking: true
+
+  - id: whatsapp_frequency
+    description: "同一联系人每天最多3条WhatsApp消息"
+    stage: phase_4
     blocking: true
 
   - id: email_polish
@@ -298,6 +348,10 @@ skills_index:
   email-outreach-ops:
     path: "skill://email-outreach-ops"
     role: "开发信运营"
+    layer: outreach
+  whatsapp-outreach:
+    path: "skill://whatsapp-outreach"
+    role: "WhatsApp消息触达"
     layer: outreach
 
   # ── 社媒层 ──

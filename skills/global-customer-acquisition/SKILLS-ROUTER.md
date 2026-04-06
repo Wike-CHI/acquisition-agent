@@ -158,8 +158,8 @@ fallback_map:
 │  情报层 (intelligence)                   │
 │  company-research / deep-research        │
 ├──────────────────────────────────────────┤
-│  触达层 (outreach)                       │
-│  cold-email / email-sender / queue       │
+│  触达层 (outreach)                              │
+│  cold-email / email-sender / whatsapp / queue   │
 ├──────────────────────────────────────────┤
 │  社媒层 (social)                         │
 │  ai-social-media-content                │
@@ -183,5 +183,5 @@ fallback_map:
 
 ---
 
-*版本: 2.0.0 | 更新时间: 2026-04-03*
-*变更: JS代码路由 → YAML声明式路由，跨平台兼容*
+*版本: 2.1.0 | 更新时间: 2026-04-06*
+*变更: 触达层加入 WhatsApp 渠道*

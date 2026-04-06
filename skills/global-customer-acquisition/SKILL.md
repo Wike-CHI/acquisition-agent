@@ -1,7 +1,7 @@
 ---
 name: HOLO-AGENT
-version: 2.4.0
-description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong
+version: 2.5.0
+description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达
 triggers:
   - 找客户
   - 背调公司
@@ -12,9 +12,12 @@ triggers:
   - HOLO
   - honglong
   - 红龙
+  - WhatsApp
+  - 智能触达
+  - 多渠道触达
 ---
 
-# HOLO智能获客Agent v2.4.0
+# HOLO智能获客Agent v2.5.0
 
 > 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
 >
@@ -34,6 +37,9 @@ triggers:
 | "我想开发巴西市场" | 市场分析 + 批量获客 |
 | "帮我背调这家公司" | 6维度ICP评分 + 报告 |
 | "给这家公司发开发信" | 开发信生成v2.0（润色+评分≥9.0分）+ 发送 |
+| "发WhatsApp消息" | WhatsApp风格消息生成 + 确认 + 发送 |
+| "智能触达这个客户" | 自动判断：有号码→WhatsApp，有邮箱→邮件，双通道最优 |
+| "多渠道触达TOP5客户" | 批量双通道（邮件+WhatsApp）触达 |
 | "生成报价单" | .docx报价单 |
 | "帮我发一篇Facebook" | 生成帖子 + 发布 |
 | "Instagram发什么" | 内容建议 + Hashtag + 脚本 |
@@ -47,8 +53,9 @@ triggers:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Skills Router（声明式路由）⭐ v2.4.0                       │
+│  Skills Router（声明式路由）⭐ v2.5.0                       │
 │  读ROUTING-TABLE.yaml → 意图匹配 → 技能选择 → 故障切换     │
+│  支持8种意图 × 邮件/WhatsApp双通道                          │
 ├─────────────────────────────────────────────────────────────┤
 │  7层上下文系统                                            │
 │  IDENTITY → SOUL → AGENTS → USER → HEARTBEAT → MEMORY → TOOLS │
@@ -65,8 +72,19 @@ triggers:
 ## 3条铁律
 
 1. **邮箱铁律**：必须用决策人邮箱，禁用info@
-2. **评分铁律**：ICP评分≥75分才发邮件
-3. **质量铁律**：开发信评分≥9.0分才发送
+2. **评分铁律**：ICP评分≥75分才触达（邮件和WhatsApp通用）
+3. **质量铁律**：开发信评分≥9.0分 / WhatsApp消息评分≥8.0分才发送
+
+> 详细规则见：references/IRON-RULES.md
+
+---
+
+## 🔒 WhatsApp安全铁律
+
+1. **用户确认**：每条WhatsApp消息发送前必须让用户确认
+2. **禁止群发**：每条消息必须个性化
+3. **频率控制**：同一联系人每天最多3条
+4. **静默时段**：对方当地时间22:00-08:00不发送
 
 > 详细规则见：references/IRON-RULES.md
 
@@ -105,7 +123,7 @@ triggers:
 > 完整声明式路由配置见：**references/ROUTING-TABLE.yaml**
 > 路由使用说明见：**SKILLS-ROUTER.md**
 
-### 6种意图 × 路由摘要
+### 8种意图 × 路由摘要
 
 | 意图 | 关键词 | 海外首选 | 国内首选 |
 |------|--------|----------|----------|
@@ -113,6 +131,8 @@ triggers:
 | 企业背调 | 背调/评估 | teyi-customs (P5) | company-research (P5) |
 | 决策人搜索 | 决策人/LinkedIn | exa-search (P5) | exa-search (P5) |
 | 邮件触达 | 发邮件/开发信 | cold-email-generator (P5) | email-sender (P5) |
+| WhatsApp触达 | WhatsApp/wa消息 | whatsapp-outreach (P5) | whatsapp-outreach (P5) |
+| 智能触达 | 智能触达/多渠道 | whatsapp-outreach (P5) | email-sender (P5) |
 | 社媒运营 | Facebook/LinkedIn | ai-social-media-content (P5) | ai-social-media-content (P5) |
 | 完整流程 | 全流程/端到端 | acquisition-coordinator (P5) | acquisition-coordinator (P5) |
 
@@ -129,16 +149,16 @@ triggers:
 ## 11步获客流程（简化）
 
 ```
-Step 0: 智能路由 → 自动选渠道
+Step 0: 智能路由 → 自动选渠道（邮件/WhatsApp/双通道）
 Step 1: 客户发现 → 搜索潜在客户
-Step 1.5: 联系方式获取 → 无邮箱不继续
+Step 1.5: 联系方式获取 → 无邮箱+无WhatsApp不继续
 Step 2: 客户查重 → 防止重复开发
 Step 3: 企业背调 → ICP 6维度评分
 Step 4: LinkedIn决策人 → Exa搜索
 Step 5: 竞品分析 → 差异化话术
-Step 6: 开发信生成 → v2.0打磨流程，≥9.0分通过
+Step 6: 消息生成 → 邮件开发信v2.0（≥9.0分）/ WhatsApp消息（≥8.0分）
 Step 6.5: 报价单 → .docx
-Step 7: 邮件发送 → 分段队列模拟真人
+Step 7: 消息发送 → 邮件队列 / WhatsApp / 双通道
 Step 8: Pipeline更新 → .xlsx
 Step 8.5: 跟进管理 → 日历提醒
 Step 9: 日报生成
@@ -214,6 +234,7 @@ Step 9: 日报生成
 | Office文档生成 | `skill://docx` / `skill://pptx` / `skill://xlsx` |
 | 搜索与调研 | `skill://tavily-search` / `skill://brave-web-search` |
 | 邮件与通信 | `skill://email-skill` |
+| WhatsApp触达 | `skill://WhatsApp` → `wacli` CLI |
 | PDF处理 | `skill://pdf` |
 
 > 完整外部技能索引见：external-skills/INDEX.md
@@ -227,6 +248,7 @@ Step 9: 日报生成
 | 协调器 | `skill://acquisition-coordinator` |
 | 评分器 | `skill://acquisition-evaluator` |
 | 工作流 | `skill://acquisition-workflow` |
+| WhatsApp触达 | `skill://whatsapp-outreach` |
 | 产品库 | `skill://honglong-products` |
 | 助手 | `skill://honglong-assistant` |
 
@@ -260,5 +282,5 @@ Step 9: 日报生成
 
 ---
 
-*版本：v2.4.0 | 更新时间：2026-04-03*
-*变更：路由表JS→YAML声明式，子技能调用去sessions_spawn，跨平台兼容*
+*版本：v2.5.0 | 更新时间：2026-04-06*
+*变更：集成WhatsApp触达通道（whatsapp-outreach子技能），多渠道智能路由，delivery-queue支持WhatsApp模式*

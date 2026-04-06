@@ -51,8 +51,21 @@ coverage/
 # ============================================
 node_modules/
 dist/
+dist-full/
+release/
 build/
 *.tsbuildinfo
+
+# ============================================
+# 大文件（产品资料/视频/PDF）
+# ============================================
+*.mp4
+*.avi
+*.mov
+**/honglong-products/**/*.png
+**/honglong-products/**/*.jpg
+**/honglong-products/**/*.jpeg
+**/honglong-products/**/*.pdf
 
 # ============================================
 # 临时产品文件（包含真实数据）
@@ -68,3 +81,12 @@ temp-*.pptx
 learning-system/working-buffer.md
 learning-system/WARM/projects/working/
 proactivity/session-state.md
+
+# ============================================
+# 临时/冗余文件
+# ============================================
+*.backup
+*.backup-*
+*.pre-package.*
+.serena/
+package-lock.json

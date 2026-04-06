@@ -4,6 +4,58 @@
 
 ---
 
+## [v2.5.0] - 2026-04-06
+
+### 新增
+- **WhatsApp 触达渠道** — 基于实战验证（沙特客户 8/8 批量发送成功）
+  - `whatsapp-outreach` 技能升级至 v2.0.0：JID 格式优化、批量发送流程、号码搜索脚本
+  - `search_whatsapp.py` — DuckDuckGo 搜索客户 WhatsApp 号码
+  - `whatsapp_bulk_send.py` — 批量发送，含行业模板、安全间隔、自动确认(--yes)
+  - wacli 命令参考：JID 格式 `号码@s.whatsapp.net` 避免超时
+  - sync/send 互斥机制说明
+
+### 更新
+- **触达层多渠道支持**（acquisition-workflow Phase 4）
+  - 新增渠道选择逻辑：双通道 / 纯邮件 / 纯WhatsApp / 搜索后触达
+  - Drip Campaign 加入 WhatsApp 跟进节点
+- **honglong-assistant** 触达技能列表加入 whatsapp-outreach
+- **SKILLS-ROUTER.md** v2.1.0 — 触达层加入 WhatsApp 渠道
+
+### 变更文件
+| 文件 | 变更 |
+|------|------|
+| `skills/whatsapp-outreach/SKILL.md` | v2.0.0 — 批量流程 + JID技巧 + 实战数据 |
+| `skills/acquisition-workflow/SKILL.md` | Phase 4 多渠道 + 渠道选择逻辑 |
+| `skills/honglong-assistant/SKILL.md` | 触达层 + WhatsApp + Drip Campaign |
+| `SKILLS-ROUTER.md` | v2.1.0 触达层说明 |
+
+### 实战数据
+- 沙特客户 Pipeline: 30家 → 搜索到 8 家号码 → 8/8 发送成功
+- 每条间隔 30-60 秒随机延迟
+- 消息按行业个性化（物流/水泥/食品/木工）
+
+---
+
+## [v2.3.0] - 2026-04-02
+
+### 重构
+- SKILL.md 精简：680行 → 269行（减少 60%）
+- 创建 5 个详细文档（ICP/SCORING/IRON-RULES/CONTACT-VERIFICATION/EMAIL-SCORING）
+- 使用 `skill://` 协议（跨平台兼容）
+- 添加 triggers 字段（8个触发词）
+
+### 新增
+- 联系方式验证加强（多源验证 + 时效性检查）
+- 开发信质量提升 v2.0（润色 + 评分 ≥ 9.0分）
+- 系统更名：global-customer-acquisition → HOLO-AGENT
+
+### 修复
+- AI 识别速度优化
+- AI 理解速度优化
+- 维护简洁性提升
+
+---
+
 ## [v2.2.1] - 2026-04-01
 
 ### 新增

@@ -55,6 +55,7 @@ personality: 专业、热情、实用、接地气
 - `email-marketing`
 - `email-outreach-ops`
 - `linkedin-writer`
+- `whatsapp-outreach`
 
 ### 支持技能
 - `customer-deduplication`
@@ -152,7 +153,7 @@ personality: 专业、热情、实用、接地气
 | Phase 1.5 | 去重合并 | 5分钟 |
 | Phase 2 | 客户背调（企业/市场/深度） | 30分钟 |
 | Phase 3 | 筛选排序 | 5分钟 |
-| Phase 4 | 触达（邮件/LinkedIn） | 10分钟 |
+| Phase 4 | 触达（邮件/LinkedIn/WhatsApp） | 10分钟 |
 
 ### 质量标准
 
@@ -183,7 +184,7 @@ personality: 专业、热情、实用、接地气
 | 轮次 | 时机 | 动作 |
 |------|------|------|
 | D0 | 首次联系 | 发送开发信 + 产品介绍 |
-| D3 | 第3天 | LinkedIn 连接请求 |
+| D3 | 第3天 | LinkedIn 连接请求 + WhatsApp 跟进 |
 | D5 | 第5天 | 跟进邮件：价值主张 + 案例 |
 | D14 | 第14天 | 最终跟进：Free Sample / Demo |
 
@@ -217,6 +218,8 @@ personality: 专业、热情、实用、接地气
 | 搜索客户 | "帮我搜索[国家]的[行业]客户" |
 | 背调公司 | "背调[公司名]" |
 | 发送邮件 | "给[邮箱]发开发信" |
+| 发WhatsApp | "给[号码]发WhatsApp消息" |
+| 批量发送 | "批量发送WhatsApp消息" |
 | 查看客户 | "显示我的客户列表" |
 | 设置提醒 | "[时间]提醒我跟进[客户]" |
 | **配置账号** | "配置特易账号" / "配置NAS" / "配置邮箱" |

@@ -1,24 +1,24 @@
 {
-  "setupComplete": false,
+  "setupComplete": true,
   "prerequisites": {
     "chrome": {
       "required": true,
-      "installed": false,
+      "installed": true,
       "description": "Google Chrome browser"
     },
     "dependencies": {
       "required": true,
-      "installed": false,
+      "installed": true,
       "description": "Node.js dependencies (npm install completed)"
     },
     "apiKey": {
       "required": true,
-      "configured": false,
+      "configured": true,
       "description": "ANTHROPIC_API_KEY exported (i.e $ANTHROPIC_API_KEY) or in .env file"
     },
     "browserCommand": {
       "required": true,
-      "installed": false,
+      "installed": true,
       "description": "Browser CLI command globally linked (npm link)"
     }
   },

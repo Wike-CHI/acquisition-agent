@@ -1,0 +1,13 @@
+# Local cookie vault with real values
+**/cookie-vault.local.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
