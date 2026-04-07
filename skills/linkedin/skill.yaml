@@ -1,0 +1,28 @@
+name: linkedin
+version: 2.0.0
+description: LinkedIn AI-driven outreach via agent-browser. Search for decision makers,
+  send connection requests and InMail messages. Uses agent-browser CLI for AI-controlled
+  browser interaction (no Playwright ...
+triggers: []
+dependencies: []
+tags:
+- social-media
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: enhanced
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

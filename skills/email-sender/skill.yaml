@@ -1,0 +1,32 @@
+name: email-sender
+version: 1.0.0
+description: 邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4)
+  自动跟进 时使用此技能。
+triggers:
+- 发送邮件
+- 批量发送
+- 自动发邮件
+- 配置邮箱
+- send email
+dependencies: []
+tags:
+- email
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: enhanced
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

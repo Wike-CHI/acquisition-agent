@@ -1,0 +1,32 @@
+name: delivery-queue
+version: 2.0.0
+description: 消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。
+triggers:
+- 分段发送
+- 定时发送
+- drip campaign
+- 消息节奏
+- WhatsApp分段
+- channel whatsapp
+dependencies: []
+tags:
+- uncategorized
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: optional
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

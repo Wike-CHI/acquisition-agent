@@ -1,0 +1,27 @@
+name: sales-pipeline-tracker
+version: 1.0.0
+description: Track deals through every stage from lead to close. Manage pipeline stages,
+  update deal status, forecast revenue, and identify bottlenecks in your sales process.
+triggers: []
+dependencies: []
+tags:
+- crm
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: optional
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

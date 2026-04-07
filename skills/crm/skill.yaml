@@ -1,0 +1,26 @@
+name: crm
+version: 1.0.0
+description: Guide users building a personal CRM from simple files to structured database.
+triggers: []
+dependencies: []
+tags:
+- crm
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: optional
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

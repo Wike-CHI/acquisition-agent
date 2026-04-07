@@ -1,0 +1,32 @@
+name: customer-deduplication
+version: 1.0.0
+description: 客户去重技能。跨平台合并重复客户，按公司名称、域名、联系方式匹配。当用户需要：(1) 合并多个平台的客户列表 (2) 去除重复客户 (3)
+  统一客户信息 (4) 客户数据清洗 时使用此技能。
+triggers:
+- 去重
+- 合并客户
+- 重复客户
+- deduplication
+- merge customers
+dependencies: []
+tags:
+- crm
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: core
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'
