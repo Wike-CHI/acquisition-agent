@@ -234,6 +234,64 @@ fork → 修改 → Pull Request
 
 ---
 
+## skill.yaml 元数据标准（v2.5.2+）
+
+> 每个技能目录下包含 `skill.yaml`，为技能提供标准化的包管理元数据。
+> 用途：自动化 install/validate/publish 工具链 + AI routing 增强。
+
+### 文件位置
+
+```
+skills/<skill-name>/
+├── SKILL.md          ← AI 指令（必须）
+└── skill.yaml        ← 包管理元数据（新增）
+```
+
+### 核心字段
+
+| 字段 | 必需 | 说明 |
+|------|------|------|
+| `name` | ✅ | kebab-case 标识符（如 `linkedin-writer`） |
+| `version` | ✅ | semver 版本（如 `1.0.0`） |
+| `description` | ✅ | 一句话描述（40-200字符） |
+| `triggers` | 推荐 | 触发词列表 |
+| `dependencies` | 推荐 | 依赖的其他技能 |
+| `tags` | 推荐 | 标签分类 |
+| `capability` | 可选 | `core` / `enhanced` / `optional`（默认 `optional`） |
+| `priority` | 可选 | 优先级 1-100（数字越小越高） |
+
+### CLI 工具链
+
+```bash
+# 验证 skill.yaml
+python .cli/validate_skill.py skills/<skill-name>
+
+# 从 SKILL.md frontmatter 迁移到 skill.yaml
+python .cli/migrate_skill.py skills/<skill-name>
+
+# 双向同步 skill.yaml ↔ SKILL.md frontmatter
+python .cli/sync_skill.py skills/<skill-name>
+
+# 批量迁移（所有技能）
+python .cli/migrate_skill.py skills/ --all
+
+# 批量验证
+python .cli/validate_skill.py skills/<skill-name> --strict
+```
+
+### 迁移状态
+
+| 层 | 技能 | skill.yaml |
+|----|------|-----------|
+| 主入口 | global-customer-acquisition | ✅ |
+| 编排层 | coordinator/evaluator/init/workflow | ✅ |
+| 情报层 | company-research/market-research/in-depth-research | ✅ |
+| 触达层 | email-sender/cold-email-generator/linkedin-writer | ✅ |
+| 支持层 | deduplication/delivery-queue/credential-manager/crm | ✅ |
+| 人格/产品层 | honglong-assistant/honglong-products | ✅ |
+
+---
+
 ## 技能快速索引
 
 | 技能 | 用途 | 关键触发词 |
@@ -254,4 +312,4 @@ fork → 修改 → Pull Request
 
 ---
 
-*本文档随技能集群持续更新。最后更新：2026-04-03*
+*本文档随技能集群持续更新。最后更新：2026-04-07*

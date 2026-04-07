@@ -1,0 +1,30 @@
+name: honglong-assistant
+version: 1.0.0
+description: 红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。
+triggers:
+- 红龙助手
+- holo助手
+- honglong
+- 红龙小助手
+dependencies: []
+tags:
+- honglong
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: core
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

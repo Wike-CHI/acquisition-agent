@@ -6,19 +6,19 @@ Smart Memory v2 persists structured cognitive state locally.
 
 ```text
 workspace/
-+-- data/
-�   +-- memory_store/
-�   �   +-- memories/                # Canonical long-term memory JSON objects
-�   �   +-- archive/                 # Archived / consolidated / decayed memory JSON
-�   �   +-- vector_index.sqlite      # Vector index (IDs + embeddings + compact payload)
-�   +-- hot_memory/
-�       +-- hot_memory.json          # Working memory + insight queue
-+-- MEMORY.md                        # Optional curated human memory notes
-+-- memory/                          # Optional human-authored notes
-    +-- logs/
-    +-- projects/
-    +-- decisions/
-    +-- lessons/
+├── data/
+│   ├── memory_store/
+│   │   ├── memories/                # Canonical long-term memory JSON objects
+│   │   ├── archive/                 # Archived / consolidated / decayed memory JSON
+│   │   └── vector_index.sqlite      # Vector index (IDs + embeddings + compact payload)
+│   └── hot_memory/
+│       └── hot_memory.json          # Working memory + insight queue
+├── MEMORY.md                        # Optional curated human memory notes
+└── memory/                          # Optional human-authored notes
+    ├── logs/
+    ├── projects/
+    ├── decisions/
+    └── lessons/
 ```
 
 ## Recommended Human Notes Structure

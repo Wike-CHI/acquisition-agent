@@ -1,0 +1,51 @@
+name: fumamx-crm
+version: 1.1.0
+description: 孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说"配置孚盟账号"或"初始化获客系统"时触发。
+triggers:
+- 孚盟CRM
+- 添加到CRM
+- 搜索客户
+- 创建客户
+- 更新客户
+- 删除客户
+- 批量添加到CRM
+- 批量导出
+- 查重
+- 检查客户数据质量
+- 查看客户详情
+- 获取客户列表
+- 检查停滞客户
+- 跟进客户培育流程
+- 查看今日任务
+- 查看昨日邮件
+- 查看客户画像
+- 查看客户详情
+- 获取联系方式
+- 查看销售机会
+- 查看线索跟进状态
+- 查看数据统计报表
+- 查看线索详情
+- 添加跟进备注
+- 记录跟进历史
+dependencies: []
+tags:
+- crm
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: optional
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

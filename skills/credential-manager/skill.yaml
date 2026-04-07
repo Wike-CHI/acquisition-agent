@@ -1,0 +1,31 @@
+name: credential-manager
+version: 1.0.0
+description: 统一凭据管理技能。支持对话式配置各平台账号密码，使用Windows DPAPI安全加密存储。
+triggers:
+- 配置凭据
+- 配置账号
+- 查看已配置账号
+- credential
+- credentials
+dependencies: []
+tags:
+- uncategorized
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: core
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

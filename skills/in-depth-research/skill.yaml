@@ -1,0 +1,29 @@
+name: in-depth-research
+version: 1.0.0
+description: 深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
+triggers:
+- 深度研究
+- 深度调研
+- in-depth research
+dependencies: []
+tags:
+- research
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: enhanced
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

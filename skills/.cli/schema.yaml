@@ -1,0 +1,90 @@
+# ============================================================
+# skill.yaml Schema — 红龙获客系统技能元数据标准
+# ============================================================
+# 用途：标准化技能元数据，支持自动化 install/validate/publish 工具链
+# 版本：1.0.0
+#
+# 原则：
+#   1. 最小化 — 只放必要的包管理字段
+#   2. AI 可读 — 不执行代码即可解析
+#   3. 与 SKILL.md frontmatter 不重复 — skill.yaml 是包管理元数据，SKILL.md 是 AI 指令
+# ============================================================
+
+# ── 必需字段 ──────────────────────────────────────────────
+
+# 技能标识符（kebab-case，必须与目录名一致）
+name: skill-name
+
+# 语义化版本（semver）
+version: 1.0.0
+
+# 一句话描述（用于 AI routing 匹配，40-120字符）
+# 不要在这里写触发词，触发词放 triggers 字段
+description: 技能的简短描述，说明"做什么"和"何时用"
+
+# ── 推荐字段 ──────────────────────────────────────────────
+
+# 触发词列表（用于 AI 意图匹配）
+triggers:
+  - 触发词1
+  - 触发词2
+
+# 依赖的其他技能（用于自动安装和负载检测）
+dependencies: []
+  # - company-research          # 无版本约束
+  # - linkedin@>=1.5.0          # 可选版本约束（PEP 440）
+
+# 标签（用于分类检索）
+tags: []
+  # - acquisition
+  # - b2b
+  # - outreach
+
+# ── 可选字段 ──────────────────────────────────────────────
+
+# 作者信息
+author:
+  name: 红龙团队
+  email: dev@honglong.com
+  github: https://github.com/Wike-CHI
+
+# 许可证（默认 Proprietary）
+license: Proprietary
+
+# 技能入口文件（默认 SKILL.md）
+entry: SKILL.md
+
+# 资源目录映射
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+
+# 运行时要求
+requires:
+  bins: []       # 必需的外置工具，如 [agent-browser, wacli]
+  api_keys: []   # 必需的 API keys，如 [OPENAI_API_KEY, TEYI_API_KEY]
+  env: {}        # 环境变量，如 { WORKBUDDY_MODE: production }
+
+# 能力级别（用于路由优先级）
+# core     — 核心技能，系统必需（如 global-customer-acquisition）
+# enhanced — 增强技能，提供高级功能（如 deep-research）
+# optional — 可选技能，按需安装（如 xiaohongshu）
+capability: optional
+
+# 优先级（1-100，数字越小优先级越高，默认 50）
+priority: 50
+
+# 兼容性声明
+compatibility:
+  workbuddy: ">=2.0"
+  claude_code: true
+  openclaw: ">=2.5"
+
+# ── 内部字段（工具自动填充） ──────────────────────────────
+
+# 最后同步时间（自动）
+# _synced_at: 2026-04-07T00:00:00Z
+
+# 所属层（自动，从架构继承）
+# _layer: 情报层

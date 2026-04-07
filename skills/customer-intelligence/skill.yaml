@@ -1,0 +1,34 @@
+name: customer-intelligence
+version: 2.0.0
+description: 客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。
+triggers:
+- 市场调研
+- 客户背调
+- 竞争对手分析
+- 情报报告
+- 行业分析
+- ICP评分
+- 客户评分
+dependencies: []
+tags:
+- research
+- crm
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: optional
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

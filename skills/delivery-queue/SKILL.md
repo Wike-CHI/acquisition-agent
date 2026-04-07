@@ -17,6 +17,33 @@ triggers:
 模拟真人发送节奏，避免被标记为垃圾信息。
 **v2.0新增**：支持 `channel: whatsapp` 模式，通过wacli发送。
 
+## 可执行脚本
+
+本技能提供 Python 脚本（零第三方依赖），可直接管理发送队列：
+
+```bash
+# 添加邮件到队列
+python scripts/queue_manager.py add --channel email --to "john@example.com" --subject "Hello" --body "Hi John, ..."
+
+# 添加 WhatsApp 消息
+python scripts/queue_manager.py add --channel whatsapp --to "+1234567890" --body "Hi John, ..."
+
+# 查看队列状态
+python scripts/queue_manager.py status
+
+# 处理待发送（模拟节奏）
+python scripts/queue_manager.py process [--dry-run]
+
+# 取消/清理
+python scripts/queue_manager.py cancel --id msg_xxx
+python scripts/queue_manager.py clean
+
+# 测试消息分段
+python scripts/queue_manager.py segment --channel whatsapp --body "长消息内容..."
+```
+
+> 队列数据存储在 `~/.workbuddy/delivery_queue/queue.json`。脚本使用标准库，无需 `pip install`。
+
 ---
 
 ## 🎯 使用场景

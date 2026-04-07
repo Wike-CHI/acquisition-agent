@@ -15,6 +15,23 @@ triggers:
 
 跨平台合并重复客户，统一客户信息，生成去重后的客户列表。
 
+## 可执行脚本
+
+本技能提供 Python 脚本（零第三方依赖），可直接运行去重：
+
+```bash
+# 跨平台合并去重
+python scripts/dedup.py --input facebook.json linkedin.json --output result.json
+
+# 从目录批量加载
+python scripts/dedup.py --input-dir ./customer_data/ --output result.json
+
+# 自定义相似度阈值（默认 0.70）
+python scripts/dedup.py --input data.json --output result.json --threshold 0.80
+```
+
+> 脚本使用 `difflib.SequenceMatcher`（Python 标准库），无需 `pip install`。
+
 ## 一、去重维度
 
 ### 1.1 主要匹配维度

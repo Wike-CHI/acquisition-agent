@@ -1,10 +1,7 @@
-﻿---
+---
 name: Email Marketing
-version: 1.0.0
-description: Email deliverability, list management, sequences, segmentation, and campaign optimization.
-metadata:
-  category: marketing
-  skills: ["email", "newsletters", "sequences", "deliverability", "automation"]
+version: 1.1.0
+description: Email deliverability, list management, sequences, segmentation, campaign optimization. 红龙获客系统定制版增加工业皮带设备行业专用模板和策略。
 ---
 
 ## Deliverability Foundations
@@ -116,3 +113,110 @@ metadata:
 - GDPR: explicit consent required, document it, allow data deletion
 - Separate consent for different email types — marketing vs transactional
 
+---
+
+## 红龙行业定制 — B2B 工业皮带设备开发信
+
+> 以下内容为红龙获客系统定制，基于 B2B 冷邮件开发信场景。
+
+### 红龙专用邮件序列（Drip Campaign）
+
+| 轮次 | 时间 | 主题 | 目标 |
+|------|------|------|------|
+| D0 | 发送当天 | 产品介绍 + 公司背景 | 建立初步印象 |
+| D3 | 第3天 | 价值主张 + 案例数据 | 展示差异化优势 |
+| D7 | 第7天 | 技术细节 + 认证资质 | 建立专业信任 |
+| D14 | 第14天 | 限时优惠 + Sample | 促成行动 |
+
+### 行业专用 Subject Line 公式
+
+| 公式 | 示例 | 适用场景 |
+|------|------|----------|
+| 产品 + 痛点 | "Cut your belt splicing time by 40%" | 首次接触 |
+| 地区 + 产品 | "Conveyor belt solutions for [Country] distributors" | 区域定向 |
+| 问题 + 解决 | "Struggling with uneven splicing? There's a better way" | 痛点切入 |
+| 简洁直接 | "HOLO belt equipment catalog" | 专业买家 |
+
+### 红龙产品邮件模板
+
+**D0 — 首次接触**：
+```
+Subject: Industrial Belt Solutions - {Company}
+
+Hi {FirstName},
+
+Noticed {Company} works with conveyor belt systems.
+
+We manufacture belt splicing equipment at HOLO (20+ years, CE certified):
+- Air/Water Cooled Press (Finger Puncher)
+- Belt Slitting Machine
+- Ply Separator
+
+Currently serving distributors in {Region}.
+
+Would a product catalog be useful?
+
+Best,
+{Signature}
+```
+
+**D3 — 价值主张**：
+```
+Subject: Re: Industrial Belt Solutions - {Company}
+
+Hi {FirstName},
+
+Following up with a quick comparison:
+
+| Feature | HOLO | Typical |
+|---------|------|---------|
+| Temperature control | ±1°C | ±5°C |
+| Splicing time | 15 min | 25 min |
+| Belt width | up to 2000mm | up to 1500mm |
+
+Happy to send test results or schedule a call.
+
+Best,
+{Signature}
+```
+
+**D7 — 技术信任**：
+```
+Subject: Re: Industrial Belt Solutions - {Company}
+
+Hi {FirstName},
+
+Some specs that matter for belt fabrication:
+- Press area: 300x600mm to 1800x12000mm
+- Heating method: air-cooled / water-cooled options
+- CE certification, ISO 9001 compliant
+
+Website: www.beltsplicepress.com
+
+No pressure — just want you to have the info.
+
+Best,
+{Signature}
+```
+
+### 红龙客户分层邮件策略
+
+| 客户类型 | 邮件重点 | CTA |
+|----------|----------|-----|
+| 输送带分销商 | 产品多样性 + 价格竞争力 | 索取 Catalog |
+| 皮带加工厂 | 原带质量 + 加工设备 | 索取报价 |
+| 工程公司/集成商 | 技术能力 + 定制方案 | 预约技术通话 |
+| 终端用户 | 一站式解决方案 | 索取 Sample |
+
+### 红龙签名规范
+
+```
+Best regards,
+{业务员姓名}
+Sales Manager
+HOLO (温州红龙工业设备制造有限公司)
+WhatsApp: {号码}
+Email: {工作邮箱}
+Web: www.beltsplicepress.com
+Address: 瑞安市东山街道望新路188号3幢101室
+```

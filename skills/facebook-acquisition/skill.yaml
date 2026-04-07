@@ -1,0 +1,30 @@
+name: facebook-acquisition
+version: 1.0.0
+description: Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。
+triggers:
+- Facebook搜索
+- FB获客
+- 社媒获客
+dependencies: []
+tags:
+- acquisition
+- social-media
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: enhanced
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

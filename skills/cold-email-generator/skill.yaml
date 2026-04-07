@@ -1,0 +1,34 @@
+name: cold-email-generator
+version: 2.0.0
+description: 开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9.0分）。
+triggers:
+- 开发信
+- cold email
+- 外联邮件
+- 销售邮件
+- 推销邮件
+- 生成邮件
+- 写开发信
+- 起草邮件
+dependencies: []
+tags:
+- email
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: enhanced
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'

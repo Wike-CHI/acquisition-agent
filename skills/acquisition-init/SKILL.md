@@ -30,20 +30,77 @@ triggers:
 
 ### Step 0: 欢迎检查
 
+> **动态检测** — AI Agent 读取本技能后，必须先执行以下命令检测实际配置状态，再向用户展示结果。不得使用硬编码的静态文本。
+
+**执行以下检测命令（PowerShell）：**
+
+```powershell
+# 检测凭据文件是否存在
+$wb = "$env:USERPROFILE\.workbuddy"
+$nas_cred   = Test-Path "$wb\.nas_credentials"
+$teyi_cred  = Test-Path "$wb\.teyi_credentials"
+$email_cfg  = Test-Path "$wb\.email_config.json"
+$signature  = Test-Path "$wb\.email_signatures.json"
+
+# 检测 NAS 是否已挂载
+$nas_mounted = Test-Path "Y:\"
+
+# 读取邮箱配置获取发送方地址（用于显示）
+$email_addr = ""
+if (Test-Path "$wb\.email_config.json") {
+    try {
+        $cfg = Get-Content "$wb\.email_config.json" | ConvertFrom-Json
+        $email_addr = $cfg.sender_email ?? ""
+    } catch {}
+}
+
+# 读取签名配置获取姓名（用于显示）
+$sig_name = ""
+if (Test-Path "$wb\.email_signatures.json") {
+    try {
+        $sig = Get-Content "$wb\.email_signatures.json" | ConvertFrom-Json
+        $sig_name = $sig.name ?? ""
+    } catch {}
+}
+```
+
+**根据检测结果动态生成输出：**
+
 ```
 🔍 检查当前系统状态...
 
 ✅ 已完成:
    - [x] 技能已安装
 
-⚠️ 需要配置:
-   - [ ] NAS凭据
-   - [ ] 特易凭据
-   - [ ] 邮箱配置
-   - [ ] NAS挂载
+{{if $nas_cred}}✅{{else}}⚠️{{/if}} NAS凭据
+{{if $teyi_cred}}✅{{else}}⚠️{{/if}} 特易凭据
+{{if $email_cfg}}✅{{else}}⚠️{{/if}} 邮箱配置
+{{if $signature}}✅{{else}}⚠️{{/if}} 邮件签名
+{{if $nas_mounted}}✅{{else}}⚠️{{/if}} NAS挂载
+
+{{if (-not $nas_cred -and -not $teyi_cred -and -not $email_cfg)}}
+⚠️ 检测到 {{if $email_addr}}邮箱: $email_addr{{/if}}{{if $sig_name}} | 签名: $sig_name{{/if}}
 
 是否开始初始化配置？(Y/n)
+{{elseif -not $nas_cred -or -not $teyi_cred -or -not $email_cfg}}
+📋 发现未配置项目，继续完成初始化？
+{{else}}
+🎉 所有核心配置已完成！
+
+{{if $email_addr}}✅ 邮箱: $email_addr{{end}}
+{{if $sig_name}}✅ 签名: $sig_name{{end}}
+{{if $nas_mounted}}✅ NAS已挂载{{end}}
+
+输入任意键查看完整状态报告，或直接输入任务（如"帮我找客户"）
+{{end}}
 ```
+
+> **关键要求**：
+> - **禁止**使用硬编码的 `✅/⚠️` 状态，必须基于实际文件检测结果
+> - **禁止**跳过检测直接显示"需要配置"，必须先执行上面的 PowerShell 检测
+> - 凭据文件路径：`%USERPROFILE%\.workbuddy\`（**不是** `.openclaw\`）
+> - 如果所有凭据已配置，显示"🎉 所有核心配置已完成"并直接进入 Step 4 完整检查
+
 
 ---
 
@@ -239,6 +296,22 @@ HONGLONG Industrial Equipment
 
 ### Step 4: 完成检查
 
+> **动态检测**：不再硬编码技能列表，改为自动扫描 `~/.workbuddy/skills/` 目录。
+
+**检测逻辑**：
+1. 扫描 `~/.workbuddy/skills/` 下所有子目录
+2. 检查每个子目录是否存在 `SKILL.md`（有 = 已安装）
+3. 读取每个 SKILL.md 的 frontmatter 获取技能名和版本
+4. 对比 `global-customer-acquisition/dependencies/README.md` 中的 12 个核心依赖，标记缺失项
+
+```bash
+# 扫描已安装技能
+ls ~/.workbuddy/skills/*/SKILL.md
+
+# 检查核心依赖是否齐全
+# 核心技能清单来自: global-customer-acquisition/dependencies/README.md
+```
+
 ```
 🔍 运行系统完整性检查...
 
@@ -246,18 +319,11 @@ HONGLONG Industrial Equipment
            获客系统状态检查报告
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ 技能完整性 (11/11)
-   ✅ global-customer-acquisition
-   ✅ linkedin
-   ✅ facebook-acquisition
-   ✅ instagram-acquisition
-   ✅ teyi-customs
-   ✅ customer-deduplication
-   ✅ company-research
-   ✅ market-research
-   ✅ customer-intelligence
-   ✅ email-sender
-   ✅ honglong-products
+✅ 技能完整性 ({已安装数}/{总扫描数})
+   {自动列出所有已安装的技能}
+
+⚠️ 核心依赖缺失（如有）
+   {对比 dependencies/README.md 中12个核心技能，列出缺失的}
 
 ✅ 凭据配置 (4/4)
    ✅ NAS凭据

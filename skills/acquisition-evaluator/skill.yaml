@@ -1,0 +1,33 @@
+name: acquisition-evaluator
+version: 2.0.0
+description: 独立验收Agent - 评估其他Agent的工作质量。当需要：(1) 验收背调报告 (2) 检查开发信质量 (3) 审核报价准确性 (4)
+  质量控制 时使用此技能。
+triggers:
+- 验收
+- 检查质量
+- 评估
+- 审核
+- evaluator
+- quality check
+dependencies: []
+tags:
+- acquisition
+author:
+  name: 红龙团队
+  github: https://github.com/Wike-CHI
+license: Proprietary
+entry: SKILL.md
+directories:
+  scripts: scripts/
+  references: references/
+  assets: assets/
+requires:
+  bins: []
+  api_keys: []
+  env: {}
+capability: core
+priority: 50
+compatibility:
+  workbuddy: '>=2.0'
+  claude_code: true
+  openclaw: '>=2.5'
