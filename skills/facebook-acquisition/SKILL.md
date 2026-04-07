@@ -13,7 +13,87 @@ triggers:
 
 利用Facebook平台搜索潜在客户，挖掘行业群组，获取公司信息。
 
-## 一、搜索方式
+## 一、agent-browser 自动化 SOP
+
+> 使用 agent-browser CLI 进行 headless 自动化搜索，无需手动操作浏览器。
+
+### 1.0 环境检测
+
+首次运行必须检测 agent-browser 是否可用：
+
+```bash
+which agent-browser
+```
+
+- **输出路径**：环境就绪，使用 agent-browser 模式
+- **输出为空**：提示安装 `npm install -g agent-browser && agent-browser install --with-deps`
+
+### 1.1 安全约束
+
+本技能**仅使用** agent-browser 的只读命令：
+
+```bash
+agent-browser open "<url>"       # 打开页面
+agent-browser snapshot -c        # 获取页面文本内容
+agent-browser close              # 关闭浏览器
+```
+
+**禁止使用**：`fill`、`click`、`type`、`eval`、`state save/load`、`cookies`、`network route`
+
+### 1.2 自动化搜索流程
+
+**搜索公司主页**：
+
+```bash
+# 打开 Facebook 搜索（通过 Google 索引，无需登录）
+agent-browser open "https://www.google.com/search?q=site:facebook.com+{keyword}+distributor"
+agent-browser snapshot -c
+# 提取搜索结果中的 Facebook 公司主页链接
+
+# 逐个访问公司主页
+agent-browser open "https://www.facebook.com/{company-slug}"
+agent-browser snapshot -c
+# 提取：公司名称、About 信息、网站、联系方式、粉丝数
+```
+
+**搜索行业群组**：
+
+```bash
+agent-browser open "https://www.google.com/search?q=site:facebook.com/groups+{keyword}"
+agent-browser snapshot -c
+# 提取群组链接、名称、成员数
+
+agent-browser close
+```
+
+### 1.3 数据提取模板
+
+从 snapshot 输出中提取以下字段：
+
+```json
+{
+  "name": "公司名称",
+  "facebook": "https://www.facebook.com/xxx",
+  "website": "https://...",
+  "email": "从 About 页面提取",
+  "phone": "从 About 页面提取",
+  "followers": "粉丝数",
+  "industry": "行业",
+  "location": "地区",
+  "source": "facebook"
+}
+```
+
+### 1.4 反爬策略
+
+- 每次搜索间隔 5-10 秒
+- 每轮最多访问 20 个页面
+- 遇到登录墙或验证码时停止，记录已获取数据
+- 优先通过 Google 索引搜索（无需 Facebook 登录）
+
+---
+
+## 二、搜索方式
 
 ### 1.1 Facebook站内搜索
 ```

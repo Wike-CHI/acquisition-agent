@@ -14,7 +14,88 @@ triggers:
 
 利用Instagram平台搜索潜在客户，挖掘行业标签，获取公司信息。
 
-## 一、平台信息
+## 一、agent-browser 自动化 SOP
+
+> 使用 agent-browser CLI 进行 headless 自动化搜索，无需手动操作浏览器。
+
+### 1.0 环境检测
+
+首次运行必须检测 agent-browser 是否可用：
+
+```bash
+which agent-browser
+```
+
+- **输出路径**：环境就绪，使用 agent-browser 模式
+- **输出为空**：提示安装 `npm install -g agent-browser && agent-browser install --with-deps`
+
+### 1.1 安全约束
+
+本技能**仅使用** agent-browser 的只读命令：
+
+```bash
+agent-browser open "<url>"       # 打开页面
+agent-browser snapshot -c        # 获取页面文本内容
+agent-browser close              # 关闭浏览器
+```
+
+**禁止使用**：`fill`、`click`、`type`、`eval`、`state save/load`、`cookies`、`network route`
+
+### 1.2 自动化搜索流程
+
+**标签搜索**：
+
+```bash
+# 通过 Google 索引搜索 Instagram 标签（无需登录）
+agent-browser open "https://www.google.com/search?q=site:instagram.com+{keyword}+supplier"
+agent-browser snapshot -c
+# 提取搜索结果中的 Instagram 账号链接
+
+# 逐个访问账号主页（公开账号可访问）
+agent-browser open "https://www.instagram.com/{username}/"
+agent-browser snapshot -c
+# 提取：用户名、bio、网站、粉丝数、帖子数、类别
+```
+
+**竞品粉丝挖掘**：
+
+```bash
+agent-browser open "https://www.google.com/search?q=site:instagram.com/{competitor-username}+followers"
+agent-browser snapshot -c
+# 提取竞品相关企业账号
+
+agent-browser close
+```
+
+### 1.3 数据提取模板
+
+从 snapshot 输出中提取以下字段：
+
+```json
+{
+  "username": "@account_name",
+  "company": "公司名称（从 bio 提取）",
+  "website": "从 bio 链接提取",
+  "email": "从 bio 或网站提取",
+  "followers": "粉丝数",
+  "posts": "帖子数",
+  "category": "账号类别",
+  "location": "地区",
+  "source": "instagram"
+}
+```
+
+### 1.4 反爬策略
+
+- 每次搜索间隔 5-10 秒
+- 每轮最多访问 20 个页面
+- 遇到登录墙或验证码时停止，记录已获取数据
+- 优先通过 Google 索引搜索（无需 Instagram 登录）
+- Instagram 公开账号通常可直接访问
+
+---
+
+## 二、平台信息
 
 **Instagram** - 全球最大的图片和视频社交平台
 - 网址: https://www.instagram.com
