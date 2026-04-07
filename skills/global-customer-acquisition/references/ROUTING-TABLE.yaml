@@ -293,123 +293,108 @@ iron_rules:
 # 所有可被路由的技能及其 SKILL.md 位置。
 # AI 通过 skill://协议 或 读取文件路径 来获取技能指令。
 
-skills_index:
-  # ── 编排层 ──
+  # ═══════════════════════════════════════════════════════════════
+  # ⚠️ skills_index 由 skill-cli generate-routing --index-only 自动生成
+  # ⚠️ 手动修改将被下次运行覆盖
+  # 更新方法：python .cli/generate_routing.py skills/ --index-only
+  # ═══════════════════════════════════════════════════════════════
   acquisition-coordinator:
     path: "skill://acquisition-coordinator"
-    role: "任务协调器"
-    layer: orchestration
-  acquisition-workflow:
-    path: "skill://acquisition-workflow"
-    role: "流程定义"
-    layer: orchestration
+    description: "获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调 (3) 并行搜索 ("
+    layer: support
   acquisition-evaluator:
     path: "skill://acquisition-evaluator"
-    role: "质量验收"
-    layer: orchestration
-
-  # ── 发现层 ──
-  teyi-customs:
-    path: "skill://teyi-customs"
-    role: "特易海关数据"
-    layer: discovery
-  exa-search:
-    path: "skill://exa-search"
-    role: "Exa语义搜索"
-    layer: discovery
-  facebook-acquisition:
-    path: "skill://facebook-acquisition"
-    role: "Facebook获客"
-    layer: discovery
-  linkedin:
-    path: "skill://linkedin"
-    role: "LinkedIn获客"
-    layer: discovery
-  instagram-acquisition:
-    path: "skill://instagram-acquisition"
-    role: "Instagram获客"
-    layer: discovery
-
-  # ── 情报层 ──
-  company-research:
-    path: "skill://company-research"
-    role: "企业背调"
-    layer: intelligence
-  deep-research:
-    path: "skill://deep-research"
-    role: "深度调研"
-    layer: intelligence
-  autoresearch:
-    path: "skill://autoresearch"
-    role: "自动多源调研"
-    layer: intelligence
-  market-research:
-    path: "skill://market-research"
-    role: "市场分析"
-    layer: intelligence
-  customer-intelligence:
-    path: "skill://customer-intelligence"
-    role: "客户情报整合"
-    layer: intelligence
-
-  # ── 触达层 ──
+    description: "独立验收Agent - 评估其他Agent的工作质量。当需要：(1) 验收背调报告 (2) 检查开发信质量 (3) 审核报价准确性 (4) 质量控制 时使用此技"
+    layer: support
+  acquisition-init:
+    path: "skill://acquisition-init"
+    description: "获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说"初始化获客系统"、"开始使用获客系统"时触发。"
+    layer: support
+  acquisition-workflow:
+    path: "skill://acquisition-workflow"
+    description: "获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。"
+    layer: support
   cold-email-generator:
     path: "skill://cold-email-generator"
-    role: "开发信生成v2.0"
-    layer: outreach
-  email-sender:
-    path: "skill://email-sender"
-    role: "SMTP邮件发送"
-    layer: outreach
-  delivery-queue:
-    path: "skill://delivery-queue"
-    role: "分段队列发送v2.0（邮件+WhatsApp双通道）"
-    layer: outreach
-  email-outreach-ops:
-    path: "skill://email-outreach-ops"
-    role: "开发信运营"
-    layer: outreach
-  whatsapp-outreach:
-    path: "skill://whatsapp-outreach"
-    role: "WhatsApp消息触达"
-    layer: outreach
-  email-marketing:
-    path: "skill://email-marketing"
-    role: "邮件营销策略"
-    layer: outreach
-
-  # ── 社媒层 ──
-  ai-social-media-content:
-    path: "skill://ai-social-media-content"
-    role: "AI社媒内容生成（9平台）"
-    layer: social
-  linkedin-writer:
-    path: "skill://linkedin-writer"
-    role: "LinkedIn专属内容创作"
-    layer: social
-
-  # ── 支持层 ──
-  honglong-products:
-    path: "skill://honglong-products"
-    role: "产品库+报价"
+    description: "开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9."
     layer: support
-  nas-file-reader:
-    path: "skill://nas-file-reader"
-    role: "NAS存储访问"
+  company-research:
+    path: "skill://company-research"
+    description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、Link"
+    layer: intelligence
+  credential-manager:
+    path: "skill://credential-manager"
+    description: "统一凭据管理技能。支持对话式配置各平台账号密码，使用Windows DPAPI安全加密存储。"
     layer: support
   crm:
     path: "skill://crm"
-    role: "CRM/Pipeline管理"
+    description: "Guide users building a personal CRM from simple files to structured database."
     layer: support
   customer-deduplication:
     path: "skill://customer-deduplication"
-    role: "客户去重"
+    description: "客户去重技能。跨平台合并重复客户，按公司名称、域名、联系方式匹配。当用户需要：(1) 合并多个平台的客户列表 (2) 去除重复客户 (3) 统一客户信息 (4)"
     layer: support
-  sales-pipeline-tracker:
-    path: "skill://sales-pipeline-tracker"
-    role: "销售漏斗追踪"
+  customer-intelligence:
+    path: "skill://customer-intelligence"
+    description: "客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。"
+    layer: intelligence
+  delivery-queue:
+    path: "skill://delivery-queue"
+    description: "消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。"
+    layer: support
+  email-marketing:
+    path: "skill://email-marketing"
+    description: "Email deliverability, list management, sequences, segmentation, campaign optimiz"
+    layer: support
+  email-sender:
+    path: "skill://email-sender"
+    description: "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能"
+    layer: support
+  facebook-acquisition:
+    path: "skill://facebook-acquisition"
+    description: "Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。"
+    layer: social-media
+  fumamx-crm:
+    path: "skill://fumamx-crm"
+    description: "孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说"配置孚盟账号"或"初始化获客系统"
+    layer: support
+  holo-agent:
+    path: "skill://holo-agent"
+    description: "HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi"
     layer: support
   honglong-assistant:
     path: "skill://honglong-assistant"
-    role: "红龙小助手人格（自动激活获客技能）"
+    description: "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。"
+    layer: support
+  honglong-products:
+    path: "skill://honglong-products"
+    description: "红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则 (2) 技"
+    layer: support
+  in-depth-research:
+    path: "skill://in-depth-research"
+    description: "深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"
+    layer: intelligence
+  instagram-acquisition:
+    path: "skill://instagram-acquisition"
+    description: "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。"
+    layer: social-media
+  linkedin:
+    path: "skill://linkedin"
+    description: "LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send "
+    layer: social-media
+  linkedin-writer:
+    path: "skill://linkedin-writer"
+    description: "Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加"
+    layer: social-media
+  market-research:
+    path: "skill://market-research"
+    description: "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"
+    layer: intelligence
+  sales-pipeline-tracker:
+    path: "skill://sales-pipeline-tracker"
+    description: "Track deals through every stage from lead to close. Manage pipeline stages, upda"
+    layer: support
+  understand-honglong-acquisition:
+    path: "skill://understand-honglong-acquisition"
+    description: "红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用"
     layer: support

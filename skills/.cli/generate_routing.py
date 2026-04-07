@@ -284,10 +284,47 @@ def generate_yaml_output(routing: dict) -> str:
     return "\n".join(lines)
 
 
+def generate_skills_index(skills_root: Path) -> str:
+    """生成 skills_index 部分（供合并到现有路由表）"""
+    exclude = {".git", "node_modules", ".claude", ".agents", ".trae", ".cli", "__pycache__"}
+    lines = ["", "# ── 子技能索引 ─────────────────────────────────────────────", "#", "# 所有可被路由的技能及其位置。AI 通过 skill://协议 或 读取文件路径 来获取技能指令。", "", "skills_index:"]
+
+    for item in sorted(skills_root.iterdir()):
+        if not item.is_dir() or item.name in exclude or item.name.startswith("."):
+            continue
+        yaml_path = item / "skill.yaml"
+        if not yaml_path.exists():
+            continue
+
+        data = parse_skill_yaml(item) or {}
+        skill_name = data.get("name", item.name)
+        description = data.get("description", "")[:80]
+
+        # 推断 layer
+        tags = data.get("tags", [])
+        layer = "support"
+        for t in tags:
+            tl = t.lower()
+            if tl in ("orchestration", "coordinator"):
+                layer = "orchestration"
+            elif tl in ("discovery", "outreach", "social-media"):
+                layer = tl
+            elif tl in ("intelligence", "research"):
+                layer = "intelligence"
+
+        lines.append(f"  {skill_name}:")
+        lines.append(f"    path: \"skill://{skill_name}\"")
+        lines.append(f"    description: \"{description}\"")
+        lines.append(f"    layer: {layer}")
+
+    return "\n".join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description="从 skill.yaml 生成路由表")
     parser.add_argument("skills_root", help="skills 根目录")
     parser.add_argument("--output", "-o", help="输出文件路径（默认打印到stdout）")
+    parser.add_argument("--index-only", action="store_true", help="只生成 skills_index 部分")
     args = parser.parse_args()
 
     skills_root = Path(args.skills_root).resolve()
@@ -296,7 +333,11 @@ def main():
         sys.exit(1)
 
     routing = build_routing_table(skills_root)
-    output = generate_yaml_output(routing)
+
+    if args.index_only:
+        output = generate_skills_index(skills_root)
+    else:
+        output = generate_yaml_output(routing)
 
     if args.output:
         output_path = skills_root / args.output
