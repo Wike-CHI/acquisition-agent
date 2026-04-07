@@ -154,7 +154,13 @@ Step 4: 结果汇总
 | 脚本 | 路径 | 用途 |
 |------|------|------|
 | `search_whatsapp.py` | workspace 根目录 | 搜索客户 WhatsApp 号码 |
-| `whatsapp_bulk_send.py` | workspace 根目录 | 批量发送 WhatsApp 消息 |
+| `whatsapp_bulk_send.py` | `skill://whatsapp-outreach/scripts/whatsapp_bulk_send.py` | 批量发送 WhatsApp 消息（含锁清理+自动重试） |
+
+**推荐使用脚本发送**，脚本已内置：
+- 发送前自动停止残留 wacli 进程
+- 自动清理 `~/.wacli/LOCK` 残留文件
+- 锁冲突时自动重试（最多2次）
+- 发送间隔 30-60 秒安全控制
 
 ---
 
@@ -258,6 +264,14 @@ wacli messages search "关键词" --limit 20
 2. **JID 格式避免超时** — 始终用 `号码@s.whatsapp.net` 格式
 3. **QR 码有效期约 20 秒** — 认证时需要用户快速扫码
 4. **Windows 环境** — wacli 需要编译自源码（CGO_ENABLED=1），见 MEMORY.md
+5. **LOCK 文件残留问题** — `wacli sync --follow` 被 kill 后，`~/.wacli/LOCK` 文件可能残留导致后续所有 send 失败（报错含 "lock"）。解决方案：
+   ```bash
+   # 手动清理锁文件
+   Stop-Process -Name wacli -Force
+   Remove-Item ~/.wacli/LOCK -Force
+   # 重试发送
+   ```
+   **whatsapp_bulk_send.py 已内置自动清理锁 + 重试逻辑**，优先使用脚本发送。
 
 ---
 
