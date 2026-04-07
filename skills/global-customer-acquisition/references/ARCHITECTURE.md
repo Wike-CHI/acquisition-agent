@@ -9,9 +9,9 @@
 **配置文件**: `references/ROUTING-TABLE.yaml`
 **使用说明**: `SKILLS-ROUTER.md`
 
-> v2.4.0 变更：路由配置从 JS 代码迁移为纯 YAML 声明式配置。
+> v2.5.0 变更：路由配置从 JS 代码迁移为纯 YAML 声明式配置。
 > AI Agent 读取 YAML 做路由决策，无需运行任何代码。
-> 旧文件 `lib/skills-router.js` 已标记为 deprecated，仅供参考。
+> 旧文件 `lib/skills-router.js` 已删除（v2.5.0 清理）。
 
 ### 路由流程
 
@@ -62,21 +62,17 @@ Step 5: 故障切换 — 不可用时查 fallback_map
 
 ## 2. ContextManager（上下文管理器）
 
-**文件**: `lib/context-manager.js`
+> 注意：`lib/` 目录中的 JS 文件已标记为 deprecated（见 `lib/DEPRECATED.md`）。
+> 以下为纯架构描述，Agent 实际执行时读取对应 SKILL.md。
 
 ### 4层防护
 
-```javascript
-class ContextManager {
-  constructor(options = {}) {
-    this.compressor = new ContextCompressor();      // 1. 上下文压缩
-    this.skillLoader = new LayeredSkillLoader();  // 2. 分层技能加载
-    this.anchor = new TaskStateAnchor();         // 3. 任务状态锚定
-    this.evolutionCoordinator = new SkillEvolutionCoordinator(); // 4. 自进化
-    this.mode = options.mode || 'memskill';
-  }
-}
-```
+| 层级 | 组件 | 职责 |
+|------|------|------|
+| L1 | ContextCompressor | 上下文压缩，Token ≥ 65% 时零损失压缩 |
+| L2 | LayeredSkillLoader | 分层技能加载（按需加载） |
+| L3 | TaskStateAnchor | 任务状态锚定（critical/state/keyData） |
+| L4 | SkillEvolutionCoordinator | 自进化协调（反馈→优化→更新SKILL.md） |
 
 ### TaskStateAnchor 锚点结构
 
@@ -110,7 +106,7 @@ anchor = {
 
 ## 3. ExecutionController（ECL执行控制层）
 
-**文件**: `~/.agent-reach/execution-controller.js`
+> 架构描述，无代码依赖。Agent 通过 SKILL.md 指令执行。
 
 ### 健康指标
 
@@ -121,13 +117,7 @@ anchor = {
 | 状态变化率 | ≥60% | <40% |
 | 待审批项 | <5 | ≥10 |
 
-### CLI
-
-```bash
-node ~/.agent-reach/execution-cli.js stats   # 查看统计
-node ~/.agent-reach/execution-cli.js test    # 测试
-node ~/.agent-reach/execution-cli.js next <customer_id> <state> <icp_score>  # 下一步
-```
+> CLI 工具已标记为 deprecated。Agent 通过 SKILL.md 指令交互。
 
 ---
 
@@ -176,40 +166,42 @@ L7. TOOLS     → 工具使用指南、权限
 
 ---
 
-## 6. 17个核心lib工具
+## 6. 核心lib工具（已废弃，仅供参考）
 
-```
-context-manager.js           # 上下文管理器（整合）
-task-state-anchor.js        # 任务状态锚定
-context-compressor.js        # 上下文压缩
-layered-skill-loader.js      # 分层技能加载
-skills-router.js             # 技能路由器
-skill-evolution-coordinator.js  # 自进化协调
-skill-controller.js         # 技能选择控制
-memory-executor.js           # 技能条件化记忆
-hard-case-miner.js           # 困难案例挖掘
-skill-designer.js            # 技能模板设计
-quotation-generator.js       # 报价单生成器
-customer-manager.js          # 客户管理器
-email-polisher.js           # 开发信润色器
-checkpoint-manager.js        # 检查点管理
-knowledge-graph.js          # 知识图谱
-incremental-learning.js       # 增量学习
-dependency-health-checker.js  # 依赖健康检查
-```
+> ⚠️ `lib/` 中的 JS 文件已标记为 deprecated（见 `lib/DEPRECATED.md`）。
+> Agent 实际不执行这些 JS 文件，以下仅为架构参考。
+
+| 模块 | 职责 | 状态 |
+|------|------|------|
+| ContextManager | 上下文整合（压缩+加载+锚定+进化） | deprecated |
+| TaskStateAnchor | 任务状态锚定（critical/state/keyData） | deprecated |
+| ContextCompressor | 上下文压缩（Token ≥ 65% 时零损失压缩） | deprecated |
+| LayeredSkillLoader | 分层技能加载（按需加载） | deprecated |
+| SkillsRouter | 技能路由（已迁移至 YAML） | deprecated |
+| SkillEvolutionCoordinator | 自进化协调（反馈→优化） | deprecated |
+| QuotationGenerator | 报价单生成 | deprecated |
+| CustomerManager | 客户管理 | deprecated |
+| EmailPolisher | 开发信润色 | deprecated |
+| CheckpointManager | 检查点管理 | deprecated |
+| KnowledgeGraph | 知识图谱 | deprecated |
+| IncrementalLearning | 增量学习 | deprecated |
+| DependencyHealthChecker | 依赖健康检查 | deprecated |
 
 ---
 
-## 7. 内嵌子技能集群
+## 7. 技能集群（外部独立部署）
 
-| 技能 | 功能 |
-|------|------|
-| `skills/acquisition-coordinator/` | 获客任务协调器，拆解任务派发Agent |
-| `skills/acquisition-workflow/` | 定义端到端流程、质量检查点 |
-| `skills/acquisition-init/` | 初始化引导（首次配置凭据/NAS/邮箱）|
-| `skills/teyi-customs/` | 特易海关数据挖掘 |
-| `skills/facebook-acquisition/` | Facebook客户搜索 |
-| `skills/instagram-acquisition/` | Instagram视觉获客 |
+> v2.5.0 重构：所有子技能已从 `skills/` 内嵌迁移为外部独立技能（`~/.workbuddy/skills/<name>/`）。
+> Agent 通过 `skill://<name>` 协议加载。内嵌 `skills/` 目录已清空。
+
+| 技能 | 功能 | 加载协议 |
+|------|------|---------|
+| `acquisition-coordinator` | 获客任务协调器，拆解任务派发Agent | `skill://acquisition-coordinator` |
+| `acquisition-workflow` | 定义端到端流程、质量检查点 | `skill://acquisition-workflow` |
+| `acquisition-init` | 初始化引导（首次配置凭据/NAS/邮箱） | `skill://acquisition-init` |
+| `teyi-customs` | 特易海关数据挖掘 | `skill://teyi-customs` |
+| `facebook-acquisition` | Facebook客户搜索 | `skill://facebook-acquisition` |
+| `instagram-acquisition` | Instagram视觉获客 | `skill://instagram-acquisition` |
 
 ---
 
@@ -390,6 +382,6 @@ global-customer-acquisition/
 
 ---
 
-_更新时间：2026-04-03_
-_版本: v2.4.0_
+_更新时间：2026-04-06_
+_版本: v2.5.0_
 _状态: 路由器已迁移至YAML声明式配置，子技能调用已去sessions_spawn_

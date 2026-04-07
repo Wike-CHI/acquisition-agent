@@ -1,6 +1,6 @@
 # ============================================================
 # 红龙获客系统 - 技能路由表（声明式配置）
-# 版本: 2.0.0 | 更新时间: 2026-04-03
+# 版本: 2.5.0 | 更新时间: 2026-04-06
 #
 # 用途：AI Agent 读取此文件进行意图识别 → 技能选择 → 调用
 # 格式：纯 YAML 声明，无代码依赖，跨平台兼容
@@ -225,7 +225,7 @@ fallback_map:
   teyi-customs: [exa-search]
   linkedin: [exa-search]
   facebook-acquisition: [exa-search]
-  exa-search: [web-search]
+  exa-search: [exa-web-search-free]
   email-sender: [delivery-queue]
   cold-email-generator: [email-outreach-ops]
   whatsapp-outreach: [cold-email-generator]
@@ -321,6 +321,14 @@ skills_index:
     path: "skill://facebook-acquisition"
     role: "Facebook获客"
     layer: discovery
+  linkedin:
+    path: "skill://linkedin"
+    role: "LinkedIn获客"
+    layer: discovery
+  instagram-acquisition:
+    path: "skill://instagram-acquisition"
+    role: "Instagram获客"
+    layer: discovery
 
   # ── 情报层 ──
   company-research:
@@ -330,6 +338,18 @@ skills_index:
   deep-research:
     path: "skill://deep-research"
     role: "深度调研"
+    layer: intelligence
+  autoresearch:
+    path: "skill://autoresearch"
+    role: "自动多源调研"
+    layer: intelligence
+  market-research:
+    path: "skill://market-research"
+    role: "市场分析"
+    layer: intelligence
+  customer-intelligence:
+    path: "skill://customer-intelligence"
+    role: "客户情报整合"
     layer: intelligence
 
   # ── 触达层 ──
@@ -343,7 +363,7 @@ skills_index:
     layer: outreach
   delivery-queue:
     path: "skill://delivery-queue"
-    role: "分段队列发送"
+    role: "分段队列发送v2.0（邮件+WhatsApp双通道）"
     layer: outreach
   email-outreach-ops:
     path: "skill://email-outreach-ops"
@@ -353,11 +373,19 @@ skills_index:
     path: "skill://whatsapp-outreach"
     role: "WhatsApp消息触达"
     layer: outreach
+  email-marketing:
+    path: "skill://email-marketing"
+    role: "邮件营销策略"
+    layer: outreach
 
   # ── 社媒层 ──
   ai-social-media-content:
     path: "skill://ai-social-media-content"
     role: "AI社媒内容生成（9平台）"
+    layer: social
+  linkedin-writer:
+    path: "skill://linkedin-writer"
+    role: "LinkedIn专属内容创作"
     layer: social
 
   # ── 支持层 ──
@@ -376,4 +404,12 @@ skills_index:
   customer-deduplication:
     path: "skill://customer-deduplication"
     role: "客户去重"
+    layer: support
+  sales-pipeline-tracker:
+    path: "skill://sales-pipeline-tracker"
+    role: "销售漏斗追踪"
+    layer: support
+  honglong-assistant:
+    path: "skill://honglong-assistant"
+    role: "红龙小助手人格（自动激活获客技能）"
     layer: support

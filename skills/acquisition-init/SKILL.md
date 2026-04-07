@@ -265,6 +265,20 @@ HONGLONG Industrial Equipment
    ✅ 邮箱配置
    ✅ 邮件签名
 
+⚠️ 可选依赖（按需检查）
+   ⚪ wacli CLI — WhatsApp触达必需
+     检测: wacli --version
+     安装: npm install -g wacli
+   ⚪ Playwright — 爬虫/浏览器自动化必需
+     检测: npx playwright --version
+     安装: npx playwright install
+   ⚪ Exa MCP — 语义搜索增强
+     检测: 检查 mcp.json 中 exa 配置是否存在
+     配置: 参考技能 exa-web-search-free
+   ⚪ 特易 API — 海关数据查询
+     检测: 检查 credential-manager 中 teyi_api_key 是否已存储
+     配置: 联系特易平台获取 API Key
+
 ✅ 系统状态
    ✅ NAS已挂载 (Y:)
    ✅ 客户数据目录存在
@@ -272,6 +286,30 @@ HONGLONG Industrial Equipment
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ 系统完整性: 100%
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+### Step 4.5: 可选依赖校验
+
+对 Step 4 中标记为 ⚪ 的可选依赖，按用户实际需求逐一检测：
+
+```
+🔍 检查可选依赖...
+
+| 依赖 | 用途 | 检测命令 | 状态 |
+|------|------|---------|------|
+| wacli | WhatsApp触达 | wacli --version | ✅/❌/跳过 |
+| Playwright | 浏览器自动化/爬虫 | npx playwright --version | ✅/❌/跳过 |
+| Exa MCP | 语义搜索 | 检查 mcp.json 配置 | ✅/❌/跳过 |
+| 特易 API | 海关数据 | 检查凭据存储 | ✅/❌/跳过 |
+
+📋 依赖缺失不影响核心获客流程，但部分功能可能不可用。
+   安装指引：
+   - wacli: npm install -g wacli
+   - Playwright: npx playwright install
+   - Exa: 配置 ~/.workbuddy/mcp.json
+   - 特易: 联系平台获取 API Key
 ```
 
 ---
