@@ -72,6 +72,8 @@ Phase 4: 触达（铁律：开发信≥9.0分）
 | 海关数据搜索 | teyi-customs |
 | 语义搜索 | exa-search |
 | Facebook挖掘 | facebook-acquisition |
+| LinkedIn搜索 | linkedin |
+| Instagram挖掘 | instagram-acquisition |
 | 网页爬取 | scrapling |
 
 > 详细路由配置见：`global-customer-acquisition/references/ROUTING-TABLE.yaml`

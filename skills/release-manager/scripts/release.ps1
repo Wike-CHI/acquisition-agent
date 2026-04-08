@@ -262,7 +262,7 @@ cd deploy
 ## 技术支持
 
 - 负责人: Wike
-- 邮箱: wikeye2025@163.com
+- 邮箱: $env:HONGLONG_EMAIL (from .env)
 - 官网: holobelt.com
 "@
 

@@ -1,16 +1,17 @@
 # save-credential.ps1
-# 保存平台凭据（对话式）
-# 用法: .\save-credential.ps1 -Platform teyi -User "your_username" -Pass "your_password"
+# 保存平台凭据（对话式/安全输入）
+# 用法: .\save-credential.ps1 -Platform teyi -User "your_username"
+# 密码将通过安全输入提示
 
 param(
     [Parameter(Mandatory=$true)]
     [string]$Platform,
-    
+
     [Parameter(Mandatory=$true)]
     [string]$User,
-    
-    [Parameter(Mandatory=$true)]
-    [string]$Pass
+
+    [Parameter(Mandatory=$false)]
+    [string]$Pass  # 仅保留兼容性，已改用 Read-Host -AsSecureString
 )
 
 $ErrorActionPreference = "Stop"
@@ -37,10 +38,17 @@ if (-not (Test-Path $dir)) {
     New-Item -ItemType Directory -Path $dir -Force | Out-Null
 }
 
+# 安全读取密码（不暴露在命令行/PS历史中）
+if ([string]::IsNullOrEmpty($Pass)) {
+    $securePass = Read-Host "请输入密码" -AsSecureString
+} else {
+    $securePass = $Pass | ConvertTo-SecureString -AsPlainText -Force
+}
+
 # 使用DPAPI加密
 $encrypted = @{
     User = $User | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString
-    Pass = $Pass | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString
+    Pass = $securePass | ConvertFrom-SecureString
     CreatedAt = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     Platform = $Platform
 }

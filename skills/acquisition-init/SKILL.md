@@ -64,7 +64,7 @@ if (Test-Path "$wb\.email_signatures.json") {
 }
 ```
 
-**根据检测结果动态生成输出：**
+**根据检测结果动态生成输出（AI 按以下逻辑判断并展示）：**
 
 ```
 🔍 检查当前系统状态...
@@ -72,28 +72,39 @@ if (Test-Path "$wb\.email_signatures.json") {
 ✅ 已完成:
    - [x] 技能已安装
 
-{{if $nas_cred}}✅{{else}}⚠️{{/if}} NAS凭据
-{{if $teyi_cred}}✅{{else}}⚠️{{/if}} 特易凭据
-{{if $email_cfg}}✅{{else}}⚠️{{/if}} 邮箱配置
-{{if $signature}}✅{{else}}⚠️{{/if}} 邮件签名
-{{if $nas_mounted}}✅{{else}}⚠️{{/if}} NAS挂载
-
-{{if (-not $nas_cred -and -not $teyi_cred -and -not $email_cfg)}}
-⚠️ 检测到 {{if $email_addr}}邮箱: $email_addr{{/if}}{{if $sig_name}} | 签名: $sig_name{{/if}}
-
-是否开始初始化配置？(Y/n)
-{{elseif -not $nas_cred -or -not $teyi_cred -or -not $email_cfg}}
-📋 发现未配置项目，继续完成初始化？
-{{else}}
-🎉 所有核心配置已完成！
-
-{{if $email_addr}}✅ 邮箱: $email_addr{{end}}
-{{if $sig_name}}✅ 签名: $sig_name{{end}}
-{{if $nas_mounted}}✅ NAS已挂载{{end}}
-
-输入任意键查看完整状态报告，或直接输入任务（如"帮我找客户"）
-{{end}}
+[NAS凭据]    若 $nas_cred  为 true → 显示 ✅ NAS凭据已配置    否则显示 ⚠️ NAS凭据未配置
+[特易凭据]   若 $teyi_cred 为 true → 显示 ✅ 特易凭据已配置   否则显示 ⚠️ 特易凭据未配置
+[邮箱配置]   若 $email_cfg 为 true → 显示 ✅ 邮箱配置已完成   否则显示 ⚠️ 邮箱配置未完成
+[邮件签名]   若 $signature 为 true → 显示 ✅ 邮件签名已配置   否则显示 ⚠️ 邮件签名未配置
+[NAS挂载]    若 $nas_mounted 为 true → 显示 ✅ NAS已挂载(Y:) 否则显示 ⚠️ NAS未挂载
 ```
+
+**底部状态提示（AI 根据检测结果选择对应内容展示）：**
+
+- **情况A**：三项核心凭据（NAS/特易/邮箱）全部未配置 →
+  ```
+  ⚠️ 尚未配置任何凭据。
+  [若 $email_addr 不为空则显示: 检测到邮箱: $email_addr]
+  [若 $sig_name   不为空则显示: 签名姓名: $sig_name]
+
+  是否开始初始化配置？(Y/n)
+  ```
+
+- **情况B**：部分凭据未配置 →
+  ```
+  📋 发现未配置项目，继续完成初始化？
+  ```
+
+- **情况C**：所有核心配置均已完成 →
+  ```
+  🎉 所有核心配置已完成！
+
+  [若 $email_addr 不为空则显示: ✅ 邮箱: $email_addr]
+  [若 $sig_name   不为空则显示: ✅ 签名: $sig_name]
+  [若 $nas_mounted 为 true 则显示: ✅ NAS已挂载]
+
+  输入任意键查看完整状态报告，或直接输入任务（如"帮我找客户"）
+  ```
 
 > **关键要求**：
 > - **禁止**使用硬编码的 `✅/⚠️` 状态，必须基于实际文件检测结果

@@ -288,36 +288,32 @@ iron_rules:
     blocking: false
 
 
+
 # ── 子技能索引 ─────────────────────────────────────────────
 #
-# 所有可被路由的技能及其 SKILL.md 位置。
-# AI 通过 skill://协议 或 读取文件路径 来获取技能指令。
+# 所有可被路由的技能及其位置。AI 通过 skill://协议 或 读取文件路径 来获取技能指令。
 
-  # ═══════════════════════════════════════════════════════════════
-  # ⚠️ skills_index 由 skill-cli generate-routing --index-only 自动生成
-  # ⚠️ 手动修改将被下次运行覆盖
-  # 更新方法：python .cli/generate_routing.py skills/ --index-only
-  # ═══════════════════════════════════════════════════════════════
+skills_index:
   acquisition-coordinator:
     path: "skill://acquisition-coordinator"
     description: "获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调 (3) 并行搜索 ("
-    layer: support
+    layer: orchestration
   acquisition-evaluator:
     path: "skill://acquisition-evaluator"
     description: "独立验收Agent - 评估其他Agent的工作质量。当需要：(1) 验收背调报告 (2) 检查开发信质量 (3) 审核报价准确性 (4) 质量控制 时使用此技"
-    layer: support
+    layer: orchestration
   acquisition-init:
     path: "skill://acquisition-init"
-    description: "获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说"初始化获客系统"、"开始使用获客系统"时触发。"
-    layer: support
+    description: "获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说'初始化获客系统'、'开始使用获客系统'时触发。"
+    layer: orchestration
   acquisition-workflow:
     path: "skill://acquisition-workflow"
     description: "获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。"
-    layer: support
+    layer: orchestration
   cold-email-generator:
     path: "skill://cold-email-generator"
     description: "开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9."
-    layer: support
+    layer: outreach
   company-research:
     path: "skill://company-research"
     description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、Link"
@@ -345,31 +341,31 @@ iron_rules:
   email-marketing:
     path: "skill://email-marketing"
     description: "Email deliverability, list management, sequences, segmentation, campaign optimiz"
-    layer: support
+    layer: outreach
   email-sender:
     path: "skill://email-sender"
     description: "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能"
-    layer: support
+    layer: outreach
   facebook-acquisition:
     path: "skill://facebook-acquisition"
     description: "Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。"
-    layer: social-media
+    layer: discovery
   fumamx-crm:
     path: "skill://fumamx-crm"
-    description: "孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说"配置孚盟账号"或"初始化获客系统"
+    description: "孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说'配置孚盟账号'或'初始化获客系统"
     layer: support
   holo-agent:
     path: "skill://holo-agent"
     description: "HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi"
-    layer: support
+    layer: entry
   honglong-assistant:
     path: "skill://honglong-assistant"
     description: "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。"
-    layer: support
+    layer: persona
   honglong-products:
     path: "skill://honglong-products"
     description: "红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则 (2) 技"
-    layer: support
+    layer: persona
   in-depth-research:
     path: "skill://in-depth-research"
     description: "深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"
@@ -377,15 +373,15 @@ iron_rules:
   instagram-acquisition:
     path: "skill://instagram-acquisition"
     description: "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。"
-    layer: social-media
+    layer: discovery
   linkedin:
     path: "skill://linkedin"
     description: "LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send "
-    layer: social-media
+    layer: discovery
   linkedin-writer:
     path: "skill://linkedin-writer"
     description: "Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加"
-    layer: social-media
+    layer: discovery
   market-research:
     path: "skill://market-research"
     description: "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"

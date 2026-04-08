@@ -214,8 +214,7 @@ triggers:
 |------|----------|
 | 生成报价单 | `skill://honglong-products` |
 | 社媒运营 | `skill://ai-social-media-content` |
-| Pipeline更新 | `skill://crm` |
-| 日历提醒 | `skill://calendar-skill` |
+| Pipeline更新 | `skill://sales-pipeline-tracker` |
 | 验收报告 | `skill://acquisition-evaluator` |
 
 ---

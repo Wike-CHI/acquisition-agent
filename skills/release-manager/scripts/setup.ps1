@@ -201,11 +201,11 @@ _更新: $(Get-Date -Format "yyyy-MM-dd")_
         $ownerName = Read-Host "负责人姓名"
         if ($ownerName -eq "") { $ownerName = "Wike" }
 
-        $ownerPhone = Read-Host "手机号（默认：13165862311）"
-        if ($ownerPhone -eq "") { $ownerPhone = "13165862311" }
+        $ownerPhone = Read-Host "手机号（从 .env 的 HONGLONG_PHONE 读取，直接回车跳过）"
+        if ($ownerPhone -eq "") { $ownerPhone = $env:HONGLONG_PHONE }
 
-        $ownerEmail = Read-Host "邮箱（默认：wikeye2025@163.com）"
-        if ($ownerEmail -eq "") { $ownerEmail = "wikeye2025@163.com" }
+        $ownerEmail = Read-Host "邮箱（从 .env 的 HONGLONG_EMAIL 读取，直接回车跳过）"
+        if ($ownerEmail -eq "") { $ownerEmail = $env:HONGLONG_EMAIL }
 
         $userContent = @"
 # USER.md - 负责人画像

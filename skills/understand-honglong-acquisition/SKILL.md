@@ -1,6 +1,6 @@
 ---
 name: understand-honglong-acquisition
-version: 3.2.0
+version: 3.3.0
 description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用 skill://HOLO-AGENT。本技能整合自我改进机制，支持三层记忆系统+5种学习信号+自动晋升降级。同步至HOLO-AGENT v2.4.0。
 ---
 
@@ -163,7 +163,16 @@ Step 9: 日报生成
 | 决策周期 | 15% | 企业规模推断 |
 | 决策人联系 | 10% | LinkedIn/官网联系方式 |
 
-**客户等级**：A级≥70分（重点开发）| B级50-69分 | C级30-49分 | D级<30分（暂不开发）
+**客户等级**（与 coordinator/coordinator 铁律对齐）：
+
+| 等级 | 阈值 | 开发策略 |
+|------|------|---------|
+| **A级** | ≥75分 | 重点开发，优先发邮件 |
+| **B级** | 50-74分 | 暂缓，跟进观察 |
+| **C级** | 30-49分 | 暂不开发 |
+| **D级** | <30分 | 排除 |
+
+> ⚠️ **阈值来源**：铁律第2条（≥75分才发邮件）= A级门槛，两个标准已统一。
 
 > 详细评分标准见主技能 `references/SCORING.md`
 
@@ -283,6 +292,32 @@ mcporter list exa  # 验证显示 8 tools
 | Instagram | Reels/Stories/图文 | 5篇/周 | `ai-social-media-content` |
 | LinkedIn | SEO文章/互动帖 | 2篇/周 | `linkedin-writer` |
 
+### WhatsApp 触达规范 ⭐ v2.5.0 新增
+
+> WhatsApp 是红龙最重要的海外触达渠道，Drip Campaign 中 D3 节点必须使用。
+
+**内容规范**：
+- 字数：≤ 80 词（比邮件更短）
+- 语气：口语化、自然，不使用商务套话
+- AI 检测：必须通过 humanize-ai-text 去除 AI 味（密度 < 2%）
+- CTA：明确但软性，如"方便的话可以聊聊？"而非"必须回复"
+
+**触达时机（Drip Campaign）**：
+| 轮次 | 时机 | 渠道 | 内容重点 |
+|------|------|------|---------|
+| D0 | 首次联系 | 邮件 | 开发信 + 产品目录链接 |
+| D3 | 第3天 | WhatsApp | 简短跟进 + WhatsApp 直接联系 |
+| D5 | 第5天 | 邮件 | 价值主张 + 成功案例 |
+| D14 | 第14天 | 邮件 + WhatsApp | 最终跟进 + 免费样品 |
+
+**WhatsApp 签名**：
+```
+{姓名}
+HONGLONG Industrial Equipment
+📞 +86 {手机号}
+🔗 wa.me/{whatsapp_link}
+```
+
 ---
 
 ## 关键技能索引
@@ -318,10 +353,16 @@ mcporter list exa  # 验证显示 8 tools
 | **本技能** | |
 | `LEARNING-SIGNALS.md` ⭐ | 5种学习信号详细触发规则/记录格式/晋升标准 |
 
-**完整记忆文件**：
-- HOT: `C:\Users\Administrator\self-improving\memory.md`
-- WARM: `C:\Users\Administrator\self-improving\projects\honglong-acquisition.md`
-- COLD: `C:\Users\Administrator\self-improving\archive\`
+**完整记忆文件**（使用 `$env:USERPROFILE` 确保跨机器兼容）：
+
+```powershell
+$base = "$env:USERPROFILE\self-improving"
+# HOT: $base\memory.md
+# WARM: $base\projects\honglong-acquisition.md
+# COLD: $base\archive\
+```
+
+> ⚠️ **禁止硬编码**：所有路径必须使用 `$env:USERPROFILE` 变量，禁止写 `C:\Users\...` 等绝对路径。
 
 ---
 

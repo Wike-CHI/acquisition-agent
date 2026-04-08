@@ -123,15 +123,26 @@ Signature: [Wike 签名]
 
 ## 签名规范（强制）
 
-所有开发信必须使用以下签名：
+所有开发信必须从 `$env:USERPROFILE\.workbuddy\.email_signatures.json` 读取签名信息。
 
+**读取命令（PowerShell）：**
+```powershell
+$sig = Get-Content "$env:USERPROFILE\.workbuddy\.email_signatures.json" | ConvertFrom-Json
+# 可用字段：$sig.name, $sig.title, $sig.phone, $sig.whatsapp, $sig.email, $sig.website
 ```
-Wike | HONGLONG Industrial Equipment
-Phone/WhatsApp: +86 13165862311
-Email: wikeye2025@163.com
-Web: holobelt.com | beltsplicepress.com
+
+**签名格式模板：**
+```
+Best regards,
+{$sig.name} | {$sig.title}
+HONGLONG Industrial Equipment
+Phone/WhatsApp: {$sig.phone}
+Email: {$sig.email}
+Web: {$sig.website}
 Address: Ruian, Wenzhou, Zhejiang 325200, China
 ```
+
+> 若签名文件不存在，提示用户先运行"初始化获客系统"完成签名配置（skill://acquisition-init）。
 
 ## 目标市场文化适配
 

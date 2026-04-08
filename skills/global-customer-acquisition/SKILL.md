@@ -2,6 +2,7 @@
 name: HOLO-AGENT
 version: 2.5.0
 description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达
+always: false
 triggers:
   - 找客户
   - 背调公司
@@ -226,16 +227,15 @@ Step 9: 日报生成
 
 ## 外部技能集成
 
-本系统已集成**21个外部技能**，提供完整的Office文档生成、搜索、邮件、PDF处理、NAS访问等能力。
+本系统已集成**25个核心技能**，提供完整的获客、背调、触达、文档、搜索等企业级B2B能力。
 
 | 功能 | 调用技能 |
 |------|----------|
-| NAS存储访问 | `skill://nas-file-reader` |
-| Office文档生成 | `skill://docx` / `skill://pptx` / `skill://xlsx` |
+| Office文档生成 | `skill://office` / `skill://excel-xlsx` |
 | 搜索与调研 | `skill://tavily-search` / `skill://brave-web-search` |
-| 邮件与通信 | `skill://email-skill` |
-| WhatsApp触达 | `skill://WhatsApp` → `wacli` CLI |
-| PDF处理 | `skill://pdf` |
+| 邮件与通信 | `skill://email-sender` / `skill://cold-email-generator` |
+| WhatsApp触达 | `skill://whatsapp-outreach` → `wacli` CLI |
+| PDF处理 | `skill://pdf-extract` |
 
 > 完整外部技能索引见：external-skills/INDEX.md
 
