@@ -1,5 +1,7 @@
 {
   "name": "GitHub热门项目",
   "installedAt": 1774858380509,
-  "source": "marketplace"
+  "source": "marketplace",
+  "iconSource": "github-trending-cn",
+  "version": "2.0.0"
 }

@@ -19,7 +19,7 @@ param(
     [switch]$SkipSubmoduleCheck = $false
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 # --- 配置 ---
 $LocalSkillsDir = Join-Path $env:USERPROFILE ".workbuddy\skills"
@@ -134,8 +134,8 @@ Write-Status "本地技能目录: $LocalSkillsDir"
 if (Test-Path $RepoDir) {
     Write-Status "更新已有仓库..."
     Push-Location $RepoDir
-    git fetch origin $Branch 2>&1 | Out-Null
-    git reset --hard "origin/$Branch" 2>&1 | Out-Null
+    $null = git fetch origin $Branch 2>&1
+    $null = git reset --hard "origin/$Branch" 2>&1
     Pop-Location
 } else {
     Write-Status "克隆仓库..."
