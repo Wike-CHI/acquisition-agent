@@ -1,13 +1,14 @@
 ---
 name: HOLO-AGENT
-version: 2.5.0
-description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达
+version: 2.7.0
+description: HOLO智能获客Agent - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。触发：找客户、背调公司、发开发信、智能报价、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达、开发市场
 always: false
 triggers:
   - 找客户
   - 背调公司
   - 发开发信
   - 生成报价单
+  - 智能报价
   - 社媒运营
   - 查看Pipeline
   - HOLO
@@ -16,11 +17,58 @@ triggers:
   - WhatsApp
   - 智能触达
   - 多渠道触达
+  # 市场开发相关
+  - 开发市场
+  - 开发南美
+  - 开发非洲
+  - 开发东南亚
+  - 开发中东
+  - 开发欧洲
+  - 市场拓展
+  - 市场分析
 ---
 
-# HOLO智能获客Agent v2.5.0
+# HOLO智能获客Agent v2.7.0
+
+---
+
+## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+
+**❌ 禁止使用：内置 web_search 工具**
+**✅ 必须使用：mcporter call exa.xxx（MCP）**
+
+如果AI不知道如何使用MCP，参考：
+```bash
+# 第一步：配置MCP（首次必做）
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# 第二步：验证
+mcporter list  # 应显示 exa: 8 tools online
+
+# 第三步：执行搜索
+# 决策人搜索（LinkedIn）⭐ 最常用
+mcporter call exa.people_search_exa query="procurement manager mining cement Africa" numResults=8
+
+# 通用搜索
+mcporter call exa.web_search_exa query="conveyor belt distributor Brazil" numResults=8
+
+# 企业背调
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
+
+# ⚠️ PowerShell必须用cmd/c
+cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
+
+# ⚠️ 参数格式：query必须加引号！
+# ✅ mcporter call exa.web_search_exa query="conveyor belt"
+# ❌ mcporter call exa.web_search_exa query=conveyor belt
+```
+
+> 📚 详细教程见：`skill://exa-search` 技能的顶部配置说明
+
+---
 
 > 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
+> 🎯 新增：智能报价技能（smart-quote），支持47国利润率、103款产品、智能报价计算
 >
 > 详细文档：references/ARCHITECTURE.md | references/PIPELINE.md | references/SOCIAL-MEDIA.md | references/TROUBLESHOOT.md
 >
@@ -42,6 +90,7 @@ triggers:
 | "智能触达这个客户" | 自动判断：有号码→WhatsApp，有邮箱→邮件，双通道最优 |
 | "多渠道触达TOP5客户" | 批量双通道（邮件+WhatsApp）触达 |
 | "生成报价单" | .docx报价单 |
+| "给沙特客户报三代风冷机" | 智能报价：根据国家+产品+客户类型自动计算最优报价 |
 | "帮我发一篇Facebook" | 生成帖子 + 发布 |
 | "Instagram发什么" | 内容建议 + Hashtag + 脚本 |
 | "帮我运营LinkedIn账号" | 内容日历 + 文章 + 互动策略 |
@@ -111,7 +160,7 @@ triggers:
 |--------|------|------|
 | **S级** | 官网"Contact Us"表单 | 当前有效 |
 | **A级** | 特易详情页"联系方式" | 6个月内 |
-| **B级** | LinkedIn决策人 | 1年内，标题清晰 |
+| **B级** | LinkedIn决策人 | ≤12个月，标题清晰 |
 | **C级** | 公司通用邮箱 | 需额外核实 |
 | **❌ 禁用** | LinkedIn普通员工/公网邮箱 | 无时效验证 |
 
@@ -124,7 +173,7 @@ triggers:
 > 完整声明式路由配置见：**references/ROUTING-TABLE.yaml**
 > 路由使用说明见：**SKILLS-ROUTER.md**
 
-### 8种意图 × 路由摘要
+### 9种意图 × 路由摘要
 
 | 意图 | 关键词 | 海外首选 | 国内首选 |
 |------|--------|----------|----------|
@@ -134,6 +183,7 @@ triggers:
 | 邮件触达 | 发邮件/开发信 | cold-email-generator (P5) | email-sender (P5) |
 | WhatsApp触达 | WhatsApp/wa消息 | whatsapp-outreach (P5) | whatsapp-outreach (P5) |
 | 智能触达 | 智能触达/多渠道 | whatsapp-outreach (P5) | email-sender (P5) |
+| **智能报价** | 报价/价格/quote | smart-quote (P6) | smart-quote (P6) |
 | 社媒运营 | Facebook/LinkedIn | ai-social-media-content (P5) | ai-social-media-content (P5) |
 | 完整流程 | 全流程/端到端 | acquisition-coordinator (P5) | acquisition-coordinator (P5) |
 
@@ -147,7 +197,7 @@ triggers:
 
 ---
 
-## 11步获客流程（简化）
+## 12步获客流程（简化）
 
 ```
 Step 0: 智能路由 → 自动选渠道（邮件/WhatsApp/双通道）
@@ -158,7 +208,8 @@ Step 3: 企业背调 → ICP 6维度评分
 Step 4: LinkedIn决策人 → Exa搜索
 Step 5: 竞品分析 → 差异化话术
 Step 6: 消息生成 → 邮件开发信v2.0（≥9.0分）/ WhatsApp消息（≥8.0分）
-Step 6.5: 报价单 → .docx
+Step 6.5: 智能报价 → smart-quote（国家+客户类型+采购量）
+Step 6.6: 报价单 → .docx
 Step 7: 消息发送 → 邮件队列 / WhatsApp / 双通道
 Step 8: Pipeline更新 → .xlsx
 Step 8.5: 跟进管理 → 日历提醒
@@ -251,6 +302,7 @@ Step 9: 日报生成
 | WhatsApp触达 | `skill://whatsapp-outreach` |
 | 产品库 | `skill://honglong-products` |
 | 助手 | `skill://honglong-assistant` |
+| **智能报价** | `skill://smart-quote` |
 
 ---
 
@@ -282,5 +334,5 @@ Step 9: 日报生成
 
 ---
 
-*版本：v2.5.0 | 更新时间：2026-04-06*
-*变更：集成WhatsApp触达通道（whatsapp-outreach子技能），多渠道智能路由，delivery-queue支持WhatsApp模式*
+*版本：v2.6.0 | 更新时间：2026-04-09*
+*变更：集成智能报价技能（smart-quote），支持47国利润率指导表、103款产品报价、报价计算引擎。意图路由升级为9种。*

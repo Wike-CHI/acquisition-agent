@@ -1,5 +1,7 @@
 {
   "name": "QQ邮箱",
-  "installedAt": 1774858331004,
-  "source": "marketplace"
+  "installedAt": 1775701736634,
+  "source": "marketplace",
+  "iconSource": "qq-email",
+  "version": "1.0.0"
 }

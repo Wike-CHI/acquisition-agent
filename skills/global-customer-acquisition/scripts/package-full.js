@@ -560,7 +560,7 @@ npm test
 
 ## 🆘 技术支持
 
-- **邮箱**: wikeye2025@163.com
+- **邮箱**: ${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 - **电话**: +86 577-66856856
 - **官网**: https://www.holobelt.com
 
@@ -981,7 +981,7 @@ node install.js
 
 ## 🆘 技术支持
 
-- **邮箱**: wikeye2025@163.com
+- **邮箱**: ${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 - **电话**: +86 577-66856856
 - **官网**: https://www.holobelt.com
 

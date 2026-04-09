@@ -13,7 +13,32 @@ triggers:
   - coordinator
 ---
 
-# 获客任务协调器 v2.0
+# 获客任务协调器 v2.1
+
+---
+
+## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+
+**❌ 禁止使用：内置 web_search 工具**
+**✅ 必须使用：mcporter call exa.xxx（MCP）**
+
+如果AI不知道如何使用MCP，参考：
+```bash
+# 第一步：配置MCP
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# 第二步：验证
+mcporter list  # 应显示 exa: 8 tools online
+
+# 第三步：执行搜索（参数必须加引号！）
+mcporter call exa.people_search_exa query="procurement manager mining cement" numResults=8
+mcporter call exa.web_search_exa query="conveyor belt manufacturer Brazil" numResults=8
+
+# ⚠️ PowerShell必须用cmd/c
+cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
+```
+
+---
 
 多步骤获客任务的**执行引擎**，负责**任务分析、子技能调度、质量门控、结果整合**。
 
@@ -67,7 +92,7 @@ triggers:
 
 **操作**：读取目标搜索技能的 SKILL.md，按其"执行步骤"操作。
 
-1. 查阅 `references/ROUTING-TABLE.yaml` 中 `customer_discovery` 的路由配置
+1. 查阅 `skill://global-customer-acquisition/references/ROUTING-TABLE.yaml` 中 `customer_discovery` 的路由配置
 2. 根据目标市场选择合适的搜索技能
 3. **读取该技能的 SKILL.md**，按其中的"执行步骤"执行搜索
 4. 收集搜索结果，统一格式
@@ -90,7 +115,7 @@ triggers:
 
 **铁律：无邮箱不继续！**
 
-按 `acquisition-workflow` 的联系方式验证流程执行：
+按 `skill://acquisition-workflow` 的联系方式验证流程执行（参考 `skill://global-customer-acquisition/references/CONTACT-VERIFICATION.md`）：
 1. 检查每个客户的联系方式来源
 2. 执行时效性验证
 3. 多源交叉验证（至少2个来源）
@@ -100,9 +125,9 @@ triggers:
 
 **操作**：对通过验证的客户逐个执行背调。
 
-1. 读取 `company-research/SKILL.md` 或 `deep-research/SKILL.md`
+1. 读取 `skill://company-research` 或 `skill://deep-research`
 2. 按步骤执行背调
-3. 计算 ICP 6维度评分
+3. 计算 ICP 6维度评分（参考 `skill://global-customer-acquisition/references/SCORING.md`）
 4. 输出评分报告
 
 **背调技能选择**：
@@ -115,12 +140,12 @@ triggers:
 
 ### Step 3: 筛选阶段
 
-**质量门控：ICP评分 ≥ 75 分才继续！**
+**质量门控：ICP评分 ≥ 75 分才继续！**（铁律，参考 `skill://global-customer-acquisition/references/IRON-RULES.md`）
 
 筛选条件：
 1. ICP评分 ≥ 75分
 2. 非竞争对手
-3. 有已验证联系方式
+3. 有已验证联系方式（时效 ≤ 12个月）
 4. 非矿业客户（铁律）
 
 输出：高价值客户列表（2-5家）
@@ -129,14 +154,12 @@ triggers:
 
 **操作**：对通过筛选的客户执行触达。
 
-1. 读取 `cold-email-generator/SKILL.md`
-2. 生成个性化开发信（评分 ≥ 9.0 分）
-3. 读取 `email-sender/SKILL.md`
-4. 配置邮箱并发送
-5. 设置跟进计划（D3/D5/D14）
+1. 读取 `skill://cold-email-generator` 生成个性化开发信（评分 ≥ 9.0 分，10分制）
+2. 读取 `skill://email-sender` 配置邮箱并发送
+3. 设置跟进计划（D3/D5/D14）
 
 **质量检查**：
-- [ ] 开发信评分 ≥ 9.0 分？
+- [ ] 开发信评分 ≥ 9.0 分（10分制）？
 - [ ] 签名使用业务员本人联系方式？
 - [ ] 发送频率合理？
 

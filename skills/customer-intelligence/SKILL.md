@@ -15,6 +15,32 @@ triggers:
 
 # 客户情报整合技能
 
+---
+
+## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+
+**❌ 禁止使用：内置 web_search 工具**
+**✅ 必须使用：mcporter call exa.xxx（MCP）**
+
+如果AI不知道如何使用MCP，参考：
+```bash
+# 第一步：配置MCP
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# 第二步：验证
+mcporter list  # 应显示 exa: 8 tools online
+
+# 第三步：执行搜索（参数必须加引号！）
+mcporter call exa.people_search_exa query="procurement manager mining cement" numResults=8
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
+mcporter call exa.crawling_exa urls=["https://example.com"]
+
+# ⚠️ PowerShell必须用cmd/c
+cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
+```
+
+---
+
 整合多个调研技能，提供一站式客户情报服务。
 
 ## 核心功能

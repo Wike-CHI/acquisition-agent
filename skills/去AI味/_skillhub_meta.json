@@ -1,5 +1,7 @@
 {
   "name": "去AI味",
   "installedAt": 1774858352602,
-  "source": "marketplace"
+  "source": "marketplace",
+  "iconSource": "humanizer",
+  "version": "2.1.1"
 }

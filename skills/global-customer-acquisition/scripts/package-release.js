@@ -701,7 +701,7 @@ npm test
 ## 📞 技术支持
 
 - **官网**: https://www.holobelt.com
-- **邮箱**: wikeye2025@163.com
+- **邮箱**: ${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 - **电话**: +86 577-66856856
 
 ---
@@ -915,7 +915,7 @@ A: 查看 \`docs/INDEX.md\`，里面有完整文档索引。
 A:
 1. 查看 \`RELEASE-NOTES.md\` 中的已知问题
 2. 运行 \`node scripts/setup-security.js\` 检查配置
-3. 联系技术支持：wikeye2025@163.com
+3. 联系技术支持：${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 
 ---
 
@@ -953,7 +953,7 @@ NAS_PASSWORD=你的NAS密码
 - **完整文档**: 查看 \`docs/INDEX.md\`
 - **安全指南**: 查看 \`SECURITY-GUIDE.md\`
 - **系统架构**: 查看 \`SYSTEM-ARCHITECTURE.md\`
-- **技术支持**: wikeye2025@163.com
+- **技术支持**: ${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 
 ---
 
@@ -1036,7 +1036,7 @@ node install.js
 
 ## 🆘 技术支持
 
-- **邮箱**: wikeye2025@163.com
+- **邮箱**: ${process.env.HONGLONG_EMAIL || 'HONGLONG_EMAIL'}
 - **电话**: +86 577-66856856
 - **官网**: https://www.holobelt.com
 

@@ -1,86 +1,83 @@
 ---
 name: exa-web-search-free
-description: Free AI search via Exa MCP. Web search for news/info, code search for docs/examples from GitHub/StackOverflow, company research for business intel. No API key needed.
+version: 2.1.0
+description: "Free AI search via Exa MCP. ⚠️ 必须使用mcporter调用，禁止使用web_search工具！"
 metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["mcporter"]}}}
 ---
 
-# Exa Web Search (Free)
+# Exa Web Search (Free) v2.1
 
-Neural search for web, code, and company research. No API key required.
+## ⚠️⚠️⚠️ 强制要求：必须使用MCP，禁止使用web_search ⚠️⚠️⚠️
 
-## Setup
+> **❌ 禁止：使用内置 web_search 工具**
+>
+> **✅ 正确：用 mcporter call exa.xxx 命令**
 
-Verify mcporter is configured:
-```bash
-mcporter list exa
-```
+---
 
-If not listed:
-```bash
-mcporter config add exa https://mcp.exa.ai/mcp
-```
-
-## Core Tools
-
-### web_search_exa
-Search web for current info, news, or facts.
+## 第一步：配置MCP
 
 ```bash
-mcporter call 'exa.web_search_exa(query: "latest AI news 2026", numResults: 5)'
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+mcporter list  # 验证显示 exa: 8 tools online
 ```
 
-**Parameters:**
-- `query` - Search query
-- `numResults` (optional, default: 8)
-- `type` (optional) - `"auto"`, `"fast"`, or `"deep"`
+---
 
-### get_code_context_exa
-Find code examples and docs from GitHub, Stack Overflow.
+## 第二步：执行搜索
+
+### 决策人搜索（LinkedIn）⭐
+```bash
+mcporter call exa.people_search_exa query="procurement manager mining cement Africa" numResults=8
+```
+
+### 客户发现
+```bash
+mcporter call exa.web_search_exa query="conveyor belt distributor Brazil" numResults=8
+```
+
+### 企业背调
+```bash
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
+```
+
+---
+
+## 工具清单
+
+| 工具 | 用途 |
+|------|------|
+| `people_search_exa` | LinkedIn决策人搜索 ⭐ |
+| `web_search_exa` | 通用搜索 |
+| `company_research_exa` | 企业情报 |
+| `crawling_exa` | 网页抓取 |
+
+---
+
+## ❌ 禁止这样做
+
+```javascript
+// 错误！禁止用web_search工具
+web_search({ query: "..." })
+```
+
+---
+
+## 参数格式注意
 
 ```bash
-mcporter call 'exa.get_code_context_exa(query: "React hooks examples", tokensNum: 3000)'
+# ✅ 正确：query需要引号
+mcporter call exa.people_search_exa query="procurement manager" numResults=5
+
+# ❌ 错误：query没有引号
+mcporter call exa.people_search_exa query=procurement manager
 ```
 
-**Parameters:**
-- `query` - Code/API search query
-- `tokensNum` (optional, default: 5000) - Range: 1000-50000
+---
 
-### company_research_exa
-Research companies for business info and news.
+## PowerShell
 
 ```bash
-mcporter call 'exa.company_research_exa(companyName: "Anthropic", numResults: 3)'
+mcporter call exa.people_search_exa query="procurement manager" numResults=5
 ```
-
-**Parameters:**
-- `companyName` - Company name
-- `numResults` (optional, default: 5)
-
-## Advanced Tools (Optional)
-
-Six additional tools available by updating config URL:
-- `web_search_advanced_exa` - Domain/date filters
-- `deep_search_exa` - Query expansion
-- `crawling_exa` - Full page extraction
-- `people_search_exa` - Professional profiles
-- `deep_researcher_start/check` - AI research agent
-
-**Enable all tools:**
-```bash
-mcporter config add exa-full "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
-
-# Then use:
-mcporter call 'exa-full.deep_search_exa(query: "AI safety research")'
-```
-
-## Tips
-
-- Web: Use `type: "fast"` for quick lookup, `"deep"` for thorough research
-- Code: Lower `tokensNum` (1000-2000) for focused, higher (5000+) for comprehensive
-- See [examples.md](references/examples.md) for more patterns
-
-## Resources
-
-- [GitHub](https://github.com/exa-labs/exa-mcp-server)
-- [npm](https://www.npmjs.com/package/exa-mcp-server)
-- [Docs](https://exa.ai/docs)

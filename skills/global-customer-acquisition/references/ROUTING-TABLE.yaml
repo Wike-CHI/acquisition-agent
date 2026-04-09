@@ -1,6 +1,8 @@
 # ============================================================
 # 红龙获客系统 - 技能路由表（声明式配置）
-# 版本: 2.5.0 | 更新时间: 2026-04-06
+# 版本: 2.7.0 | 更新时间: 2026-04-09
+#
+# 🆕 新增意图: market_development - 市场开发/市场拓展
 #
 # 用途：AI Agent 读取此文件进行意图识别 → 技能选择 → 调用
 # 格式：纯 YAML 声明，无代码依赖，跨平台兼容
@@ -16,6 +18,12 @@ intents:
     keywords: [找客户, 搜索客户, 获客, 批量搜索, 搜索公司, find customers, lead generation, prospecting]
     description: "发现潜在客户"
     market_aware: true        # 需要区分国内/海外
+
+  market_development:
+    keywords: [开发市场, 开发南美, 开发非洲, 开发东南亚, 开发中东, 开发欧洲, 开发北美, 开发澳洲, 拓展市场, 市场拓展, 市场分析, 市场调研, market development, market research, explore market, expand market, South America, Africa, Southeast Asia]
+    description: "市场分析与批量获客"
+    market_aware: true
+    auto_detect_region: true   # 自动识别目标市场区域
 
   company_research:
     keywords: [背调, 评估, ICP, 调研, 公司分析, 背景调查, research, due diligence, evaluate]
@@ -51,6 +59,11 @@ intents:
     keywords: [报价, 报价单, 价格, quote, quotation, pricing]
     description: "生成产品报价单"
 
+  crm_import:
+    keywords: [导入孚盟, 导入CRM, 生成导入模板, 一键导入, 批量导入客户, 客户数据同步, 导出到孚盟]
+    description: "客户数据导入孚盟CRM"
+    market_aware: false
+
   full_pipeline:
     keywords: [完整流程, 端到端, 全流程, 全套, full pipeline, end to end]
     description: "完整获客流程（搜索→背调→筛选→触达）"
@@ -81,6 +94,23 @@ routing:
       - skill: exa-search
         priority: 5
         condition: "通用搜索"
+        fallback: []
+
+  market_development:
+    overseas:
+      - skill: market-research
+        priority: 5
+        condition: "市场研究+行业分析"
+        next: [customer-discovery, exa-search]
+        fallback: [exa-search]
+      - skill: exa-search
+        priority: 4
+        condition: "批量客户发现"
+        fallback: []
+    domestic:
+      - skill: exa-search
+        priority: 5
+        condition: "国内市场分析"
         fallback: []
 
   company_research:
@@ -198,10 +228,24 @@ routing:
 
   quotation:
     all_markets:
+      - skill: smart-quote
+        priority: 6
+        condition: "智能报价（国家+客户类型+采购量）"
+        fallback: [honglong-products]
       - skill: honglong-products
         priority: 5
-        condition: "产品匹配+报价"
+        condition: "产品匹配+基础报价"
         fallback: []
+
+  crm_import:
+    all_markets:
+      - skill: fumamx-import-adapter
+        priority: 5
+        condition: "孚盟导入适配器"
+        fallback: [fumamx-crm]
+      - skill: fumamx-crm
+        priority: 3
+        condition: "孚盟CRM手动操作"
 
   full_pipeline:
     overseas:
@@ -354,6 +398,10 @@ skills_index:
     path: "skill://fumamx-crm"
     description: "孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说'配置孚盟账号'或'初始化获客系统"
     layer: support
+  fumamx-import-adapter:
+    path: "skill://fumamx-import-adapter"
+    description: "孚盟导入适配器 - 将获客系统的客户数据转换为孚盟导入模板格式，支持批量处理、去重检查、字段标准化。"
+    layer: support
   holo-agent:
     path: "skill://holo-agent"
     description: "HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi"
@@ -390,7 +438,48 @@ skills_index:
     path: "skill://sales-pipeline-tracker"
     description: "Track deals through every stage from lead to close. Manage pipeline stages, upda"
     layer: support
+  smart-quote:
+    path: "skill://smart-quote"
+    description: "红龙智能报价技能 v2.0 - 先背调后报价，给业务员利润率范围和价格区间。先调用company-research背调，根据企业规模/ICP评分/付款能力确定利润率区间，让业务员灵活报价。"
+    layer: outreach
   understand-honglong-acquisition:
     path: "skill://understand-honglong-acquisition"
     description: "红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用"
     layer: support
+  # ── 2026-04-09 补充缺失技能索引 ──
+  teyi-customs:
+    path: "skill://teyi-customs"
+    description: "特易海关数据搜索 - 采购记录数据，用于发现从中国进口工业设备的海外买家"
+    layer: discovery
+  exa-search:
+    path: "skill://exa-search"
+    description: "AI深度搜索技能。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！支持LinkedIn决策人搜索、企业情报、网页抓取"
+    layer: discovery
+  scrapling:
+    path: "skill://scrapling"
+    description: "网页抓取技能 - 从网站提取结构化数据，支持动态页面渲染"
+    layer: discovery
+  whatsapp-outreach:
+    path: "skill://whatsapp-outreach"
+    description: "WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送"
+    layer: outreach
+  humanize-ai-text:
+    path: "skill://humanize-ai-text"
+    description: "AI文本去味工具 - 将AI生成的文本改写成更自然的人类写作风格"
+    layer: support
+  deep-research:
+    path: "skill://deep-research"
+    description: "深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入"
+    layer: intelligence
+  ai-social-media-content:
+    path: "skill://ai-social-media-content"
+    description: "AI社媒营销内容生成器。一次主题，自动生成9个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）"
+    layer: outreach
+  email-outreach-ops:
+    path: "skill://email-outreach-ops"
+    description: "邮件外联运营技能。生成和管理供应商询价邮件、跟进流程、回复汇总"
+    layer: outreach
+  exa-web-search-free:
+    path: "skill://exa-web-search-free"
+    description: "Exa Web Search (Free)。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！"
+    layer: discovery

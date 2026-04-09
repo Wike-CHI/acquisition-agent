@@ -1,99 +1,131 @@
 ---
 name: exa-search
-version: 2.0.0
-description: "AI 深度搜索技能（免费版）。通过 Exa MCP 进行语义搜索、企业情报、代码搜索、人员搜索、深度调研。无需 API Key。触发词：exa搜索、深度搜索、语义搜索、公司搜索、人员搜索、exa search"
+version: 2.3.0
+description: "AI 深度搜索技能（免费版）。通过 Exa MCP 进行语义搜索、企业情报、LinkedIn决策人搜索、深度调研。无需 API Key。触发词：exa搜索、深度搜索、LinkedIn搜索、找决策人、找客户"
 always: false
 triggers:
   - exa搜索
   - 深度搜索
-  - exa search
   - 语义搜索
   - 公司搜索
   - 人员搜索
-  - 企业搜索
+  - LinkedIn搜索
+  - 找决策人
+  - 找客户
+  - 客户发现
 ---
 
-# Exa Search v2.0 - 免费 AI 深度搜索
+# Exa Search v2.3 - AI深度搜索（禁止使用web_search！）
 
-通过 Exa 免费 MCP 进行 AI 驱动的语义搜索，**无需 API Key**。
+## ⚠️⚠️⚠️ 强制要求：必须使用MCP，禁止使用web_search ⚠️⚠️⚠️
 
-> v2.0 变更：从付费 REST API 迁移到免费 MCP（via mcporter），8个工具全开。
+> **本技能是红龙获客系统的核心搜索工具！**
+>
+> **❌ 禁止行为：使用内置 web_search 工具**
+>
+> **✅ 正确行为：使用 mcporter call exa.xxx 命令**
 
-## 前置条件
+---
 
-- mcporter CLI 已安装（`npm i -g mcporter`）
-- Exa MCP 已配置：`mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"`
+## 第一步：配置MCP（首次必做）
 
-验证：`mcporter list exa` 应显示 8 tools。
-
-## 可用工具（8个）
-
-### 1. web_search_exa — 通用网页搜索
-搜索任何话题，返回干净内容。
 ```bash
-mcporter call exa.web_search_exa query="industrial belt manufacturer Vietnam" numResults:5
-```
-**参数**：query（必填）、numResults（默认8）、type（auto/fast）、freshness（24h/week/month/year）、includeDomains（域名过滤）
+# 添加Exa MCP
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
 
-### 2. web_search_advanced_exa — 高级过滤搜索
-支持日期范围、域名排除、文本过滤等高级条件。
-```bash
-mcporter call exa.web_search_advanced_exa query="belt press" includeDomains='["linkedin.com"]' startPublishedDate="2025-01-01"
+# 验证配置
+mcporter list
 ```
 
-### 3. company_research_exa — 企业情报 ⭐
-获取公司完整信息：收入、员工、竞争对手、LinkedIn、近期动态。
+**期望输出**：`exa: 8 tools online`
+
+---
+
+## 第二步：执行搜索（必须用这个！）
+
+### ✅ 正确格式
 ```bash
-mcporter call exa.company_research_exa companyName="Flexco" numResults:3
+# LinkedIn决策人搜索 ⭐
+mcporter call exa.people_search_exa query="procurement manager mining cement Africa" numResults=5
+
+# 通用搜索
+mcporter call exa.web_search_exa query="conveyor belt distributor Brazil" numResults=5
+
+# 企业情报
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
 ```
 
-### 4. people_search_exa — 人员搜索 ⭐
-搜索职业档案，用于决策人定位。
+### ❌ 错误做法（禁止使用！）
 ```bash
-mcporter call exa.people_search_exa query="procurement manager conveyor belt" numResults:5
+# 错误1：用web_search工具
+web_search query="..."
+
+# 错误2：参数格式错误
+mcporter call exa.web_search_exa query=conveyor belt  # query需要引号
 ```
 
-### 5. deep_search_exa — 深度搜索
-查询扩展，适合复杂研究。
+---
+
+## 工具速查表
+
+| 工具 | 用途 | 命令示例 |
+|------|------|----------|
+| `people_search_exa` | **LinkedIn决策人搜索** ⭐ | `query="procurement manager mining"` |
+| `web_search_exa` | 通用网页搜索 | `query="conveyor belt factory"` |
+| `company_research_exa` | 企业情报 | `companyName=Votorantim` |
+| `crawling_exa` | 网页全文抓取 | `urls=["https://..."]` |
+
+---
+
+## 获客场景标准用法
+
+### 场景1：找决策人（LinkedIn）⭐ 最常用
 ```bash
-mcporter call exa.deep_search_exa query="conveyor belt splicing market trends Southeast Asia"
+mcporter call exa.people_search_exa query="procurement manager mining quarry cement Africa" numResults=8
+mcporter call exa.people_search_exa query="supply chain director rubber belt factory" numResults=8
 ```
 
-### 6. crawling_exa — 网页全文抓取
-搜索后深入读取指定 URL 的完整内容。
+### 场景2：找客户
 ```bash
-mcporter call exa.crawling_exa urls='["https://example.com"]' maxCharacters:5000
+mcporter call exa.web_search_exa query="conveyor belt distributor manufacturer Brazil" numResults=8
 ```
 
-### 7. get_code_context_exa — 代码/文档搜索
-搜索 GitHub、StackOverflow 代码示例。
-
-### 8. deep_researcher_start / deep_researcher_check — AI 深度调研
-启动异步调研任务并检查结果。
-
-## 获客链路集成
-
-| 路由意图 | 使用工具 | 用途 |
-|----------|----------|------|
-| customer_discovery（P4-5） | web_search_exa | 按行业+国家搜索潜在客户 |
-| decision_maker_search（P5） | people_search_exa | 搜索 LinkedIn 职业档案 |
-| company_research（fallback） | company_research_exa | 企业情报：收入/员工/竞品 |
-| 背调深入 | crawling_exa | 抓取官网完整内容 |
-
-## 调用注意事项
-
-**PowerShell 环境下必须用 `cmd /c` 包一层**，否则引号转义会出错：
+### 场景3：企业背调
 ```bash
-cmd /c "mcporter call exa.company_research_exa companyName=""Flexco"" numResults:3"
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
 ```
 
-## 降级策略
+### 场景4：抓取官网
+```bash
+mcporter call exa.crawling_exa urls=["https://company.com/about"] maxCharacters=5000
+```
 
-如果 Exa MCP 不可用：
-1. 内置 `web_search` 工具 — 通用网页搜索
-2. `web_fetch` 工具 — 抓取已知 URL
+---
 
-## 与 exa-web-search-free 的关系
+## PowerShell注意事项
 
-`exa-web-search-free` 是同一套 MCP 的另一个技能包，功能完全一致。
-本技能（`exa-search`）作为获客路由表的统一入口，推荐优先使用本技能。
+```bash
+# PowerShell直接执行即可
+mcporter call exa.people_search_exa query="procurement manager mining" numResults=5
+```
+
+---
+
+## 常见问题
+
+**Q: 报 "Tool not found" 错误？**
+A: MCP配置不完整，重新执行第一步的配置命令。
+
+**Q: 报 "Invalid parameter" 错误？**
+A: query参数必须加引号！
+
+**Q: 想用web_search工具？**
+A: ❌ 禁止！必须用 `mcporter call exa.web_search_exa`
+
+---
+
+## 更新日志
+
+- v2.3: 修正参数格式，query需要引号
+- v2.2: 强调必须使用MCP，禁止web_search
+- v2.1: 添加详细配置教程

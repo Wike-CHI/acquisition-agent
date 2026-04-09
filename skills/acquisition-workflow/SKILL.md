@@ -11,7 +11,32 @@ triggers:
   - workflow
 ---
 
-# 获客工作流技能 v2.0
+# 获客工作流技能 v2.1
+
+---
+
+## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+
+**❌ 禁止使用：内置 web_search 工具**
+**✅ 必须使用：mcporter call exa.xxx（MCP）**
+
+如果AI不知道如何使用MCP，参考：
+```bash
+# 第一步：配置MCP
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# 第二步：验证
+mcporter list  # 应显示 exa: 8 tools online
+
+# 第三步：执行搜索（参数必须加引号！）
+mcporter call exa.people_search_exa query="procurement manager mining cement" numResults=8
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
+
+# ⚠️ PowerShell必须用cmd/c
+cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
+```
+
+---
 
 端到端获客流程**规范定义**。定义每个阶段做什么、调用什么技能、检查什么质量。
 
@@ -96,7 +121,7 @@ Phase 4: 触达（铁律：开发信≥9.0分）
 | 官网Contact表单 | 所有客户（首选） | ✅ 当前有效 |
 | 特易详情页「联系方式」 | 特易搜索的客户 | ✅ 查看6个月内 |
 | 易搜邮（EaseSearch） | 需要决策人邮箱 | ✅ 数据库最新 |
-| LinkedIn决策人 | LinkedIn搜索的客户 | ⚠️ 必须1年内 |
+| LinkedIn决策人 | LinkedIn搜索的客户 | ⚠️ 必须≤12个月 |
 
 **时效性验证**:
 

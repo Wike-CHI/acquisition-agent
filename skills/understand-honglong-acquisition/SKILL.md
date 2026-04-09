@@ -62,9 +62,62 @@ Skills Router（意图识别+渠道选择+故障切换）
 
 > 完整路由表（含故障切换）见主技能 `references/ROUTING-TABLE.yaml`
 
-## Exa MCP 工具链（exa-search v2.0）⭐
+## Exa MCP 工具链（exa-search v2.2）⭐
 
-> exa-search 已从付费 REST API 迁移为免费 MCP（via mcporter），8个工具全开，无需 API Key。
+> ⚠️ **强制要求：必须使用MCP，禁止使用web_search工具！**
+
+### ⚠️⚠️⚠️ 重要提醒 ⚠️⚠️⚠️
+
+**❌ 禁止行为：使用内置 web_search 工具**
+- 这是红龙获客系统的核心搜索工具
+- web_search返回的结果质量低、不准确
+
+**✅ 正确做法：使用 mcporter call exa.xxx**
+- 配置一次，永久使用
+- 返回LinkedIn决策人、企业情报等高质量数据
+
+### MCP配置教程
+
+**第一步：添加配置（首次必做）**
+```bash
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+```
+
+**第二步：验证**
+```bash
+mcporter list  # 应显示 exa: 8 tools online
+```
+
+**第三步：执行搜索**
+```bash
+# 决策人搜索（LinkedIn）⭐ 最常用
+mcporter call exa.people_search_exa query="procurement manager mining cement Africa" numResults=8
+
+# 客户发现
+mcporter call exa.web_search_exa query="conveyor belt distributor Brazil" numResults=8
+
+# 企业背调
+mcporter call exa.company_research_exa companyName=Votorantim numResults=3
+```
+
+**⚠️ 参数格式注意**：query参数必须加引号！
+
+**⚠️ PowerShell注意**：必须用 `cmd /c` 包一层：
+```bash
+cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
+```
+
+**⚠️ 参数格式**：用 `=` 连接，不用引号！
+```bash
+# ✅ 正确
+mcporter call exa.people_search_exa query=procurement manager numResults=5
+
+# ❌ 错误
+mcporter call exa.web_search_exa query="industrial belt"  # 不加引号
+mcporter call exa.web_search_exa query: industrial belt  # 不用冒号
+```
+
+> 详细教程见 `skill://exa-search` 技能的顶部配置说明。
 
 ### 8个可用工具
 
@@ -112,7 +165,7 @@ cmd /c "mcporter call exa.people_search_exa query=""procurement manager conveyor
 |--------|------|------|
 | **S级** | 官网"Contact Us"表单 | 当前有效 |
 | **A级** | 特易详情页"联系方式" | 6个月内 |
-| **B级** | LinkedIn决策人 | 1年内，标题清晰 |
+| **B级** | LinkedIn决策人 | ≤12个月，标题清晰 |
 | **C级** | 公司通用邮箱 | 需额外核实 |
 | **❌ 禁用** | LinkedIn普通员工/公网邮箱 | 无时效验证 |
 

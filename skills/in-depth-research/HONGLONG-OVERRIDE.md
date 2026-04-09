@@ -1,4 +1,29 @@
-# 红龙市场研究定制包装
+# 红龙深度研究定制包装
+
+---
+
+## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+
+**❌ 禁止使用：内置 web_search 工具**
+**✅ 必须使用：mcporter call exa.xxx（MCP）**
+
+如果AI不知道如何使用MCP，参考：
+```bash
+# 第一步：配置MCP
+mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+
+# 第二步：验证
+mcporter list  # 应显示 exa: 8 tools online
+
+# 第三步：执行搜索
+mcporter call exa.deep_search_exa query="conveyor belt manufacturer Africa" numResults=8
+mcporter call exa.crawling_exa urls=["https://example.com"]
+
+# ⚠️ PowerShell必须用cmd/c
+cmd /c "mcporter call exa.deep_search_exa query=conveyor belt numResults=5"
+```
+
+---
 
 > 本文件为 `in-depth-research` 技能提供红龙行业的定制化包装层。
 > 包含完整的行业分析框架、关键词优化、输出格式扩展。
