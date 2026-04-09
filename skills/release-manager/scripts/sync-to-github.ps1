@@ -57,6 +57,7 @@ $RetainedSkills = @(
     # 工具
     "nas-file-reader", "daily-report-writer", "calendar-skill", "GitHub热门项目",
     "data-automation-service", "release-manager", "sales", "business-development",
+    "smart-quote",
     "proactive-agent", "proactive-agent-lite",
     # 基础设施
     "acp", "skill-creator", "find-skills", "skill-discovery", "skill-finder-cn", "evolver",
