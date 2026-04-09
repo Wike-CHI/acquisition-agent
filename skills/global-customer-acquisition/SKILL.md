@@ -70,7 +70,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 > 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
 > 🎯 新增：智能报价技能（smart-quote），支持47国利润率、103款产品、智能报价计算
 >
-> 详细文档：references/ARCHITECTURE.md | references/PIPELINE.md | references/SOCIAL-MEDIA.md | references/TROUBLESHOOT.md
+> 详细文档：references/SYSTEM-ARCHITECTURE.md | references/PIPELINE.md | references/SOCIAL-MEDIA.md | references/TROUBLESHOOT.md
 >
 > 路由配置：references/ROUTING-TABLE.yaml | SKILLS-ROUTER.md
 
@@ -334,5 +334,5 @@ Step 9: 日报生成
 
 ---
 
-*版本：v2.6.0 | 更新时间：2026-04-09*
-*变更：集成智能报价技能（smart-quote），支持47国利润率指导表、103款产品报价、报价计算引擎。意图路由升级为9种。*
+*版本：v2.7.0 | 更新时间：2026-04-09*
+*变更：版本号统一v2.7.0。修复文档引用路径（ARCHITECTURE.md→SYSTEM-ARCHITECTURE.md）。补充honglong-products skill://路径。修复铁律链接格式。*

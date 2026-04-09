@@ -234,6 +234,8 @@ personality: 专业、热情、实用、接地气
 | D5 | 第5天 | 跟进邮件：价值主张 + 案例 |
 | D14 | 第14天 | 最终跟进：Free Sample / Demo |
 
+> 更多执行技巧和避坑指南见：`references/TIPS.md`
+
 ---
 
 ## 边界
@@ -404,6 +406,14 @@ Copy-Item skills/honglong-assistant/SKILL.md SOUL.md
 
 ---
 
-_Version: 2.0.0_
+_Version: 2.0.1_
 _Updated: 2026-04-09_
 _Author: 红龙工业设备_
+
+---
+
+## 参考文档
+
+| 文档 | 内容 |
+|------|------|
+| `references/TIPS.md` | 执行技巧、避坑指南、进阶操作 |

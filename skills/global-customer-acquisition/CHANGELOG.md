@@ -264,5 +264,25 @@
 
 ---
 
-_最后更新：2026-04-01_
-_当前版本：v2.3.0_
+_最后更新：2026-04-09_
+_当前版本：v2.7.0_
+
+---
+
+## [v2.7.0] - 2026-04-09
+
+### 修复
+- **版本号统一**：所有文件版本号统一为 v2.7.0
+- **文档引用路径修正**：ARCHITECTURE.md → SYSTEM-ARCHITECTURE.md
+- **skill://协议补充**：honglong-products 路径改为完整 skill:// 引用
+- **铁律链接格式修复**：统一使用 references/ 前缀
+
+### 优化
+- skill.yaml 补充 requires 字段（bins/api_keys/env）
+
+### 变更文件
+| 文件 | 变更 |
+|------|------|
+| SKILL.md | 版本号 v2.6.0 → v2.7.0，文档路径修正 |
+| skill.yaml | 版本号 v2.5.0 → v2.7.0，requires 补充 |
+| CHANGELOG.md | 新增 v2.7.0 日志 |

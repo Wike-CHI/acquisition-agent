@@ -23,9 +23,12 @@ directories:
   references: references/
   assets: assets/
 requires:
-  bins: []
-  api_keys: []
-  env: {}
+  bins:
+    - mcporter
+  api_keys:
+    - EXA_API_KEY
+  env:
+    WORKSPACE: .workbuddy
 capability: core
 priority: 50
 compatibility:
