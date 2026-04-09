@@ -1,9 +1,9 @@
 {
   "ownerId": "Wike-CHI",
   "slug": "customer-acquisition-skills",
-  "version": "1.2.0",
-  "publishedAt": 1743076800000,
-  "description": "全网获客系统 - 基于官方5种Skill设计模式",
+  "version": "2.7.0",
+  "publishedAt": 1744176000000,
+  "description": "HOLO智能获客Agent - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展",
   "repository": "https://github.com/Wike-CHI/customer-acquisition-skills",
   "license": "MIT",
   "keywords": [

@@ -152,48 +152,8 @@ if (-not (Test-Path $RepoSkillsDir)) {
     New-Item -ItemType Directory -Path $RepoSkillsDir -Force | Out-Null
 }
 
-# --- CLI 工具同步配置（核心三件套）---
-# D:\npm-global\ 中的核心工具，同步到仓库 .cli/ 目录
-$CoreCliTools = @(
-    "mcporter",
-    "agent-browser",
-    "composio"
-)
-$CliSourceDir = "D:\npm-global"
-$CliDestDir = Join-Path $RepoDir ".cli"
-
 # =============================================================
-# Step 2: 同步 CLI 核心工具
-# =============================================================
-Write-Status "同步核心 CLI 工具..."
-$cliSynced = 0
-
-if (-not (Test-Path $CliDestDir)) {
-    New-Item -ItemType Directory -Path $CliDestDir -Force | Out-Null
-}
-
-foreach ($tool in $CoreCliTools) {
-    $srcPath = Join-Path $CliSourceDir $tool
-    $srcPs1 = "$srcPath.ps1"
-    $srcCmd = "$srcPath.cmd"
-    
-    if (Test-Path $srcPs1) {
-        $dstPs1 = Join-Path $CliDestDir "$tool.ps1"
-        Copy-Item $srcPs1 $dstPs1 -Force
-        Write-OK "$tool.ps1"
-        $cliSynced++
-    }
-    if (Test-Path $srcCmd) {
-        $dstCmd = Join-Path $CliDestDir "$tool.cmd"
-        Copy-Item $srcCmd $dstCmd -Force
-        Write-OK "$tool.cmd"
-        $cliSynced++
-    }
-}
-Write-Status "CLI 工具: $cliSynced 个文件"
-
-# =============================================================
-# Step 3: 同步技能（增量 robocopy）
+# Step 2: 同步技能（增量 robocopy）
 # =============================================================
 Write-Status "同步技能..."
 $synced = 0
@@ -242,7 +202,7 @@ foreach ($skill in $RetainedSkills) {
 Write-Status "同步: 更新 $synced / 跳过 $skipped / 失败 $failed"
 
 # =============================================================
-# Step 4: Submodule 检测与修复
+# Step 3: Submodule 检测与修复
 # =============================================================
 if (-not $SkipSubmoduleCheck) {
     Write-Status "检查 submodule 引用..."
@@ -275,7 +235,7 @@ if (-not $SkipSubmoduleCheck) {
 }
 
 # =============================================================
-# Step 5: 检查变化并提交
+# Step 4: 检查变化并提交
 # =============================================================
 Push-Location $RepoDir
 $changes = git status --porcelain 2>&1
