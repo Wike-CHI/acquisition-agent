@@ -64,6 +64,8 @@ $RetainedSkills = @(
     "agent-reach-setup",
     # 邮件
     "agentmail", "gog",
+    # 新增技能（2026-04-10）
+    "email-inbox", "holo-activity-log",
     # 中文目录
     "浏览器自动化", "内容分发", "去AI味", "QQ邮箱", "MCP管理器"
 )
