@@ -24,7 +24,7 @@ $RetainedSkills = @(
     "global-customer-acquisition",
     "understand-honglong-acquisition",
     # 编排层
-    "acquisition-coordinator", "acquisition-evaluator", "acquisition-init", "acquisition-workflow",
+    "acquisition-coordinator", "acquisition-evaluator", "acquisition-init", "acquisition-workflow", "market-development-report",
     # 发现层
     "linkedin", "facebook-acquisition", "instagram-acquisition", "teyi-customs", "scrape", "scrapling",
     # 情报层
@@ -55,7 +55,7 @@ $RetainedSkills = @(
     "acp", "skill-creator", "find-skills", "skill-discovery", "skill-finder-cn", "evolver",
     "agent-reach-setup",
     # 邮件
-    "agentmail", "gog",
+    "agentmail", "gog", "163-email-sender",
     # 中文目录
     "浏览器自动化", "内容分发", "去AI味", "QQ邮箱", "MCP管理器"
 )
