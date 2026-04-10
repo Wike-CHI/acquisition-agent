@@ -12,31 +12,17 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$Content,
 
-    [string]$SubName = "",  # 用于contact类型
+    [string]$SubName = "",
 
-    [string]$Overwrite = "yes"  # yes=覆盖, no=追加
+    [string]$Overwrite = "yes"
 )
-
-$ErrorActionPreference = "Stop"
 
 # NAS配置
 $NAS_IP = "192.168.0.194"
 $NAS_USER = "HOLO"
 $NAS_PASS = "Hl88889999"
-
-# 映射驱动器
 $DriveLetter = "K:"
 $MountPath = "\\$NAS_IP\home"
-
-# 连接NAS
-try {
-    if (!(Test-Path "$DriveLetter\knowledge")) {
-        net use $DriveLetter $MountPath /user:$NAS_USER $NAS_PASS 2>&1 | Out-Null
-    }
-} catch {
-    Write-Output (@{success=$false; error="无法连接NAS: $_"} | ConvertTo-Json -Compress)
-    exit 1
-}
 
 # 生成slug
 function New-Slug($text) {
@@ -48,112 +34,61 @@ $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $basePath = "$DriveLetter\knowledge"
 
 # 获取当前设备信息
-$deviceId = "$env:USERNAME@$((Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "Ethernet*" -ErrorAction SilentlyContinue | Select-Object -First 1).IPAddress)"
+$localIP = $env:COMPUTERNAME
+try {
+    $netIP = Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "Ethernet*" -ErrorAction Stop | Select-Object -First 1
+    if ($netIP.IPAddress) { $localIP = $netIP.IPAddress }
+} catch {}
+$deviceId = "$env:USERNAME@$localIP"
 
-# 根据类型构建路径
+# 构建路径
 switch ($Type) {
-    "company" {
-        $dirPath = "$basePath\companies"
-        $filePath = "$dirPath\$slug.md"
-    }
-    "contact" {
-        $contactSlug = if ($SubName) { New-Slug $SubName } else { "contact" }
-        $dirPath = "$basePath\contacts\$slug"
-        $filePath = "$dirPath\$contactSlug.md"
-    }
-    "market" {
-        $dirPath = "$basePath\market-research"
-        $filePath = "$dirPath\$slug.md"
-    }
-    "email" {
-        $dirPath = "$basePath\emails"
-        $filePath = "$dirPath\$slug.md"
-    }
+    "company" { $dirPath = "$basePath\companies"; $filePath = "$dirPath\$slug.md" }
+    "contact" { $dirSlug = New-Slug $Name; $dirPath = "$basePath\contacts\$dirSlug"; $filePath = "$dirPath\$(if($SubName){New-Slug $SubName}else{'contact'}).md" }
+    "market" { $dirPath = "$basePath\market-research"; $filePath = "$dirPath\$slug.md" }
+    "email" { $dirPath = "$basePath\emails"; $filePath = "$dirPath\$slug.md" }
 }
 
 # 创建目录
-try {
-    if (!(Test-Path $dirPath)) {
-        New-Item -ItemType Directory -Path $dirPath -Force | Out-Null
-    }
-} catch {
-    Write-Output (@{success=$false; error="无法创建目录: $_"} | ConvertTo-Json -Compress)
-    exit 1
-}
+if (!(Test-Path $dirPath)) { New-Item -ItemType Directory -Path $dirPath -Force | Out-Null }
 
 # 检查是否已存在
 $isNew = !(Test-Path $filePath)
 
-# 处理公司档案的metadata
+# 处理metadata
 if ($Type -eq "company") {
     if ($Overwrite -eq "yes" -or $isNew) {
-        # 覆盖模式：添加/更新metadata头
-        $metaHeader = @"
----
-title: $Name
-status: researched
-icp_score: 0
-icp_grade: C
-last_researcher: $deviceId
-last_research_time: $timestamp
-research_count: 1
-created_time: $timestamp
----
+        $icpScore = if ($Content -match 'icp_score:\s*(\d+)') { [int]$matches[1] } else { 0 }
+        $icpGrade = if ($Content -match 'icp_grade:\s*([A-D])') { $matches[1] } else { "C" }
 
-"@
-        # 如果内容已有frontmatter，替换它
-        if ($Content -match '^---[\s\S]*?---') {
-            $Content = $Content -replace '(?s)^---[\s\S]*?---', $metaHeader.Trim()
+        $metaHeader = "---\ntitle: $Name\nstatus: researched\nicp_score: $icpScore\nicp_grade: $icpGrade\nlast_researcher: $deviceId\nlast_research_time: $timestamp\nresearch_count: 1\ncreated_time: $timestamp\n---\n\n"
+
+        if ($Content -match '(?s)^---.*?---') {
+            $Content = $Content -replace '(?s)^---.*?---', $metaHeader.Trim()
         } else {
             $Content = $metaHeader + $Content
         }
     }
-} elseif ($Type -eq "contact") {
-    # 联系人档案
-    $metaHeader = @"
----
-title: $SubName at $Name
-company: $Name
-type: contact
-last_updated: $timestamp
-updated_by: $deviceId
-created_time: $timestamp
----
+}
 
-"@
-    if ($Content -match '^---[\s\S]*?---') {
-        $Content = $Content -replace '(?s)^---[\s\S]*?---', $metaHeader.Trim()
-    } else {
-        $Content = $metaHeader + $Content
+# 写入
+$Content | Out-File -FilePath $filePath -Encoding UTF8 -Force
+
+# 更新research_count
+if ($Type -eq "company" -and !$isNew) {
+    $existingContent = Get-Content $filePath -Raw -Encoding UTF8
+    if ($existingContent -match 'research_count:\s*(\d+)') {
+        $count = [int]$matches[1] + 1
+        $existingContent = $existingContent -replace 'research_count:\s*\d+', "research_count: $count"
+        $existingContent = $existingContent -replace 'last_researcher:\s*.+', "last_researcher: $deviceId"
+        $existingContent = $existingContent -replace 'last_research_time:\s*.+', "last_research_time: $timestamp"
+        $existingContent | Out-File -FilePath $filePath -Encoding UTF8 -Force
     }
 }
 
-# 写入文件
-try {
-    $Content | Out-File -FilePath $filePath -Encoding UTF8 -Force
+# 输出结果
+$finalCount = 1
+$finalContent = Get-Content $filePath -Raw -Encoding UTF8
+if ($finalContent -match 'research_count:\s*(\d+)') { $finalCount = [int]$matches[1] }
 
-    # 更新公司档案的research_count
-    if ($Type -eq "company" -and !$isNew) {
-        $existingContent = Get-Content $filePath -Raw -Encoding UTF8
-        if ($existingContent -match 'research_count:\s*(\d+)') {
-            $count = [int]$matches[1] + 1
-            $existingContent = $existingContent -replace "research_count:\s*\d+", "research_count: $count"
-            $existingContent = $existingContent -replace "last_researcher:\s*.+", "last_researcher: $deviceId"
-            $existingContent = $existingContent -replace "last_research_time:\s*.+", "last_research_time: $timestamp"
-            $existingContent | Out-File -FilePath $filePath -Encoding UTF8 -Force
-        }
-    }
-
-    Write-Output (@{
-        success = $true
-        type = $Type
-        slug = $slug
-        path = $filePath
-        isNew = $isNew
-        timestamp = $timestamp
-    } | ConvertTo-Json -Compress)
-
-} catch {
-    Write-Output (@{success=$false; error="写入失败: $_"} | ConvertTo-Json -Compress)
-    exit 1
-}
+@{success=$true; type=$Type; slug=$slug; path=$filePath; isNew=$isNew; researchCount=$finalCount; timestamp=$timestamp} | ConvertTo-Json -Compress
