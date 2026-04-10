@@ -208,14 +208,24 @@ cold-email-generator 流程修改：
 
 ---
 
-## 七、NAS 连接信息
+## 七、NAS 连接信息（Agent专用）
+
+> ⚠️ **安装须知**：Agent统一使用此账号，不依赖业务员个人NAS账号
 
 | 项目 | 值 |
 |------|-----|
 | IP | `192.168.0.194` |
-| 账号 | `HOLO` |
-| 共享路径 | `\\192.168.0.194\home\knowledge` |
+| Agent账号 | `HOLO-AGENT` |
+| Agent密码 | `Hl88889999` |
+| 共享路径 | `\\192.168.0.194\home` |
+| 知识库目录 | `\\192.168.0.194\home\knowledge` |
 | 目录结构 | companies/contacts/market-research/emails |
+
+### 群晖配置要求
+
+1. 在群晖管理界面创建用户 `HOLO-AGENT`，密码 `Hl88889999`
+2. 给该用户分配 `home` 目录的读写权限
+3. 知识库目录会自动创建：`home/knowledge/companies/`
 
 ---
 
@@ -253,4 +263,5 @@ cold-email-generator 流程修改：
 
 ## 版本
 
+- v1.1.0 (2026-04-10): 更新NAS账号为HOLO-AGENT（Agent专用）
 - v1.0.0 (2026-04-10): 初始版本

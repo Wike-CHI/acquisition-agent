@@ -166,18 +166,12 @@ routing:
         fallback: []
 
   market_development:
-    # ⭐ v2.8.1：市场开发 → 先出调研报告，再批量获客
-    # 新增 market-development-report 技能（2026-04-10）
+    # ⭐ v2.8.0：市场开发时同样触发多语种词簇搜索
     overseas:
-      - skill: market-development-report
-        priority: 6
-        condition: "生成目标市场结构化调研报告（规模/竞争/关税/优先级/关键词）"
-        next: [exa-search]
-        fallback: [market-research]
       - skill: market-research
         priority: 5
-        condition: "通用市场研究（fallback）"
-        next: [exa-search]
+        condition: "市场研究+行业分析"
+        next: [customer-discovery, exa-search]
         fallback: [exa-search]
       - skill: exa-search
         priority: 4
@@ -186,11 +180,6 @@ routing:
         search_rounds: 3
         fallback: []
     domestic:
-      - skill: market-development-report
-        priority: 6
-        condition: "国内市场调研报告"
-        next: [exa-search]
-        fallback: [exa-search]
       - skill: exa-search
         priority: 5
         condition: "国内市场分析"
@@ -529,11 +518,6 @@ skills_index:
     path: "skill://understand-honglong-acquisition"
     description: "红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用"
     layer: support
-  # ── 2026-04-10 v2.8.1 新增市场开发报告技能 ──
-  market-development-report:
-    path: "skill://market-development-report"
-    description: "市场开发调研报告。触发「开发XX市场」时，自动搜索并生成结构化报告（市场规模/竞争/关税/优先级/获客关键词），再转入获客流程"
-    layer: intelligence
   # ── 2026-04-09 补充缺失技能索引 ──
   teyi-customs:
     path: "skill://teyi-customs"
