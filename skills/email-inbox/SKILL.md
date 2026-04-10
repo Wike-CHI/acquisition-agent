@@ -4,14 +4,21 @@ version: 1.0.0
 description: 邮件收件检测技能。通过IMAP连接企业邮箱，检测客户回复和询价，自动触发CRM更新和日志记录。当用户需要：(1) 检查邮箱 (2) 查看新邮件 (3) 监听客户回复 时使用此技能。
 always: false
 triggers:
+  # 检查相关
   - 检查邮箱
   - 查看邮件
   - 有新邮件吗
   - 收件箱
+  # 客户回复
   - 客户回复
+  - 有客户回信吗
+  - 收到回复了吗
+  # 英文
   - email inbox
   - check email
   - unread
+  - new email
+  - email received
 ---
 
 # 邮件收件检测技能
@@ -121,16 +128,35 @@ task: "检查邮箱并记录日志"
 
 ## 五、日志记录
 
-每次检查邮箱后，记录操作日志：
+### 5.1 自动埋点（与 holo-activity-log 集成）
+
+每次检查邮箱后，自动记录到活动日志：
+
+| 场景 | action_type | 示例 |
+|------|-------------|------|
+| 检查收件箱 | `inbox_check` | 检查了邮箱 |
+| 发现客户回复 | `email_reply` | 客户ABC回复了 |
+| 发现新询价 | `email_inquiry` | 新询价：报价请求 |
+
+**自动埋点参数**：
+```yaml
+skill_name: email-inbox
+action_type: inbox_check / email_reply / email_inquiry
+customer: "{{发件人公司}}"
+result: success / partial
+notes: "{{邮件摘要}}"
+```
+
+### 5.2 日志记录格式
 
 ```
 timestamp: 2026-04-10 16:45:00
 device_id: Administrator@192.168.0.170
 skill_name: email-inbox
-action_type: inbox_check
+action_type: email_reply
+customer: National Cement Ethiopia
 result: success
-score: 3
-notes: 发现3封新邮件，1封客户回复
+notes: 回复主题：Re: Belt Splice Machine Inquiry
 ```
 
 ---
