@@ -16,6 +16,8 @@ triggers:
 系统性调研，不是表面搜索 — 通过方法论追踪、来源评估、迭代深入来回答问题。
 
 > **注意**：本技能是 `in-depth-research` 的别名入口，确保 `global-customer-acquisition` 中声明的 `deep-research` 依赖可正确解析。
+>
+> **🚨 强制搜索规则（与 in-depth-research 一致）**：必须使用 Exa MCP（`mcporter call exa.xxx`），禁止使用内置 web_search。Exa 不可用时必须告知用户并获许可后方可降级。完整规则见 `skill://in-depth-research/HONGLONG-OVERRIDE.md`。
 
 ## 核心方法
 

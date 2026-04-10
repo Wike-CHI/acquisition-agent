@@ -1,5 +1,5 @@
 name: holo-agent
-version: 2.7.0
+version: 3.0.0
 description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达
 triggers:
 - 找客户

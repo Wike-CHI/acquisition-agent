@@ -1,6 +1,6 @@
 ---
 name: HOLO-AGENT
-version: 2.7.0
+version: 3.0.0
 description: HOLO智能获客Agent - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。触发：找客户、背调公司、发开发信、智能报价、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达、开发市场
 always: false
 triggers:
@@ -24,11 +24,17 @@ triggers:
   - 开发东南亚
   - 开发中东
   - 开发欧洲
+  - 开发德国
+  - 开发西班牙
+  - 开发法国
+  - 开发巴西
+  - 开发沙特
+  - 开发印尼
   - 市场拓展
   - 市场分析
 ---
 
-# HOLO智能获客Agent v2.7.0
+# HOLO智能获客Agent v2.8.0
 
 ---
 
@@ -69,10 +75,46 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 > 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
 > 🎯 新增：智能报价技能（smart-quote），支持47国利润率、103款产品、智能报价计算
+> 🌐 v2.8.0 新增：多语种词簇搜索，非英语市场自动切换本地语言，突破信息差
 >
-> 详细文档：references/SYSTEM-ARCHITECTURE.md | references/PIPELINE.md | references/SOCIAL-MEDIA.md | references/TROUBLESHOOT.md
+> 详细文档：`skill://acquisition-workflow/references/ARCHITECTURE.md` | `skill://acquisition-workflow/references/PIPELINE.md` | `skill://acquisition-workflow/references/SOCIAL-MEDIA.md` | `skill://acquisition-workflow/references/TROUBLESHOOT.md`
 >
-> 路由配置：references/ROUTING-TABLE.yaml | SKILLS-ROUTER.md
+> 路由配置：`skill://acquisition-workflow/references/ROUTING-TABLE.yaml` | `skill://acquisition-workflow/references/SKILLS-ROUTER.md`
+>
+> **🆕 多语种词簇库**：`skill://acquisition-workflow/references/MULTILANG-KEYWORDS.md`（覆盖 DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言）
+
+---
+
+## 🌐 多语种搜索（v2.8.0 P0升级）
+
+> **为什么需要多语种搜索**：德国隐形冠军没有英文网页；西班牙经销商的网站全是西班牙语；埃及采购商在 LinkedIn 用阿拉伯语填头衔。用英语搜索，你只能看到冰山的 15%。
+
+**使用方法**：
+
+```
+用户说：帮我找德国的输送带经销商
+AI做：
+  ① 查 MULTILANG-KEYWORDS.md 德语词簇
+  ② 第1轮：mcporter call exa.web_search_exa query="Förderbandgurt Händler Bayern" numResults=10
+  ③ 第2轮：mcporter call exa.web_search_exa query="conveyor belt distributor Germany" numResults=10
+  ④ 第3轮：mcporter call exa.people_search_exa query="Einkaufsleiter Förderband" numResults=8
+  ⑤ 汇总结果，去重，ICP评分
+```
+
+**语言速查表**：
+
+| 目标国 | 语言 | 典型词簇示例 |
+|--------|------|------------|
+| 🇩🇪 德国/奥地利/瑞士 | 德语 | `Förderbandgurt Händler Bayern` |
+| 🇪🇸 西班牙/拉美 | 西班牙语 | `cinta transportadora distribuidor España` |
+| 🇫🇷 法国/北非 | 法语 | `courroie transporteuse distributeur France` |
+| 🇧🇷 巴西/葡萄牙 | 葡语 | `correia transportadora distribuidor São Paulo` |
+| 🇸🇦 沙特/阿联酋/埃及 | 阿拉伯语 | `حزام ناقل موزع السعودية` |
+| 🇮🇩 印尼 | 印尼语 | `sabuk konveyor distributor Indonesia` |
+| 🇻🇳 越南 | 越南语 | `băng tải nhà phân phối Việt Nam` |
+| 🇹🇷 土耳其 | 土耳其语 | `konveyör bant distribütör Türkiye` |
+
+> 📚 完整词簇库：`skill://acquisition-workflow/references/MULTILANG-KEYWORDS.md`
 
 ---
 
@@ -83,7 +125,9 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 | 业务员说 | AI做什么 |
 |---------|---------|
 | "帮我找美国传送带客户" | 深度调研：美国 conveyor belt |
-| "我想开发巴西市场" | 市场分析 + 批量获客 |
+| "我想开发巴西市场" | 市场分析 + **葡语词簇**批量获客 |
+| "帮我找德国的经销商" | **德语词簇三轮搜索** + ICP评分 |
+| "开发西班牙市场" | **西班牙语词簇** + 英语补充 + 决策人猎捕 |
 | "帮我背调这家公司" | 6维度ICP评分 + 报告 |
 | "给这家公司发开发信" | 开发信生成v2.0（润色+评分≥9.0分）+ 发送 |
 | "发WhatsApp消息" | WhatsApp风格消息生成 + 确认 + 发送 |
@@ -125,7 +169,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 2. **评分铁律**：ICP评分≥75分才触达（邮件和WhatsApp通用）
 3. **质量铁律**：开发信评分≥9.0分 / WhatsApp消息评分≥8.0分才发送
 
-> 详细规则见：references/IRON-RULES.md
+> 详细规则见：`skill://acquisition-workflow/references/IRON-RULES.md`
 
 ---
 
@@ -136,7 +180,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 3. **频率控制**：同一联系人每天最多3条
 4. **静默时段**：对方当地时间22:00-08:00不发送
 
-> 详细规则见：references/IRON-RULES.md
+> 详细规则见：`skill://acquisition-workflow/references/IRON-RULES.md`
 
 ---
 
@@ -164,14 +208,14 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 | **C级** | 公司通用邮箱 | 需额外核实 |
 | **❌ 禁用** | LinkedIn普通员工/公网邮箱 | 无时效验证 |
 
-> 详细验证流程见：references/CONTACT-VERIFICATION.md
+> 详细验证流程见：`skill://acquisition-workflow/references/CONTACT-VERIFICATION.md`
 
 ---
 
 ## Skills Router 核心路由表
 
-> 完整声明式路由配置见：**references/ROUTING-TABLE.yaml**
-> 路由使用说明见：**SKILLS-ROUTER.md**
+> 完整声明式路由配置见：**`skill://acquisition-workflow/references/ROUTING-TABLE.yaml`**
+> 路由使用说明见：**`skill://acquisition-workflow/references/SKILLS-ROUTER.md`**
 
 ### 9种意图 × 路由摘要
 
@@ -216,7 +260,7 @@ Step 8.5: 跟进管理 → 日历提醒
 Step 9: 日报生成
 ```
 
-> 详细流程见：references/PIPELINE.md
+> 详细流程见：`skill://acquisition-workflow/references/PIPELINE.md`
 
 ---
 
@@ -259,7 +303,7 @@ Step 9: 日报生成
 - 语法质量 2.0分
 - 去AI味 2.0分
 
-> 详细评分标准见：references/EMAIL-SCORING.md
+> 详细评分标准见：`skill://acquisition-workflow/references/EMAIL-SCORING.md`
 
 ---
 
@@ -317,22 +361,22 @@ Step 9: 日报生成
 ### AI执行错误？
 
 1. 检查技能调用是否正确：使用 `skill://` 协议
-2. 查看排错指南：references/TROUBLESHOOT.md
+2. 查看排错指南：`skill://acquisition-workflow/references/TROUBLESHOOT.md`
 
 ### 需要详细文档？
 
 | 文档 | 内容 |
 |------|------|
-| references/ARCHITECTURE.md | 完整架构、Skills Router、7层上下文 |
-| references/PIPELINE.md | 11步流程详细、ICP评分、开发信打磨 |
-| references/SOCIAL-MEDIA.md | Facebook/Instagram/LinkedIn运营策略 |
-| references/TROUBLESHOOT.md | 常见错误清单、回退/重试 |
-| references/ICP.md | 目标客户群体详细定义 |
-| references/SCORING.md | 评分体系详细标准 |
-| references/IRON-RULES.md | 所有铁律详细说明 |
-| references/CONTACT-VERIFICATION.md | 联系方式验证详细流程 |
+| `skill://acquisition-workflow/references/ARCHITECTURE.md` | 完整架构、Skills Router、7层上下文 |
+| `skill://acquisition-workflow/references/PIPELINE.md` | 11步流程详细、ICP评分、开发信打磨 |
+| `skill://acquisition-workflow/references/SOCIAL-MEDIA.md` | Facebook/Instagram/LinkedIn运营策略 |
+| `skill://acquisition-workflow/references/TROUBLESHOOT.md` | 常见错误清单、回退/重试 |
+| `skill://acquisition-workflow/references/ICP.md` | 目标客户群体详细定义 |
+| `skill://acquisition-workflow/references/SCORING.md` | 评分体系详细标准 |
+| `skill://acquisition-workflow/references/IRON-RULES.md` | 所有铁律详细说明 |
+| `skill://acquisition-workflow/references/CONTACT-VERIFICATION.md` | 联系方式验证详细流程 |
 
 ---
 
-*版本：v2.7.0 | 更新时间：2026-04-09*
-*变更：版本号统一v2.7.0。修复文档引用路径（ARCHITECTURE.md→SYSTEM-ARCHITECTURE.md）。补充honglong-products skill://路径。修复铁律链接格式。*
+*版本：v3.0.0 | 更新时间：2026-04-10*
+*变更：架构重构v3.0.0。共享文档（PIPELINE/ROUTING-TABLE/SCORING等13个）从 references/ 迁移到 `skill://acquisition-workflow/references/`。本技能瘦身为统一入口+意图路由层，不再承担共享文档仓库职责。*

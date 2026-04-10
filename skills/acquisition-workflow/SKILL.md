@@ -1,6 +1,6 @@
 ---
 name: acquisition-workflow
-version: 2.0.0
+version: 2.1.0
 description: 获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。
 always: false
 triggers:
@@ -101,7 +101,7 @@ Phase 4: 触达（铁律：开发信≥9.0分）
 | Instagram挖掘 | instagram-acquisition |
 | 网页爬取 | scrapling |
 
-> 详细路由配置见：`global-customer-acquisition/references/ROUTING-TABLE.yaml`
+> 详细路由配置见：`skill://acquisition-workflow/references/ROUTING-TABLE.yaml`
 
 **质量检查点**:
 - [ ] 搜索关键词是否准确？

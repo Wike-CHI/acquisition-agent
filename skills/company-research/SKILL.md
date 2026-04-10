@@ -173,7 +173,7 @@ agent-browser snapshot -c
 
 ### 二、ICP匹配度评估
 
-根据搜得的企业信息，按 `global-customer-acquisition/references/ICP-STANDARDS.md` 的 6 维度体系评估：
+根据搜得的企业信息，按 `skill://acquisition-workflow/references/ICP-STANDARDS.md` 的 6 维度体系评估：
 
 | 维度 | 匹配条件 | 匹配结果 | 得分 |
 |------|----------|----------|------|
@@ -187,7 +187,7 @@ agent-browser snapshot -c
 **综合得分**：{}/100 → {A/B/C/D 级}
 
 > 阈值：A≥75（立即触达）| B 50-74（正常跟进）| C 30-49（低优先级）| D<30（暂不开发）
-> 详细评分细则见 `global-customer-acquisition/references/SCORING.md`
+> 详细评分细则见 `skill://acquisition-workflow/references/SCORING.md`
 
 **匹配理由**：{一句话说明为什么匹配或不匹配}
 

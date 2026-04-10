@@ -56,7 +56,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 ## ICP 评分（引用统一标准）
 
-> **权威标准**：ICP 评分使用 `global-customer-acquisition/references/ICP-STANDARDS.md` 定义的 6 维度 × 100 分体系。
+> **权威标准**：ICP 评分使用 `skill://acquisition-workflow/references/ICP-STANDARDS.md` 定义的 6 维度 × 100 分体系。
 >
 > 本技能不再独立定义评分维度，所有评分计算和阈值判断均以上述文件为准。
 

@@ -1,5 +1,5 @@
 name: acquisition-coordinator
-version: 2.0.0
+version: 2.1.0
 description: 获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调
   (3) 并行搜索 (4) 多步骤获客任务 时使用此技能。
 triggers:

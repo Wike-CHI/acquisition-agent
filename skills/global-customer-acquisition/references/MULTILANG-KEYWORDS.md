@@ -1,3 +1,3 @@
 ﻿> [!NOTE] Redirect
 > This file has been moved to the shared workflow layer.
-> See: \skill://acquisition-workflow/references/SKILLS-ROUTER.md\`n
+> See: \skill://acquisition-workflow/references/MULTILANG-KEYWORDS.md\`n

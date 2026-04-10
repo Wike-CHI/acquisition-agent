@@ -1,6 +1,6 @@
 ---
 name: acquisition-coordinator
-version: 2.0.0
+version: 2.1.0
 description: 获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调 (3) 并行搜索 (4) 多步骤获客任务 时使用此技能。
 always: false
 triggers:
@@ -92,7 +92,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 **操作**：读取目标搜索技能的 SKILL.md，按其"执行步骤"操作。
 
-1. 查阅 `skill://global-customer-acquisition/references/ROUTING-TABLE.yaml` 中 `customer_discovery` 的路由配置
+1. 查阅 `skill://acquisition-workflow/references/ROUTING-TABLE.yaml` 中 `customer_discovery` 的路由配置
 2. 根据目标市场选择合适的搜索技能
 3. **读取该技能的 SKILL.md**，按其中的"执行步骤"执行搜索
 4. 收集搜索结果，统一格式
@@ -115,7 +115,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 **铁律：无邮箱不继续！**
 
-按 `skill://acquisition-workflow` 的联系方式验证流程执行（参考 `skill://global-customer-acquisition/references/CONTACT-VERIFICATION.md`）：
+按 `skill://acquisition-workflow` 的联系方式验证流程执行（参考 `skill://acquisition-workflow/references/CONTACT-VERIFICATION.md`）：
 1. 检查每个客户的联系方式来源
 2. 执行时效性验证
 3. 多源交叉验证（至少2个来源）
@@ -127,7 +127,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 1. 读取 `skill://company-research` 或 `skill://deep-research`
 2. 按步骤执行背调
-3. 计算 ICP 6维度评分（参考 `skill://global-customer-acquisition/references/SCORING.md`）
+3. 计算 ICP 6维度评分（参考 `skill://acquisition-workflow/references/SCORING.md`）
 4. 输出评分报告
 
 **背调技能选择**：
@@ -140,7 +140,7 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 ### Step 3: 筛选阶段
 
-**质量门控：ICP评分 ≥ 75 分才继续！**（铁律，参考 `skill://global-customer-acquisition/references/IRON-RULES.md`）
+**质量门控：ICP评分 ≥ 75 分才继续！**（铁律，参考 `skill://acquisition-workflow/references/IRON-RULES.md`）
 
 筛选条件：
 1. ICP评分 ≥ 75分
