@@ -35,7 +35,7 @@ $RetainedSkills = @(
     # 发现层
     "linkedin", "facebook-acquisition", "instagram-acquisition", "teyi-customs", "scrape", "scrapling",
     # 情报层
-    "company-research", "market-research", "in-depth-research", "autoresearch", "customer-intelligence", "deep-research", "knowledge-base",
+    "company-research", "market-research", "in-depth-research", "autoresearch", "customer-intelligence", "deep-research",
     # 触达层
     "email-sender", "email-marketing", "cold-email-generator", "linkedin-writer", "email-outreach-ops", "delivery-queue",
     # 支持层
@@ -64,8 +64,6 @@ $RetainedSkills = @(
     "agent-reach-setup",
     # 邮件
     "agentmail", "gog",
-    # 新增技能（2026-04-10）
-    "email-inbox", "holo-activity-log",
     # 中文目录
     "浏览器自动化", "内容分发", "去AI味", "QQ邮箱", "MCP管理器"
 )
