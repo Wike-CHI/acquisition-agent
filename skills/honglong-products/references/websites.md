@@ -69,6 +69,25 @@
 - **核心产品**：输送带加工设备
 - **市场**：全球（参展 Hannover Messe）
 
+### Beltwin 品牌
+> ⚠️ **重要**：Beltwin 是 HOLO 的自有品牌，不是竞争对手！
+
+- Beltwin = 红龙自有品牌
+- 用于部分国际市场的产品标识
+- 与 HOLO/红龙 同一厂家、同一品质
+
+### 竞品识别规则
+
+> 在客户开发中，以下品牌是 HOLO 的真正竞争对手：
+> - Flexco（美国）、Almex（加拿大）、ASGCO（美国）
+> - ContiTech（德国）、Fonmar（西班牙）
+
+> ❌ Beltwin 不是竞品，是 HOLO 自己的品牌！
+- **中文名**：红龙
+- **国际定位**：Leading Industrial Belt Equipment Manufacturer
+- **核心产品**：输送带加工设备
+- **市场**：全球（参展 Hannover Messe）
+
 ### 产品优势（官网宣传）
 - PVC/PU 输送带接驳
 - 热拼接技术
