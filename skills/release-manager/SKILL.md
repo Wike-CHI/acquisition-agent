@@ -7,6 +7,10 @@ description: >
   "更新GitHub仓库"、"force push"、"submodule修复"时使用。
   专为红龙获客系统定制，支持增量同步、submodule检测、大文件过滤。
 version: 3.0.0
+triggers:
+  - 发布管理
+  - 打包
+  - release
 ---
 
 # release-manager

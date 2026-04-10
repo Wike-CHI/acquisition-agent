@@ -1,5 +1,5 @@
 ---
-name: HOLO-AGENT
+name: global-customer-acquisition
 version: 3.0.0
 description: HOLO智能获客Agent - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。触发：找客户、背调公司、发开发信、智能报价、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、智能触达、开发市场
 always: false
@@ -34,7 +34,7 @@ triggers:
   - 市场分析
 ---
 
-# HOLO智能获客Agent v2.8.0
+# HOLO智能获客Agent v3.0.0
 
 ---
 
@@ -163,7 +163,7 @@ AI做：
 
 ---
 
-## 3条铁律
+## 8条铁律
 
 1. **邮箱铁律**：必须用决策人邮箱，禁用info@
 2. **评分铁律**：ICP评分≥75分才触达（邮件和WhatsApp通用）
@@ -275,7 +275,7 @@ Step 9: 日报生成
 | 决策周期 | 15% | 企业规模推断 |
 | 决策人联系 | 10% | LinkedIn/官网联系方式 |
 
-**客户等级**：A级≥75分（可触达，重点开发）| B级60-74分（观察储备）| C级45-59分（待培育）| D级<45分（暂不开发）
+**客户等级**：A级≥75分（可触达，重点开发）| B级60-74分（观察储备）| C级30-49分（待培育）| D级<30分（暂不开发）
 
 > 详细评分标准见：references/SCORING.md
 

@@ -498,4 +498,4 @@ agent-browser eval "document.querySelector('.contact') ? document.querySelector(
 
 *平台*: 特易外贸资讯宝GT7.0
 *登录*: https://et.topease.net/login?product=gt
-*更新时间*: 2026-03-31（v2.2.0 新增第十一节「获取客户联系方式」，含详情页+易搜邮两种方法及标准工作流程）
+*更新时间*: 2026-03-31（v2.1.0 新增第十一节「获取客户联系方式」，含详情页+易搜邮两种方法及标准工作流程）

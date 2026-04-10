@@ -1,6 +1,11 @@
 ---
 name: daily-report-writer
 description: 根据输入生成日报 Markdown 草稿并写入 reports 目录
+version: 1.0.0
+triggers:
+  - 写日报
+  - 日报
+  - daily report
 user-invocable: true
 metadata: {"openclaw":{"emoji":"📝"}}
 ---

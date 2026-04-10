@@ -6,6 +6,10 @@ author: OpenClaw
 metadata:
   clawhub:
     emoji: 📁
+triggers:
+  - NAS文件
+  - NAS读取
+  - 挂载NAS
 ---
 
 # NAS 文件快速读取技能

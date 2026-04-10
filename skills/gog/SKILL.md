@@ -1,6 +1,10 @@
 ---
 name: gog
 description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.
+version: 1.0.0
+triggers:
+  - gog搜索
+  - google搜索
 ---
 
 # gog

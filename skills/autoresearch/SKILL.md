@@ -1,7 +1,10 @@
-﻿---
+---
 name: autoresearch
 version: 1.0.0
 description: Autonomous experiment loop for AI agents. Use when the user wants to run systematic experiments — optimizing hyperparameters, searching for better configurations, ablation studies, or any task where an agent should iteratively try changes, measure results, and keep or discard based on a metric. Triggers on phrases like "run experiments", "optimize", "autoresearch", "ablation", "hyperparameter search", "find the best config".
+triggers:
+  - 自动研究
+  - autoresearch
 user-invocable: true
 argument-hint: [setup | run | analyze]
 allowed-tools: read, write, edit, exec, grep, find, ls, sessions_spawn

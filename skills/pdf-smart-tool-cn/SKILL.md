@@ -1,16 +1,19 @@
 ---
 name: pdf-smart-tool-cn
 version: 1.1.0
-description: "PDF智能处理工具 v2.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。"
+description: "PDF智能处理工具 v1.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。"
 author: 赚钱小能手
 metadata:
   clawhub:
     emoji: 📄
     requires:
       bins: [pdftotext, tesseract, ghostscript]
+triggers:
+  - PDF工具
+  - PDF处理
 ---
 
-# PDF智能处理工具 v2.1 📄
+# PDF智能处理工具 v1.1 📄
 
 智能PDF处理，支持转换、OCR识别、合并拆分、批量处理、数字签名、水印添加、加密解密。
 

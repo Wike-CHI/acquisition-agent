@@ -2,9 +2,12 @@
 name: understand-honglong-acquisition
 version: 3.3.0
 description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用 skill://HOLO-AGENT。本技能整合自我改进机制，支持三层记忆系统+5种学习信号+自动晋升降级。同步至HOLO-AGENT v2.4.0。
+triggers:
+  - 理解获客系统
+  - 系统架构
 ---
 
-# 理解红龙获客系统 v3.2.0
+# 理解红龙获客系统 v3.3.0
 
 > **核心价值**：让AI从实践中学习，越用越聪明
 >
@@ -419,4 +422,4 @@ $base = "$env:USERPROFILE\self-improving"
 
 ---
 
-*版本：v3.2.0 | 同步至 HOLO-AGENT v2.4.0 | 更新时间：2026-04-03*
+*版本：v3.3.0 | 同步至 HOLO-AGENT v2.4.0 | 更新时间：2026-04-03*

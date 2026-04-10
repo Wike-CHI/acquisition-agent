@@ -3,6 +3,10 @@ name: business-development
 version: 1.0.0
 description: "Partnership outreach, market research, competitor analysis, and proposal generation. Transform your AI agent into a strategic business development partner that identifies and cultivates growth opportunities."
 author: openclaw
+triggers:
+  - 商务拓展
+  - partnership
+  - BD
 ---
 
 # Business Development Skill 🤝

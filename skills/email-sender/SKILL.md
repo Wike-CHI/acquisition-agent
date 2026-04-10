@@ -60,7 +60,7 @@ triggers:
 
 ### 1.3 配置文件存储
 
-**存储位置**: `%USERPROFILE%\.workbuddy\.email_config.json`
+**存储位置**: `{{SKILL_DATA_DIR}}/.email_config.json`
 > **迁移说明**：旧路径 `%USERPROFILE%\.openclaw\.email_config.json` 已废弃（deprecated），首次加载时自动迁移到新路径。
 
 **文件内容**（加密存储）:
@@ -249,7 +249,7 @@ SMTP服务器: smtp.exmail.qq.com
 
 ### 3.3 发送记录
 
-**存储位置**: `%USERPROFILE%\.workbuddy\email_logs\`
+**存储位置**: `{{SKILL_DATA_DIR}}/email_logs/`
 > **迁移说明**：旧路径 `%USERPROFILE%\.openclaw\email_logs\` 已废弃（deprecated）。
 
 **记录格式**:
@@ -502,9 +502,9 @@ Best regards,
 
 | 文件 | 路径 | 说明 |
 |------|------|------|
-| 邮箱配置 | `%USERPROFILE%\.workbuddy\.email_config.json` | SMTP配置（加密） |
-| 发送日志 | `%USERPROFILE%\.workbuddy\email_logs\` | 发送记录 |
-| 签名配置 | `%USERPROFILE%\.workbuddy\.email_signatures.json` | 签名模板 |
+| 邮箱配置 | `{{SKILL_DATA_DIR}}/.email_config.json` | SMTP配置（加密） |
+| 发送日志 | `{{SKILL_DATA_DIR}}/email_logs/` | 发送记录 |
+| 签名配置 | `{{SKILL_DATA_DIR}}/.email_signatures.json` | 签名模板 |
 
 > **迁移说明**：旧路径（`.openclaw/` 下同名文件）已废弃。如检测到旧路径文件存在且新路径不存在，自动复制到新路径。
 

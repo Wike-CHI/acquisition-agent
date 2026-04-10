@@ -1,7 +1,12 @@
 ---
 name: humanoid-memory
+description: Brain-inspired memory for AI agents with V-score consolidation and Ebbinghaus forgetting
+version: 1.0.0
 user-invocable: true
 metadata: {"openclaw":{"emoji":"🧠","requires":{"bins":["node"]},"os":["darwin","linux","win32"]}}
+triggers:
+  - humanoid memory
+  - 记忆管理
 ---
 
 # Humanoid Memory System

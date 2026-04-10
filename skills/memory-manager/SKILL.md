@@ -1,6 +1,10 @@
 ---
 name: memory-manager
 description: Local memory management for agents. Compression detection, auto-snapshots, and semantic search. Use when agents need to detect compression risk before memory loss, save context snapshots, search historical memories, or track memory usage patterns. Never lose context again.
+version: 1.0.0
+triggers:
+  - 记忆管理
+  - memory manager
 ---
 
 # Memory Manager

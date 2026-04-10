@@ -1,6 +1,10 @@
 ---
 name: skill-discovery
 description: Search for reusable skills across OpenSpace's local registry and cloud community. Reusing proven skills saves tokens, improves reliability, and extends your capabilities beyond built-in tools.
+version: 1.0.0
+triggers:
+  - 技能发现
+  - skill discover
 ---
 
 # Skill Discovery

@@ -1,3 +1,12 @@
+---
+name: agent-reach-setup
+version: 1.0.0
+description: agent-reach 的安装和配置引导
+triggers:
+  - agent-reach setup
+  - 配置agent-reach
+---
+
 # Agent Reach 完整安装与配置解决方案
 
 ## 概述
@@ -105,8 +114,8 @@ agent-reach configure proxy http://user:pass@ip:port
 agent-reach doctor | grep "✅"
 
 # 验证技能安装路径
-ls -la /home/pan/.openclaw/skills/agent-reach/
-ls -la /home/pan/.claude/skills/agent-reach/
+ls -la {{SKILLS_DIR}}/agent-reach/
+ls -la {{SKILLS_DIR}}/agent-reach/
 ```
 
 ## 贡献信息

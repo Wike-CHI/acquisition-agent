@@ -1,5 +1,5 @@
 ---
-name: content-repurposer
+name: 内容分发
 description: Transform long-form content into platform-optimized snippets. Your agent takes one blog post, video transcript, or podcast notes and generates ready-to-publish Twitter threads, LinkedIn posts, email newsletters, and Instagram captions. Maintains voice consistency while adapting to each platform's format, length, and engagement patterns. Configure tone preferences, platform priorities, and output formats. Use when publishing content across multiple channels, repurposing existing material, or maximizing reach from a single piece of content.
 description_zh: "将长文内容转化为多平台优化的社交媒体片段"
 description_en: "Transform long-form content into platform-optimized social media snippets"
@@ -7,6 +7,9 @@ version: 1.1.0
 metadata:
   clawdbot:
     emoji: "♻️"
+triggers:
+  - 内容分发
+  - content repurpose
 ---
 
 # Content Repurposer — Create Once, Publish Everywhere

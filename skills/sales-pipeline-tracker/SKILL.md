@@ -1,7 +1,11 @@
-﻿---
-name: Sales Pipeline Tracker
+---
+name: sales-pipeline-tracker
 version: 1.0.0
 description: Track deals through every stage from lead to close. Manage pipeline stages, update deal status, forecast revenue, and identify bottlenecks in your sales process.
+triggers:
+  - Pipeline
+  - 销售管线
+  - pipeline追踪
 ---
 
 # Sales Pipeline Tracker

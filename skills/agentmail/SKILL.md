@@ -1,6 +1,11 @@
 ---
 name: agentmail
 description: Email inbox for AI agents. Check messages, send emails, and communicate via your own @agentmail.to address.
+version: 1.0.0
+triggers:
+  - 收邮件
+  - 检查邮箱
+  - agentmail
 ---
 
 # AgentMail - Email for AI Agents 📧

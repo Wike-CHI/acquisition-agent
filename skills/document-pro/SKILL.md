@@ -2,6 +2,10 @@
 name: document-pro
 version: 1.0.0
 description: 文档处理技能 - 让 AI 能够读取、解析、提取 PDF、DOCX、PPT 等文档的关键信息。当用户要求分析文档、提取内容、总结报告时触发此技能。
+triggers:
+  - 文档处理
+  - document
+  - PDF DOCX
 ---
 
 # Document Pro - 文档处理技能

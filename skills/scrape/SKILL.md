@@ -1,6 +1,12 @@
 ---
-name: Scrape
+name: scrape
 description: Legal web scraping with robots.txt compliance, rate limiting, and GDPR/CCPA-aware data handling.
+version: 1.0.0
+triggers:
+  - 网页抓取
+  - 爬虫
+  - 抓取网页
+  - scrape
 ---
 
 ## Pre-Scrape Compliance Checklist

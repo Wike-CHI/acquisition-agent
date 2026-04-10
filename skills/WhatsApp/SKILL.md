@@ -1,8 +1,12 @@
 ---
-name: wacli
+name: WhatsApp
 description: "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats)."
 description_zh: "发送 WhatsApp 消息和同步历史"
 description_en: "Send WhatsApp messages & sync history"
+version: 1.0.0
+triggers:
+  - WhatsApp
+  - whatsapp
 ---
 
 # wacli

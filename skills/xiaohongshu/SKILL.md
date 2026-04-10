@@ -17,6 +17,10 @@ description: |
   - "分析小红书上关于XX的讨论"
   - "小红书XX话题报告"
   - "生成XX的小红书舆情报告"
+version: 1.0.0
+triggers:
+  - 小红书
+  - RedNote
 ---
 
 # 小红书 MCP Skill

@@ -1,7 +1,10 @@
-﻿---
-name: LinkedIn Writer
+---
+name: linkedin-writer
 version: 1.1.0
 description: Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加工业设备行业内容模板。
+triggers:
+  - LinkedIn写作
+  - 领英内容
 ---
 
 # LinkedIn Writer

@@ -1,5 +1,6 @@
 ---
 name: skill-finder-cn
+version: 1.0.1
 description: "Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills | Discover and install ClawHub Skills. 回答'有什么技能可以X'、'找一个技能' | Answers 'what skill can X', 'find a skill'. 触发词：找 skill、find skill、搜索 skill."
 author: 赚钱小能手
 metadata:
@@ -7,6 +8,9 @@ metadata:
     emoji: 🔍
     requires:
       bins: [clawhub]
+triggers:
+  - 技能查找
+  - skill finder
 ---
 
 # Skill 查找器 v1.0.1

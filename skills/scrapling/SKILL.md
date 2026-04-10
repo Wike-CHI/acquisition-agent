@@ -1,4 +1,4 @@
-﻿---
+---
 name: scrapling
 version: 1.0.0
 description: |
@@ -10,6 +10,10 @@ description: |
   (4) 解析已有 HTML 提取结构化数据
   (5) 用户提供 URL 并要求获取页面内容或特定元素
   (6) 批量采集多个页面
+triggers:
+  - 智能爬虫
+  - 反反爬
+  - scrapling
 allowed-tools: Bash(python*), Bash(pip*), Bash(scrapling*)
 ---
 

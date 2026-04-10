@@ -1,7 +1,11 @@
 ---
 name: memory-hygiene
 description: Audit, clean, and optimize Clawdbot's vector memory (LanceDB). Use when memory is bloated with junk, token usage is high from irrelevant auto-recalls, or setting up memory maintenance automation.
+version: 1.0.0
 homepage: https://github.com/xdylanbaker/memory-hygiene
+triggers:
+  - 记忆清理
+  - memory hygiene
 ---
 
 # Memory Hygiene

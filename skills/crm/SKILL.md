@@ -1,7 +1,11 @@
-﻿---
-name: CRM
+---
+name: crm
 version: 1.0.0
 description: Guide users building a personal CRM from simple files to structured database.
+triggers:
+  - CRM
+  - 客户管理
+  - 客户关系
 metadata: {"clawdbot":{"emoji":"🤝","os":["linux","darwin","win32"]}}
 ---
 

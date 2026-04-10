@@ -1,9 +1,13 @@
-﻿---
+---
 name: linkedin
 version: 2.0.0
 description: LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send connection requests and InMail messages. Uses agent-browser CLI for AI-controlled browser interaction (no Playwright scripts).
 homepage: https://linkedin.com
 metadata: {"clawdbot":{"emoji":"💼"}}
+triggers:
+  - LinkedIn
+  - 领英
+  - linkedin搜索
 ---
 
 # LinkedIn 私信外联（AI 浏览器驱动）
@@ -27,7 +31,7 @@ agent-browser install
 ```bash
 agent-browser open https://www.linkedin.com/login --headed
 # 手动在弹出窗口里完成登录
-agent-browser state save C:/Users/Administrator/.workbuddy/sessions/linkedin-session.json
+agent-browser state save {{SKILL_DATA_DIR}}/linkedin-session.json
 agent-browser close
 ```
 
@@ -41,7 +45,7 @@ agent-browser close
 
 ```
 1. 加载 session
-   agent-browser state load C:/Users/Administrator/.workbuddy/sessions/linkedin-session.json
+   agent-browser state load {{SKILL_DATA_DIR}}/linkedin-session.json
 
 2. 打开目标主页
    agent-browser open https://www.linkedin.com/in/{USERNAME}/
@@ -68,7 +72,7 @@ agent-browser close
 
 9. 验证
    agent-browser wait --text "Message sent"
-   agent-browser screenshot C:/Users/Administrator/.workbuddy/logs/linkedin-sent-{TIMESTAMP}.png
+   agent-browser screenshot {{SKILL_DATA_DIR}}/logs/linkedin-sent-{TIMESTAMP}.png
 ```
 
 ---
@@ -77,7 +81,7 @@ agent-browser close
 
 ```
 1. 加载 session
-   agent-browser state load C:/Users/Administrator/.workbuddy/sessions/linkedin-session.json
+   agent-browser state load {{SKILL_DATA_DIR}}/linkedin-session.json
 
 2. 打开目标主页
    agent-browser open https://www.linkedin.com/in/{USERNAME}/
@@ -104,7 +108,7 @@ agent-browser close
    agent-browser find role button click --name "Send"
 
 10. 验证 & 截图留存
-    agent-browser screenshot C:/Users/Administrator/.workbuddy/logs/linkedin-connect-{TIMESTAMP}.png
+    agent-browser screenshot {{SKILL_DATA_DIR}}/logs/linkedin-connect-{TIMESTAMP}.png
 ```
 
 ---
@@ -202,7 +206,7 @@ holobelt.com | [Your Mobile] (WhatsApp)
 ## Session 文件路径
 
 ```
-C:/Users/Administrator/.workbuddy/sessions/linkedin-session.json
+{{SKILL_DATA_DIR}}/linkedin-session.json
 ```
 
 > 如果文件不存在，提示用户先执行首次登录流程（见"前置条件"第2步）

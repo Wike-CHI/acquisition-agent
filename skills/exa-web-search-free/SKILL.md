@@ -2,6 +2,10 @@
 name: exa-web-search-free
 version: 2.1.0
 description: "Free AI search via Exa MCP. ⚠️ 必须使用mcporter调用，禁止使用web_search工具！"
+triggers:
+  - 免费搜索
+  - exa免费搜索
+  - exa free
 metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["mcporter"]}}}
 ---
 

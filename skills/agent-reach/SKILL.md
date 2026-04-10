@@ -15,6 +15,10 @@ description: >
 metadata:
   openclaw:
     homepage: https://github.com/Panniantong/Agent-Reach
+version: 1.0.0
+triggers:
+  - agent-reach
+  - 搜索配置
 ---
 
 # Agent Reach — Usage Guide

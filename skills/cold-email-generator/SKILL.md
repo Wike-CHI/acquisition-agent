@@ -122,11 +122,11 @@ Signature: [Wike 签名]
 
 ## 签名规范（强制）
 
-所有开发信必须从 `$env:USERPROFILE\.workbuddy\.email_signatures.json` 读取签名信息。
+所有开发信必须从 `{{SKILL_DATA_DIR}}/.email_signatures.json` 读取签名信息。
 
 **读取命令（PowerShell）：**
 ```powershell
-$sig = Get-Content "$env:USERPROFILE\.workbuddy\.email_signatures.json" | ConvertFrom-Json
+$sig = Get-Content "{{SKILL_DATA_DIR}}/.email_signatures.json" | ConvertFrom-Json
 # 可用字段：$sig.name, $sig.title, $sig.phone, $sig.whatsapp, $sig.email, $sig.website
 ```
 

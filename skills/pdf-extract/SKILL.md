@@ -1,6 +1,10 @@
 ---
 name: pdf-extract
 description: "Extract text from PDF files for LLM processing"
+version: 1.0.0
+triggers:
+  - 提取PDF
+  - PDF提取
 metadata:
   {
     "openclaw":

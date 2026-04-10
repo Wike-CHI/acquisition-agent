@@ -1,7 +1,10 @@
 ---
-name: Email Marketing
+name: email-marketing
 version: 1.1.0
 description: Email deliverability, list management, sequences, segmentation, campaign optimization. 红龙获客系统定制版增加工业皮带设备行业专用模板和策略。
+triggers:
+  - 邮件营销
+  - email marketing
 ---
 
 ## Deliverability Foundations

@@ -2,6 +2,9 @@
 name: sales
 version: 1.0.0
 description: "CRM integration, lead tracking, outreach automation, and pipeline management. Transform your AI agent into a sales assistant that never lets leads slip through the cracks."
+triggers:
+  - 销售
+  - 销售管理
 author: openclaw
 ---
 

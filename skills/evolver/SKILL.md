@@ -1,6 +1,7 @@
 ---
-name: capability-evolver
+name: evolver
 description: A self-evolution engine for AI agents. Analyzes runtime history to identify improvements and applies protocol-constrained evolution.
+version: 1.0.0
 tags: [meta, ai, self-improvement, core]
 permissions: [network, shell]
 metadata:
@@ -104,6 +105,10 @@ metadata:
       - "workspace/assets/gep/** (genes, capsules, events)"
       - "workspace/memory/** (memory graph, narrative, reflection)"
       - "workspace/src/** (evolved code, only when changes are solidified)"
+triggers:
+  - 自我进化
+  - evolve
+  - capability
 ---
 
 # 🧬 Capability Evolver

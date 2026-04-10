@@ -1,7 +1,7 @@
 ---
-name: Market Research
+name: market-research
 slug: market-research
-version: 1.0.1-honglong-override
+version: 1.0.1
 description: 市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
 triggers:
   - 市场分析
@@ -41,10 +41,10 @@ AI Agent 执行以下检测：
 
 > 以下为原始 clawdhub 技能内容（仅当 HONGLONG-OVERRIDE.md 不存在时使用）
 
----
+<!-- honglong-override: original community skill metadata
 name: Market Research
 description: "Research markets with sizing, segmentation, competitor mapping, pricing checks, and demand validation that turn fuzzy ideas into decision-ready evidence."
----
+-->
 
 # Market Research
 

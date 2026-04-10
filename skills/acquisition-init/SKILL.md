@@ -481,6 +481,6 @@ ls ~/.workbuddy/skills/*/SKILL.md
 
 ---
 
-_版本: 1.1.0_
+_版本: 1.0.0_
 _更新: 2026-03-31_
 _依赖: credential-manager, nas-file-reader, email-sender_

@@ -1,6 +1,10 @@
 ---
-name: Office
+name: office
 description: "Master Excel, Word, PowerPoint, and Google Workspace with formulas, formatting, and automation."
+version: 1.0.0
+triggers:
+  - 办公文档
+  - office
 ---
 
 ## What "Office" Means Here

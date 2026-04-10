@@ -1,6 +1,10 @@
 ---
 name: tavily-search
 description: 使用 Tavily API 进行网页搜索和实时信息检索。当用户需要搜索最新信息、查找特定网页、或需要实时网络数据时使用。
+version: 1.0.0
+triggers:
+  - tavily
+  - tavily搜索
 ---
 
 # Tavily Search - 网页搜索技能

@@ -1,6 +1,10 @@
 ---
 name: smart-memory
 description: Persistent local cognitive memory for OpenClaw via a Node adapter and FastAPI engine.
+version: 1.0.0
+triggers:
+  - 智能记忆
+  - smart memory
 ---
 
 # Smart Memory v2 Skill

@@ -258,5 +258,5 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 ---
 
-*版本: 2.0.0 | 更新时间: 2026-04-03*
+*版本: 2.1.0 | 更新时间: 2026-04-03*
 *变更: 去除 sessions_spawn 等平台专属API，改为纯指令调用*

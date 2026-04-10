@@ -1,3 +1,13 @@
+---
+name: data-automation-service
+version: 1.0.0
+description: 數據處理同自動化 Workflow 服務
+triggers:
+  - data automation
+  - 整數據自動化
+  - 数据自动化
+---
+
 # Data Automation Service
 
 數據處理同自動化Workflow服務

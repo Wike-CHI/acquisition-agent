@@ -15,6 +15,10 @@ allowed-tools:
   - Grep
   - Glob
   - AskUserQuestion
+triggers:
+  - 去AI味
+  - humanize
+  - 人性化
 ---
 
 # Humanizer: Remove AI Writing Patterns

@@ -1,10 +1,13 @@
 ---
-name: qq-email
+name: QQ邮箱
 description: "QQ邮箱 IMAP receive and SMTP send via Node.js scripts; credentials read from env vars QQ_EMAIL_ACCOUNT and QQ_EMAIL_AUTH_CODE. Use when a user asks to send QQ email, receive/check QQ email, forward email, or configure QQ mailbox."
 description_zh: "QQ邮箱收发邮件（IMAP/SMTP），支持发信、收信、查看正文"
 description_en: "Send & receive QQ Mail via IMAP/SMTP with Node.js scripts"
 version: 1.0.0
 allowed-tools: Read,Write,Bash
+triggers:
+  - QQ邮箱
+  - qq email
 ---
 
 ## 何时使用

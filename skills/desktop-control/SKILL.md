@@ -1,5 +1,11 @@
 ---
+name: desktop-control
 description: Advanced desktop automation with mouse, keyboard, and screen control
+version: 1.0.0
+triggers:
+  - 桌面控制
+  - desktop
+  - 鼠标键盘
 ---
 
 # Desktop Control Skill

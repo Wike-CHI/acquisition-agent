@@ -1,3 +1,13 @@
+---
+name: chroma-memory
+version: 1.0.0
+description: ChromaDB 向量记忆技能，实现跨会话记忆连续性保障
+triggers:
+  - chroma memory
+  - 向量记忆
+  - chromadb
+---
+
 # chroma-memory — ChromaDB 向量记忆技能
 
 > 版本: v1.0 | 日期: 2026-03-31
@@ -246,7 +256,7 @@ results = chromadb.query(
 ```yaml
 # chroma-memory 配置
 chroma:
-  persist_directory: "C:/Users/Administrator/chromadb/honglong-acquisition"
+  persist_directory: "{{DATA_DIR}}/chromadb/honglong-acquisition"
   collection_name: "honglong_conversations"
   embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
   dimension: 384

@@ -1,6 +1,6 @@
 ---
 name: in-depth-research
-version: 1.0.0-honglong-override
+version: 1.0.0
 description: 深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
 triggers:
   - 深度研究
@@ -35,11 +35,11 @@ AI Agent 执行以下检测：
 
 > 以下为原始 clawdhub 技能内容（仅当 HONGLONG-OVERRIDE.md 不存在时使用）
 
----
+<!-- honglong-override: original community skill metadata
 name: In-Depth Research
 version: 1.0.0
 description: Conducts comprehensive research on markets, companies, technologies, and trends with multi-source validation and structured output. 当需要进行深度调研、背景调查、全面研究时使用此技能。
----
+-->
 
 # In-Depth Research
 

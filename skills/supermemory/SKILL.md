@@ -1,3 +1,13 @@
+---
+name: supermemory
+version: 1.0.0
+description: 增强记忆引擎，基于 LanceDB 向量存储，用于非对话类知识管理
+triggers:
+  - supermemory
+  - 增强记忆
+  - 记忆引擎
+---
+
 # supermemory — 增强记忆引擎
 
 > 版本: v1.0 | 日期: 2026-03-31
@@ -198,7 +208,7 @@ TTL 统计:
 # supermemory 配置
 supermemory:
   provider: "lancedb"          # 默认本地存储，无需外部依赖
-  persist_directory: "C:/Users/Administrator/lancedb/honglong"
+  persist_directory: "{{DATA_DIR}}/lancedb/honglong"
   collection_name: "honglong_memory"
 
   # 备选 provider（需要 API key）
