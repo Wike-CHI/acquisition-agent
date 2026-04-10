@@ -62,7 +62,8 @@ triggers:
 |------|------|
 | [references/products.md](references/products.md) | 全产品线型号、规格、编码规则 |
 | [references/tech-specs.md](references/tech-specs.md) | 技术参数、材料规格、BOM |
-| [references/applications.md](references/applications.md) | **NEW** 产品应用场景、输送带知识、选型指南 |
+| [references/applications.md](references/applications.md) | 产品应用场景、输送带知识、选型指南 |
+| [references/INDEX.md](references/INDEX.md) | **NEW** 快速参考索引（30秒找到答案） |
 | [references/customers.md](references/customers.md) | 供应链、供应商、客户案例 |
 | [references/inspection-standards.md](references/inspection-standards.md) | 17个产品检验标准（出厂质检规范） |
 | [references/websites.md](references/websites.md) | 官网产品信息、品牌定位 |
