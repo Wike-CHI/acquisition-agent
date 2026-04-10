@@ -1,7 +1,7 @@
 ---
 name: honglong-products
-version: 2.0.0
-description: 红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则 (2) 技术参数、BOM、材料规格 (3) 供应链、供应商信息 (4) 产品报价、定制选项 (5) 设备选型建议 (6) 出厂检验标准、质检规范 (7) 官网产品信息 (8) 产品图片 时使用此技能。
+version: 2.1.0
+description: 红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则 (2) 技术参数、BOM、材料规格 (3) 供应链、供应商信息 (4) 产品报价、定制选项 (5) 设备选型建议 (6) 出厂检验标准、质检规范 (7) 官网产品信息 (8) 产品图片 (9) 产品用途、应用场景、输送带知识 时使用此技能。
 always: false
 triggers:
   - 产品
@@ -20,6 +20,27 @@ triggers:
   - 技术参数
   - 产品知识
   - holo
+  # 应用场景
+  - 用途
+  - 应用场景
+  - 怎么用
+  - 用在哪
+  - 适用场景
+  # 输送带知识
+  - 输送带
+  - 皮带
+  - 硫化
+  - 拼接
+  - 接头
+  - 打齿
+  - 分层
+  # 选型相关
+  - 风冷还是水冷
+  - 选哪个
+  - 推荐哪款
+  - 有什么区别
+  - 厚度
+  - 规格怎么选
 ---
 
 # 红龙产品知识库
@@ -33,6 +54,7 @@ triggers:
 3. **供应链查询** - 供应商信息、采购渠道
 4. **报价支持** - BOM成本参考、定制费用
 5. **质检支持** - 出厂检验标准、合格判定
+6. **应用咨询** - 产品用途、应用场景、选型建议、客户痛点
 
 ## 知识库结构
 
@@ -40,6 +62,7 @@ triggers:
 |------|------|
 | [references/products.md](references/products.md) | 全产品线型号、规格、编码规则 |
 | [references/tech-specs.md](references/tech-specs.md) | 技术参数、材料规格、BOM |
+| [references/applications.md](references/applications.md) | **NEW** 产品应用场景、输送带知识、选型指南 |
 | [references/customers.md](references/customers.md) | 供应链、供应商、客户案例 |
 | [references/inspection-standards.md](references/inspection-standards.md) | 17个产品检验标准（出厂质检规范） |
 | [references/websites.md](references/websites.md) | 官网产品信息、品牌定位 |
