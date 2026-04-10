@@ -35,7 +35,7 @@ $RetainedSkills = @(
     # 发现层
     "linkedin", "facebook-acquisition", "instagram-acquisition", "teyi-customs", "scrape", "scrapling",
     # 情报层
-    "company-research", "market-research", "in-depth-research", "autoresearch", "customer-intelligence", "deep-research",
+    "company-research", "market-research", "in-depth-research", "autoresearch", "customer-intelligence", "deep-research", "knowledge-base",
     # 触达层
     "email-sender", "email-marketing", "cold-email-generator", "linkedin-writer", "email-outreach-ops", "delivery-queue",
     # 支持层
