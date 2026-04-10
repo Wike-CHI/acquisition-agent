@@ -322,6 +322,55 @@ Phase 4: 触达（铁律：开发信≥9.0分）
 | 质量验收 | acquisition-evaluator |
 | 日历提醒 | calendar-skill |
 | 社媒运营 | ai-social-media-content |
+| **操作日志埋点** | holo-activity-log |
+
+---
+
+## 操作日志埋点规范
+
+> **重要**：每个Phase完成后应调用 `holo-activity-log` 记录操作
+
+### 埋点时机
+
+| Phase | 埋点时机 | action_type | 必填字段 |
+|-------|---------|-------------|---------|
+| Phase 1 | 搜索完成后 | `search` | result, score |
+| Phase 1.5 | 邮箱验证后 | `email` | customer, result |
+| Phase 2 | 背调完成后 | `research` | customer, result, score |
+| Phase 3 | 筛选完成后 | `icp_score` | result, score |
+| Phase 4 | 开发信生成后 | `email_gen` | customer, result, score |
+| Phase 4 | 邮件发送后 | `email_send` | customer, result |
+
+### 埋点示例
+
+```
+用户：帮我搜索10家非洲矿业客户
+AI：
+  1. 调用 exa-search skill 搜索客户
+  2. ✅ 找到12家潜在客户
+  3. 📝 调用 holo-activity-log 记录日志
+  4. 返回客户列表
+```
+
+### 埋点调用方式
+
+```yaml
+# 在流程末尾添加
+- skill: holo-activity-log
+  params:
+    skill_name: exa-search
+    action_type: search
+    customer: 非洲矿业
+    result: success
+    score: 12
+    notes: 找到12家潜在客户，3家高价值
+```
+
+### 日志存储位置
+
+- **NAS路径**：`\\192.168.0.194\AI数据\activity\`
+- **文件格式**：`YYYY-MM-DD.csv`（每天一个文件）
+- **设备标识**：`用户名@IP`（自动获取）
 
 ---
 
