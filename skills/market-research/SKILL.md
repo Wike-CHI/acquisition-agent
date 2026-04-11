@@ -1,8 +1,8 @@
 ---
 name: market-research
 slug: market-research
-version: 1.0.1
-description: 市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
+version: 1.1.0
+description: 市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。增加知识库自动同步钩子。
 triggers:
   - 市场分析
   - 竞争分析
@@ -113,4 +113,39 @@ Research markets with sizing, segmentation, competitor mapping, pricing checks, 
 ## Pricing Trends
 ## Demand Signals
 ## Strategic Recommendations
+```
+
+---
+
+## 知识库集成（自动钩子）
+
+> ⭐ 市场调研完成后自动保存到NAS知识库，全员复用
+
+### 保存时机
+
+调研报告生成后（报告已保存到文件后），立即执行保存钩子。
+
+### 知识库结构
+
+```
+\\192.168.0.194\home\knowledge\
+└── market-research/
+    ├── 东南亚市场.md
+    ├── 非洲市场.md
+    └── ...
+```
+
+### 保存逻辑
+
+1. 报告生成后 → 检查是否为有效调研报告（>500字符）
+2. 调用 knowledge-base 技能的 write-knowledge.ps1
+3. 记录操作日志（holo-activity-log）
+4. 告知用户报告已同步到知识库
+
+### 调用示例
+
+```powershell
+# 在调研报告生成后执行
+$reportContent = Get-Content "东南亚市场分析报告-20260411.md" -Raw
+. "$PSScriptRoot\..\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent
 ```
