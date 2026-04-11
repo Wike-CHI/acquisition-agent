@@ -8,7 +8,7 @@ param(
 
 # NAS配置
 $NAS_IP = "192.168.0.194"
-$NAS_USER = "HOLO"
+$NAS_USER = "HOLO-AGENT"
 $NAS_PASS = "Hl88889999"
 $DriveLetter = "K:"
 $basePath = "$DriveLetter\knowledge"
