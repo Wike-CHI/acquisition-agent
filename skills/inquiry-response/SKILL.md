@@ -29,18 +29,24 @@ triggers:
 ┌─────────────────────────────────────────────┐
 │  分类引擎：判断回复类型                        │
 │  A=异议  B=技术  C=对比  D=商务  E=兴趣       │
+│  + 识别客户语言/地区                           │
 └─────────┬───────────────────────────────────┘
           ↓
-┌─ A类 → references/objection-library.md     │ 异议应答库（核心）
-│        → 选策略 → 填客户背景 → 拟人化        │
-├─ B类 → references/product-faq.md           │ 产品技术FAQ
-│        → 查参数 → 补充说明                    │
-├─ C类 → PARTNER-REGISTRY.md 先查合作伙伴      │
-│        → 查竞品库 → 生成对比                  │
-├─ D类 → references/business-policy.md       │ 商务条款
-│        → 查政策 → 回复                       │
-└─ E类 → references/interest-signals.md      │ 兴趣信号
-         → 快速推进 → 促成单
+┌─ A类 → references/objection-library.md       │ 异议应答库（英文策略）
+│        → 非英语客户？查 references/             │
+│           multilingual-objections.md          │ 多语种话术(6语种)
+│        → 选策略 → 选语种 → 填背景 → 拟人化      │
+├─ B类 → references/product-faq.md             │ 产品技术FAQ
+│        → 查参数 → 补充说明                      │
+├─ C类 → PARTNER-REGISTRY.md 先查合作伙伴        │
+│        → 查竞品库 → 生成对比                    │
+│        → Beltwin等合作伙伴？查 multilingual-    │
+│           objections.md A15节                  │
+├─ D类 → references/business-policy.md         │ 商务条款
+│        → 查政策 → 回复                         │
+└─ E类 → references/interest-signals.md        │ 兴趣信号
+         → 快速推进 → multilingual-objections.md
+            底部"强信号快速推进"节有多语种版本
 ```
 
 ## 使用方式
@@ -100,6 +106,51 @@ triggers:
 - 过度热情的语气
 - 不自然的条件句堆叠
 
+## 多语种支持
+
+### 覆盖语种
+
+| 代码 | 语言 | 主要市场 |
+|------|------|---------|
+| PT-BR | 巴西葡萄牙语 | 巴西 |
+| ES | 西班牙语 | 智利/阿根廷/哥伦比亚/墨西哥/秘鲁 |
+| DE | 德语 | 德国/奥地利/瑞士 |
+| AR | 阿拉伯语 | 沙特/阿联酋/埃及 |
+| ID | 印尼语 | 印尼/马来西亚 |
+| TR | 土耳其语 | 土耳其 |
+
+### 使用流程
+
+```
+1. 客户用非英语回复
+2. 识别语言 → 在 multilingual-objections.md 找对应语种
+3. 找到对应异议场景的话术
+4. 填入客户信息 → 微调 → 发送
+
+注意：
+- 话术不是机器翻译，是按当地商务文化写的
+- 阿拉伯语客户建议 AR+EN 双语发送
+- 德语客户要补技术参数，不能只靠话术
+- 巴西客户可以加 WhatsApp 号码拉近距离
+```
+
+### 覆盖场景
+
+6语种 × 8高频异议 = 48条话术 + 6条强信号推进模板
+
+| 异议 | PT-BR | ES | DE | AR | ID | TR |
+|------|-------|----|----|----|----|-----|
+| A01 太贵了 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| A02 已有供应商 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| A04 让我考虑 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| A05 质量可靠吗 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| A08 暂时不需要 | ✓ | ✓ | — | ✓ | ✓ | — |
+| A09 中国制造不行 | — | ✓ | ✓ | ✓ | — | — |
+| A15 跟合作伙伴买 | ✓ | ✓ | ✓ | — | — | — |
+| 强信号推进 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+---
+
 ## 联动技能
 
 | 技能 | 用途 |
@@ -117,7 +168,8 @@ triggers:
 inquiry-response/
 ├── SKILL.md                           # 本文件
 ├── references/
-│   ├── objection-library.md           # 异议应答库（核心，15个场景）
+│   ├── objection-library.md           # 异议应答库（英文，15个场景）
+│   ├── multilingual-objections.md     # 多语种异议话术（6语种×8场景=54条）
 │   ├── product-faq.md                 # 产品技术FAQ（30+问答）
 │   ├── business-policy.md             # 商务条款FAQ
 │   └── interest-signals.md            # 兴趣信号应答（快速推进）
