@@ -24,9 +24,31 @@ $NAS_PASS = "Hl88889999"
 $DriveLetter = "K:"
 $MountPath = "\\$NAS_IP\home"
 
-# 生成slug
+# 生成slug - 支持中英文
 function New-Slug($text) {
-    $text.ToLower() -replace '[^a-z0-9]+', '-' -replace '^-|-$', ''
+    if ($text -match '^[\w]+$') {
+        # 纯英文/数字，直接小写
+        return $text.ToLower()
+    }
+    # 中文或其他语言：用URL编码的前4位 + 拼音首字母缩写
+    $result = ""
+    # 提取所有汉字拼音首字母（简单实现）
+    $chars = $text.ToCharArray()
+    foreach ($c in $chars) {
+        if ([int]$c -gt 127) {
+            # 非ASCII字符用短横线替代
+            $result += "-"
+        } else {
+            $result += $c
+        }
+    }
+    # 清理
+    $result = $result -replace '-+', '-' -replace '^-|-$', ''
+    if ([string]::IsNullOrEmpty($result)) {
+        # 兜底：用时间戳
+        return (Get-Date -Format "yyyyMMddHHmmss")
+    }
+    return $result
 }
 
 $slug = New-Slug $Name
