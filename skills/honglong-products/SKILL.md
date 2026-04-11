@@ -1,7 +1,7 @@
 ---
 name: honglong-products
-version: 3.0.0
-description: 红龙(HOLO)工业皮带设备产品知识库。读取NAS共享盘原始资料作为权威来源，支持产品型号查询、技术参数、BOM、选型建议等。
+version: 3.1.0
+description: 红龙(HOLO)工业皮带设备产品知识库。优先读取技能本地结构化文档，NAS原始文件作为兜底权威来源，支持产品型号查询、技术参数、BOM、选型建议等。
 always: false
 triggers:
   - 产品
@@ -40,13 +40,55 @@ triggers:
   - 规格怎么选
 ---
 
-# 红龙产品知识库 v3.0
+# 红龙产品知识库 v3.1
 
-> ⭐ **直接读取 NAS 共享盘原始资料，不重复造轮子**
+> ⭐ **双层架构：结构化文档优先，NAS原始文件兜底**
 
 ---
 
-## 🔴 NAS 资料路径（权威来源）
+## 📐 双层读取架构
+
+```
+① 技能 references/（结构化文档，秒级读取）
+   references/tech-specs.md          → 技术规格总表
+   references/customers.md            → 客户痛点/案例
+   references/inspection-standards.md → 检验标准摘要
+   references/products.md             → 产品分类/选型对照
+   references/applications.md        → 应用场景/话术
+   references/INDEX.md               → 完整文件索引
+        ↓ 查不到时
+② NAS 共享盘（原始文件，权威兜底）
+   Y:\1.HOLO机器目录（最终资料存放）\  → Excel/PDF/图片
+   W:\公司报价资料\                   → 报价参考表.xlsx
+```
+
+> ⚠️ **不要重复造轮子**：references/ 里已有结构化内容，直接读；只有在 references/ 查不到时才去 NAS 翻原始文件。
+
+---
+
+## 🗂️ references/ 本地文档速查
+
+| 文件 | 内容 | 何时读 |
+|------|------|--------|
+| `INDEX.md` | references/ 完整文件清单 | 不确定要找什么时先读这个 |
+| `tech-specs.md` | 全产品线技术规格/BOM | 问参数、规格、型号、BOM时 |
+| `customers.md` | 客户痛点、案例、产品匹配 | 问选型、适合什么客户时 |
+| `products.md` | 产品分类/选型对照表 | 不知道选哪款时 |
+| `inspection-standards.md` | 检验标准摘要 | 问质量标准时 |
+| `applications.md` | 应用场景/话术/快速问答 | 问用途、对话场景时 |
+
+**读取方式**：
+```powershell
+# 直接读本地结构化文档（快）
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\tech-specs.md"
+
+# 不确定找什么 → 先读 INDEX
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\INDEX.md"
+```
+
+---
+
+## 🔴 NAS 资料路径（权威兜底来源）
 
 ### 主产品目录
 
@@ -88,47 +130,29 @@ Y:\7.企业介绍宣传视频  企业宣传手册\
 Y:\3..产品图册.产品单页.折页 产品海报\        # 产品图册/折页/海报
 Y:\7.企业介绍宣传视频  企业宣传手册\           # 宣传视频/画册
 Y:\14.展会照片视频海报 素材.邀请函 促销海报节日海报\  # 展会物料
-Y:\AI知识索引\honglong-products\             # AI知识索引
 ```
 
 ---
 
-## 🔴 读取流程
-
-> ⚠️ **产品查询必须先读取 NAS 资料**
-
-```
-用户询问："风冷机三代有什么规格？"
-         ↓
-1. 挂载NAS（如果未挂载）
-   net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
-         ↓
-2. 读取NAS资料目录
-   读取 Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\
-         ↓
-3. 提取相关信息
-   - 产品目录/规格表
-   - 参数文件
-   - 说明书
-         ↓
-4. 返回给用户
-```
-
----
-
-## 📂 NAS 资料读取脚本
+## 📂 读取脚本（双层优先级）
 
 ```powershell
-# 1. 挂载NAS
+# ★ 第一步：先查本地结构化文档（快）
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\tech-specs.md"
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\customers.md"
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\products.md"
+Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\INDEX.md"
+
+# ★ 查不到时 → 第二步：挂载NAS读原始文件
 net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
 
-# 2. 查看产品目录
+# 查看产品目录
 Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）" -Depth 2
 
-# 3. 读取风冷机资料
+# 读取风冷机资料
 Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机" -Recurse
 
-# 4. 读取特定文件
+# 读取特定文件
 Get-Content "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\三代风冷皮带接头机.pdf"
 ```
 
@@ -226,4 +250,4 @@ NAS上有 `产品导航.xlsx` 文件，包含完整的产品分类索引。
 
 ---
 
-*本知识库直接读取 NAS 共享盘原始资料，确保信息权威且最新*
+*本知识库 v3.1 采用双层架构：references/ 结构化文档优先响应，NAS 原始文件兜底保障权威性*
