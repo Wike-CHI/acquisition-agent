@@ -103,7 +103,7 @@ gmail send \
   --to "{email}" \
   --subject "HOLO Industrial Belt Equipment - Quotation #{quote_id}" \
   --body "{body}" \
-  --attachments "Y:/报价单/{quote_id}.docx"
+  --attachments "Y:/报价单/{quote_id}.docx"   # 报价单输出目录（需手动创建）
 ```
 
 #### 铁律
@@ -182,13 +182,13 @@ facebook group-members --groupId "{group_id}" --limit 50
 ```bash
 # 发布产品图片
 instagram post \
-  --image "Y:/3.产品图册/机器海报/{product_image}.jpg" \
+  --image "Y:/3..产品图册.产品单页.折页 产品海报/机器海报/{product_image}.jpg" \
   --caption "{caption}" \
   --hashtags "#industrialbelt #conveyor #manufacturing"
 
 # 发布 Reels
 instagram reel \
-  --video "Y:/3.产品图册/视频/{product_video}.mp4" \
+  --video "Y:/7.企业介绍宣传视频 企业宣传手册/{product_video}.mp4" \
   --caption "{caption}"
 ```
 
@@ -345,7 +345,8 @@ quiet_hours:
 ### B. 报价单生成
 
 > 通过 DeepSeek API 生成报价内容，再由脚本输出为 .docx 文件。
-> 报价单内容由业务员根据 `Y:/采购资料/报价参考表.xlsx` 的成本数据自行定价。
+> 报价单内容由业务员根据 `W:/报价参考表.xlsx` 的销售员内部价（未税）自行定价。
+> ⚠️ 开票加13%，红龙利润率红线：印度≥20%、马来西亚≥20%、孟加拉≥10%
 
 ```bash
 # 生成报价单（使用 DeepSeek API）
@@ -353,7 +354,7 @@ python scripts/generate_quote.py \
   --customer "{company}" \
   --products "打齿机-HOLO-FP2000,分层机-HOLO-PS750" \
   --currency USD \
-  --output "Y:/报价单/{quote_id}.docx"
+  --output "Y:/报价单/{quote_id}.docx"   # 报价单输出目录（需手动创建）
 ```
 
 ---
