@@ -119,18 +119,44 @@ Research markets with sizing, segmentation, competitor mapping, pricing checks, 
 
 ## 知识库集成（自动钩子）
 
-> ⭐ 市场调研完成后自动保存到NAS知识库，全员复用
+> ⭐ 市场调研前查询 → 调研后自动保存，全员复用
 
-### 保存时机
+### 钩子1：调研前查询（必检）
 
-调研报告生成后（报告已保存到文件后），立即执行保存钩子。
+**触发时机**：用户请求调研市场时，**先执行查询**
+
+```powershell
+# 调研前：先查知识库
+. "$PSScriptRoot\..\knowledge-base\scripts\read-knowledge.ps1" -Type market -Name "东南亚市场"
+```
+
+**查询逻辑**：
+```
+用户请求："分析东南亚市场"
+    ↓
+查询知识库：read-knowledge -Type market -Name "东南亚市场"
+    ↓
+┌─ 存在 → 读取报告摘要 + 关键数据 → 作为上下文
+│          告知用户："已找到2026-04-11的调研报告，是否需要补充更新？"
+│
+└─ 不存在 → 执行新调研 → 调研后保存到知识库
+```
+
+### 钩子2：调研后保存（自动）
+
+**触发时机**：调研报告生成并保存到本地文件后
+
+```powershell
+# 调研后：保存到知识库
+. "$PSScriptRoot\..\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent -Overwrite "yes"
+```
 
 ### 知识库结构
 
 ```
 \\192.168.0.194\home\knowledge\
 └── market-research/
-    ├── 东南亚市场.md
+    ├── 东南亚市场.md        ← 中文文件名 ✅
     ├── 非洲市场.md
     └── ...
 ```
@@ -138,14 +164,16 @@ Research markets with sizing, segmentation, competitor mapping, pricing checks, 
 ### 保存逻辑
 
 1. 报告生成后 → 检查是否为有效调研报告（>500字符）
-2. 调用 knowledge-base 技能的 write-knowledge.ps1
+2. 调用 `write-knowledge.ps1` → 保存到NAS
 3. 记录操作日志（holo-activity-log）
 4. 告知用户报告已同步到知识库
 
 ### 调用示例
 
 ```powershell
-# 在调研报告生成后执行
-$reportContent = Get-Content "东南亚市场分析报告-20260411.md" -Raw
-. "$PSScriptRoot\..\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent
+# 调研前查询
+$existing = . "$PSScriptRoot\..\knowledge-base\scripts\read-knowledge.ps1" -Type market -Name "东南亚市场"
+
+# 调研后保存
+. "$PSScriptRoot\..\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent -Overwrite "yes"
 ```

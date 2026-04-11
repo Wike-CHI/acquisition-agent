@@ -19,9 +19,25 @@ $NAS_PASS = "Hl88889999"
 $DriveLetter = "K:"
 $basePath = "$DriveLetter\knowledge"
 
-# 生成slug
+# 生成slug - 支持中英文
 function New-Slug($text) {
-    $text.ToLower() -replace '[^a-z0-9]+', '-' -replace '^-|-$', ''
+    if ($text -match '^[\w]+$') {
+        return $text.ToLower()
+    }
+    $result = ""
+    $chars = $text.ToCharArray()
+    foreach ($c in $chars) {
+        if ([int]$c -gt 127) {
+            $result += "-"
+        } else {
+            $result += $c
+        }
+    }
+    $result = $result -replace '-+', '-' -replace '^-|-$', ''
+    if ([string]::IsNullOrEmpty($result)) {
+        return (Get-Date -Format "yyyyMMddHHmmss")
+    }
+    return $result
 }
 
 $slug = New-Slug $Name
