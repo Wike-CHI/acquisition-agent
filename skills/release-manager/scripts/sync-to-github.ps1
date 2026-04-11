@@ -2,13 +2,13 @@
 # sync-to-github.ps1 - 红龙获客系统本地→GitHub 增量同步脚本
 # =============================================================
 # 用途：将本地 ~/.workbuddy/skills/ 中红龙系统相关技能同步到 GitHub 仓库
-# 用法：.\scripts\sync-to-github.ps1 [-CommitMessage "自定义提交信息"]
+# 用法：cd "C:\Users\Administrator\.workbuddy\skills"; .\release-manager\scripts\sync-to-github.ps1 [-CommitMessage "..."]
 #
-# v2.0 新增：
-#   - Submodule 检测与自动修复
-#   - 嵌套 .git 目录清理
-#   - GCA 内部 skills/ 子目录排除（避免重复）
-#   - 同步后自动检查 submodule 引用
+# v2.1 (2026-04-11) 修复：
+#   - P0: 强制预检（gh auth / 网络连通性）
+#   - P1: SKILL.md hash 变化检测，增量同步跳过无变化的技能
+#   - P1: git 操作添加 $LASTEXITCODE 错误处理
+#   - P1: gh clone 失败自动回退到 git clone
 # =============================================================
 
 param(
@@ -16,7 +16,8 @@ param(
     [string]$RepoOwner = "Wike-CHI",
     [string]$RepoName = "acquisition-agent",
     [string]$Branch = "main",
-    [switch]$SkipSubmoduleCheck = $false
+    [switch]$SkipSubmoduleCheck = $false,
+    [switch]$SkipPrereqCheck = $false
 )
 
 $ErrorActionPreference = "Continue"
@@ -80,6 +81,89 @@ function Write-OK($msg) { Write-Host "  OK $msg" -ForegroundColor Green }
 function Write-Warn($msg) { Write-Host "  WARN $msg" -ForegroundColor Yellow }
 function Write-Fail($msg) { Write-Host "  FAIL $msg" -ForegroundColor Red }
 
+# --- 预检函数（P1修复） ---
+function Test-Prerequisites {
+    Write-Status "=== 预检 ==="
+
+    # 1. 检查 gh auth（使用 exit code + 宽松字符串匹配）
+    $ghOut = gh auth status 2>&1 | Out-String
+    # 去掉 ANSI 颜色码后检测
+    $ghClean = $ghOut -replace '\x1b\[[0-9;]*[a-zA-Z]', '' -replace '\s+', ' '
+    if ($LASTEXITCODE -ne 0 -or $ghClean -notmatch "Logged" -and $ghClean -notmatch "github") {
+        Write-Fail "GitHub 未登录"
+        Write-Host "   运行: gh auth login" -ForegroundColor Gray
+        return $false
+    }
+    Write-OK "GitHub 已登录"
+
+    # 2. 检查网络（用 HTTP HEAD 请求，不用 ICMP ping）
+    try {
+        $resp = Invoke-WebRequest -Uri "https://github.com" -Method HEAD -TimeoutSec 5 -UseBasicParsing -ErrorAction Stop
+        Write-OK "网络正常 (HTTP $($resp.StatusCode))"
+    } catch {
+        Write-Fail "无法连接 github.com (HTTP)"
+        return $false
+    }
+
+    return $true
+}
+
+# --- 增量变更检测函数（P1修复） ---
+# 读取上次同步的技能 hash（存储在 RepoDir/.last-sync-hashes.json）
+function Get-LastSyncHashes {
+    $hashFile = Join-Path $RepoDir ".last-sync-hashes.json"
+    if (Test-Path $hashFile) {
+        try {
+            return Get-Content $hashFile -Raw | ConvertFrom-Json -AsHashtable
+        } catch { }
+    }
+    return @{}
+}
+
+function Save-LastSyncHashes($hashes) {
+    $hashFile = Join-Path $RepoDir ".last-sync-hashes.json"
+    $hashes | ConvertTo-Json -Depth 3 | Set-Content -Path $hashFile -Encoding UTF8
+}
+
+function Test-SkillChanged {
+    param([string]$SkillName, [string]$SrcPath)
+
+    $skillFile = Join-Path $SrcPath "SKILL.md"
+    if (-not (Test-Path $skillFile)) {
+        # 无 SKILL.md，视为变化（可能是新技能或目录结构变化）
+        return $true
+    }
+
+    try {
+        $currentHash = (Get-FileHash $skillFile -Algorithm MD5 -ErrorAction Stop).Hash
+        $lastHashes = Get-LastSyncHashes
+        $lastHash = $lastHashes[$SkillName]
+
+        if ($null -eq $lastHash) {
+            # 新技能或首次同步
+            return $true
+        }
+        return ($currentHash -ne $lastHash)
+    } catch {
+        # 读取失败，当作变化处理
+        return $true
+    }
+}
+
+function Save-SkillHash {
+    param([string]$SkillName, [string]$SrcPath)
+
+    $skillFile = Join-Path $SrcPath "SKILL.md"
+    if (-not (Test-Path $skillFile)) { return }
+
+    try {
+        $hash = (Get-FileHash $skillFile -Algorithm MD5).Hash
+        $lastHashes = Get-LastSyncHashes
+        $lastHashes[$SkillName] = $hash
+        Save-LastSyncHashes $lastHashes
+    } catch { }
+}
+
 # =============================================================
 # Step 0: 检查嵌套 .git 目录（Submodule 预防）
 # =============================================================
@@ -132,17 +216,39 @@ Write-Status "=== 红龙获客系统 同步到 GitHub ==="
 Write-Status "本地技能目录: $LocalSkillsDir"
 
 # =============================================================
+# Step 0: 预检（P1 修复）
+# =============================================================
+if (-not $SkipPrereqCheck) {
+    if (-not (Test-Prerequisites)) {
+        Write-Fail "预检失败，退出"
+        exit 1
+    }
+} else {
+    Write-Warn "跳过预检（-SkipPrereqCheck）"
+}
+
+# =============================================================
 # Step 1: Clone 或更新仓库
 # =============================================================
 if (Test-Path $RepoDir) {
     Write-Status "更新已有仓库..."
     Push-Location $RepoDir
     $null = git fetch origin $Branch 2>&1
+    if ($LASTEXITCODE -ne 0) { Write-Warn "git fetch 失败，继续..." }
     $null = git reset --hard "origin/$Branch" 2>&1
+    if ($LASTEXITCODE -ne 0) { Write-Warn "git reset 失败，继续..." }
     Pop-Location
 } else {
     Write-Status "克隆仓库..."
-    & "C:\Program Files\GitHub CLI\gh.exe" repo clone "$RepoOwner/$RepoName" $RepoDir -- --depth=1 2>&1 | Out-Null
+    $ghResult = & "C:\Program Files\GitHub CLI\gh.exe" repo clone "$RepoOwner/$RepoName" $RepoDir -- --depth=1 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warn "gh clone 失败，尝试 git clone..."
+        git clone --depth=1 "https://github.com/$RepoOwner/$RepoName.git" $RepoDir 2>&1 | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            Write-Fail "无法克隆仓库"
+            exit 1
+        }
+    }
 }
 
 if (-not (Test-Path $RepoDir)) {
@@ -173,6 +279,12 @@ foreach ($skill in $RetainedSkills) {
         continue
     }
 
+    # ★ P1 增量检测：跳过无变化的技能
+    if (-not (Test-SkillChanged -SkillName $skill -SrcPath $srcPath)) {
+        Write-Host "  → 跳过(无变化): $skill" -ForegroundColor DarkGray
+        continue
+    }
+
     # 清空目标（避免残留）
     if (Test-Path $dstPath) {
         Remove-Item $dstPath -Recurse -Force
@@ -192,10 +304,10 @@ foreach ($skill in $RetainedSkills) {
     $exitCode = $LASTEXITCODE
 
     if ($exitCode -le 7) {
-        if ($exitCode -gt 0) {
-            Write-OK "$skill"
-            $synced++
-        }
+        Write-OK "$skill"
+        $synced++
+        # ★ P1：同步成功后保存 hash
+        Save-SkillHash -SkillName $skill -SrcPath $srcPath
     } else {
         Write-Fail "$skill (exit: $exitCode)"
         $failed++
@@ -216,7 +328,7 @@ if (-not $SkipSubmoduleCheck) {
         Write-Warn "发现 $($submodules.Count) 个 submodule 引用!"
         foreach ($sm in $submodules) {
             $path = ($sm -split "`t")[-1]
-            Fix-SubmoduleReference -RepoRoot $RepoDir -SubmodulePath $path
+            $null = Fix-SubmoduleReference -RepoRoot $RepoDir -SubmodulePath $path
         }
     } else {
         Write-OK "无 submodule 引用"
@@ -253,6 +365,11 @@ $changeCount = ($changes | Measure-Object).Count
 Write-Status "$changeCount 个文件有变化，提交中..."
 
 git add -A 2>&1 | Out-Null
+if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) {
+    Write-Fail "git add 失败 (exit: $LASTEXITCODE)"
+    Pop-Location
+    exit 1
+}
 
 # 检查是否有 submodule 修复
 $commitSuffix = ""
@@ -264,6 +381,11 @@ if (-not $SkipSubmoduleCheck) {
 }
 
 git commit -m "$CommitMessage$commitSuffix" 2>&1 | Out-Null
+if ($LASTEXITCODE -ne 0) {
+    Write-Fail "git commit 失败 (exit: $LASTEXITCODE)"
+    Pop-Location
+    exit 1
+}
 
 # 统计
 $fileCount = (Get-ChildItem -Recurse -File | Where-Object { $_.FullName -notmatch '\\.git\\' }).Count

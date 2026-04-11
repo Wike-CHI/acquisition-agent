@@ -1,12 +1,12 @@
 ---
 name: release-manager
 description: >
-  发布管理技能 v3.0.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
+  发布管理技能 v3.1.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
   当用户说"发布新版本"、"打包系统"、"同步到GitHub"、"推送技能到仓库"、
   "sync to github"、"release"、"技能版本管理"、"清理仓库"、
   "更新GitHub仓库"、"force push"、"submodule修复"时使用。
   专为红龙获客系统定制，支持增量同步、submodule检测、大文件过滤。
-version: 3.0.0
+version: 3.1.0
 triggers:
   - 发布管理
   - 打包
@@ -40,6 +40,18 @@ triggers:
 
 ## 使用方式
 
+> ⚠️ **强制约束：禁止直接在 `~/.workbuddy/skills/` 目录执行 git add/commit/push**
+>
+> 所有 GitHub 同步操作必须通过 `scripts/sync-to-github.ps1` 脚本。
+> 直接操作会绕过 TEMP 同步仓库（`%TEMP%\acquisition-agent-sync`）的协调机制，
+> 导致本地仓库与 TEMP 仓库分叉，下一次脚本运行会覆盖本地变更。
+>
+> **唯一正确的操作**：
+> ```powershell
+> cd "C:\Users\Administrator\.workbuddy\skills"
+> .\release-manager\scripts\sync-to-github.ps1 -CommitMessage "你的提交信息"
+> ```
+
 ### GitHub 同步
 
 | 命令 | 行为 |
@@ -52,9 +64,9 @@ triggers:
 
 运行：
 ```powershell
-# 从 GitHub 仓库目录运行
-.\scripts\sync-to-github.ps1
-.\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
+# ★ 必须从 skills 根目录运行（不是 release-manager 目录！）
+cd "C:\Users\Administrator\.workbuddy\skills"
+.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
 ```
 
 ### ZIP 打包
@@ -159,4 +171,4 @@ release-manager/
 
 ---
 
-_Version: 3.0.0_
+_Version: 3.1.0_

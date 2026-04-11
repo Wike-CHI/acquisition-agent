@@ -7,12 +7,20 @@
 - **本地缓存**: `%TEMP%\acquisition-agent-sync`
 - **同步脚本**: `scripts/sync-to-github.ps1`
 
+## ⚠️ 强制约束
+
+> **禁止直接在 `~/.workbuddy/skills/` 执行 git add/commit/push**
+>
+> 所有同步必须通过 `sync-to-github.ps1` 脚本，否则会破坏 TEMP 仓库与本地仓库的协调机制。
+
 ## 同步流程
 
 ```
 本地 ~/.workbuddy/skills/
         │
-        ▼ robocopy 增量同步（排除 node_modules/.git/dist/release）
+        ▼ 预检（gh auth / 网络连通性）
+        │
+        ▼ SKILL.md hash 检测 → 增量同步（跳过无变化的技能）
         │
 %TEMP%/acquisition-agent-sync/skills/
         │
@@ -25,14 +33,12 @@ GitHub: Wike-CHI/acquisition-agent (main)
 
 ## 操作步骤
 
-### 日常同步（推荐）
+### 日常同步（必须）
 
 ```powershell
-# 一键同步
-.\scripts\sync-to-github.ps1
-
-# 自定义 commit message
-.\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
+# ★ 必须从 skills 根目录运行
+cd "C:\Users\Administrator\.workbuddy\skills"
+.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
 ```
 
 ### 首次初始化（从零开始）
@@ -195,4 +201,4 @@ git push --force origin main
 
 ---
 
-_Version: 3.0.0_
+_Version: 3.1.0_
