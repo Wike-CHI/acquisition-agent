@@ -20,9 +20,9 @@ triggers:
 
 ---
 
-## 🔴 知识库门卫（强制前置检查）
+## 🔴 开发信前必须读取 NAS 资料
 
-> ⚠️ **生成开发信前必须先查知识库！**
+> ⚠️ **生成开发信前必须先读取 NAS 上的相关资料**
 
 ### 前置检查流程
 
@@ -30,18 +30,26 @@ triggers:
 用户请求："给ABC公司发开发信"
          ↓
 ┌─────────────────────────────────────────┐
-│ 执行三重查询（必须全部执行）              │
-├─────────────────────────────────────────┤
-│ 1. 公司档案                              │
-│    read-knowledge -Type company -Name "ABC"  │
+│ 1. 挂载NAS（如果未挂载）                 │
+│    net use Y: \\192.168.0.194\市场营销  │
+│              /user:HOLO-AGENT Hl88889999 │
+└─────────────────────────────────────────┘
+         ↓
+┌─────────────────────────────────────────┐
+│ 2. 检查公司档案                          │
+│    读取 Y:\knowledge\companies\ABC.md    │
 │    → 获取公司背景、ICP评分、决策人        │
-│                                         │
-│ 2. 产品知识                              │
-│    read-knowledge -Type products -Name "皮带接头机" │
+└─────────────────────────────────────────┘
+         ↓
+┌─────────────────────────────────────────┐
+│ 3. 读取产品资料（用于个性化）             │
+│    读取 Y:\1.HOLO机器目录\...            │
 │    → 获取产品参数、竞争优势              │
-│                                         │
-│ 3. 邮件记录                              │
-│    read-knowledge -Type email -Name "ABC"    │
+└─────────────────────────────────────────┘
+         ↓
+┌─────────────────────────────────────────┐
+│ 4. 检查邮件记录                          │
+│    读取 Y:\knowledge\emails\ABC.md      │
 │    → 检查是否已发送过                    │
 └─────────────────────────────────────────┘
          ↓
@@ -51,25 +59,34 @@ triggers:
 └─ 未发送 → 继续生成开发信
 ```
 
-### 知识库信息获取
+### NAS 关键路径
 
-| 来源 | 用途 |
-|------|------|
-| 公司档案 | ICP评分、决策人、行业背景 |
-| 产品知识 | 产品参数、竞争优势、定制能力 |
-| 邮件记录 | 避免重复发送、跟进策略 |
+```powershell
+# 公司档案
+Y:\knowledge\companies\{公司名-slug}.md
+
+# 邮件记录
+Y:\knowledge\emails\{公司名-slug}.md
+
+# 产品资料
+Y:\1.HOLO机器目录（最终资料存放）\
+
+# 市场营销资料
+Y:\市场营销\
+Y:\市场营销2\
+```
 
 ### 调用脚本
 
 ```powershell
-# 公司档案
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type company -Name "{公司名}"
+# 挂载NAS
+net use Y: \\192.168.0.194\市场营销 /user:HOLO-AGENT Hl88889999
 
-# 产品知识
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type products -Name "{产品}"
+# 读取公司档案
+Get-Content "Y:\knowledge\companies\{公司名-slug}.md"
 
-# 邮件记录
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type email -Name "{公司名}"
+# 读取邮件记录
+Get-Content "Y:\knowledge\emails\{公司名-slug}.md"
 ```
 
 ---
