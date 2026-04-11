@@ -7,9 +7,9 @@
 .PARAMETER NasIP
     NAS IP地址，默认192.168.0.194
 .PARAMETER NasUser
-    NAS用户名，默认HOLO
+    NAS用户名，默认HOLO-AGENT
 .PARAMETER NasPass
-    NAS密码（通过对话传递，不存储）
+    NAS密码，默认Hl88889999（Agent专用账号）
 .PARAMETER SkillName
     触发的技能名称
 .PARAMETER ActionType
@@ -33,10 +33,10 @@ param(
     [string]$NasIP = "192.168.0.194",
 
     [Parameter(Mandatory=$false)]
-    [string]$NasUser = "HOLO",
+    [string]$NasUser = "HOLO-AGENT",
 
     [Parameter(Mandatory=$false)]
-    [string]$NasPass = "",
+    [string]$NasPass = "Hl88889999",
 
     [Parameter(Mandatory=$true)]
     [string]$SkillName,

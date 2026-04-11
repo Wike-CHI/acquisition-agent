@@ -1,7 +1,7 @@
 ---
 name: holo-activity-log
-version: 1.0.0
-description: HOLO获客系统操作日志埋点技能。记录业务员使用WorkBuddy执行获客流程的每一次操作，数据存储到NAS共享盘。当需要：(1) 记录操作日志 (2) 埋点追踪 (3) 统计分析业务行为 时使用此技能。
+version: 1.1.0
+description: HOLO获客系统操作日志埋点技能。记录业务员使用WorkBuddy执行获客流程的每一次操作，数据存储到NAS共享盘。Agent统一使用HOLO-AGENT账号。当需要：(1) 记录操作日志 (2) 埋点追踪 (3) 统计分析业务行为 时使用此技能。
 always: false
 triggers:
   # 记录相关
@@ -180,16 +180,24 @@ params:
 
 ---
 
-## NAS 连接信息
+## NAS 连接信息（Agent专用）
+
+> ⚠️ **安装须知**：Agent统一使用此账号，不依赖业务员个人NAS账号
 
 | 项目 | 值 |
 |------|-----|
 | IP | `192.168.0.194` |
-| 账号 | `HOLO` |
+| Agent账号 | `HOLO-AGENT` |
+| Agent密码 | `Hl88889999` |
 | 共享路径 | `\\192.168.0.194\home\activity` |
+| 日志目录 | `\\192.168.0.194\home\activity` |
 | 文件格式 | `YYYY-MM-DD.csv` |
 
-> ⚠️ **安全提醒**：密码不存储，通过对话传递
+### 群晖配置要求
+
+1. 在群晖管理界面创建用户 `HOLO-AGENT`，密码 `Hl88889999`
+2. 给该用户分配 `home` 目录的读写权限
+3. 日志目录会自动创建：`home/activity/YYYY-MM-DD.csv`
 
 ---
 
