@@ -30,12 +30,23 @@ from typing import Dict, List, Tuple
 
 OBJECTION_PATTERNS = {
     "price": [
+        # 基础价格异议
         r"too expensiv", r"too expensive", r"overpriced",
         r"price\s*is", r"cost\s*too", r"budget", r"within budget",
         r"can't afford", r"not in the budget",
         r"贵", r"价格", r"太贵", r"预算",
         r"precio", r"caro", r"demasiado", r"presupuesto",
         r"Preis", r"zu teuer", r"Kosten",
+        # 比价场景（关键修复）
+        r"lower\s*price", r"higher\s*price", r"cheaper",
+        r"better\s*price", r"competitor.*price",
+        r"same\s*machine.*price",  # Beltwin比较场景
+        r"beltwin.*price", r"price.*beltwin",
+        r"折扣", r"打折", r"再便宜点",
+        r"descuento", r"rebaja", r"barato",
+        # 葡萄牙语（巴西）价格异议
+        r"muito\s*caro", r"caro\s*demais", r"preço\s*alto",
+        r"não\s*compensa",
     ],
     "已有供应商": [
         r"already\s*(have|goti|supplier|vendor|partner)",
@@ -221,6 +232,16 @@ def main(text: str) -> Dict:
     inq = classify_inquiry(text)
     result["inquiry_types"] = inq
 
+    # Beltwin 比较场景优先检测
+    if re.search(r"beltwin", text, re.IGNORECASE):
+        result["type"] = "objection"
+        result["subtype"] = "beltwin_price"
+        result["confidence"] = 0.85
+        result["suggestion"] = "【异议-Beltwin比价】→ objection-handbook.md 异议13，注意：Beltwin是合作伙伴，主打原厂家定位"
+        result["priority"] = "high"
+        result["objection_types"]["beltwin"] = 1
+        return result
+
     # 检测其他类型
     for p in SAMPLE_REQUEST_PATTERNS:
         if re.search(p, text, re.IGNORECASE):
@@ -250,7 +271,11 @@ def main(text: str) -> Dict:
     obj_total = sum(obj.values())
     inq_total = sum(inq.values())
 
-    if obj_total > inq_total and obj_total >= 2:
+    # 主要异议类型（价格/供应商/质量）有1个匹配就优先判异议
+    PRIMARY_OBJ = {"price", "已有供应商", "质量担忧"}
+    primary_hits = any(k in PRIMARY_OBJ and v >= 1 for k, v in obj.items())
+
+    if primary_hits and obj_total >= 1:
         top_obj = max(obj, key=obj.get)
         result["type"] = "objection"
         result["subtype"] = top_obj
@@ -258,10 +283,14 @@ def main(text: str) -> Dict:
         result["suggestion"] = f"【异议-{top_obj}】→ 查 objection-handbook.md 第01-15条"
         result["priority"] = "high"
 
-        # 特殊标注 Beltwin 相关
-        if re.search(r"beltwin", text, re.IGNORECASE):
-            result["suggestion"] += "，注意：Beltwin 是合作伙伴，不要攻击"
-            result["objection_types"]["beltwin"] = 1
+    elif obj_total >= 1 and inq_total >= 1:
+        # obj < 2 但同时有异议信号+询价信号 → 降级为inquiry
+        top_inq = max(inq, key=inq.get)
+        result["type"] = "inquiry"
+        result["subtype"] = top_inq
+        result["confidence"] = 0.5
+        result["suggestion"] = f"【询价-{top_inq}】→ 查 product-faq.md 相关问答"
+        result["priority"] = "normal"
 
     elif inq_total >= 1:
         top_inq = max(inq, key=inq.get)
