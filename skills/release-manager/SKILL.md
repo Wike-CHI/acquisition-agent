@@ -1,16 +1,19 @@
 ---
 name: release-manager
 description: >
-  发布管理技能 v3.1.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
+  发布管理技能 v3.2.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
   当用户说"发布新版本"、"打包系统"、"同步到GitHub"、"推送技能到仓库"、
   "sync to github"、"release"、"技能版本管理"、"清理仓库"、
   "更新GitHub仓库"、"force push"、"submodule修复"时使用。
   专为红龙获客系统定制，支持增量同步、submodule检测、大文件过滤。
-version: 3.1.0
+  支持 Windows (PowerShell) 和 Linux/macOS (Bash) 双平台。
+version: 3.2.0
 triggers:
   - 发布管理
   - 打包
   - release
+  - 同步GitHub
+  - 推送GitHub
 ---
 
 # release-manager
@@ -21,13 +24,14 @@ triggers:
 
 ### 模式 A：GitHub 仓库同步（推荐）
 
-将本地 `~/.workbuddy/skills/` 中红龙系统相关技能同步到 GitHub 仓库。
+将本地技能目录中红龙系统相关技能同步到 GitHub 仓库。
 
 - **增量同步** - 只传输有变化的技能，跳过无变化的
 - **Submodule 检测** - 自动发现并修复嵌套 `.git/` 导致的 submodule 引用
-- **大文件过滤** - robocopy 排除 node_modules/.git/等，.gitignore 屏蔽图片/视频/PDF
+- **大文件过滤** - 排除 node_modules/.git/等，.gitignore 屏蔽图片/视频/PDF
 - **白名单机制** - 只保留红龙获客系统相关技能（~80个），排除无关技能
 - **一键操作** - clone/pull → 同步 → 检测 → 提交 → 推送
+- **跨平台** - Windows (PowerShell) + Linux/macOS (Bash)
 
 ### 模式 B：ZIP 打包发布
 
@@ -40,17 +44,46 @@ triggers:
 
 ## 使用方式
 
-> ⚠️ **强制约束：禁止直接在 `~/.workbuddy/skills/` 目录执行 git add/commit/push**
+> ⚠️ **强制约束：禁止直接在技能目录执行 git add/commit/push**
 >
-> 所有 GitHub 同步操作必须通过 `scripts/sync-to-github.ps1` 脚本。
-> 直接操作会绕过 TEMP 同步仓库（`%TEMP%\acquisition-agent-sync`）的协调机制，
+> 所有 GitHub 同步操作必须通过同步脚本。
+> 直接操作会绕过 TEMP 同步仓库的协调机制，
 > 导致本地仓库与 TEMP 仓库分叉，下一次脚本运行会覆盖本地变更。
->
-> **唯一正确的操作**：
-> ```powershell
-> cd "C:\Users\Administrator\.workbuddy\skills"
-> .\release-manager\scripts\sync-to-github.ps1 -CommitMessage "你的提交信息"
-> ```
+
+### Windows (PowerShell)
+
+```powershell
+# ★ 必须从 skills 根目录运行（不是 release-manager 目录！）
+cd "C:\Users\Administrator\.workbuddy\skills"
+.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
+
+# 跳过预检
+.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "fix: 修复XX" -SkipPrereqCheck
+```
+
+### Linux / macOS (Bash)
+
+```bash
+# ★ 必须从技能根目录运行
+cd ~/.hermes/skills/acquisition
+bash release-manager/scripts/sync-to-github.sh -m "feat: 新增XX技能"
+
+# 跳过预检
+bash release-manager/scripts/sync-to-github.sh -m "fix: 修复XX" --skip-prereq
+
+# 自定义仓库
+bash release-manager/scripts/sync-to-github.sh -m "sync" --owner Wike-CHI --repo acquisition-agent
+```
+
+### 环境变量（Linux/macOS）
+
+| 变量 | 默认值 | 说明 |
+|------|--------|------|
+| `LOCAL_SKILLS_DIR` | `~/.hermes/skills/acquisition` | 本地技能目录 |
+| `REPO_DIR` | `/tmp/acquisition-agent-sync` | 临时同步仓库路径 |
+| `REPO_OWNER` | `Wike-CHI` | GitHub 用户名 |
+| `REPO_NAME` | `acquisition-agent` | GitHub 仓库名 |
+| `BRANCH` | `main` | 目标分支 |
 
 ### GitHub 同步
 
@@ -62,13 +95,6 @@ triggers:
 | 修复submodule | 自动修复 GCA 的 submodule 引用 |
 | 清理大文件 | 扫描并列出仓库中的大文件 |
 
-运行：
-```powershell
-# ★ 必须从 skills 根目录运行（不是 release-manager 目录！）
-cd "C:\Users\Administrator\.workbuddy\skills"
-.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
-```
-
 ### ZIP 打包
 
 | 命令 | 行为 |
@@ -78,7 +104,7 @@ cd "C:\Users\Administrator\.workbuddy\skills"
 | 发布 v1.2.0 | 使用指定版本号发布 |
 | 发布但不推送 | 打包+提交，不执行 git push |
 
-运行：
+运行（Windows）：
 ```powershell
 .\scripts\check-updates.ps1
 .\scripts\release.ps1
@@ -94,15 +120,15 @@ cd "C:\Users\Administrator\.workbuddy\skills"
 **原因**：GCA 内部有独立的 `.git/` 目录，git 将其识别为 submodule，commit 中只存 commit hash 引用
 
 **修复**：
-```powershell
+```bash
 # 从 git index 中删除 submodule 引用
 git rm --cached skills/global-customer-acquisition
 # 确保 .git 目录已删除
-Remove-Item "skills\global-customer-acquisition\.git" -Recurse -Force
+rm -rf skills/global-customer-acquisition/.git
 # 重新 add 为普通目录
 git add skills/global-customer-acquisition
 # 验证：应该是 100644 (blob) 而不是 160000 (commit)
-git ls-files --stage skills/global-customer-acquisition | Select-Object -First 1
+git ls-files --stage skills/global-customer-acquisition | head -1
 ```
 
 ### 2. 仓库体积膨胀
@@ -151,7 +177,8 @@ temp-*
 release-manager/
 ├── SKILL.md                           # 本文件
 ├── scripts/
-│   ├── sync-to-github.ps1             # GitHub 同步脚本
+│   ├── sync-to-github.ps1             # GitHub 同步脚本 (Windows)
+│   ├── sync-to-github.sh              # GitHub 同步脚本 (Linux/macOS)
 │   ├── check-updates.ps1              # 变更检测
 │   ├── release.ps1                    # ZIP 打包
 │   ├── setup.ps1                      # 初始化
@@ -164,11 +191,19 @@ release-manager/
 
 ## 依赖
 
+### Windows
 - Git（版本控制 + 标签）
 - GitHub CLI（`gh` 可选，用于 PAT 认证 clone）
 - PowerShell 5.1+（`Compress-Archive` 内置，无需 7-Zip）
 - robocopy（Windows 内置，增量同步）
 
+### Linux / macOS
+- Git
+- GitHub CLI（`gh` 可选）
+- rsync（增量同步）
+- curl（网络检测）
+- python3（hash JSON 读写，通常系统自带）
+
 ---
 
-_Version: 3.1.0_
+_Version: 3.2.0_
