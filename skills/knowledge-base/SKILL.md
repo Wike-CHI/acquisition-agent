@@ -1,216 +1,243 @@
 # Knowledge Base Skill - 红龙知识库管理
 
-> 企业背调档案管理，自动去重，全员复用
-
-## 核心定位
-
-**知识库 = 团队共享的情报中心**
-
-- 业务员A背调过的公司 → 自动保存
-- 业务员B再查同一家公司 → 秒级返回，无需重复搜索
-- 知识库越丰富，搜索越来越少
+> ⭐ **团队共享情报中心 + 产品知识库**
 
 ---
 
-## 一、知识库目录结构
+## 🔴 核心规则：知识库门卫（强制前置检查）
+
+> ⚠️ **所有获客行为必须先过知识库！**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    知识库门卫流程                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  用户请求：分析东南亚市场 / 背调查公司 / 了解产品...          │
+│                    ↓                                         │
+│         ┌─────────────────────────┐                         │
+│         │   执行知识库前置检查     │  ← 🔴 强制执行！         │
+│         └─────────────────────────┘                         │
+│                    ↓                                         │
+│    ┌──────┴──────┬──────┴──────┬──────┴──────┐             │
+│    ↓             ↓             ↓             ↓             │
+│ 产品知识库    市场知识库     公司知识库     邮件知识库         │
+│    ↓             ↓             ↓             ↓             │
+│ ┌──┴──┐      ┌──┴──┐      ┌──┴──┐      ┌──┴──┐         │
+│ │有？ │      │有？ │      │有？ │      │有？ │         │
+│ └──┬──┘      └──┬──┘      └──┬──┘      └──┬──┘         │
+│    ↓            ↓            ↓            ↓             │
+│ ┌──┴──┐      ┌──┴──┐      ┌──┴──┐      ┌──┴──┐         │
+│ │ 是  │      │ 是  │      │ 是  │      │ 是  │         │
+│ └──┬──┘      └──┬──┘      └──┬──┘      └──┬──┘         │
+│    ↓            ↓            ↓            ↓             │
+│ 读取上下文   读取上下文   读取上下文   读取上下文         │
+│ 告知用户     告知用户     告知用户     告知用户             │
+│ "已有档案"   "已有报告"   "已有档案"   "已有记录"         │
+│    ↓            ↓            ↓            ↓             │
+│ ┌──┴──┐      ┌──┴──┐      ┌──┴──┐      ┌──┴──┐         │
+│ │ 否  │      │ 否  │      │ 否  │      │ 否  │         │
+│ └──┬──┘      └──┬──┘      └──┬──┘      └──┬──┘         │
+│    ↓            ↓            ↓            ↓             │
+│ 执行调研     执行调研     执行背调     发送邮件           │
+│ 完成后保存   完成后保存   完成后保存   发送后保存         │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 强制执行规则
+
+| 规则 | 说明 |
+|------|------|
+| **前置检查** | 任何获客行为开始前，必须先查知识库 |
+| **先读后写** | 知识库有内容 → 直接使用；无内容 → 执行调研 |
+| **自动保存** | 调研完成后必须保存到知识库 |
+| **全局复用** | 任何业务员调研的结果，全员可查 |
+
+---
+
+## 一、知识库类型
+
+### 1.1 四类知识库
+
+| 类型 | 目录 | 用途 | 查询时机 |
+|------|------|------|---------|
+| **products** | `products/` | 产品知识库 | 任何涉及产品的问题 |
+| **market** | `market-research/` | 市场调研报告 | 市场分析前 |
+| **companies** | `companies/` | 企业背调档案 | 公司调研前 |
+| **emails** | `emails/` | 已发送开发信 | 开发信生成前 |
+
+### 1.2 产品知识库结构
 
 ```
 \\192.168.0.194\home\knowledge\
-├── companies/              # 企业背调档案
-│   ├── ABC-Corp.md         # 背调报告
-│   ├── XYZ-Ltd.md
-│   └── ...
-├── contacts/               # 联系人档案
+├── products/                    # ⭐ 产品知识库
+│   ├── index.md               # 产品总索引
+│   ├── 风冷接头机/
+│   │   ├── index.md          # 产品系列索引
+│   │   ├── 二代.md
+│   │   ├── 三代.md
+│   │   ├── 四代.md
+│   │   └── 规格参数.md
+│   ├── 水冷接头机/
+│   │   └── ...
+│   ├── 分层机/
+│   ├── 导条机/
+│   └── 配套设备/
+├── market-research/            # 市场调研
+│   ├── 东南亚市场.md
+│   ├── 非洲市场.md
+│   └── 南美市场.md
+├── companies/                  # 企业背调
+│   └── ABC-Corp.md
+├── contacts/                   # 联系人
 │   └── ABC-Corp/
 │       └── John-Smith.md
-├── market-research/        # 市场调研
-│   └── Africa/
-│       └── Ethiopia.md
-└── emails/                # 已发送的开发信
+└── emails/                     # 开发信记录
     └── 2026-04/
-        └── ABC-Corp-20260410.md
+        └── ABC-Corp.md
 ```
 
 ---
 
-## 二、知识库文件命名规则
+## 二、查询脚本
 
-| 类型 | 命名格式 | 示例 |
-|------|---------|------|
-| 企业档案 | `{公司名-slug}.md` | `national-cement-ethiopia.md` |
-| 联系人 | `{公司-slug}/{姓名-slug}.md` | `national-cement-ethiopia/john-smith.md` |
-| 市场报告 | `{区域}/{国家}.md` | `africa/ethiopia.md` |
-| 开发信 | `{公司-slug}/{公司}-{日期}.md` | `abc-corp/20260410.md` |
-
----
-
-## 三、工作流程
-
-### 3.1 读取知识库（查重）
-
-```
-输入：公司名
-       ↓
-生成slug：公司名 → national-cement-ethiopia
-       ↓
-检查路径：\\192.168.0.194\home\knowledge\companies\{slug}.md
-       ↓
-   存在？
-   ├── 是 → 读取档案 + 更新 metadata + 返回
-   └── 否 → 返回空（需要背调）
-```
-
-### 3.2 写入知识库（保存）
-
-```
-背调完成 → 格式化报告 → 保存到知识库
-       ↓
-路径：\\192.168.0.194\home\knowledge\companies\{slug}.md
-       ↓
-内容：标准背调报告格式
-       ↓
-更新meta：last_researcher, last_research_time, research_count
-```
-
-### 3.3 更新知识库（追加）
-
-```
-收到新信息 → 检查档案是否存在
-       ↓
-存在？
-├── 是 → 追加到对应section
-└── 否 → 提示：需要先背调
-```
-
----
-
-## 四、知识库档案格式
-
-### 4.1 企业背调档案模板
-
-```markdown
----
-title: {公司名}
-status: researched  # researched / contacted / qualified / closed
-icp_score: 85
-icp_grade: A       # A / B / C / D
-last_researcher: Administrator@192.168.0.170
-last_research_time: 2026-04-10 17:05:00
-research_count: 1
-created_time: 2026-04-10 17:05:00
----
-
-# {公司名}
-
-**状态**: ✅ 已调查  
-**ICP评分**: {分数}/100 ({等级}级)  
-**最后调查**: {时间} by {调查人}  
-**调查次数**: {次数}
-
----
-
-## 企业概况
-
-| 项目 | 信息 |
-|------|------|
-| 名称 | {公司名} |
-| 总部 | {地址} |
-| 行业 | {行业} |
-| 规模 | {规模} |
-| 年营收 | {营收} |
-| 网站 | {网站} |
-
-## 产品需求
-
-| 产品 | 需求程度 | 备注 |
-|------|---------|------|
-| 风冷接头机 | 高 | 适用规格 600-1800 |
-| 水冷接头机 | 中 | 大规格需求 |
-
-## 关键决策者
-
-| 姓名 | 职位 | 邮箱 | 来源 |
-|------|------|------|------|
-| John Smith | Procurement Manager | john@xxx.com | LinkedIn |
-
-## 开发历史
-
-| 日期 | 动作 | 结果 | 负责人 |
-|------|------|------|--------|
-| 2026-04-10 | 背调 | 完成 | Admin |
-| 2026-04-10 | 开发信 | 已发送 | Admin |
-
-## 备注
-
-```
-
----
-
-## 五、脚本说明
-
-### 5.1 读取知识库
+### 2.1 read-knowledge.ps1
 
 ```powershell
-# 检查企业档案是否存在
-.\\read-knowledge.ps1 -Type company -Name "National Cement Ethiopia"
+# 查询产品知识库
+. .\read-knowledge.ps1 -Type products -Name "风冷机三代"
 
-# 返回：
-# - exists: true/false
-# - content: 档案内容（如果存在）
-# - metadata: 基本信息
+# 查询市场调研
+. .\read-knowledge.ps1 -Type market -Name "东南亚市场"
+
+# 查询企业档案
+. .\read-knowledge.ps1 -Type company -Name "ABC Corp"
+
+# 查询开发信记录
+. .\read-knowledge.ps1 -Type email -Name "ABC Corp"
 ```
 
-### 5.2 写入知识库
+### 2.2 write-knowledge.ps1
 
 ```powershell
-# 保存背调报告
-.\\write-knowledge.ps1 -Type company -Name "National Cement Ethiopia" -Content $report
+# 保存产品知识
+. .\write-knowledge.ps1 -Type products -Name "风冷机三代" -Content $content
 
-# 保存联系人
-.\\write-knowledge.ps1 -Type contact -Company "National Cement Ethiopia" -Name "John Smith" -Content $contactInfo
+# 保存市场调研
+. .\write-knowledge.ps1 -Type market -Name "东南亚市场" -Content $report
+
+# 保存企业档案
+. .\write-knowledge.ps1 -Type company -Name "ABC Corp" -Content $report
+
+# 保存开发信
+. .\write-knowledge.ps1 -Type email -Name "ABC Corp" -Content $emailContent
 ```
 
-### 5.3 搜索知识库
+### 2.3 search-knowledge.ps1
 
 ```powershell
-# 搜索包含关键词的档案
-.\\search-knowledge.ps1 -Query "cement ethiopia"
-
-# 列出所有企业档案
-.\\list-knowledge.ps1 -Type companies
+# 搜索关键词
+. .\search-knowledge.ps1 -Query "风冷机 规格"
 ```
 
 ---
 
-## 六、集成到其他技能
+## 三、知识库门卫执行流程
 
-### 6.1 company-research 钩子
-
-```
-company-research 流程修改：
-
-1. 接收公司名
-2. 调用 read-knowledge 检查是否存在
-3. 如果存在 → 返回"已有档案" + 显示摘要
-4. 如果不存在 → 执行背调 → 调用 write-knowledge 保存
-```
-
-### 6.2 cold-email-generator 钩子
+### 3.1 产品相关查询
 
 ```
-cold-email-generator 流程修改：
+用户问："风冷机三代有什么规格？"
+         ↓
+执行查询：read-knowledge -Type products -Name "风冷机三代"
+         ↓
+┌─ 存在 → 返回产品规格上下文
+│         告知："已在知识库找到相关产品信息"
+│
+└─ 不存在 → 查询honglong-products技能获取产品信息
+            → 保存到products/目录
+            → 返回产品信息
+```
 
-1. 接收公司名
-2. 调用 read-knowledge 获取公司背景
-3. 生成个性化开发信
-4. 保存发送记录到 knowledge/emails/
+### 3.2 市场调研查询
+
+```
+用户请求："分析东南亚市场"
+         ↓
+执行查询：read-knowledge -Type market -Name "东南亚市场"
+         ↓
+┌─ 存在 → 返回报告摘要 + 关键数据
+│         告知："已有2026-04-11调研报告，是否需要更新？"
+│         询问："补充最新数据？"
+│
+└─ 不存在 → 执行market-research技能调研
+            → 生成六维度报告
+            → 保存到market-research/目录
+            → 返回完整报告
+```
+
+### 3.3 公司背调查询
+
+```
+用户请求："调研ABC公司"
+         ↓
+执行查询：read-knowledge -Type company -Name "ABC Corp"
+         ↓
+┌─ 存在 → 返回档案摘要 + ICP评分
+│         告知："该公司已在2026-04-10调研过"
+│         询问："是否需要补充更新？"
+│
+└─ 不存在 → 执行company-research技能背调
+            → 生成背调报告
+            → 保存到companies/目录
+            → 返回完整报告
+```
+
+### 3.4 开发信生成查询
+
+```
+用户请求："给ABC公司发开发信"
+         ↓
+执行查询：
+  1. read-knowledge -Type company -Name "ABC Corp"  # 获取公司背景
+  2. read-knowledge -Type products -Name "风冷机"    # 获取产品信息
+  3. read-knowledge -Type email -Name "ABC Corp"    # 检查是否已发送
+         ↓
+┌─ 公司档案存在 → 使用公司信息个性化开发信
+│
+├─ 产品信息存在 → 使用产品知识
+│
+└─ 已发送过 → 告知："该公司已在X月X日发送过开发信"
+             询问："是否要重新发送？"
 ```
 
 ---
 
-## 七、NAS 连接信息（Agent专用）
+## 四、知识库脚本位置
 
-> ⚠️ **安装须知**：Agent统一使用此账号，不依赖业务员个人NAS账号
+```
+C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\
+├── read-knowledge.ps1      # 读取知识库
+├── write-knowledge.ps1     # 写入知识库
+├── search-knowledge.ps1    # 搜索知识库
+└── list-knowledge.ps1      # 列出档案
+```
+
+### 调用方式
+
+```powershell
+# 方式1：cd到脚本目录
+cd "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts"
+. .\read-knowledge.ps1 -Type products -Name "风冷机三代"
+
+# 方式2：绝对路径
+. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type products -Name "风冷机三代"
+```
+
+---
+
+## 五、NAS连接信息
 
 | 项目 | 值 |
 |------|-----|
@@ -219,49 +246,58 @@ cold-email-generator 流程修改：
 | Agent密码 | `Hl88889999` |
 | 共享路径 | `\\192.168.0.194\home` |
 | 知识库目录 | `\\192.168.0.194\home\knowledge` |
-| 目录结构 | companies/contacts/market-research/emails |
 
-### 群晖配置要求
+### 挂载命令
 
-1. 在群晖管理界面创建用户 `HOLO-AGENT`，密码 `Hl88889999`
-2. 给该用户分配 `home` 目录的读写权限
-3. 知识库目录会自动创建：`home/knowledge/companies/`
+```powershell
+net use K: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
+```
 
 ---
 
-## 八、触发词
+## 六、触发词
+
+### 知识库查询触发
 
 - 知识库
 - 查一下公司档案
 - 这家公司调查过吗
 - 企业档案
-- knowledge base
-- company profile
 - 已有的客户资料
 - 团队共享情报
+- **产品相关** - 风冷机/水冷机/分层机/规格/参数
+- **市场相关** - 分析XX市场/XX市场调研
+- **公司相关** - 调研XX公司/XX公司背景
+
+### 强制执行场景
+
+| 用户说 | AI必须先做 |
+|--------|-----------|
+| "分析东南亚市场" | `read-knowledge -Type market -Name "东南亚市场"` |
+| "调研ABC公司" | `read-knowledge -Type company -Name "ABC"` |
+| "风冷机三代参数" | `read-knowledge -Type products -Name "风冷机三代"` |
+| "给ABC发开发信" | 先查公司档案 + 产品信息 |
+| "了解HOLO产品" | `read-knowledge -Type products` |
 
 ---
 
-## 九、维护
+## 七、维护
 
-### 9.1 定期清理
+### 定期任务
 
 | 任务 | 频率 | 说明 |
 |------|------|------|
 | 去重检查 | 每月 | 合并相似档案 |
 | 归档旧档 | 每季度 | 归档超过1年无更新的档案 |
 | 备份 | 每周 | 备份到本地 |
-
-### 9.2 权限控制
-
-| 角色 | 权限 |
-|------|------|
-| 业务员 | 读写自己的调查结果 |
-| 管理员 | 管理所有档案 |
+| 产品知识更新 | 按需 | 产品升级后更新 |
 
 ---
 
-## 版本
+## 版本历史
 
-- v1.1.0 (2026-04-10): 更新NAS账号为HOLO-AGENT（Agent专用）
-- v1.0.0 (2026-04-10): 初始版本
+| 版本 | 日期 | 更新内容 |
+|------|------|---------|
+| v1.2.0 | 2026-04-11 | **新增产品知识库 + 知识库门卫规则** |
+| v1.1.0 | 2026-04-10 | 更新NAS账号为HOLO-AGENT |
+| v1.0.0 | 2026-04-10 | 初始版本 |

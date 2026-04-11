@@ -413,29 +413,46 @@ HOLO适配度: ★★★★☆
 
 ---
 
-## 知识库集成（自动钩子）
+## 🔴 知识库门卫（强制前置检查）
 
-> ⭐ 市场调研前查询 → 调研后自动保存，全员复用
+> ⚠️ **市场调研前必须先查知识库！**
 
-### 钩子1：调研前查询（必检）
+### 前置检查流程
+
+```
+用户请求："分析东南亚市场"
+         ↓
+┌─────────────────────────────────────────┐
+│ 执行知识库查询（强制）                   │
+│ read-knowledge -Type market -Name "东南亚市场" │
+└─────────────────────────────────────────┘
+         ↓
+┌─ 存在 → 读取报告摘要 + 关键数据
+│         告知："已找到2026-04-11的调研报告"
+│         询问："是否需要补充最新数据？"
+│
+└─ 不存在 → 执行六维度市场调研
+            → 生成报告保存到本地
+            → 调用write-knowledge保存到NAS
+            → 返回完整报告
+```
+
+### 调研前查询（必检）
 
 **触发时机**：用户请求调研市场时，**先执行查询**
 
 ```powershell
 # 调研前：先查知识库
-. "$PSScriptRoot\..\knowledge-base\scripts\read-knowledge.ps1" -Type market -Name "东南亚市场"
+. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type market -Name "东南亚市场"
 ```
 
-**查询逻辑**：
-```
-用户请求："分析东南亚市场"
-    ↓
-查询知识库：read-knowledge -Type market -Name "东南亚市场"
-    ↓
-┌─ 存在 → 读取报告摘要 + 关键数据 → 作为上下文
-│          告知用户："已找到2026-04-11的调研报告，是否需要补充更新？"
-│
-└─ 不存在 → 执行新调研 → 调研后保存到知识库
+### 调研后保存（自动）
+
+**触发时机**：调研报告生成并保存到本地文件后
+
+```powershell
+# 调研后：保存到知识库
+. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent -Overwrite "yes"
 ```
 
 ### 钩子2：调研后保存（自动）

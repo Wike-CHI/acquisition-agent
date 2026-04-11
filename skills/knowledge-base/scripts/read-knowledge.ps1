@@ -1,9 +1,11 @@
 # Read Knowledge Base Entry
 # 用法: .\read-knowledge.ps1 -Type company -Name "National Cement Ethiopia"
+#       .\read-knowledge.ps1 -Type products -Name "风冷机三代"
+#       .\read-knowledge.ps1 -Type market -Name "东南亚市场"
 
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("company", "contact", "market", "email")]
+    [ValidateSet("company", "contact", "market", "email", "products")]
     [string]$Type,
 
     [Parameter(Mandatory=$true)]
@@ -48,6 +50,7 @@ switch ($Type) {
     "contact" { $filePath = "$basePath\contacts\$slug\$(if($SubName){New-Slug $SubName}else{'contact'}).md" }
     "market" { $filePath = "$basePath\market-research\$slug.md" }
     "email" { $filePath = "$basePath\emails\$slug.md" }
+    "products" { $filePath = "$basePath\products\$slug.md" }
 }
 
 # 读取文件

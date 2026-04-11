@@ -3,7 +3,7 @@
 
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("company", "contact", "market", "email")]
+    [ValidateSet("company", "contact", "market", "email", "products")]
     [string]$Type,
 
     [Parameter(Mandatory=$true)]
@@ -69,6 +69,7 @@ switch ($Type) {
     "contact" { $dirSlug = New-Slug $Name; $dirPath = "$basePath\contacts\$dirSlug"; $filePath = "$dirPath\$(if($SubName){New-Slug $SubName}else{'contact'}).md" }
     "market" { $dirPath = "$basePath\market-research"; $filePath = "$dirPath\$slug.md" }
     "email" { $dirPath = "$basePath\emails"; $filePath = "$dirPath\$slug.md" }
+    "products" { $dirPath = "$basePath\products"; $filePath = "$dirPath\$slug.md" }
 }
 
 # 创建目录

@@ -47,6 +47,48 @@ triggers:
 
 温州红龙工业设备制造有限公司产品知识体系，用于AI辅助产品咨询、技术支持、报价等场景。
 
+---
+
+## 🔴 知识库门卫（强制前置检查）
+
+> ⚠️ **产品相关查询必须先查知识库！**
+
+### 前置检查流程
+
+```
+用户询问："风冷机三代有什么规格？"
+         ↓
+执行查询：read-knowledge -Type products -Name "风冷机三代"
+         ↓
+┌─ 存在 → 返回产品规格上下文
+│         告知："已在产品知识库找到相关信息"
+│
+└─ 不存在 → 使用honglong-products技能获取产品信息
+            → 完成后保存到products/目录
+```
+
+### 知识库产品分类
+
+| 产品类型 | 知识库名称 |
+|---------|-----------|
+| 风冷接头机 | `风冷接头机`、`风冷机`、`风冷` |
+| 水冷接头机 | `水冷接头机`、`水冷机`、`水冷` |
+| 分层机 | `分层机`、`750分层机` |
+| 导条机 | `导条机`、`XDT1300`、`XDT2000` |
+| 配套设备 | `打齿机`、`裁切机`、`碰接机` |
+
+### 调用脚本
+
+```powershell
+# 查询产品知识
+. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type products -Name "{产品名}"
+
+# 保存产品知识（调研完成后）
+. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\write-knowledge.ps1" -Type products -Name "{产品名}" -Content $content
+```
+
+---
+
 ## 核心能力
 
 1. **产品识别** - 根据编码识别产品型号、规格、配置
