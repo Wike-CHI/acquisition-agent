@@ -123,6 +123,11 @@ intents:
     keywords: [报价, 报价单, 价格, quote, quotation, pricing]
     description: "生成产品报价单"
 
+  sales_response:
+    keywords: [回复客户, 收到询盘, 客户说太贵, 客户议价, 异议处理, 客户还价, 销售应答, inquiry response, sales reply, objection handling, 回复邮件, 怎么回客户, 销售话术, 谈判策略, negotiation, 客户的问题]
+    description: "销售智能应答 - 处理客户回复、异议处理、文化适配、生成回复"
+    market_aware: true
+
   crm_import:
     keywords: [导入孚盟, 导入CRM, 生成导入模板, 一键导入, 批量导入客户, 客户数据同步, 导出到孚盟]
     description: "客户数据导入孚盟CRM"
@@ -309,6 +314,20 @@ routing:
         condition: "产品匹配+基础报价"
         fallback: []
 
+  sales_response:
+    overseas:
+      - skill: sales-response
+        priority: 6
+        condition: "销售智能应答（异议处理+文化适配）"
+        next: [cold-email-generator]
+        fallback: [product-faq]
+    domestic:
+      - skill: sales-response
+        priority: 6
+        condition: "销售智能应答（异议处理）"
+        next: [cold-email-generator]
+        fallback: [product-faq]
+
   crm_import:
     all_markets:
       - skill: fumamx-import-adapter
@@ -494,6 +513,10 @@ skills_index:
     path: "skill://instagram-acquisition"
     description: "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。"
     layer: discovery
+  sales-response:
+    path: "skill://sales-response"
+    description: "销售智能应答技能 - 客户回复处理中心。收到客户邮件/回复后，自动分类异议、匹配合适话术、生成个性化回复。覆盖：异议处理(15种)、各国商业文化画像(18国)、产品FAQ、谈判策略、竞品情报。"
+    layer: outreach
   linkedin:
     path: "skill://linkedin"
     description: "LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send "
