@@ -41,11 +41,11 @@ always: false
   scripts/classify-inquiry.py（自动分类）
        ↓
   判断类型：
-  ├─ objection  → objection-handbook.md（异议处理）
-  ├─ inquiry    → product-faq.md（产品FAQ）
-  ├─ negotiation → negotiation-tactics.md（谈判策略）
-  ├─ sample_request → product-faq.md Q8（索样）
-  └─ follow_up → cultural-profiles.md（跟进节奏）
+├─ objection  → objection-handbook.md（异议处理）
+├─ inquiry    → product-faq.md（产品FAQ）
+├─ negotiation → negotiation-tactics.md（谈判策略）
+├─ sample_request → product-faq.md Q12操作培训+Q23技术培训（索样）
+└─ follow_up → cultural-profiles.md（跟进节奏）
        ↓
   匹配对应国家文化画像（cultural-profiles.md）
        ↓
@@ -115,6 +115,21 @@ Agent 自动：
 3. 主打"源头厂家"定位话术
 4. 参考 `objection-handbook.md` → 异议13
 
+### 客户说"Beltwin报价更低"
+
+1. 查 `competitor-intel.md` → Beltwin 部分（重点！）
+2. **绝对不能攻击 Beltwin**（十年合作伙伴）
+3. 主打"源头厂家"定位话术（查 `objection-handbook.md` → 异议13）
+4. 查 `cultural-profiles.md` → 客户国家 → 调整语气（美国客户打ROI牌，拉美打关系牌）
+5. 用 `templates/reply-objection.md` → Beltwin比较模板
+
+### 客户说"Beltwin是我们老供应商"
+
+1. 查 `competitor-intel.md` → Beltwin 覆盖地图，确认是否重叠市场
+2. 查 `objection-handbook.md` → 异议02（已有供应商）
+3. **不要正面抢客户**——切入增量场景（如新产品线、特殊规格）
+4. 参考 `competitor-intel.md` → 经销商合作政策规范
+
 ### 客户问技术参数
 
 1. 查 `product-faq.md` → 对应分类（选型/参数/兼容性等）
@@ -168,11 +183,13 @@ sales-response/
 
 ## 版本信息
 
-- Version: 1.0.0
+- Version: 1.0.1
 - 创建日期：2026-04-11
+- 更新日期：2026-04-11
+- 更新内容：修复SKILL.md Q8错误引用、补全模板签名、Beltwin专项索引
 - 来源：红龙获客系统销售应答技能，基于实战经验沉淀
 - 维护：与红龙获客系统同步更新
 
 ---
 
-_Version: 1.0.0_
+_Version: 1.0.1_

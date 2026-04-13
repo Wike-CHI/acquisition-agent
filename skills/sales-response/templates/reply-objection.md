@@ -88,6 +88,8 @@ Which approach would be most useful for your situation?
 
 Best regards,
 Wike Chen
+Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
++86 131 6586 2311 | wikeye2025@163.com
 ```
 
 ### Beltwin比较 - 原厂家话术
@@ -115,6 +117,8 @@ Would it be helpful if I prepared a direct cost comparison between purchasing di
 
 Best regards,
 Wike Chen
+Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
++86 131 6586 2311 | wikeye2025@163.com
 ```
 
 ### 已有供应商 - 差距分析
@@ -138,6 +142,8 @@ What aspects of your current setup have been most challenging?
 
 Best regards,
 Wike Chen
+Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
++86 131 6586 2311 | wikeye2025@163.com
 ```
 
 ### 考虑考虑 - 挖痛点
@@ -160,6 +166,8 @@ I'm here to help you make the best decision for your operation - even if that me
 
 Best regards,
 Wike Chen
+Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
++86 131 6586 2311 | wikeye2025@163.com
 ```
 
 ### 技术问题 - 直接回答
@@ -182,8 +190,10 @@ Let me know if this answers your question or if you need additional information.
 
 Best regards,
 Wike Chen
+Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
++86 131 6586 2311 | wikeye2025@163.com
 ```
 
 ---
 
-_Version: 1.0.0_
+_Version: 1.0.1_
