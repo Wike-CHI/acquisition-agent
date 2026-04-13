@@ -1,7 +1,7 @@
 ---
 name: holo-social-infographic
-description: "HOLO社媒信息图生成技能 - 使用 Draw.io CLI 生成技术参数图、流程图、对比图。所有数据必须来自 NAS 共享盘真实产品资料，禁止捏造。"
-version: 2.3.0
+description: "HOLO社媒信息图生成技能 - 生成数据密集型长图（竞品对比、技术参数表、操作流程、选型指南、应用场景）。固定白底宽图风格，宽度1920px，适合数据展示而非视觉冲击。所有数据必须来自 NAS 共享盘真实产品资料，禁止捏造。"
+version: 2.4.1
 triggers:
   - 生成信息图
   - 信息图
@@ -29,11 +29,55 @@ triggers:
   - 展示参数
   - 可视化参数
   - 技术说明图
+  - 选型图
+  - FAQ图
+  - 应用场景图
 ---
 
 # HOLO 社媒信息图生成技能
 
-> 使用 Draw.io CLI 生成技术参数信息图，用于社媒运营配图
+---
+
+## 🔀 与 holo-social-gen 的职责边界（必读）
+
+> **这是最容易混淆的点。明确边界才不会调错技能。**
+
+| 对比维度 | **holo-social-gen** | **holo-social-infographic（本技能）** |
+|---------|---------------------|---------------------------------------|
+| **核心目的** | 视觉冲击、品牌曝光、吸引注意 | 传递信息、数据展示、说服决策 |
+| **受众动作** | 点赞、收藏、分享 | 截图保存、对比参考、转发给采购 |
+| **图片尺寸** | 固定平台比例（1080×1080、1080×1920、1200×627 等） | 固定宽度 **1920px**，高度按内容自动延伸（通常 2400~4000px） |
+| **内容密度** | **低密度** — 大图 + 少量文字 + 强视觉 | **高密度** — 参数表格 + 对比数据 + 多层信息 |
+| **设计风格** | AI 自由创作（多样化、有个性） | **固定白底简约**（Apple/西门子风，禁止花哨） |
+| **产品图片** | **必须** base64 内嵌（产品是主角） | **可选** — 技术图以数据为主，图片是辅助 |
+| **适合场景** | Instagram 帖子、LinkedIn 封面、TikTok 素材 | 技术文档配图、Email 附件、WhatsApp 发给客户 |
+| **生成方式** | AI 手写每张 HTML（禁止脚本批量） | Python 脚本 + HTML 模板（数据驱动，适合批量） |
+| **版本号** | v7.2 | v2.4.1 |
+
+### ⚡ 快速判断口诀
+
+```
+"这张图是让人眼前一亮的？" → holo-social-gen
+"这张图是让人看懂数据的？" → holo-social-infographic（本技能）
+```
+
+### 具体场景映射
+
+| 用户说 | 调用哪个 |
+|--------|---------|
+| "做一张 Instagram 宣传图" | ✅ holo-social-gen |
+| "做一张 LinkedIn 封面图" | ✅ holo-social-gen |
+| "生成竞品对比图，发给客户看规格" | ✅ **本技能** |
+| "做一张技术参数表" | ✅ **本技能** |
+| "帮我做一张操作流程图" | ✅ **本技能** |
+| "生成产品选型指南长图" | ✅ **本技能** |
+| "做一张 Instagram 风格的参数展示图" | ⚠️ holo-social-gen（用 `industrial` 平台，它会设计参数风格图） |
+| "生成一张好看的产品图" | ⚠️ 问用户：偏视觉冲击还是数据展示？ |
+
+---
+
+> 使用 **HTML + CSS + Playwright** 生成数据密集型长图，用于社媒配图和客户资料。
+> ⚠️ 旧版使用 Draw.io CLI — 已废弃，当前统一用 `Playwright full_page=True` 截图方案。
 
 ---
 
@@ -201,10 +245,25 @@ python holo_infographic.py applications
 
 ```
 ~/.workbuddy/skills/holo-social-infographic/
-├── holo_infographic.py           # 统一生成器（入口）
+├── scripts/
+│   ├── holo_infographic.py   # 统一入口（在此目录下运行）
+│   ├── gen_compare_long.py   # 竞品对比长图
+│   ├── gen_comparison.py     # 竞品对比
+│   ├── gen_faq.py            # FAQ 图文
+│   ├── gen_selector.py       # 产品选型图
+│   ├── gen_applications.py   # 应用场景图
+│   ├── product_db.py         # 产品数据层
+│   └── nas_image_scanner.py  # NAS白底图扫描
 └── templates/
-    ├── HOLO_竞品对比长图_国际版_v2.html    # ✅ 竞品对比
-    └── HOLO_技术参数图_国际版.html          # ✅ 技术参数（新增）
+    ├── HOLO_竞品对比长图_国际版_v2.html    # ✅ 竞品对比（推荐）
+    ├── HOLO_技术参数图_国际版.html          # ✅ 技术参数
+    ├── HOLO_产品选型图_国际版.html          # ✅ 选型图
+    ├── HOLO_应用场景图_国际版.html          # ✅ 应用场景
+    └── HOLO_FAQ图文_国际版.html             # ✅ FAQ
+
+⚠️ 正确调用方式（必须 cd 到 scripts/ 目录）：
+cd ~/.workbuddy/skills/holo-social-infographic/scripts
+python holo_infographic.py [command]
 ```
 
 ### Playwright 截图核心函数
@@ -537,5 +596,5 @@ except Exception as e:
 | 2.1.0 | 2026-04-11 | 改用Playwright完整页面截图，修复截断问题 |
 | 2.2.0 | 2026-04-11 | 技术参数图支持传入NAS产品图片，自动加载Hero区域 |
 | 2.3.0 | 2026-04-11 | 所有信息图统一多源数据流程：NAS + 知识库 + 网络搜索 |
-| 2.4.0 | 2026-04-11 | 新增 nas_image_scanner.py，自动从NAS扫描产品白底图 |
-| 2.3.0 | 2026-04-11 | 新增FAQ图文、产品选型图、应用场景图生成器 |
+| 2.4.0 | 2026-04-11 | 新增 nas_image_scanner.py；新增FAQ图文、选型图、应用场景图；脚本移至 scripts/ 子目录 |
+| **2.4.1** | **2026-04-13** | **补充与 holo-social-gen 的职责边界说明；修正技术方案描述（HTML+Playwright，非Draw.io）；修复版本号重复；修正脚本路径** |
