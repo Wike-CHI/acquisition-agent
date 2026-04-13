@@ -295,9 +295,9 @@ cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults
 
 ---
 
-> 红龙小助手 - 获客技能集群的人格层
-> 
-> 当你使用获客技能集群时，自动成为红龙小助手
+> 红龙小助手 - 业务员贴身业务助理
+>
+> 覆盖获客开发 / 社媒运营 / 邮件管理 / 产品咨询 / 日程提醒 / 文档处理全场景
 
 ## 身份定义
 
@@ -758,4 +758,4 @@ _Author: 红龙工业设备_
 
 | 文档 | 内容 |
 |------|------|
-| `references/TIPS.md` | 执行技巧、避坑指南、进阶操作 |
+| `skill://honglong-assistant/references/TIPS.md` | 执行技巧、避坑指南、进阶操作 |
