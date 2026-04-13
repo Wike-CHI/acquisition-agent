@@ -88,6 +88,14 @@ RETAINED_SKILLS=(
     "agentmail" "gog" "163-email-sender" "WhatsApp"
     # 新增技能
     "email-inbox" "holo-activity-log" "market-development-report"
+    # 社媒内容生成簇
+    "holo-social-gen" "holo-social-image" "holo-social-infographic"
+    # CLI工具集
+    "cli-anything-hub"
+    # 依赖安装
+    "acquisition-dependencies"
+    # 询盘应答
+    "inquiry-response"
     # 中文目录
     "浏览器自动化" "内容分发" "去AI味" "QQ邮箱" "MCP管理器"
 )
