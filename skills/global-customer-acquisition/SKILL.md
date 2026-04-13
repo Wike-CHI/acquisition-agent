@@ -702,6 +702,8 @@ Step 9: 日报生成
 | `skill://acquisition-workflow/references/ARCHITECTURE.md` | 完整架构、Skills Router、7层上下文 |
 | `skill://acquisition-workflow/references/PIPELINE.md` | 11步流程详细、ICP评分、开发信打磨 |
 | `skill://acquisition-workflow/references/SOCIAL-MEDIA.md` | Facebook/Instagram/LinkedIn运营策略 |
+| `skill://holo-social-image` | CLI图片处理（尺寸/水印/格式） |
+| `skill://holo-social-infographic` | Draw.io信息图生成 |
 | `skill://acquisition-workflow/references/TROUBLESHOOT.md` | 常见错误清单、回退/重试 |
 | `skill://acquisition-workflow/references/ICP.md` | 目标客户群体详细定义 |
 | `skill://acquisition-workflow/references/SCORING.md` | 评分体系详细标准 |
@@ -712,3 +714,82 @@ Step 9: 日报生成
 
 *版本：v3.0.0 | 更新时间：2026-04-10*
 *变更：架构重构v3.0.0。共享文档（PIPELINE/ROUTING-TABLE/SCORING等13个）从 references/ 迁移到 `skill://acquisition-workflow/references/`。本技能瘦身为统一入口+意图路由层，不再承担共享文档仓库职责。*
+
+---
+
+## 🎨 社媒运营 + CLI-Anything 集成（v3.1.0 新增）
+
+> **2026-04-11**：集成 CLI-Anything 专业工具，实现"内容生成 → 自动配图"完整闭环
+
+### ⚠️ 核心原则：真实产品信息优先
+
+**所有产品信息必须来自 NAS 共享盘真实资料，禁止捏造！**
+
+| 内容类型 | 数据来源 | 禁止 |
+|---------|---------|------|
+| 技术参数 | NAS产品规格书 / honglong-products技能 | ❌ 捏造参数 |
+| 设备型号 | NAS编码规则 | ❌ 虚构型号 |
+| 客户案例 | CRM/实际成交记录 | ❌ 虚构客户 |
+| 产品图片 | NAS共享盘（Y:\1.HOLO机器目录\） | ❌ 网络图片 |
+
+### 📦 完整社媒运营流程
+
+```
+用户：帮我发一条Facebook，产品是A2FRJ风冷机
+        ↓
+Step 1: 读取真实产品信息
+        → honglong-products 技能读取参数
+        → NAS: Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\
+        ↓
+Step 2: 生成多平台文案
+        → ai-social-media-content 生成9个平台内容
+        ↓
+Step 3: 自动处理配图
+        → holo-social-image：调整尺寸 + 添加品牌水印
+        → holo-social-infographic：生成技术参数信息图
+        ↓
+Step 4: 输出完整内容包
+        → 文案 + 配图，可直接发布
+```
+
+### 🔧 CLI 工具使用示例
+
+#### 图片处理（GIMP）
+```bash
+# 调整 LinkedIn 尺寸 + 添加水印
+cli-anything-gimp canvas resize --width 1200 --height 627 nas-product.png --output linkedin.png
+cli-anything-gimp draw add-watermark --image Y:/市场营销/品牌素材/HOLO_Logo.png --position bottom-right --opacity 40 linkedin.png --output final.png
+```
+
+#### 信息图生成（Draw.io）
+```bash
+# 生成产品技术参数图
+cli-anything-drawio project new a2frj-spec
+cli-anything-drawio shape add --type text --text "HOLO 风冷机 A2FRJ" --style "fontSize=28;fontColor=#E53935"
+cli-anything-drawio shape add --type text --text "加热板尺寸: 1200×600mm" --style "fontSize=18"
+cli-anything-drawio export png --scale 2 --output a2frj-spec.png
+```
+
+### 📁 NAS 产品图片来源
+
+| 产品 | NAS 路径 |
+|------|----------|
+| 风冷机 | `Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\` |
+| 水冷机 | `Y:\1.HOLO机器目录（最终资料存放）\2.水冷式接头机\` |
+| 分层机 | `Y:\1.HOLO机器目录（最终资料存放）\4.输送带分层机\` |
+| 导条机 | `Y:\1.HOLO机器目录（最终资料存放）\8.焊接 导条机\` |
+| 品牌素材 | `Y:\市场营销\品牌素材\` |
+
+### 🚀 快速指令
+
+| 业务员说 | AI做什么 |
+|---------|---------|
+| "帮我发Facebook，新品A2FRJ" | 读取NAS参数 → 生成文案 → 处理配图 → 输出 |
+| "生成产品信息图" | Draw.io生成技术参数图（真实数据） |
+| "处理产品图发LinkedIn" | GIMP调整尺寸 + 添加水印 |
+| "批量处理产品图" | 批量导出多平台尺寸版本 |
+
+---
+
+*版本：v3.1.0 | 更新时间：2026-04-11*
+*新增：社媒运营 + CLI-Anything 集成，真实产品数据 + 自动配图*

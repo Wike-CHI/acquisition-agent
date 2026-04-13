@@ -54,26 +54,7 @@
   - competitors (竞争对手)
 ```
 
-### 4. 合作伙伴知识
-
-```
-知识类型: partner_knowledge
-存储位置: ~/.openclaw/knowledge/partners/
-索引字段:
-  - company_name (公司名)
-  - relation_type (关系类型: 经销商/代理商/OEM客户)
-  - cooperation_years (合作年限)
-  - coverage_markets (覆盖市场)
-  - products (采购的产品线)
-  - status (合作状态: 活跃/暂停/终止)
-特殊规则:
-  - 合作伙伴不得出现在竞品分析中
-  - 开发信中不得贬低合作伙伴
-  - 对合作伙伴覆盖的终端客户打"源头厂家"牌
-参考文件: global-customer-acquisition/PARTNER-REGISTRY.md
-```
-
-### 5. 流程知识
+### 4. 流程知识
 
 ```
 知识类型: process_knowledge
@@ -214,9 +195,6 @@ knowledgeIndex.archive({
 ├── products/               # 产品知识
 │   ├── air-cooled-press.json
 │   ├── water-cooled-press.json
-│   └── ...
-├── partners/               # 合作伙伴知识 ⭐ 新增
-│   ├── beltwin.json
 │   └── ...
 ├── markets/                # 市场知识
 │   ├── usa-market.json
