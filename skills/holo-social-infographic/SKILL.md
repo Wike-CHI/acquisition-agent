@@ -295,7 +295,7 @@ def html_to_png(html_path, output_path, viewport_height=3000):
 ```bash
 # 从 NAS 读取真实参数后生成
 cli-anything-drawio project new a2frj-spec
-cli-anything-drawio shape add --type text --text "HOLO 风冷机 A2FRJ" --style "fontSize=28;fontColor=#E53935;bold=true"
+cli-anything-drawio shape add --type text --text "HOLO 风冷机 A2FRJ" --style "fontSize=28;fontColor=#D32F2F;bold=true"
 cli-anything-drawio shape add --type text --text "加热板尺寸: 1200×600mm" --style "fontSize=18"
 cli-anything-drawio shape add --type text --text "温控精度: ±2°C" --style "fontSize=18"
 cli-anything-drawio shape add --type text --text "加热时间: 15-30 分钟" --style "fontSize=18"
@@ -500,7 +500,7 @@ except Exception as e:
 | 要素 | 规范 |
 |------|------|
 | **背景** | 白色或浅灰，干净清爽 |
-| **配色** | 品牌红(#E53935) + 黑色文字 + 灰线，少而精 |
+| **配色** | 品牌红(#D32F2F) + 黑色文字 + 灰线，少而精 |
 | **字体** | 无衬线英文字体（Inter/Roboto/Arial） |
 | **图标** | 不用 emoji，用线条图标或纯色块 |
 | **布局** | 大留白、信息层级清晰 |
@@ -510,6 +510,17 @@ except Exception as e:
 - ❌ 深色/黑灰风格
 - ❌ 大量 emoji
 - ❌ 花哨卡片和渐变
+
+### 品牌标识使用规则
+> ⚠️ 我们是**红龙(HOLO)**，不是别的任何牌子。
+
+| 场景 | ✅ 正确做法 | ❌ 禁止 |
+|------|-----------|--------|
+| 标题/Header | 用 `#D32F2F` 突出 "HOLO" 品牌名 | ❌ 绝对禁止写 "NOVO"/"NEW"/"NUEVO" 等 |
+| Footer 固定内容 | 公司全称 + CE·ISO9001 | 不能省略或替换 |
+| 配色主色 | `#D32F2F`（与 gen/image 统一） | 不用其他颜色作为"品牌代表色" |
+
+**一句话记忆：所有图片上的品牌露出 = HOLO。没有例外。**
 
 ---
 
