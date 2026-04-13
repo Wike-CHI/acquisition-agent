@@ -1,12 +1,13 @@
 ---
 name: release-manager
 description: >
-  发布管理技能 v3.1.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
+  发布管理技能 v3.2.0 - 三模式发布：ZIP打包 + GitHub推送 + GitHub拉取。
   当用户说"发布新版本"、"打包系统"、"同步到GitHub"、"推送技能到仓库"、
   "sync to github"、"release"、"技能版本管理"、"清理仓库"、
-  "更新GitHub仓库"、"force push"、"submodule修复"时使用。
+  "更新GitHub仓库"、"force push"、"submodule修复"、"从GitHub拉取更新"、
+  "pull from github"、"更新本地技能"时使用。
   专为红龙获客系统定制，支持增量同步、submodule检测、大文件过滤。
-version: 3.1.0
+version: 3.2.0
 triggers:
   - 发布管理
   - 打包
