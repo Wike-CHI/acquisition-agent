@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOLO 竞品对比长图</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #fff;
+        }
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+        /* 标题区 */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .header h1 {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .header p {
+            font-size: 28px;
+            color: #94a3b8;
+        }
+        /* 优势卡片 */
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .adv-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .adv-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(239,68,68,0.2);
+        }
+        .adv-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+        .adv-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        .adv-desc {
+            font-size: 24px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        /* 对比表格 */
+        .comparison {
+            background: rgba(255,255,255,0.03);
+            border-radius: 32px;
+            padding: 48px;
+            margin-bottom: 60px;
+            overflow: hidden;
+        }
+        .comparison h2 {
+            font-size: 42px;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 22px;
+        }
+        th {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            padding: 24px 32px;
+            text-align: left;
+            font-weight: 600;
+        }
+        th:first-child { border-radius: 16px 0 0 0; }
+        th:last-child { border-radius: 0 16px 0 0; }
+        td {
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #cbd5e1;
+        }
+        tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+        tr:last-child td:first-child { border-radius: 0 0 0 16px; }
+        tr:last-child td:last-child { border-radius: 0 0 16px 0; }
+        .holo-col {
+            color: #ef4444;
+            font-weight: 700;
+        }
+        .check {
+            color: #22c55e;
+            margin-left: 12px;
+        }
+        /* 产品卡片 */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .prod-card {
+            background: linear-gradient(145deg, rgba(239,68,68,0.1), rgba(239,68,68,0.02));
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 20px;
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+        .prod-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ef4444, #f97316);
+        }
+        .prod-code {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ef4444;
+            margin-bottom: 12px;
+        }
+        .prod-name {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .prod-spec {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .prod-tag {
+            display: inline-block;
+            background: rgba(239,68,68,0.2);
+            color: #f97316;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 18px;
+        }
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 32px;
+            padding: 80px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .cta h2 {
+            font-size: 52px;
+            margin-bottom: 24px;
+        }
+        .cta p {
+            font-size: 28px;
+            opacity: 0.9;
+        }
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HOLO vs 竞品</h1>
+            <p>Belt Splicing Machine Comparison</p>
+        </div>
+
+        <div class="advantages">
+            <div class="adv-card">
+                <div class="adv-icon">💰</div>
+                <div class="adv-title">更低价格</div>
+                <div class="adv-desc">相比欧洲品牌<br>节省 50%+ 成本</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🚀</div>
+                <div class="adv-title">更快交期</div>
+                <div class="adv-desc">7-15天发货<br>无需等待60-90天</div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🔧</div>
+                <div class="adv-title">本地服务</div>
+                <div class="adv-desc">快速响应<br>专业技术支持</div>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <h2>核心参数对比</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>参数</th>
+                            <th>HOLO</th>
+                            <th>欧洲品牌</th>
+                            <th>其他品牌</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>价格</td>
+                            <td class="holo-col">50-70% 更低 <span class="check">✓</span></td>
+                            <td>€15,000-25,000</td>
+                            <td>€8,000-12,000</td>
+                        </tr>
+                        <tr>
+                            <td>交期</td>
+                            <td class="holo-col">7-15天 <span class="check">✓</span></td>
+                            <td>60-90天</td>
+                            <td>15-30天</td>
+                        </tr>
+                        <tr>
+                            <td>温控精度</td>
+                            <td class="holo-col">±2°C <span class="check">✓</span></td>
+                            <td>±1°C</td>
+                            <td>±3-5°C</td>
+                        </tr>
+                        <tr>
+                            <td>规格范围</td>
+                            <td class="holo-col">300-3600mm <span class="check">✓</span></td>
+                            <td>600-2400mm</td>
+                            <td>400-1800mm</td>
+                        </tr>
+                        <tr>
+                            <td>定制能力</td>
+                            <td class="holo-col">灵活 <span class="check">✓</span></td>
+                            <td>标准型号</td>
+                            <td>有限</td>
+                        </tr>
+                        <tr>
+                            <td>售后响应</td>
+                            <td class="holo-col">24小时内 <span class="check">✓</span></td>
+                            <td>3-7天</td>
+                            <td>1-3天</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="products">
+            <div class="prod-card">
+                <div class="prod-code">A2FLJ</div>
+                <div class="prod-name">二代风冷机</div>
+                <div class="prod-spec">规格: 300-2100mm</div>
+                <div class="prod-tag">性价比首选</div>
+            </div>
+            <div class="prod-card">
+                <div class="prod-code">A3FLJ</div>
+                <div class="prod-name">三代风冷机</div>
+                <div class="prod-spec">规格: 300-3600mm</div>
+                <div class="prod-tag">市场主流</div>
+            </div>
+            <div class="prod-card">
+                <div class="prod-code">A4FLJ</div>
+                <div class="prod-name">四代风冷机</div>
+                <div class="prod-spec">规格: 1800-2400mm</div>
+                <div class="prod-tag">高端配置</div>
+            </div>
+            <div class="prod-card">
+                <div class="prod-code">ASJ</div>
+                <div class="prod-name">水冷机</div>
+                <div class="prod-spec">规格: 600-4200mm</div>
+                <div class="prod-tag">大功率</div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>立即联系 HOLO</h2>
+            <p>sale@18816.cn | WhatsApp: +86 18057753889<br>www.holobelt.com</p>
+        </div>
+
+        <div class="footer">
+            数据来源: HOLO 官方产品目录 + NAS 共享盘
+        </div>
+    </div>
+</body>
+</html>

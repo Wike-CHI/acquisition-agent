@@ -73,6 +73,8 @@ $RetainedSkills = @(
     "agentmail", "gog",
     # 新增技能（2026-04-10）
     "email-inbox", "holo-activity-log",
+    # HOLO 社媒技能簇 (2026-04-13) — cli-anything-hub → image/infographic → gen (依赖链)
+    "holo-social-gen", "holo-social-image", "holo-social-infographic", "cli-anything-hub",
     # 中文目录
     "浏览器自动化", "内容分发", "去AI味", "QQ邮箱", "MCP管理器"
 )

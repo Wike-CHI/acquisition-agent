@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920">
+    <title>HOLO Product Specifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            width: 1920px;
+            min-height: 2400px;
+            padding: 0 80px;
+        }
+        .header {
+            padding: 60px 0 40px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            color: #E53935;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            font-weight: 300;
+        }
+        .hero {
+            display: flex;
+            gap: 80px;
+            margin-bottom: 80px;
+        }
+        .hero-text { flex: 1; }
+        .hero-text h2 {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+        .hero-text p {
+            font-size: 22px;
+            color: #555;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+        .hero-image {
+            flex: 0 0 700px;
+            height: 500px;
+            background: #f8f8f8;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 18px;
+        }
+        .section { margin-bottom: 80px; }
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #E53935;
+            display: inline-block;
+        }
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .spec-table th, .spec-table td {
+            padding: 24px 30px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .spec-table th {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            width: 350px;
+        }
+        .spec-table td { font-size: 22px; color: #1a1a1a; }
+        .spec-table tr:nth-child(even) { background: #fafafa; }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .spec-card {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #eee;
+        }
+        .spec-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .spec-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .feature { text-align: center; padding: 40px 20px; }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E53935, #ff7043);
+        }
+        .feature h4 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+        .feature p { font-size: 16px; color: #666; line-height: 1.6; }
+        .cta {
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 60px 80px;
+            text-align: center;
+            margin: 80px 0;
+        }
+        .cta h3 { font-size: 36px; font-weight: 600; margin-bottom: 20px; }
+        .cta p { font-size: 20px; color: #666; margin-bottom: 30px; }
+        .cta a { color: #E53935; text-decoration: none; font-weight: 500; }
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="brand">HOLO INDUSTRIAL</div>
+        <h1>{{PRODUCT_NAME}}</h1>
+        <p class="subtitle">{{GENERATION}} Technology — Precision Engineering for Industrial Excellence</p>
+    </div>
+
+    <div class="hero">
+        <div class="hero-text">
+            <h2>Professional Belt Splicing Solutions for Global Industries</h2>
+            <p>{{DESC}}</p>
+        </div>
+        <div class="hero-image">
+            {{PRODUCT_IMAGE}}
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Key Specifications</h3>
+        <table class="spec-table">
+            <tr><th>Model</th><td>{{PRODUCT_NAME}}</td></tr>
+            <tr><th>Belt Width Range</th><td>{{BELT_WIDTH}}</td></tr>
+            <tr><th>Heating Plate Size</th><td>{{HEATING_PLATE}}</td></tr>
+            <tr><th>Temperature Control</th><td>{{TEMP_CONTROL}}</td></tr>
+            <tr><th>Heating Time</th><td>{{HEATING_TIME}}</td></tr>
+            <tr><th>Working Pressure</th><td>{{PRESSURE}}</td></tr>
+            <tr><th>Power Supply</th><td>{{VOLTAGE}}</td></tr>
+            <tr><th>Total Power</th><td>{{POWER}}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Technical Parameters</h3>
+        <div class="spec-grid">
+            <div class="spec-card"><div class="spec-label">Temperature Range</div><div class="spec-value">{{TEMP_RANGE}}</div></div>
+            <div class="spec-card"><div class="spec-label">Pressure</div><div class="spec-value">{{PRESSURE}}</div></div>
+            <div class="spec-card"><div class="spec-label">Accuracy</div><div class="spec-value">{{ACCURACY}}</div></div>
+            <div class="spec-card"><div class="spec-label">Plate Size</div><div class="spec-value">{{HEATING_PLATE}}</div></div>
+            <div class="spec-card"><div class="spec-label">Weight</div><div class="spec-value">{{WEIGHT}}</div></div>
+            <div class="spec-card"><div class="spec-label">Dimension</div><div class="spec-value">{{DIMENSION}}</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Core Components</h3>
+        <div class="features">
+            <div class="feature"><div class="feature-icon"></div><h4>{{CONTROLLER}}</h4><p>{{CONTROLLER_DESC}}</p></div>
+            <div class="feature"><div class="feature-icon"></div><h4>{{PUMP}}</h4><p>{{PUMP_DESC}}</p></div>
+            <div class="feature"><div class="feature-icon"></div><h4>{{PNEUMATICS}}</h4><p>{{PNEUMATICS_DESC}}</p></div>
+            <div class="feature"><div class="feature-icon"></div><h4>{{MATERIAL}}</h4><p>{{MATERIAL_DESC}}</p></div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h3>Request a Quote Today</h3>
+        <p>Our engineering team is ready to help you find the perfect solution for your belt splicing needs.</p>
+        <p><a href="mailto:sale@18816.cn">sale@18816.cn</a> &nbsp;|&nbsp; WhatsApp: +86 18057753889</p>
+    </div>
+
+    <div class="footer">
+        <span>Data Source: HOLO Official Product Catalog</span>
+        <span>HOLO Industrial Equipment Manufacturing Co., Ltd.</span>
+    </div>
+</body>
+</html>

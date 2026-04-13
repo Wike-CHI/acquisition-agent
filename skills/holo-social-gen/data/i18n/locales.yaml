@@ -1,0 +1,1174 @@
+# holo-social-gen v5.0 国际化翻译词典
+# 支持 10 种语言：en, es, pt, ar, ru, fr, de, ko, ja, zh
+
+# ============================================================
+# UI 标签 & 章节标题
+# ============================================================
+ui:
+  brand_name: "HOLO"
+  brand_tagline:
+    en: "Professional Conveyor Belt Jointing Equipment"
+    es: "Equipo Profesional para Empalme de Bandas Transportadoras"
+    pt: "Equipamento Profissional para Emenda de Esteiras Transportadoras"
+    ar: "معدات احترافية لوصل أحزمة النقل"
+    ru: "Профессиональное оборудование для соединения конвейерных лент"
+    fr: "Équipement Professionnel pour le Jonctionnement de Bandes Transporteuses"
+    de: "Professionelle Förderbandverbindungsausrüstung"
+    ko: "전문 컨베어 벨트 접합 장비"
+    ja: "コンベアベルト接合専門機器"
+    zh: "专业输送带接头设备制造商"
+
+  # --- 主标题区 ---
+  hero_title:
+    en: "{product_name}"
+    es: "{product_name}"
+    pt: "{product_name}"
+    ar: "{product_name}"
+    ru: "{product_name}"
+    fr: "{product_name}"
+    de: "{product_name}"
+    ko: "{product_name}"
+    ja: "{product_name}"
+    zh: "{product_name}"
+
+  hero_subtitle:
+    en: "Industrial-Grade Precision | Reliable Performance"
+    es: "Precisión de Grado Industrial | Rendimiento Confiable"
+    pt: "Precisão de Grau Industrial | Desempenho Confiável"
+    ar: "دقة صناعية | أداء موثوق"
+    ru: "Промышленная точность | Надежная производительность"
+    fr: "Précision Industriale | Performance Fiable"
+    de: "Industrielle Genauigkeit | Zuverlässige Leistung"
+    ko: "산업급 정밀도 | 신뢰할 수 있는 성능"
+    ja: "産業級精密性 | 信頼性の高い性能"
+    zh: "工业级精度 | 可靠性能"
+
+  hero_spec:
+    en: "Spec: {spec}"
+    es: "Especificación: {spec}"
+    pt: "Especificação: {spec}"
+    ar: "المواصفات: {spec}"
+    ru: "Спецификация: {spec}"
+    fr: "Spécification: {spec}"
+    de: "Spezifikation: {spec}"
+    ko: "사양: {spec}"
+    ja: "仕様: {spec}"
+    zh: "规格: {spec}"
+
+  # --- 技术参数区 ---
+  section_specs:
+    en: "Key Specifications"
+    es: "Especificaciones Técnicas"
+    pt: "Especificações Técnicas"
+    ar: "المواصفات التقنية"
+    ru: "Ключевые характеристики"
+    fr: "Spécifications Clés"
+    de: "Technische Daten"
+    ko: "주요 사양"
+    ja: "主要仕様"
+    zh: "技术参数"
+
+  # --- BOM/组件区（bom级别）---
+  section_components:
+    en: "Core Components (BOM)"
+    es: "Componentes Principales (BOM)"
+    pt: "Componentes Principais (BOM)"
+    ar: "المكونات الأساسية (BOM)"
+    ru: "Основные компоненты (BOM)"
+    fr: "Composants Principaux (BOM)"
+    de: "Kernkomponenten (BOM)"
+    ko: "핵심 구성품 (BOM)"
+    ja: "主要コンポーネント (BOM)"
+    zh: "核心组件 (BOM)"
+
+  section_supplier:
+    en: "Key Suppliers"
+    es: "Proveedores Principales"
+    pt: "Fornecedores Principais"
+    ar: "الموردون الرئيسيون"
+    ru: "Ключевые поставщики"
+    fr: "Fournisseurs Principaux"
+    de: "Wichtige Lieferanten"
+    ko: "주요 공급업체"
+    ja: "主要サプライヤー"
+    zh: "核心供应商"
+
+  # --- 使用参数区（end_customer级别）---
+  section_usage:
+    en: "Operating Parameters"
+    es: "Parámetros de Operación"
+    pt: "Parâmetros de Operação"
+    ar: "معاملات التشغيل"
+    ru: "Параметры эксплуатации"
+    fr: "Paramètres d'Exploitation"
+    de: "Betriebsparameter"
+    ko: "운영 매개변수"
+    ja: "動作パラメータ"
+    zh: "使用参数"
+
+  section_scenarios:
+    en: "Applications"
+    es: "Aplicaciones"
+    pt: "Aplicações"
+    ar: "التطبيقات"
+    ru: "Области применения"
+    fr: "Applications"
+    de: "Anwendungsbereiche"
+    ko: "적용 분야"
+    ja: "適用分野"
+    zh: "适用场景"
+
+  # --- 特性区 ---
+  section_features:
+    en: "Key Features"
+    es: "Características Clave"
+    pt: "Características Principais"
+    ar: "الميزات الرئيسية"
+    ru: "Ключевые особенности"
+    fr: "Caractéristiques Clés"
+    de: "Wichtigste Merkmale"
+    ko: "주요 특징"
+    ja: "主な特徴"
+    zh: "产品特性"
+
+  section_electrical:
+    en: "Key Electrical Parts"
+    es: "Componentes Eléctricos Principales"
+    pt: "Componentes Elétricos Principais"
+    ar: "القطع الكهربائية الأساسية"
+    ru: "Основные электрические компоненты"
+    fr: "Composants Électriques Clés"
+    de: "Wichtige Elektrische Bauteile"
+    ko: "주요 전기 부품"
+    ja: "主要電気部品"
+    zh: "核心电器件"
+
+  # --- CTA 区 ---
+  cta_title:
+    en: "Request a Quote Today"
+    es: "Solicite un Presupuesto Hoy"
+    pt: "Solicite um Orçamento Hoje"
+    ar: "اطلب عرض سعر اليوم"
+    ru: "Запросите коммерческое предложение сегодня"
+    fr: "Demandez un Devis Aujourd'hui"
+    de: "Angebot anfordern"
+    ko: "견적 문의"
+    ja: "お見積りはこちら"
+    zh: "立即询价"
+
+  cta_subtitle:
+    en: "Factory Direct | Global Shipping | OEM/ODM Available"
+    es: "Directo de Fábrica | Envío Mundial | OEM/ODM Disponible"
+    pt: "Direto da Fábrica | Envio Global | OEM/ODM Disponível"
+    ar: "مباشر من المصنع | شحن عالمي | OEM/ODM متاح"
+    ru: "Напрямую с завода | Доставка по миру | OEM/ODM доступно"
+    fr: "Direct Usine | Livraison Mondiale | OEM/ODM Disponible"
+    de: "Direkt vom Werk | Weltweiter Versand | OEM/ODM verfügbar"
+    ko: "공장 직배송 | 전세계 배송 | OEM/ODM 가능"
+    ja: "工場直送 | 世界配送 | OEM/ODM対応"
+    zh: "工厂直销 | 全球发货 | 支持OEM/ODM"
+
+  cta_contact:
+    en: "Contact Us"
+    es: "Contáctenos"
+    pt: "Entre em Contato"
+    ar: "تواصل معنا"
+    ru: "Свяжитесь с нами"
+    fr: "Contactez-nous"
+    de: "Kontaktieren Sie uns"
+    ko: "문의하기"
+    ja: "お問い合わせ"
+    zh: "联系我们"
+
+  cta_email_label:
+    en: "Email"
+    es: "Correo"
+    pt: "E-mail"
+    ar: "البريد الإلكتروني"
+    ru: "Email"
+    fr: "Email"
+    de: "E-Mail"
+    ko: "이메일"
+    ja: "メール"
+    zh: "邮箱"
+
+  cta_whatsapp_label:
+    en: "WhatsApp"
+    es: "WhatsApp"
+    pt: "WhatsApp"
+    ar: "واتساب"
+    ru: "WhatsApp"
+    fr: "WhatsApp"
+    de: "WhatsApp"
+    ko: "왓츠앱"
+    ja: "WhatsApp"
+    zh: "WhatsApp"
+
+  # --- 页脚 ---
+  footer_company:
+    en: "Wenzhou Holong Industrial Equipment Manufacturing Co., Ltd."
+    es: "Wenzhou Holong Equipamiento Industrial Manufactura S.A."
+    pt: "Wenzhou Holong Equipamento Industrial Manufatura Ltda."
+    ar: "شركة ونشو هولونج للصناعة المعدات المحدودة"
+    ru: "Wenzhou Holong Industrial Equipment Manufacturing Co., Ltd."
+    fr: "Wenzhou Holong Équipement Industriel Manufacturing Co., Ltd."
+    de: "Wenzhou Holong Industrieausrüstung Fertigung GmbH"
+    ko: "원저우 홀롱 산업 장비 제조 유한회사"
+    ja: "温州紅龍工業設備製造有限公司"
+    zh: "温州红龙工业设备制造有限公司"
+
+  footer_made:
+    en: "Made in China | Since 2010"
+    es: "Hecho en China | Desde 2010"
+    pt: "Feito na China | Desde 2010"
+    ar: "صنع في الصين | منذ 2010"
+    ru: "Сделано в Китае | С 2010 года"
+    fr: "Fabriqué en Chine | Depuis 2010"
+    de: "Hergestellt in China | Seit 2010"
+    ko: "중국 제조 | 2010년부터"
+    ja: "中国製 | 2010年より"
+    zh: "中国制造 | 始于2010"
+
+# ============================================================
+# 技术参数字段名（多语种）
+# ============================================================
+spec_labels:
+  model:
+    en: "Model"
+    es: "Modelo"
+    pt: "Modelo"
+    ar: "الموديل"
+    ru: "Модель"
+    fr: "Modèle"
+    de: "Modell"
+    ko: "모델"
+    ja: "型番"
+    zh: "型号"
+
+  spec_size:
+    en: "Size"
+    es: "Tamaño"
+    pt: "Tamanho"
+    ar: "الحجم"
+    ru: "Размер"
+    fr: "Taille"
+    de: "Größe"
+    ko: "크기"
+    ja: "サイズ"
+    zh: "规格"
+
+  voltage:
+    en: "Voltage"
+    es: "Voltaje"
+    pt: "Tensão"
+    ar: "الجهد الكهربائي"
+    ru: "Напряжение"
+    fr: "Tension"
+    de: "Spannung"
+    ko: "전압"
+    ja: "電圧"
+    zh: "电压"
+
+  power:
+    en: "Power"
+    es: "Potencia"
+    pt: "Potência"
+    ar: "القدرة"
+    ru: "Мощность"
+    fr: "Puissance"
+    de: "Leistung"
+    ko: "전력"
+    ja: "電力"
+    zh: "功率"
+
+  temp_range:
+    en: "Temp Range"
+    es: "Rango de Temp."
+    pt: "Faixa de Temp."
+    ar: "مدى الحرارة"
+    ru: "Диапазон температур"
+    fr: "Plage de Temp."
+    de: "Temperaturbereich"
+    ko: "온도 범위"
+    ja: "温度範囲"
+    zh: "温控范围"
+
+  temp_accuracy:
+    en: "Accuracy"
+    es: "Precisión"
+    pt: "Precisão"
+    ar: "الدقة"
+    ru: "Точность"
+    fr: "Précision"
+    de: "Genauigkeit"
+    ko: "정밀도"
+    ja: "精度"
+    zh: "控温精度"
+
+  pressure:
+    en: "Pressure"
+    es: "Presión"
+    pt: "Pressão"
+    ar: "الضغط"
+    ru: "Давление"
+    fr: "Pression"
+    dr: "Druck"
+    ko: "압력"
+    ja: "圧力"
+    zh: "工作压力"
+
+  heat_time:
+    en: "Heat Time"
+    es: "Tiempo Calent."
+    pt: "Temp. Aquecimento"
+    ar: "وقت التسخين"
+    ru: "Время нагрева"
+    fr: "Temps Chauffage"
+    de: "Heizzeit"
+    ko: "가열 시간"
+    ja: "加熱時間"
+    zh: "加热时间"
+
+  weight:
+    en: "Weight"
+    es: "Peso"
+    pt: "Peso"
+    ar: "الوزن"
+    ru: "Вес"
+    fr: "Poids"
+    de: "Gewicht"
+    ko: "중량"
+    ja: "重量"
+    zh: "重量"
+
+  dimensions:
+    en: "Dimensions"
+    es: "Dimensiones"
+    pt: "Dimensões"
+    ar: "الأبعاد"
+    ru: "Габариты"
+    fr: "Dimensions"
+    de: "Abmessungen"
+    ko: "치수"
+    ja: "寸法"
+    zh: "外形尺寸"
+
+  controller:
+    en: "Controller"
+    es: "Controlador"
+    pt: "Controlador"
+    ar: "جهاز التحكم"
+    ru: "Контроллер"
+    fr: "Contrôleur"
+    de: "Steuerung"
+    ko: "컨트롤러"
+    ja: "コントローラー"
+    zh: "温控器"
+
+  pneumatic:
+    en: "Pneumatic"
+    es: "Neumático"
+    pt: "Pneumático"
+    ar: "هيدروليك"
+    ru: "Пневматика"
+    fr: "Pneumatique"
+    de: "Pneumatik"
+    ko: "공압"
+    ja: "空気圧"
+    zh: "气动系统"
+
+  heating_plate:
+    en: "Heating Plate"
+    es: "Placa Calefact."
+    pt: "Placa Aquecim."
+    ar: "لوحة التسخين"
+    ru: "Нагревательная пластина"
+    fr: "Plaque Chauffante"
+    de: "Heizplatte"
+    ko: "가열판"
+    ja: "加熱プレート"
+    zh: "加热板"
+
+  body_material:
+    en: "Body Material"
+    es: "Material del Cuerpo"
+    pt: "Material do Corpo"
+    ar: "مادة الهيكل"
+    ru: "Материал корпуса"
+    fr: "Matériau du Corps"
+    de: "Gehäusematerial"
+    ko: "바디 소재"
+    ja: "ボディ素材"
+    zh: "机身材料"
+
+# ============================================================
+# BOM 字段名（代理商级别）
+# ============================================================
+bom_labels:
+  component:
+    en: "Component"
+    es: "Componente"
+    pt: "Componente"
+    ar: "المكون"
+    ru: "Компонент"
+    fr: "Composant"
+    de: "Komponente"
+    ko: "구성품"
+    ja: "コンポーネント"
+    zh: "组件"
+
+  specification:
+    en: "Specification"
+    es: "Especificación"
+    pt: "Especificação"
+    ar: "المواصفة"
+    ru: "Спецификация"
+    fr: "Spécification"
+    de: "Spezifikation"
+    ko: "사양"
+    ja: "仕様"
+    zh: "规格"
+
+  material:
+    en: "Material"
+    es: "Material"
+    pt: "Material"
+    ar: "المادة"
+    ru: "Материал"
+    fr: "Matériau"
+    de: "Material"
+    ko: "소재"
+    ja: "素材"
+    zh: "材料"
+
+  supplier:
+    en: "Supplier / Brand"
+    es: "Proveedor / Marca"
+    pt: "Fornecedor / Marca"
+    ar: "المورد / العلامة التجارية"
+    ru: "Поставщик / Бренд"
+    fr: "Fournisseur / Marque"
+    de: "Lieferant / Marke"
+    ko: "공급업체 / 브랜드"
+    ja: "サプライヤー / ブランド"
+    zh: "供应商/品牌"
+
+  qty:
+    en: "Qty"
+    es: "Cant."
+    pt: "Qtd."
+    ar: "العدد"
+    ru: "Кол-во"
+    fr: "Qté"
+    de: "Anzahl"
+    ko: "수량"
+    ja: "数量"
+    zh: "数量"
+
+  part_number:
+    en: "Part No."
+    es: "No. Parte"
+    pt: "No. Peça"
+    ar: "رقم القطعة"
+    ru: "Арт."
+    fr: "Réf."
+    de: "Teile-Nr."
+    ko: "부품 번호"
+    ja: "部品No."
+    zh: "零件编号"
+
+# ============================================================
+# 使用场景（终端客户级别）
+# ============================================================
+scenarios:
+  mining:
+    en: "Mining Conveyors"
+    es: "Cintas Mineras"
+    pt: "Esteiras Mineradoras"
+    ar: "سيور المناجم"
+    ru: "Шахтные конвейеры"
+    fr: "Convoyeurs Miniers"
+    de: "Bergbau-Förderbänder"
+    ko: "광산 컨베어"
+    ja: "鉱山コンベア"
+    zh: "矿山输送带"
+
+  cement:
+    en: "Cement Plants"
+    es: "Plantas de Cemento"
+    pt: "Fábricas de Cimento"
+    ar: "مصانع الإسمنت"
+    ru: "Цементные заводы"
+    fr: "Usines à Ciment"
+    de: "Zementwerke"
+    ko: "시멘트 플랜트"
+    ja: "セメントプラント"
+    zh: "水泥厂"
+
+  port:
+    en: "Port Logistics"
+    es: "Logística Portuaria"
+    pt: "Logística Portuária"
+    ar: "لوجستics الموانئ"
+    ru: "Портовая логистика"
+    fr: "Logistique Portuaire"
+    de: "Portlogistik"
+    ko: "항만 물류"
+    ja: "港ロジスティクス"
+    zh: "港口物流"
+
+  steel:
+    en: "Steel Mills"
+    es: " Acerías"
+    pt: "Siderúrgicas"
+    ar: "مصاهر الحديد"
+    ru: "Металлургические заводы"
+    fr: "Aciéries"
+    de: "Stahlwerke"
+    ko: "제철소"
+    ja: "製鉄所"
+    zh: "钢铁厂"
+
+  aggregate:
+    en: "Aggregate Processing"
+    es: "Procesamiento de Áridos"
+    pt: "Processamento de Agregados"
+    ar: "معالجة الركام"
+    ru: "Переработка щебня"
+    fr: "Traitement des Granulats"
+    de: "Aufbereitung von Schüttgut"
+    ko: "골재 가공"
+    ja: "骨材加工"
+    zh: "骨料加工"
+
+  general:
+    en: "General Industry"
+    es: "Industria General"
+    pt: "Indústria Geral"
+    ar: "صناعة عامة"
+    ru: "Общая промышленность"
+    fr: "Industrie Générale"
+    de: "Allgemeine Industrie"
+    ko: "일반 산업"
+    ja: "一般産業"
+    zh: "通用工业"
+
+# ============================================================
+# 特性标签
+# ============================================================
+features:
+  precise_temp:
+    en: "Precise Temperature Control (±{accuracy})"
+    es: "Control Preciso de Temperatura (±{accuracy})"
+    pt: "Controle Preciso de Temperatura (±{accuracy})"
+    ar: "تحكم دقيق في درجة الحرارة (±{accuracy})"
+    ru: "Точный контроль температуры (±{accuracy})"
+    fr: "Contrôle Précis de la Température (±{accuracy})"
+    de: "Präzise Temperaturregelung (±{accuracy})"
+    ko: "정밀 온도 조절 (±{accuracy})"
+    ja: "高精度温度制御 (±{accuracy})"
+    zh: "精准控温（±{accuracy}）"
+
+  fast_heat:
+    en: "Fast Heating ({time} min)"
+    es: "Rápido Calentamiento ({time} min)"
+    pt: "Aquecimento Rápido ({time} min)"
+    ar: "تسريع سريع ({time} دقيقة)"
+    ru: "Быстрый нагрев ({time} мин)"
+    fr: "Chauffage Rapide ({time} min)"
+    de: "Schnelles Aufheizen ({time} min)"
+    ko: "빠른 가열 ({time}분)"
+    ja: "高速加熱（{time}分）"
+    zh: "快速加热（{time}分钟）"
+
+  robust_body:
+    en: "Robust {material} Body"
+    es: "Cuerpo Robusto de {material}"
+    pt: "Corpo Robusto de {material}"
+    ar: "هيكل متين من {material}"
+    ru: "Прочный корпус из {material}"
+    fr: "Corps Robuste en {material}"
+    de: "Robustes {material}-Gehäuse"
+    ko: "튼튼한 {material} 바디"
+    ja: "堅牢な{material}ボディ"
+    zh: "坚固{material}机身"
+
+  famous_brands:
+    en: "World-Class Components ({brands})"
+    es: "Componentes de Primera ({brands})"
+    pt: "Componentes de Primeira ({brands})"
+    ar: "مكونات عالمية المستوى ({brands})"
+    ru: "Компоненты мирового класса ({brands})"
+    fr: "Composants Haut de Gamme ({brands})"
+    de: "Weltklasse-Komponenten ({brands})"
+    ko: "최고급 구성품 ({brands})"
+    ja: "世界級コンポーネント({brands})"
+    zh: "国际品牌组件（{brands}）"
+
+  easy_operate:
+    en: "Easy Operation & Maintenance"
+    es: "Operación y Mantenimiento Fácil"
+    pt: "Operação e Manutenção Fácil"
+    ar: "تشغيل وصيانة سهلة"
+    ru: "Легкая эксплуатация и обслуживание"
+    fr: "Exploitation et Maintenance Facile"
+    de: "Einfache Bedienung und Wartung"
+    ko: "쉬운 운영 및 유지보수"
+    ja: "簡単操作・保守"
+    zh: "操作简便 易于维护"
+
+  oem_available:
+    en: "Customizable (OEM/ODM)"
+    es: "Personalizable (OEM/ODM)"
+    pt: "Personalizável (OEM/ODM)"
+    ar: "قابل للتخصيص (OEM/ODM)"
+    ru: "Настройка под заказ (OEM/ODM)"
+    fr: "Personnalisable (OEM/ODM)"
+    de: "Anpassbar (OEM/ODM)"
+    ko: "맞춤형 (OEM/ODM)"
+    ja: "カスタマイズ可能 (OEM/ODM)"
+    zh: "支持定制 (OEM/ODM)"
+
+# ============================================================
+# 单位
+# ============================================================
+units:
+  degree_celsius:
+    en: "°C"
+    es: "°C"
+    pt: "°C"
+    ar: "°م"
+    ru: "°C"
+    fr: "°C"
+    de: "°C"
+    ko: "°C"
+    ja: "℃"
+    zh: "°C"
+
+  mpa:
+    en: "MPa"
+    es: "MPa"
+    pt: "MPa"
+    ar: "ميجا باسكال"
+    ru: "МПа"
+    fr: "MPa"
+    de: "MPa"
+    ko: "MPa"
+    ja: "MPa"
+    zh: "MPa"
+
+  kw:
+    en: "kW"
+    es: "kW"
+    pt: "kW"
+    ar: "كيلو واط"
+    ru: "кВт"
+    fr: "kW"
+    de: "kW"
+    ko: "kW"
+    ja: "kW"
+    zh: "kW"
+
+  mm:
+    en: "mm"
+    es: "mm"
+    pt: "mm"
+    ar: "مم"
+    ru: "мм"
+    fr: "mm"
+    de: "mm"
+    ko: "mm"
+    ja: "mm"
+    zh: "mm"
+
+  kg:
+    en: "kg"
+    es: "kg"
+    pt: "kg"
+    ar: "كجم"
+    ru: "кг"
+    fr: "kg"
+    de: "kg"
+    ko: "kg"
+    ja: "kg"
+    zh: "kg"
+
+  min:
+    en: "min"
+    es: "min"
+    pt: "min"
+    ar: "دقيقة"
+    ru: "мин"
+    fr: "min"
+    de: "Min"
+    ko: "분"
+    ja: "分"
+    zh: "分钟"
+
+# ============================================================
+# 产品描述（按机型代码，多语种）
+# ============================================================
+product_descriptions:
+  # --- A2FLJ 二代风冷 ---
+  A2FLJ:
+    en: "The A2FLJ series represents HOLO's proven air-cooled vulcanizing technology. Cost-effective solution for standard belt splicing applications."
+    es: "La serie A2FLJ representa la tecnología de vulcanización por aire refrigerado comprobada de HOLO. Solución rentable para aplicaciones estándar de empalme de bandas."
+    pt: "A série A2FLJ representa a tecnologia de vulcanização a arrefecida comprovada da HOLO. Solução econômica para aplicações padrão de emenda de esteiras."
+    ar: "تمثل سلسلة A2FLJ تقنية الفلكنة المبردة بالهواء الموثوقة من هولونج. حل اقتصادي لتطبيقات ربط الأحزمة القياسية."
+    ru: "Серия A2FLJ представляет проверенную технологию вулканизации с воздушным охлаждением от HOLO. Эффективное решение для стандартных задач соединения конвейерных лент."
+    fr: "La série A2FLJ représente la technologie de vulcanisation à air refroidie éprouvée de HOLO. Solution économique pour les applications standard de jonctionnement de bandes."
+    de: "Die A2FLJ-Serie stellt HOLOs bewährte luftgekühlte Vulkanisierungstechnologie dar. Kostengünstige Lösung für Standard-Förderbandverbindungsanwendungen."
+    ko: "A2FLJ 시리즈는 HOLO의 입증된 공랭식 벌커나이징 기술을 대표합니다. 표준 컨베어 벨트 접합 애플리케이션에 대한 비용 효율적인 솔루션입니다."
+    ja: "A2FLJシリーズはHOLOの実績ある空冷加硫技術を代表します。標準的なコンベアベルト接合用途にコスト効率の良いソリューションです。"
+    zh: "A2FLJ系列是红龙成熟的风冷硫化技术。经济型标准皮带接头解决方案。"
+
+  # --- A3FLJ 三代风冷 ---
+  A3FLJ:
+    en: "The A3FLJ series features our third-generation air-cooled technology with enhanced efficiency. Supports belt width up to {width}, ideal for mining, cement, ports, and heavy industry."
+    es: "La serie A3FLJ cuenta con nuestra tecnología de tercera generación refrigerada por aire con mayor eficiencia. Soporta anchos de banda hasta {width}, ideal para minería, cemento, puertos e industria pesada."
+    pt: "A série A3FLJ apresenta nossa tecnologia de terceira geração arrefecida por ar com eficiência aprimorada. Suporta larguras de faixa até {width}, ideal para mineração, cimento, portos e indústria pesada."
+    ar: "تتميز سلسلة A3FLJ بتقنيتنا الجيل الثالثة المبردة بالهواء بكفاءة محسّنة. تدعم عرض الحزام حتى {width}، مثالية للمناجم والأسمنت والموانئ والصناعات الثقيلة."
+    ru: "Серия A3FLJ оснащена нашей технологией третьего поколения с воздушным охлаждением и повышенной эффективностью. Поддерживает ширину ленты до {width}, идеальна для горной промышленности, цемента, портов и тяжелой промышленности."
+    fr: "La série A3FLJ dispose de notre technologie de troisième génération à air refroidi avec une efficacité améliorée. Supporte des largeurs de bande jusqu'à {width}, idéale pour les mines, le ciment, les ports et l'industrie lourde."
+    de: "Die A3FLJ-Serie verfügt über unsere Luftkühltechnologie der dritten Generation mit verbesserter Effizienz. Unterstützt Bandbreiten bis {width}, ideal für Bergbau, Zement, Häfen und Schwerindustrie."
+    ko: "A3FLJ 시리즈는 향상된 효율의 3세대 공랭식 기능을 갖추고 있습니다. {width}까지의 벨트 폭을 지원하며, 광산, 시멘트, 항만, 중공업에 이상적입니다."
+    ja: "A3FLJシリーズは第3世代空冷技術を搭載し、効率が向上しています。ベルト幅{width}まで対応し、鉱山、セメント、港、重工業に最適です。"
+    zh: "A3FLJ系列采用第三代风冷技术，效率更高。支持带宽{width}，适用于矿山、水泥、港口及重工业。"
+
+  # --- A4FLJ 四代风冷 ---
+  A4FLJ:
+    en: "The A4FLJ series is our flagship fourth-generation air-cooled splicing solution with aviation-grade aluminum body and dual titanium plates."
+    es: "La serie A4FLJ es nuestra solución insignia de cuarta generación con cuerpo de aluminio de grado aeronáutico y placas de titanio duales."
+    pt: "A série A4FLJ é nossa solução de emenda de quarta geração com corpo de alumínio grau aeronáutico e placas duplas de titânio."
+    ar: "سلسلة A4FLJ هي حلول الجيل الرابع الرئيسية لدينا بهيكل من ألمنيوم درجة طيران ولوحتين من التيتانيوم."
+    ru: "Серия A4FLJ — наше флагманское решение четвертого поколения с авиационным алюминиевым корпусом и двойными титановыми пластинами."
+    fr: "La série A4FLJ est notre solution phare de quatrième génération avec corps en aluminium de qualité aéronautique et plaques de titane doubles."
+    de: "Die A4FLJ-Serie ist unsere Flaggschiff-Lösung der vierten Generation mit flugzeugfähigem Aluminiumgehäuse und doppelten Titanplatten."
+    ko: "A4FLJ 시리즈는 항공급 알루미늄 바디와 듀얼 티타늄 플레이트를 갖춘 4세대 플래그십 솔루션입니다."
+    ja: "A4FLJシリーズは航空級アルミボディとデュアルチタンプレートを搭載した第4世代フラッグシップソリューションです。"
+    zh: "A4FLJ系列是我们的第四代旗舰产品，采用航空铝机身+双钛板结构。"
+
+  # --- A1SLJ 水冷 ---
+  A1SLJ:
+    en: "The A1SLJ water-cooling series delivers reliable heavy-duty performance for wide belt applications in mining and bulk material handling."
+    es: "La serie A1SLJ refrigerada por agua ofrece un rendimiento fiable para aplicaciones de bandas anchas en minería y manejo de materiales a granel."
+    pt: "A série A1SLJ resfriada por água oferece desempenho robusto confiável para aplicações de faixas largas em mineração e manuseio de materiais a granel."
+    ar: "توفر سلسلة A1SLJ المبردة بالماء أداءً موثوقًا للتطبيقات الثقيلة ذات الأحزمة العريضة في المناجم ومعالجة المواد السائبة."
+    ru: "Серия A1SLJ с водяным охлаждением обеспечивает надежную производительность для широких лент в горной промышленности и обработке насыпных материалов."
+    fr: "La série A1SLJ à refroidissement par eau offre des performances robustes et fiables pour les applications de bandes larges dans les mines."
+    de: "Die A1SLJ-Wassühlkühlungsserie bietet zuverlässige Leistung für breite Förderbandanwendungen im Bergbau und Schüttgutbereich."
+    ko: "A1SLJ 수냉식 시리즈는 광산 및 대량 자재 취급용 광폭 벨트 애플리케이션에 신뢰할 수 있는 성능을 제공합니다."
+    ja: "A1SLJ水冷シリーズは鉱山・バルク物料扱い用の広幅ベルト用途で信頼性の高い重耐久性能を発揮します。"
+    zh: "A1SLJ水冷系列为矿山和散料处理提供可靠的重载宽幅皮带接头方案。"
+
+# 默认描述（未知机型）
+  _default:
+    en: "Professional belt splicing equipment from HOLO Industrial. Engineered for reliability in demanding industrial environments."
+    es: "Equipo profesional para empalme de bandas de HOLO Industrial. Diseñado para confiabilidad en entornos industriales exigentes."
+    pt: "Equipamento profissional para emenda de esteiras da HOLO Industrial. Projetado para confiabilidade em ambientes industriais exigentes."
+    ar: "معدات احترافية لربط أحزمة النقل من هولونج الصناعية. مصممة للموثوقية في البيئات الصناعية الصعبة."
+    ru: "Профессиональное оборудование для соединения лент от HOLO Industrial. Разработано для надежности в сложных промышленных условиях."
+    fr: "Équipement professionnel pour le jonctionnement de bandes par HOLO Industrial. Conçu pour la fiabilité dans les environnements industriels exigeants."
+    de: "Professionelles Förderbandverbindungsausrüstung von HOLO Industrial. Entwickelt für Zuverlässigkeit in anspruchsvollen Industrieanwendungen."
+    ko: "HOLO Industrial의 전문 컨베어 벨트 접합 장비. 까다로운 산업 환경에서의 신뢰성을 위해 설계되었습니다."
+    ja: "HOLO Industrialの専門コンベアベルト接合機器。過酷な産業環境での信頼性を追求して設計されています。"
+    zh: "红龙工业专业皮带接头设备，为苛刻工业环境设计，性能可靠。"
+
+
+# ============================================================
+# BOM 组件名翻译（中文→目标语言）
+# 用于非中文受众时将BOM原始中文名转为可读的英文/当地语言
+# ============================================================
+bom_component_names:
+ 气囊:
+    en: "Airbag"
+    es: "Bolsa de Aire"
+    pt: "Bolsa de Ar"
+    ar: "الكيس الهوائي"
+    ru: "Воздушная подушка"
+    fr: "Airbag"
+    de: "Luftsack"
+    ko: "에어백"
+    ja: "エアバッグ"
+  上模机身:
+    en: "Upper Mold Body"
+    es: "Cuerpo del Molde Superior"
+    pt: "Corpo do Molde Superior"
+    ar: "هيكل القالب العلوي"
+    ru: "Корпус верхней формы"
+    fr: "Corps du Moule Supérieur"
+    de: "Oberwerkzeugkörper"
+    ko: "상형 몸체"
+    ja: "上型本体"
+  下模机身:
+    en: "Lower Mold Body"
+    es: "Cuerpo del Molde Inferior"
+    pt: "Corpo do Molde Inferior"
+    ar: "هيكل القالب السفلي"
+    ru: "Корпус нижней формы"
+    fr: "Corps du Moule Inférieur"
+    de: "Unterkörper"
+    ko: "하형 몸체"
+    ja: "下型本体"
+  上模电器盒:
+    en: "Upper Electrical Box"
+    es: "Caja Eléctrica Superior"
+    pt: "Caixa Elétrica Superior"
+    ar: "صندوق الكهرباء العلوي"
+    ru: "Верхний электрический блок"
+    fr: "Boîtier Électrique Supérieur"
+    de: "Obere Elektrobox"
+    ko: "상부 전기함"
+    ja: "上型電気ボックス"
+  下模电器盒:
+    en: "Lower Electrical Box"
+    es: "Caja Eléctrica Inferior"
+    pt: "Caixa Elétrica Inferior"
+    ar: "صندوق الكهرباء السفلي"
+    ru: "Нижний электрический блок"
+    fr: "Boîtier Électrique Inférieur"
+    de: "Untere Elektrobox"
+    ko: "하부 전기함"
+    ja: "下型電気ボックス"
+  上钛板:
+    en: "Upper Titanium Plate"
+    es: "Placa de Titanio Superior"
+    pt: "Placa de Titânio Superior"
+    ar: "لوحة التيتانيوم العلوية"
+    ru: "Верхняя титановая пластина"
+    fr: "Plaque de Titane Supérieure"
+    de: "Obere Titanplatte"
+    ko: "상부 티타늄 플레이트"
+    ja: "上チタンプレート"
+  下钛板:
+    en: "Lower Titanium Plate"
+    es: "Placa de Titanio Inferior"
+    pt: "Placa de Titânio Inferior"
+    ar: "لوحة التيتانيوم السفلية"
+    ru: "Нижняя титановая пластина"
+    fr: "Plaque de Titane Inférieure"
+    de: "Untere Titanplatte"
+    ko: "하부 티타늄 플레이트"
+    ja: "下チタンプレート"
+  导风罩:
+    en: "Air Guide Hood"
+    es: "Cubre Corriente de Aire"
+    pt: "Capa Guia de Ar"
+    ar: "غطاء توجيه الهواء"
+    ru: "Направляющий кожух воздуха"
+    fr: "Capot de Guidage d'Air"
+    de: "Lufthaube"
+    ko: "가이드 후드"
+    ja: "風ガイドフード"
+  滤网:
+    en: "Filter Mesh"
+    es: "Malla Filtrante"
+    pt: "Tela Filtro"
+    ar: "شبكة التصفية"
+    ru: "Фильтрующая сетка"
+    fr: "Maille Filtante"
+    de: "Filternetz"
+    ko: "필터 메시"
+    ja: "フィルターメッシュ"
+  弹簧:
+    en: "Spring"
+    es: "Resorte"
+    pt: "Mola"
+    ar: "نابض"
+    ru: "Пружина"
+    fr: "Ressort"
+    de: "Feder"
+    ko: "스프링"
+    ja: "スプリング"
+  不锈钢压条:
+    en: "SS Press Bar"
+    es: "Barra de Prensa Inox"
+    pt: "Barra de Pressão Inox"
+    ar: "شريط ضغط من الستانلس"
+    ru: "Прижимная планка из нерж."
+    fr: "Barre de Pression Inox"
+    de: "Edelstahlpressleiste"
+    ko: "스테인리스 프레스 바"
+    ja: "ステンレス押さえバー"
+  隔热板:
+    en: "Insulation Board"
+    es: "Placa Aislante"
+    pt: "Placa Isolante"
+    ar: "لوحة العزل الحراري"
+    ru: "Изоляционная плита"
+    fr: "Plaque Isolante"
+    de: "Isolationsplatte"
+    ko: "단열판"
+    ja: "断熱板"
+  隔热片:
+    en: "Insulation Sheet"
+    es: "Lámina Aislante"
+    pt: "Chapa Isolante"
+    ar: "ورقة العزل"
+    ru: "Изолирующая прокладка"
+    fr: "Feuille Isolante"
+    de: "Isolierungsblech"
+    ko: "단열 시트"
+    ja: "断熱シート"
+  气囊上压板:
+    en: "Airbag Pressure Plate"
+    es: "Placa de Presión de Bolsa de Aire"
+    pt: "Placa de Pressão da Bolsa de Ar"
+    ar: "لوحة ضغط الكيس الهوائي"
+    ru: "Плата прижима воздухоопоры"
+    fr: "Plaque de Pression Airbag"
+    de: "Luftdruckplatte"
+    ko: "에어백 프레스 플레이트"
+    ja: "エアバックプレッシャープレート"
+  导风板:
+    en: "Air Deflector"
+    es: "Deflector de Aire"
+    pt: "Defletor de Ar"
+    ar: "لوحة توجيه الهواء"
+    ru: "Дефлектор воздуха"
+    fr: "Déflecteur d'Air"
+    de: "Luftleitblech"
+    ko: "공기 편향판"
+    ja: "風偏向板"
+  加热片上垫片:
+    en: "Heater Pad Spacer"
+    es: "Espaciador de Calentador"
+    pt: "Espaçador de Aquecedor"
+    ar: "وسادة فاصل التسخين"
+    ru: "Прокладка нагревателя"
+    fr: "Entretoise Chauffant"
+    de: "Heizer-Distanzscheibe"
+    ko: "히터 스페이서"
+    ja: "ヒータースペーサー"
+
+# ============================================================
+# 材料名翻译
+# ============================================================
+material_names:
+  外购:
+    en: "External / OEM"
+    es: "Externo / OEM"
+    pt: "Externo / OEM"
+    ar: "خارجي / OEM"
+    ru: "Внешний / OEM"
+    fr: "Externe / OEM"
+    de: "Extern / OEM"
+    ko: "외부조달 / OEM"
+    ja: "外製 / OEM"
+  铝型材:
+    en: "Aluminum Profile"
+    es: "Perfil de Aluminio"
+    pt: "Perfil de Alumínio"
+    ar: "ألمنيوم مقطوع"
+    ru: "Алюминиевый профиль"
+    fr: "Profilé Aluminium"
+    de: "Aluminiumprofil"
+    ko: "알루미늄 프로파일"
+    ja: "アルミ形材"
+  不锈钢:
+    en: "Stainless Steel"
+    es: "Acero Inoxidable"
+    pt: "Aço Inoxidável"
+    ar: "ستانلس ستيل"
+    ru: "Нержавеющая сталь"
+    fr: "Acier Inoxydable"
+    de: "Edelstahl"
+    ko: "스테인리스 스틸"
+    ja: "ステンレス鋼"
+  钛板:
+    en: "Titanium Plate"
+    es: "Placa de Titanio"
+    pt: "Placa de Titânio"
+    ar: "لوحة التيتانيوم"
+    ru: "Титановая пластина"
+    fr: "Plaque de Titane"
+    de: "Titanplatte"
+    ko: "티타늄 플레이트"
+    ja: "チタンプレート"
+  压花板:
+    en: "Embossed Steel"
+    es: "Chapa Estampada"
+    pt: "Chapa Estampada"
+    ar: "لوحة مطبعة"
+    ru: "Тисненый лист"
+    fr: "Tôle Embossée"
+    de: "Geprägtes Blech"
+    ko: "엠보싱 강판"
+    ja: "エンボス鋼板"
+  石板:
+    en: "Stone Insulation"
+    es: "Aislamiento Piedra"
+    pt: "Isolação de Pedra"
+    ar: "عزل الحجر"
+    ru: "Каменная изоляция"
+    fr: "Isolation Pierre"
+    de: "Steinisolierung"
+    ko: "석재 단열재"
+    ja: "石断熱材"
+  环氧板:
+    en: "Epoxy Board"
+    es: "Placa Epoxi"
+    pt: "Placa Epxói"
+    ar: "لوحة الإيبوكسي"
+    ru: "Эпоксидная плита"
+    fr: "Plaque Epoxy"
+    de: "Epoxyplatte"
+    ko: "에폭시 보드"
+    ja: "エポキシボード"
+  镀锌板:
+    en: "Galvanized Steel"
+    es: "Chapa Galvanizada"
+    pt: "Chapa Galvanizada"
+    ar: "لوح المجلفن"
+    ru: "Оцинкованный лист"
+    fr: "Tôle Galvanisée"
+    de: "Verzinktes Stahlblech"
+    ko: "아연도금 강판"
+    ja: "亜鉛めっき鋼板"
+  304不锈钢:
+    en: "SS 304"
+    es: "AC Inox 304"
+    pt: "AI Inox 304"
+    ar: "ستانلس 304"
+    ru: "Нерж. 304"
+    fr: "Inox 304"
+    de: "Edelstahl 304"
+    ko: "스테인리스 304"
+    ja: "ステンレス304"
+  201不锈钢:
+    en: "SS 201"
+    es: "AC Inox 201"
+    pt: "AI Inox 201"
+    ar: "ستانلس 201"
+    ru: "Нерж. 201"
+    fr: "Inox 201"
+    de: "Edelstahl 201"
+    ko: "스테인리스 201"
+    ja: "ステンレス201"
+
+# ============================================================
+# 电器件名翻译
+# ============================================================
+electrical_part_names:
+  Thomas泵:
+    en: "Thomas Pump"
+    es: "Bomba Thomas"
+    pt: "Bomba Thomas"
+    ar: "مضخة توماس"
+    ru: "Насос Thomas"
+    fr: "Pompe Thomas"
+    de: "Thomas-Pumpe"
+    ko: "Thomas 펌프"
+    ja: "Thomasポンプ"
+  中间继电器:
+    en: "Intermediate Relay"
+    es: "Relé Intermedio"
+    pt: "Relé Intermediário"
+    ar: "رelay وسيط"
+    ru: "Промежуточное реле"
+    fr: "Relais Intermédiaire"
+    de: "Zwischenrelais"
+    ko: "중계 릴레이"
+    ja: "補助継電器"
+  固态继电器:
+    en: "Solid State Relay (SSR)"
+    es: "Relé de Estado Sólido"
+    pt: "Relé de Estado Sólido"
+    ar: "ريليد الحالة الصلبة"
+    ru: "Твердотельное реле"
+    fr: "Relais à État Solide"
+    de: "Halbleiterrelais"
+    ko: "반도체 릴레이"
+    ja: "ソリッドステートリレー(SSR)"
+  开关电源:
+    en: "Switching Power Supply"
+    es: "Fuente Conmutada"
+    pt: "Fonte Chaveada"
+    ar: "مزود طاقة مبدل"
+    ru: "Импульсный БП"
+    fr: "Alimentation à Découpage"
+    de: "Schaltnetzteil"
+    ko: "스위칭 파워 서플라이"
+    ja: "スイッチング電源"
+  欧陆表:
+    en: "Eurotherm Controller"
+    es: "Controlador Eurotherm"
+    pt: "Controlador Eurotherm"
+    ar: "جهاز تحكم يورثيرم"
+    ru: "Контроллер Eurotherm"
+    fr: "Contrôleur Eurotherm"
+    de: "Eurotherm-Steuerung"
+    ko: "유로덤 컨트롤러"
+    ja: "Eurothermコントローラー"
+  散热风扇:
+    en: "Cooling Fan"
+    es: "Ventilador Refrigeración"
+    pt: "Ventilador Refrigeração"
+    ar: "مروحة التبريد"
+    ru: "Охлаждающий вентилятор"
+    fr: "Ventilateur Refroidissement"
+    de: "Kühllüfter"
+    ko: "냉각 팬"
+    ja: "冷却ファン"
+  SMC气压表:
+    en: "SMC Pressure Gauge"
+    es: "Manómetro SMC"
+    pt: "Manômetro SMC"
+    ar: "مقياس ضغط SMC"
+    ru: "Манометр SMC"
+    fr: "Manomètre SMC"
+    de: "SMC-Druckmesser"
+    ko: "SMC 압력계"
+    ja: "SMC圧力計"
+
+
+# ============================================================
+# RTL 语言列表
+# ============================================================
+rtl_languages:
+  - "ar"
+
+# ============================================================
+# 语言元信息
+# ============================================================
+languages:
+  en:
+    name: "English"
+    native: "English"
+    region: "Global"
+  es:
+    name: "Spanish"
+    native: "Español"
+    region: "LatAm, Spain"
+  pt:
+    name: "Portuguese"
+    native: "Português"
+    region: "Brazil, Angola, Mozambique"
+  ar:
+    name: "Arabic"
+    native: "العربية"
+    region: "Middle East, North Africa"
+  ru:
+    name: "Russian"
+    native: "Русский"
+    region: "Russia, Central Asia"
+  fr:
+    name: "French"
+    native: "Français"
+    region: "West Africa, France"
+  de:
+    name: "German"
+    native: "Deutsch"
+    region: "Germany, Austria, Europe"
+  ko:
+    name: "Korean"
+    native: "한국어"
+    region: "South Korea"
+  ja:
+    name: "Japanese"
+    native: "日本語"
+    region: "Japan"
+  zh:
+    name: "Chinese"
+    native: "中文"
+    region: "China, SE Asia"
