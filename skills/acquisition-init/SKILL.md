@@ -1,7 +1,7 @@
 ---
 name: acquisition-init
-version: 1.0.0
-description: 获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说"初始化获客系统"、"开始使用获客系统"时触发。
+version: 2.0.0
+description: 获客系统初始化引导 v2.0。首次使用时引导用户配置凭据、挂载NAS、测试邮箱、安装依赖。当用户说"初始化获客系统"、"开始使用获客系统"、"一键安装依赖"时触发。
 always: false
 triggers:
   - 初始化获客系统
@@ -9,6 +9,9 @@ triggers:
   - 获客系统初始化
   - 开始使用获客系统
   - 获客系统设置
+  - 一键安装依赖
+  - 安装系统依赖
+  - 安装全部依赖
 ---
 
 # 获客系统初始化引导
@@ -346,9 +349,9 @@ ls ~/.workbuddy/skills/*/SKILL.md
    ⚪ wacli CLI — WhatsApp触达必需
      检测: wacli --version
      安装: npm install -g wacli
-   ⚪ Playwright — 爬虫/浏览器自动化必需
-     检测: npx playwright --version
-     安装: npx playwright install
+   ⚪ Playwright — 浏览器自动化必需（通过 install-deps.sh 一键安装）
+     检测: python3 -c "from playwright.sync_api import sync_playwright"
+     安装: python3 -m playwright install chromium
    ⚪ Exa MCP — 语义搜索增强
      检测: 检查 mcp.json 中 exa 配置是否存在
      配置: 参考技能 exa-web-search-free
@@ -367,26 +370,70 @@ ls ~/.workbuddy/skills/*/SKILL.md
 
 ---
 
-### Step 4.5: 可选依赖校验
+### Step 4.5: 一键安装依赖
 
-对 Step 4 中标记为 ⚪ 的可选依赖，按用户实际需求逐一检测：
+> **自动检测系统环境并安装所有依赖（Linux/macOS/Windows）**
+
+**跨平台检测逻辑**：
+```bash
+# 自动检测 OS 类型
+case "$(uname -s)" in
+  Linux*)     # Debian/Ubuntu → apt-get
+  Darwin*)    # macOS → brew
+  CYGWIN*|MINGW*|MSYS*|NT*) # Windows → PowerShell
+esac
+# WSL2 额外处理 node path symlink
+```
+
+**自动安装的依赖**：
+
+| 依赖 | 类型 | 用途 |
+|------|------|------|
+| openpyxl, docx, yaml, Pillow, requests, regex, lxml | Python | 文档处理、YAML解析、图片、HTTP |
+| playwright + Chromium | Python | 浏览器自动化 |
+| nodemailer | Node.js | 邮件发送 |
+
+**执行命令**：
+
+| 系统 | 一键安装命令 |
+|------|-------------|
+| Linux/macOS/WSL2 | `bash ~/.hermes/skills/acquisition/acquisition-dependencies/scripts/install-deps.sh` |
+| Windows | `powershell -ExecutionPolicy Bypass -File %USERPROFILE%\.hermes\skills\acquisition\acquisition-dependencies\scripts\install-deps.ps1` |
+
+**AI Agent 执行方式**（无需用户手动复制命令）：
+
+```bash
+# 自动检测 OS 类型并执行对应安装脚本
+if uname -s | grep -qiE 'linux|darwin'; then
+    bash ~/.hermes/skills/acquisition/acquisition-dependencies/scripts/install-deps.sh
+elif uname -s | grep -qi 'cygwin|mingw|msys|nt'; then
+    powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.hermes\skills\acquisition\acquisition-dependencies\scripts\install-deps.ps1"
+fi
+```
+
+**检测到依赖缺失时的输出示例**：
 
 ```
-🔍 检查可选依赖...
+🔍 检测依赖安装状态...
 
-| 依赖 | 用途 | 检测命令 | 状态 |
-|------|------|---------|------|
-| wacli | WhatsApp触达 | wacli --version | ✅/❌/跳过 |
-| Playwright | 浏览器自动化/爬虫 | npx playwright --version | ✅/❌/跳过 |
-| Exa MCP | 语义搜索 | 检查 mcp.json 配置 | ✅/❌/跳过 |
-| 特易 API | 海关数据 | 检查凭据存储 | ✅/❌/跳过 |
+  python3 openpyxl    → ✅ 已安装
+  python3 docx        → ✅ 已安装
+  python3 yaml        → ⚠️ 缺失
+  python3 Pillow       → ✅ 已安装
+  python3 playwright   → ⚠️ 缺失 (Chromium 未安装)
+  node   nodemailer   → ✅ 已安装
 
-📋 依赖缺失不影响核心获客流程，但部分功能可能不可用。
-   安装指引：
-   - wacli: npm install -g wacli
-   - Playwright: npx playwright install
-   - Exa: 配置 ~/.workbuddy/mcp.json
-   - 特易: 联系平台获取 API Key
+发现 2 项依赖缺失，是否一键安装？(Y/n)
+```
+
+**用户回答 Y 后**，Agent 自动执行对应脚本，无需用户复制命令。执行完成后：
+
+```
+✅ 依赖安装完成！
+
+  python3 yaml        → ✅ openpyxl docx pyyaml Pillow requests regex lxml
+  python3 playwright  → ✅ chromium 已安装 (180MB)
+  验证:              → ✅ 全部依赖就绪
 ```
 
 ---
