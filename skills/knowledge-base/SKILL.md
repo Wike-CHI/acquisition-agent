@@ -1,3 +1,19 @@
+---
+name: knowledge-base
+version: 1.0.0
+description: >-
+  红龙团队共享情报中心 + 产品知识库。所有获客行为（分析市场/背调查公司/了解产品等）
+  必须先过知识库门卫，避免重复造轮子和信息不一致。
+  存储位置：NAS 共享盘 /References/ 目录。
+triggers:
+  - 知识库
+  - 查一下
+  - 产品知识
+  - 了解一下
+  - 查看资料
+  - knowledge base
+---
+
 # Knowledge Base Skill - 红龙知识库管理
 
 > ⭐ **团队共享情报中心 + 产品知识库**

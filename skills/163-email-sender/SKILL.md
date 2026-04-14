@@ -1,7 +1,7 @@
 ---
 name: 163-email-sender
 version: 2.0.0
-description: "网易163邮箱SMTP发送技能。用nodemailer发邮件，支持HTML正文、自定义签名、批量发送、cron跟进。业务邮箱 wikeye2025@163.com。"
+description: "网易163邮箱SMTP发送技能。用nodemailer发邮件，支持HTML正文、自定义签名、批量发送、cron跟进。凭证通过 HOLO_EMAIL / HOLO_AUTH 环境变量注入。"
 description_en: "Send emails via 163.com SMTP using nodemailer. Supports HTML, signatures, batch sending, cron follow-ups."
 triggers:
   - 发163邮件
@@ -17,12 +17,14 @@ triggers:
 
 ## 凭证
 
+> ⚠️ **安全说明**：邮箱和授权码不写入 SKILL.md，通过环境变量传递。
+
 | 项目 | 值 |
 |------|-----|
-| 邮箱 | wikeye2025@163.com |
-| 授权码 | TSghSNqqZxN7je7Y |
+| 环境变量 | `HOLO_EMAIL` = 163邮箱地址 |
+| 环境变量 | `HOLO_AUTH` = 163授权码 |
 | SMTP | smtp.163.com:465 (SSL) |
-| 发送脚本 | /tmp/sender.mjs |
+| 发送脚本 | /tmp/sender.mjs（从环境变量读取凭证）|
 
 ## 业务员身份
 
@@ -31,7 +33,7 @@ Wike Chen
 Sale Manager
 HOLO Industrial Equipment Mfg Co., Ltd
 Mob/WhatsApp: +86 131 6586 2311
-Email: wikeye2025@163.com
+Email: $HOLO_EMAIL
 Wenzhou, Zhejiang, China
 www.holo-belt.com
 ```
@@ -52,20 +54,25 @@ cd /tmp && node sender.mjs "recipient@example.com" "Subject Here" /tmp/email_bod
 cd /tmp && npm install nodemailer 2>/dev/null
 ```
 
-创建 /tmp/sender.mjs 内容：
+创建 /tmp/sender.mjs 内容（凭证从环境变量读取）：
 
 ```javascript
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 
+const HOLO_EMAIL = process.env.HOLO_EMAIL;
+const HOLO_AUTH = process.env.HOLO_AUTH;
+
+if (!HOLO_EMAIL || !HOLO_AUTH) {
+  console.error('ERROR: HOLO_EMAIL and HOLO_AUTH environment variables must be set');
+  process.exit(1);
+}
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.163.com',
   port: 465,
   secure: true,
-  auth: {
-    user: 'wikeye2025@163.com',
-    pass: 'TSghSNqqZxN7je7Y'
-  }
+  auth: { user: HOLO_EMAIL, pass: HOLO_AUTH }
 });
 
 const SIGNATURE = `<br><br>
@@ -74,7 +81,7 @@ const SIGNATURE = `<br><br>
 Sale Manager<br>
 HOLO Industrial Equipment Mfg Co., Ltd<br>
 <span style="color:#666;">Mob/WhatsApp: +86 131 6586 2311</span><br>
-<span style="color:#666;">Email: wikeye2025@163.com</span><br>
+<span style="color:#666;">Email: ${HOLO_EMAIL}</span><br>
 <span style="color:#888;font-size:12px;">Wenzhou, Zhejiang, China | <a href="https://www.holo-belt.com" style="color:#0066cc;">www.holo-belt.com</a></span>
 </div>`;
 
@@ -82,10 +89,8 @@ async function send(to, subject, htmlBody) {
   const fullHtml = htmlBody + SIGNATURE;
   try {
     const info = await transporter.sendMail({
-      from: '"Wike Chen" <wikeye2025@163.com>',
-      to,
-      subject,
-      html: fullHtml
+      from: `"Wike Chen" <${HOLO_EMAIL}>`,
+      to, subject, html: fullHtml
     });
     console.log(`SENT -> ${to} | ${info.messageId}`);
     return true;
@@ -134,7 +139,7 @@ cd /tmp && node sender.mjs "client3@example.com" "Subject 3" email_3.html
 Cron prompt中需包含：
 - 完整客户清单和邮箱
 - 发送脚本路径 /tmp/sender.mjs
-- 邮箱和授权码
+- 环境变量已在会话中设置（HOLO_EMAIL / HOLO_AUTH），cron 自动继承
 - 每封间隔30秒指令
 
 ## 开发信模板要点
@@ -163,7 +168,7 @@ Cron prompt中需包含：
 
 ### 坑2: 535 Authentication Failed
 - **原因优先级**:
-  1. 邮箱地址错（本次就是 wikeye@163.com → 正确是 wikeye2025@163.com）
+  1. 邮箱地址错（常见错误：漏掉年份后缀；检查是否少了"2025"）
   2. 授权码错/过期（163授权码是16位字母）
   3. SMTP服务未开启
 - **排查**: 先确认邮箱地址，再让用户重新生成授权码

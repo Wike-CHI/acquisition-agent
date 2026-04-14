@@ -1,3 +1,24 @@
+---
+name: holo-social-gen
+version: 7.3.0
+description: >-
+  HOLO 社媒图片生成器 v7.3 — AI-First 设计架构，每张图都是独立设计作品。
+  读取 product_data.py 产品数据和 platform_styles.py 平台风格，AI 设计师亲自手写 HTML
+  再渲染为 PNG/JPG。支持 6 语种（EN/ES/PT-BR/DE/ID/TR），覆盖 Instagram/LinkedIn/
+  Facebook/TikTok/Pinterest/YouTube 封面/故事/Reels 全格式。
+  禁止用脚本批量生成，每张图须独立设计。
+triggers:
+  - 生成社媒图片
+  - 生成 Instagram
+  - 生成 LinkedIn
+  - 生成 Facebook
+  - 生成 TikTok
+  - 社媒配图
+  - social media image
+  - Instagram post
+  - LinkedIn banner
+---
+
 # HOLO 社媒图片生成器 v7.3
 
 > ⭐ **v7: AI-First 架构 — 我是设计师，每张图都是独立设计作品**  

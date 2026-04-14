@@ -1,7 +1,7 @@
 ---
-name: Market Development Report
+name: market-development-report
 slug: market-development-report
-version: 1.0.0
+version: 1.0.1
 description: 市场开发调研报告技能。当用户说「开发XX市场」「开发南美」「开发非洲」等时，自动生成结构化的目标市场分析报告，包含市场规模、竞争格局、关税政策、开发优先级、获客关键词。
 triggers:
   - 开发市场

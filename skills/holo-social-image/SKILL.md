@@ -1,12 +1,22 @@
 ---
 name: holo-social-image
 version: 1.0.0
-description: >
+description: >-
   HOLO社媒图片预处理技能 - 使用 GIMP CLI + PIL 自动处理产品图片
   （裁剪、抠图去背景、调色、品牌水印、格式转换、尺寸调整）。
   所有产品图片必须来自 NAS 共享盘真实资料或业务员上传。
   是 holo-social-gen 的上游预处理层：脏图→干净标准化素材。
-  触发词: 抠图/裁剪/去背景/处理图片/加水印/缩放/调整图片/修图/GIMP
+triggers:
+  - 抠图
+  - 裁剪
+  - 去背景
+  - 处理图片
+  - 加水印
+  - 缩放
+  - 调整图片
+  - 修图
+  - GIMP
+  - 社媒图片处理
 ---
 
 # HOLO 社媒图片预处理 (holo-social-image)
