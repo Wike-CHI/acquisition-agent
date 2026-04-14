@@ -1,28 +1,7 @@
----
-name: holo-social-gen
-version: 7.3.0
-description: >-
-  HOLO 社媒图片生成器 v7.3 — AI-First 设计架构，每张图都是独立设计作品。
-  读取 product_data.py 产品数据和 platform_styles.py 平台风格，AI 设计师亲自手写 HTML
-  再渲染为 PNG/JPG。支持 6 语种（EN/ES/PT-BR/DE/ID/TR），覆盖 Instagram/LinkedIn/
-  Facebook/TikTok/Pinterest/YouTube 封面/故事/Reels 全格式。
-  禁止用脚本批量生成，每张图须独立设计。
-triggers:
-  - 生成社媒图片
-  - 生成 Instagram
-  - 生成 LinkedIn
-  - 生成 Facebook
-  - 生成 TikTok
-  - 社媒配图
-  - social media image
-  - Instagram post
-  - LinkedIn banner
----
-
-# HOLO 社媒图片生成器 v7.3
+# HOLO 社媒图片生成器 v7.2
 
 > ⭐ **v7: AI-First 架构 — 我是设计师，每张图都是独立设计作品**  
-> 🆕 **v7.3: 明确与 infographic 的职责分工，杜绝技能混淆**
+> 🆕 **v7.2: 集成上游预处理 — 脏图先洗再做设计**
 
 ---
 
@@ -51,25 +30,6 @@ triggers:
    → 调用 python holo_gen.py render <input.html> <output.png>
    → 完成
 ```
-
-## 🔀 与 holo-social-infographic 的分工（必读）
-
-> **我负责「让人眼前一亮」，infographic 负责「让人看懂数据」。**
-
-| 判断标准 | 用我（gen） | 用 infographic |
-|---------|------------|----------------|
-| 图片用途 | 社媒帖子、封面、吸眼球 | 技术文档、客户对比、Email附件 |
-| 内容密度 | 少文字、大图、强视觉 | 多数据、表格、参数对比 |
-| 目标尺寸 | 固定平台比例（如 1080×1080） | 1920px 宽，高度不定（长图） |
-| 设计风格 | AI 自由创作，每次不同 | 固定白底简约，Apple/西门子风 |
-| 典型需求 | "做一张 Instagram 图" | "做一张竞品对比表" |
-
-**边界案例处理：**
-- 用户说「做一张工业风格的参数图」→ **用我**，选 `industrial` 平台，我会设计好看的参数展示
-- 用户说「把参数表发给客户做参考」→ **转 infographic**，它输出的图更适合正式文件
-- 用户说「做一张图放在 LinkedIn 上，要有参数」→ **用我**，`linkedin_pro` 平台，我会设计有参数的 LinkedIn 图
-
----
 
 ## 我的角色
 
@@ -413,4 +373,3 @@ playwright install chromium
 | v7.0 | 平台设计人格体系（禁止批量脚本） | 2026-04-13 |
 | **v7.1** | **设计体系重构 — 从死的配方表改为活的四层框架：硬约束→设计方向(多选项)→自由创作空间→多样性保障** | 2026-04-13 |
 | **v7.2** | **上游技能集成 — 新增 Step 0 图片预处理（调用 holo-social-image），明确与 image/infographic 的调用关系；品牌色统一为 #D32F2F** | 2026-04-13 |
-| **v7.3** | **与 holo-social-infographic 职责边界说明（防止 AI 调错技能）；补充边界案例处理规则** | 2026-04-13 |

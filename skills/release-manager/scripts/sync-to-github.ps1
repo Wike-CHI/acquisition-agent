@@ -4,12 +4,6 @@
 # 用途：将本地 ~/.workbuddy/skills/ 中红龙系统相关技能同步到 GitHub 仓库
 # 用法：cd "C:\Users\Administrator\.workbuddy\skills"; .\release-manager\scripts\sync-to-github.ps1 [-CommitMessage "..."]
 #
-# v3.3 (2026-04-13) 改进：
-#   - P0: 双向同步感知 — fetch 后对比本地/远程提交差异
-#   - P0: 分叉检测 — 本地和远程都有新提交时警告用户（而非静默覆盖）
-#   - P0: 显示即将被覆盖的远程提交列表（防误删）
-#   - P1: 4 种分支状态分别处理（一致/纯远程/纯本地/分叉）
-#
 # v2.1 (2026-04-11) 修复：
 #   - P0: 强制预检（gh auth / 网络连通性）
 #   - P1: SKILL.md hash 变化检测，增量同步跳过无变化的技能
@@ -73,8 +67,6 @@ $RetainedSkills = @(
     "agentmail", "gog",
     # 新增技能（2026-04-10）
     "email-inbox", "holo-activity-log",
-    # HOLO 社媒技能簇 (2026-04-13) — cli-anything-hub → image/infographic → gen (依赖链)
-    "holo-social-gen", "holo-social-image", "holo-social-infographic", "cli-anything-hub",
     # 中文目录
     "浏览器自动化", "内容分发", "去AI味", "QQ邮箱", "MCP管理器"
 )
@@ -236,69 +228,15 @@ if (-not $SkipPrereqCheck) {
 }
 
 # =============================================================
-# Step 1: Clone 或更新仓库（v3.3: 安全双向同步）
+# Step 1: Clone 或更新仓库
 # =============================================================
 if (Test-Path $RepoDir) {
     Write-Status "更新已有仓库..."
     Push-Location $RepoDir
-    
-    # 1) 先 fetch 远程最新状态
     $null = git fetch origin $Branch 2>&1
-    if ($LASTEXITCODE -ne 0) { 
-        Write-Warn "git fetch 失败，继续..."
-        Pop-Location
-        # 尝试继续（可能是离线环境）
-    } else {
-        # 2) 检查是否有远程新提交（本地没有的）
-        $localCommit = git rev-parse HEAD 2>&1 | Select-Object -First 1
-        $remoteCommit = git rev-parse "origin/$Branch" 2>&1 | Select-Object -First 1
-        
-        # 比较本地和远程是否一致
-        $aheadCount = git rev-list --count "origin/$Branch..HEAD" 2>&1 | Select-Object -First 1
-        $behindCount = git rev-list --count "HEAD..origin/$Branch" 2>&1 | Select-Object -First 1
-        
-        Write-Host "   本地: $($localCommit.Substring(0,7)) (+$aheadCount / -$behindCount)" -ForegroundColor DarkGray
-        Write-Host "   远程: $($remoteCommit.Substring(0,7))" -ForegroundColor DarkGray
-        
-        # 3) 判断分支状态并采取对应策略
-        if ($localCommit -eq $remoteCommit) {
-            # 完全一致 → 无需操作
-            Write-Host "   已是最新" -ForegroundColor DarkGray
-        } elseif ($behindCount -gt 0 -and $aheadCount -eq 0) {
-            # 只有远程有新提交 → 安全 pull
-            Write-Status "拉取远程 $behindCount 个新提交..."
-            $null = git reset --hard "origin/$Branch" 2>&1
-            if ($LASTEXITCODE -ne 0) { Write-Warn "git reset 失败，继续..." }
-            Write-OK "已拉取远程更新"
-        } elseif ($behindCount -gt 0 -and $aheadCount -gt 0) {
-            # 分叉！两边都有新提交 → 警告用户
-            Write-Warn "⚠️ 分支分叉! (本地领先$aheadCount / 远程领先$behindCount)"
-            Write-Host "   这意味着有其他设备/网页端推送了内容到 GitHub" -ForegroundColor Yellow
-            Write-Host "   默认策略：保留远程变更 + 用本地覆盖（可能丢失远程编辑）" -ForegroundColor DarkGray
-            Write-Host "   如需手动合并，请先取消本次同步" -ForegroundColor DarkGray
-            
-            # 记录将被覆盖的远程提交
-            $remoteNewCommits = git log "HEAD..origin/$Branch" --oneline 2>&1
-            if ($remoteNewCommits) {
-                Write-Host "   即将覆盖的远程提交:" -ForegroundColor Red
-                foreach ($c in ($remoteNewCommits -split "`n") | Where-Object { $_.Trim() }) {
-                    Write-Host "     ✗ $c" -ForegroundColor Red
-                }
-            }
-            
-            # 执行 hard reset（与原逻辑一致）
-            $null = git reset --hard "origin/$Branch" 2>&1
-            if ($LASTEXITCODE -ne 0) { Write-Warn "git reset 失败，继续..." }
-            Write-Warn "已重置到远程最新，本地变更将覆盖上去"
-        } elseif ($aheadCount -gt 0 -and $behindCount -eq 0) {
-            # 只有本地有新提交（上次 push 失败残留）→ 重置到远程再重新推
-            Write-Warn "本地有 $aheadCount 个未推送提交(可能是上次push失败残留)"
-            $null = git reset --hard "origin/$Branch" 2>&1
-            if ($LASTEXITCODE -ne 0) { Write-Warn "git reset 失败，继续..." }
-            Write-Host "   已重置到远程，将用本地技能重新生成提交" -ForegroundColor DarkGray
-        }
-    }
-    
+    if ($LASTEXITCODE -ne 0) { Write-Warn "git fetch 失败，继续..." }
+    $null = git reset --hard "origin/$Branch" 2>&1
+    if ($LASTEXITCODE -ne 0) { Write-Warn "git reset 失败，继续..." }
     Pop-Location
 } else {
     Write-Status "克隆仓库..."

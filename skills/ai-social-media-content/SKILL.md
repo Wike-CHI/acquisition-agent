@@ -1,7 +1,7 @@
 ---
 name: ai-social-media-content
-description: "AI 社媒营销内容生成器。一次主题，自动生成 9 个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube/Pinterest/Threads/Bluesky）。支持纯文案模式（默认）和图文全套模式（按需调用 holo-social-gen）。无需外部 API，纯 AI 生成，业务员手动发布。"
-version: 1.2.0
+description: "AI 社媒营销内容生成器。一次主题，自动生成 9 个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube/Pinterest/Threads/Bluesky）。无需外部 API，纯 AI 生成，业务员手动发布。"
+version: 1.1.0
 metadata:
   openclaw:
     requires:
@@ -340,123 +340,6 @@ AI：📝 生成多平台内容...
 
 ---
 
-## ✍️ 去AI味后处理（可选）
-
-> **AI 生成的文案通常有明显 AI 味（过度加粗 `**bold**`、英文句号、空话套话），会影响社媒可信度。**
-> **生成文案后自动调用 `humanizer` 技能做去AI味处理，让内容听起来更像真人写的。**
-
-```bash
-# 文案生成后，按需执行
-python scripts/compare.py generated_text.txt -o humanized.txt
-```
-
-**判断规则：**
-
-| 用户说 | 激活哪个 |
-|--------|---------|
-| "社媒内容"、"发帖子"、"写文案" | 生成文案 → 自动 humanize（默认） |
-| "不用去AI味"、"原样就好" | 生成文案 → 直接输出 |
-
-**Humanize 会自动消除：**
-- ❌ 空话套话："I'm happy to help"、"Great question!"
-- ❌ AI 常用词：delve、tapestry、pivotal、underscore、foster
-- ❌ 过度格式化：`**加粗**`、无意义的列表符号
-- ❌ Markdown 痕迹：headers、code blocks
-- ❌ 中英混搭：句号后直接跟英文
-
----
-
-## 📸 图文联动发布指南（可选模块）
-
-> **文案和图片是独立的两条线。** 有的业务员只需要文案自己发，有的需要图文全套。**按需调用，不要强制绑定。**
-
-### 两种使用模式
-
-```
-【模式A：纯文案】（默认，推荐用于：
-用户：社媒内容：新品发布，产品是新款风冷机 A2FLJ
-→ 只生成文案，用户自己发布到各平台
-
-【模式B：图文全套】
-用户：社媒内容：新品发布，产品是新款风冷机 A2FLJ，配图也帮我做
-→ Step 1 → ai-social-media-content：生成 9 个平台文案
-→ Step 2 → holo-social-image：预处理产品图片（抠图/调色/水印）
-→ Step 3 → holo-social-gen：为每个平台生成配套图片
-→ 输出《图文发布清单》供用户手动发布
-```
-
-### 判断规则
-
-| 用户说 | 激活哪个模式 |
-|--------|------------|
-| "帮我生成文案"、"发帖子"、"社媒内容" | **模式A：纯文案** |
-| "配图也帮我做"、"图文都要"、"生成一套" | **模式B：图文全套** |
-| "发到 Instagram"（没说图片） | **模式A：纯文案** |
-| "发到 Instagram，配上产品图" | **模式B：图文全套** |
-
-### 平台 → 图片风格映射表（仅模式B使用）
-
-| 平台 | 推荐风格 | 尺寸 | 用途 | 对应 gen 命令 |
-|------|---------|------|------|-------------|
-| **Instagram** | `catalog_pro` 或 `instagram_pro` | 1080×1350 | 产品主图 + 参数 | `python holo_gen.py generate --product A2FLJ --platform catalog_pro` |
-| **Instagram Story** | `instagram_story` | 1080×1920 | 快速动态/产品亮点 | `python holo_gen.py generate --product A2FLJ --platform instagram_story` |
-| **LinkedIn** | `linkedin_pro` 或 `linkedin_dark` | 1200×627 | 品牌故事 + 产品双图 | `python holo_gen.py generate --product A2FLJ --platform linkedin_pro` |
-| **Facebook** | `facebook_engaging` | 1200×630 | 产品展示 + CTA | `python holo_gen.py generate --product A2FLJ --platform facebook_engaging` |
-| **TikTok** | `tiktok_dyn` | 1080×1920 | 视频封面（竖版） | `python holo_gen.py generate --product A2FLJ --platform tiktok_dyn` |
-| **YouTube** | `youtube_thumb` | 1280×720 | 视频缩略图 | `python holo_gen.py generate --product A2FLJ --platform youtube_thumb` |
-| **X (Twitter)** | `twitter_x` | 1600×900 | 推文配图 | `python holo_gen.py generate --product A2FLJ --platform twitter_x` |
-| **Pinterest** | `pinterest_pin` | 1000×1500 | 图钉长图（参数/选型） | `python holo_gen.py generate --product A2FLJ --platform pinterest_pin` |
-| **Threads** | `catalog_pro` | 1080×1350 | 与 Instagram 同图 | 直接复用 Instagram 图 |
-
-### ⚡ 图片获取优先级
-
-```
-Step 1：先问用户是否有产品实拍图（NAS 共享盘路径）
-  → 有：传给 holo-social-image 做预处理（抠图/调色/水印）
-  → 无：直接用 holo-social-gen 生成（AI 设计配图）
-
-Step 2：生成配套图
-  → 调用 holo-social-image（图片预处理）
-  → 调用 holo-social-gen（生成各平台图片）
-
-Step 3：汇总发布清单
-```
-
-### 📋 《图文发布清单》模板
-
-每次生成文案后，必须输出以下格式的发布清单：
-
-```markdown
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 图文发布清单
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-✅ 文案已生成：9 个平台
-
-🖼️ 配套图片（生成建议）：
-
-| 优先级 | 平台 | 风格 | 说明 |
-|--------|------|------|------|
-| ① 高 | Instagram + LinkedIn | catalog_pro + linkedin_pro | 产品主图，优先制作 |
-| ② 高 | Facebook + X | facebook_engaging + twitter_x | 快速推广 |
-| ③ 中 | TikTok + YouTube | tiktok_dyn + youtube_thumb | 视频封面 |
-| ④ 中 | Pinterest | pinterest_pin | 参数长图，精准获客 |
-| ⑤ 低 | Threads | catalog_pro | 复用 Instagram 图 |
-
-📌 发布顺序建议：
-1. Instagram（主战场）
-2. LinkedIn（B2B 专业）
-3. Facebook（广泛覆盖）
-4. X / Threads（快速传播）
-5. TikTok / YouTube（视频内容）
-6. Pinterest（长尾流量）
-
-📍 下一动作：
-→ 需要我帮你生成配套图片吗？（回复"生成配套图"）
-```
-
----
-
 ## 📋 平台适配规则
 
 ### Instagram
@@ -595,10 +478,7 @@ Step 3：汇总发布清单
 
 ## 📚 产品知识库
 
-**数据来源**：`honglong-products` 技能（优先） + NAS 共享盘（兜底）
-
-> ⚠️ **不要读 workspace/AGENTS.md，已失效。**
-> 调用此技能时，先调用 `honglong-products` 技能获取真实产品型号、技术参数、BOM、选型建议。
+**位置**：`workspace/AGENTS.md`
 
 **产品系列**：
 - 风冷机（A2FRJ 等）
@@ -620,16 +500,6 @@ Step 3：汇总发布清单
 
 ---
 
-_版本: 1.2.0_
-_更新: 2026-04-13_
+_版本: 1.0.0_
+_更新: 2026-03-28_
 _费用: 免费 unlimited_
-
----
-
-## 📋 版本历史
-
-| 版本 | 更新内容 | 日期 |
-|------|---------|------|
-| **v1.2.0** | **图文联动：新增「图文联动指南」为可选模块，区分纯文案（默认）和图文全套（按需）两种模式；修复失效数据源（workspace/AGENTS.md → honglong-products）；新增图文发布清单模板；集成 humanizer 作为默认去AI味后处理** | 2026-04-13 |
-| **v1.1.0** | 新增 triggers 行业关键词（工业设备/皮带接头/输送带） | 2026-03-28 |
-| **v1.0.0** | 初始版本：9 平台文案生成 | 2026-03-28 |

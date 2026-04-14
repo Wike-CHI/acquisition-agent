@@ -11,9 +11,7 @@
 
 > **禁止直接在 `~/.workbuddy/skills/` 执行 git add/commit/push**
 >
-> 所有 GitHub 推送必须通过 `sync-to-github.ps1` 脚本。
-> 所有 GitHub 拉取必须通过 `pull-from-github.ps1` 脚本。
-> 禁止绕过 TEMP 协调仓库（`%TEMP%\acquisition-agent-sync`）直接操作本地 skills。
+> 所有同步必须通过 `sync-to-github.ps1` 脚本，否则会破坏 TEMP 仓库与本地仓库的协调机制。
 
 ## 同步流程
 
@@ -35,38 +33,7 @@ GitHub: Wike-CHI/acquisition-agent (main)
 
 ## 操作步骤
 
-### 日常推送（本地 → GitHub）
-
-```powershell
-# ★ 必须从 skills 根目录运行
-cd "C:\Users\Administrator\.workbuddy\skills"
-.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
-```
-
-### 日常拉取（GitHub → 本地）
-
-```powershell
-# ★ 从任意目录运行
-cd "C:\Users\Administrator\.workbuddy\skills"
-.\release-manager\scripts\pull-from-github.ps1
-
-# 预览模式（显示将要更新的技能，不实际修改）
-.\release-manager\scripts\pull-from-github.ps1 -WhatIf
-```
-
-### 拉取流程（单向）
-
-```
-GitHub: Wike-CHI/acquisition-agent (main)
-    │
-    ▼ fetch + pull
-%TEMP%/acquisition-agent-sync/    ← TEMP 协调仓库
-    │
-    ▼ robocopy 增量同步
-本地 ~/.workbuddy/skills/          ← 本地技能目录
-```
-
-> ⚠️ 拉取前请确保本地 skills 没有未推送的变更，否则会被覆盖！
+### 日常同步（必须）
 
 ```powershell
 # ★ 必须从 skills 根目录运行
@@ -234,4 +201,4 @@ git push --force origin main
 
 ---
 
-_Version: 3.2.0_
+_Version: 3.1.0_

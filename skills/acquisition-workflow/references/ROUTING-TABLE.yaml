@@ -1,15 +1,11 @@
 # ============================================================
 # 红龙获客系统 - 技能路由表（声明式配置）
-# 版本: 2.8.0 | 更新时间: 2026-04-10
+# 版本: 2.9.0 | 更新时间: 2026-04-14
 #
-# 🆕 v2.8.0 新增：多语种词簇搜索（P0升级）
-#   - 非英语国家自动启用本地语言词簇
-#   - 词簇库位置：references/MULTILANG-KEYWORDS.md
-#   - 覆盖语言：DE/ES/FR/PT/AR/ID/VI/TR/PL
-# 🆕 v2.7.0 新增意图: market_development - 市场开发/市场拓展
+# v2.9.0: 精简skills_index，移除31个归档技能的引用；修复4个不存在的技能
+# v2.8.0: 多语种词簇搜索 + market_development意图
 #
-# 用途：AI Agent 读取此文件进行意图识别 → 技能选择 → 调用
-# 格式：纯 YAML 声明，无代码依赖，跨平台兼容
+# 格式：意图识别 → 技能路由 → 铁律检查
 # ============================================================
 
 # ── 多语种搜索配置 ─────────────────────────────────────────
@@ -123,6 +119,11 @@ intents:
     keywords: [报价, 报价单, 价格, quote, quotation, pricing]
     description: "生成产品报价单"
 
+  sales_response:
+    keywords: [回复客户, 收到询盘, 客户说太贵, 客户议价, 异议处理, 客户还价, 销售应答, inquiry response, sales reply, objection handling, 回复邮件, 怎么回客户, 销售话术, 谈判策略, negotiation, 客户的问题]
+    description: "销售智能应答 - 处理客户回复、异议处理、文化适配、生成回复"
+    market_aware: true
+
   crm_import:
     keywords: [导入孚盟, 导入CRM, 生成导入模板, 一键导入, 批量导入客户, 客户数据同步, 导出到孚盟]
     description: "客户数据导入孚盟CRM"
@@ -230,10 +231,10 @@ routing:
         priority: 3
         condition: "分段队列发送"
         fallback: [email-sender]
-      - skill: email-outreach-ops
+      - skill: cold-email-generator
         priority: 2
         condition: "开发信运营（供应商询价等）"
-        fallback: [cold-email-generator]
+        fallback: []
     domestic:
       - skill: email-sender
         priority: 5
@@ -309,15 +310,26 @@ routing:
         condition: "产品匹配+基础报价"
         fallback: []
 
+  sales_response:
+    overseas:
+      - skill: sales-response
+        priority: 6
+        condition: "销售智能应答（异议处理+文化适配）"
+        next: [cold-email-generator]
+        fallback: []
+    domestic:
+      - skill: sales-response
+        priority: 6
+        condition: "销售智能应答（异议处理）"
+        next: [cold-email-generator]
+        fallback: []
+
   crm_import:
     all_markets:
-      - skill: fumamx-import-adapter
-        priority: 5
-        condition: "孚盟导入适配器"
-        fallback: [fumamx-crm]
       - skill: fumamx-crm
-        priority: 3
-        condition: "孚盟CRM手动操作"
+        priority: 5
+        condition: "孚盟CRM操作（查询/创建/更新/发送）"
+        fallback: []
 
   full_pipeline:
     overseas:
@@ -339,12 +351,11 @@ routing:
 
 fallback_map:
   teyi-customs: [exa-search]
-  linkedin: [exa-search]
   facebook-acquisition: [exa-search]
-  exa-search: [exa-web-search-free]
+  exa-search: []
   email-sender: [delivery-queue]
-  cold-email-generator: [email-outreach-ops]
-  whatsapp-outreach: [cold-email-generator]
+  cold-email-generator: []
+  whatsapp-outreach: []
   ai-social-media-content: [facebook-acquisition]
 
 
@@ -405,159 +416,147 @@ iron_rules:
 
 
 
-# ── 子技能索引 ─────────────────────────────────────────────
+# ── 子技能索引（精简版 v2.9.0）────────────────────────────────
 #
-# 所有可被路由的技能及其位置。AI 通过 skill://协议 或 读取文件路径 来获取技能指令。
+# 仅列出真实存在的技能。已归档技能移至 .archive/
+# layer分类: orchestration | discovery | intelligence | outreach | support | entry | persona
 
 skills_index:
+  # === 编排层 ===
   acquisition-coordinator:
     path: "skill://acquisition-coordinator"
-    description: "获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调 (3) 并行搜索 ("
+    description: "获客任务协调器。拆解复杂任务、读取子技能、执行并整合结果。"
     layer: orchestration
   acquisition-evaluator:
     path: "skill://acquisition-evaluator"
-    description: "独立验收Agent - 评估其他Agent的工作质量。当需要：(1) 验收背调报告 (2) 检查开发信质量 (3) 审核报价准确性 (4) 质量控制 时使用此技"
+    description: "独立验收Agent。验收背调报告、检查开发信质量、审核报价准确性。"
     layer: orchestration
   acquisition-init:
     path: "skill://acquisition-init"
-    description: "获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说'初始化获客系统'、'开始使用获客系统'时触发。"
+    description: "初始化引导。配置凭据、挂载NAS、测试邮箱。"
     layer: orchestration
   acquisition-workflow:
     path: "skill://acquisition-workflow"
-    description: "获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。"
+    description: "获客工作流。端到端流程定义、质量检查点、输出格式规范。"
     layer: orchestration
-  cold-email-generator:
-    path: "skill://cold-email-generator"
-    description: "开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9."
-    layer: outreach
-  company-research:
-    path: "skill://company-research"
-    description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、Link"
-    layer: intelligence
-  credential-manager:
-    path: "skill://credential-manager"
-    description: "统一凭据管理技能。支持对话式配置各平台账号密码，使用Windows DPAPI安全加密存储。"
-    layer: support
-  crm:
-    path: "skill://crm"
-    description: "Guide users building a personal CRM from simple files to structured database."
-    layer: support
-  customer-deduplication:
-    path: "skill://customer-deduplication"
-    description: "客户去重技能。跨平台合并重复客户，按公司名称、域名、联系方式匹配。当用户需要：(1) 合并多个平台的客户列表 (2) 去除重复客户 (3) 统一客户信息 (4)"
-    layer: support
-  customer-intelligence:
-    path: "skill://customer-intelligence"
-    description: "客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。"
-    layer: intelligence
-  delivery-queue:
-    path: "skill://delivery-queue"
-    description: "消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。"
-    layer: support
-  email-marketing:
-    path: "skill://email-marketing"
-    description: "Email deliverability, list management, sequences, segmentation, campaign optimiz"
-    layer: outreach
-  email-sender:
-    path: "skill://email-sender"
-    description: "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能"
-    layer: outreach
-  facebook-acquisition:
-    path: "skill://facebook-acquisition"
-    description: "Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。"
-    layer: discovery
-  fumamx-crm:
-    path: "skill://fumamx-crm"
-    description: "孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说'配置孚盟账号'或'初始化获客系统"
-    layer: support
-  fumamx-import-adapter:
-    path: "skill://fumamx-import-adapter"
-    description: "孚盟导入适配器 - 将获客系统的客户数据转换为孚盟导入模板格式，支持批量处理、去重检查、字段标准化。"
-    layer: support
-  holo-agent:
-    path: "skill://holo-agent"
-    description: "HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi"
-    layer: entry
-  honglong-assistant:
-    path: "skill://honglong-assistant"
-    description: "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。"
-    layer: persona
-  honglong-products:
-    path: "skill://honglong-products"
-    description: "红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则 (2) 技"
-    layer: persona
-  in-depth-research:
-    path: "skill://in-depth-research"
-    description: "深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"
-    layer: intelligence
-  instagram-acquisition:
-    path: "skill://instagram-acquisition"
-    description: "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。"
-    layer: discovery
-  linkedin:
-    path: "skill://linkedin"
-    description: "LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send "
-    layer: discovery
-  linkedin-writer:
-    path: "skill://linkedin-writer"
-    description: "Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加"
-    layer: discovery
-  market-research:
-    path: "skill://market-research"
-    description: "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。"
-    layer: intelligence
-  sales-pipeline-tracker:
-    path: "skill://sales-pipeline-tracker"
-    description: "Track deals through every stage from lead to close. Manage pipeline stages, upda"
-    layer: support
-  smart-quote:
-    path: "skill://smart-quote"
-    description: "红龙智能报价技能 v2.0 - 先背调后报价，给业务员利润率范围和价格区间。先调用company-research背调，根据企业规模/ICP评分/付款能力确定利润率区间，让业务员灵活报价。"
-    layer: outreach
-  understand-honglong-acquisition:
-    path: "skill://understand-honglong-acquisition"
-    description: "红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习 (6)优化改进时。完整功能使用"
-    layer: support
-  # ── 2026-04-09 补充缺失技能索引 ──
+
+  # === 发现层 ===
   teyi-customs:
     path: "skill://teyi-customs"
-    description: "特易海关数据搜索 - 采购记录数据，用于发现从中国进口工业设备的海外买家"
+    description: "特易海关数据。发现从中国进口工业皮带设备的海外买家采购记录。"
     layer: discovery
   exa-search:
     path: "skill://exa-search"
-    description: "AI深度搜索技能。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！支持LinkedIn决策人搜索、企业情报、网页抓取"
+    description: "AI深度搜索（MCP: mcporter call exa.xxx）。语义搜索/LinkedIn决策人/企业情报。"
     layer: discovery
-  scrapling:
-    path: "skill://scrapling"
-    description: "网页抓取技能 - 从网站提取结构化数据，支持动态页面渲染"
+  facebook-acquisition:
+    path: "skill://facebook-acquisition"
+    description: "Facebook客户搜索。挖掘行业群组、获取公司主页信息。"
     layer: discovery
-  whatsapp-outreach:
-    path: "skill://whatsapp-outreach"
-    description: "WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送"
-    layer: outreach
-  humanize-ai-text:
-    path: "skill://humanize-ai-text"
-    description: "AI文本去味工具 - 将AI生成的文本改写成更自然的人类写作风格"
-    layer: support
+  instagram-acquisition:
+    path: "skill://instagram-acquisition"
+    description: "Instagram客户搜索。挖掘行业标签、获取公司账号信息。"
+    layer: discovery
+  linkedin:
+    path: "skill://linkedin"
+    description: "LinkedIn AI触达。搜索决策人、通过agent-browser发送消息。"
+    layer: discovery
+
+  # === 情报层 ===
+  company-research:
+    path: "skill://company-research"
+    description: "海外B2B企业背景调查。输出结构化背调报告，用于ICP评分和开发信个性化。"
+    layer: intelligence
+  market-research:
+    path: "skill://market-research"
+    description: "市场研究。红龙定制包装入口，自动加载HONGLONG-OVERRIDE.md。"
+    layer: intelligence
   deep-research:
     path: "skill://deep-research"
-    description: "深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入"
+    description: "深度多源调研。公司/市场/行业系统性调研，方法论追踪+迭代深入。"
     layer: intelligence
+  customer-intelligence:
+    path: "skill://customer-intelligence"
+    description: "客户情报整合。市场调研+背调+竞品分析，支持动态ICP评分。"
+    layer: intelligence
+
+  # === 触达层 ===
+  cold-email-generator:
+    path: "skill://cold-email-generator"
+    description: "开发信生成v2.0。打磨流程+AI检测+多轮润色，评分≥9.0分才发送。"
+    layer: outreach
+  email-sender:
+    path: "skill://email-sender"
+    description: "SMTP邮件发送。引导式配置、自动发送开发信和跟进邮件。"
+    layer: outreach
+  email-inbox:
+    path: "skill://email-inbox"
+    description: "邮件收件检测。IMAP连接企业邮箱，检测客户回复和询价。"
+    layer: outreach
+  whatsapp-outreach:
+    path: "skill://whatsapp-outreach"
+    description: "WhatsApp触达。通过wacli发送，支持文本/文件/产品目录/批量发送。"
+    layer: outreach
+  delivery-queue:
+    path: "skill://delivery-queue"
+    description: "消息分段发送。模拟真人发送节奏，定时发送+drip campaign。"
+    layer: outreach
+  sales-response:
+    path: "skill://sales-response"
+    description: "销售智能应答。异议处理(15种)+商业文化画像(18国)+产品FAQ+谈判策略。"
+    layer: outreach
   ai-social-media-content:
     path: "skill://ai-social-media-content"
-    description: "AI社媒营销内容生成器。一次主题，自动生成9个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）"
+    description: "AI社媒内容生成。一次主题自动生成9平台内容（Instagram/TikTok/LinkedIn等）。"
     layer: outreach
-  email-outreach-ops:
-    path: "skill://email-outreach-ops"
-    description: "邮件外联运营技能。生成和管理供应商询价邮件、跟进流程、回复汇总"
+  linkedin-writer:
+    path: "skill://linkedin-writer"
+    description: "LinkedIn专属内容写作。生成自然人性化的帖子（非内容工厂风格）。"
     layer: outreach
-  exa-web-search-free:
-    path: "skill://exa-web-search-free"
-    description: "Exa Web Search (Free)。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！"
-    layer: discovery
-  # ── 2026-04-10 v2.8.0 补充多语种词簇库 ──
+  smart-quote:
+    path: "skill://smart-quote"
+    description: "智能报价v2.0。先背调后报价，给业务员利润率范围和价格区间。"
+    layer: outreach
+
+  # === 支持层 ===
+  honglong-products:
+    path: "skill://honglong-products"
+    description: "产品知识库。风冷机/水冷机/分层机/导条机/打齿机等全系列产品规格参数。"
+    layer: persona
+  fumamx-crm:
+    path: "skill://fumamx-crm"
+    description: "孚盟MX CRM自动化。客户查询/创建/更新/筛选/发送邮件。"
+    layer: support
+  credential-manager:
+    path: "skill://credential-manager"
+    description: "统一凭据管理。Windows DPAPI安全加密存储各平台账号密码。"
+    layer: support
+  customer-deduplication:
+    path: "skill://customer-deduplication"
+    description: "客户去重。跨平台合并重复客户，按公司名称/域名/联系方式匹配。"
+    layer: support
+  sales-pipeline-tracker:
+    path: "skill://sales-pipeline-tracker"
+    description: "销售漏斗管理。追踪从线索到成交的全阶段，管理pipeline数据。"
+    layer: support
+  crm:
+    path: "skill://crm"
+    description: "通用CRM。从文件型到结构化数据库的个人CRM搭建指南。"
+    layer: support
+
+  # === 入口层 ===
+  global-customer-acquisition:
+    path: "skill://global-customer-acquisition"
+    description: "HOLO智能获客Agent入口。客户发现/背调/开发信/报价/社媒/Pipeline管理。"
+    layer: entry
+  honglong-assistant:
+    path: "skill://honglong-assistant"
+    description: "红龙小助手人格技能。自动激活红龙助手身份，作为获客集群人格层。"
+    layer: persona
+
+  # === 多语种词簇（参考文档，非技能）===
   multilang-keywords:
     path: "references/MULTILANG-KEYWORDS.md"
-    description: "多语种词簇库（P0升级）。覆盖DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言。非英语市场客户发现时必须加载。"
+    description: "多语种词簇库。覆盖DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言，非英语市场必读。"
     layer: discovery
-    note: "不是技能文件，是词簇参考文档。AI读取后构造本地语言搜索查询。"
+    note: "参考文档，非技能文件。AI读取后构造本地语言搜索查询。"

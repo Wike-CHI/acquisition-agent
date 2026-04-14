@@ -1,25 +1,18 @@
 ---
 name: holo-social-image
-version: 1.0.0
-description: >-
+description: >
   HOLO社媒图片预处理技能 - 使用 GIMP CLI + PIL 自动处理产品图片
   （裁剪、抠图去背景、调色、品牌水印、格式转换、尺寸调整）。
   所有产品图片必须来自 NAS 共享盘真实资料或业务员上传。
   是 holo-social-gen 的上游预处理层：脏图→干净标准化素材。
-triggers:
-  - 抠图
-  - 裁剪
-  - 去背景
-  - 处理图片
-  - 加水印
-  - 缩放
-  - 调整图片
-  - 修图
-  - GIMP
-  - 社媒图片处理
+  触发词: 抠图/裁剪/去背景/处理图片/加水印/缩放/调整图片/修图/GIMP
 ---
 
 # HOLO 社媒图片预处理 (holo-social-image)
+
+> **更新记录 v2.0 (2026-04-13):** 移除所有嵌入式 GIMP Script-Fu（因 GIMP 2.10 Windows console
+> 版 PDB 参数签名不一致导致无法工作）。改用 `gimp_backend` 模块（PIL 实现）+ PIL
+> 原生操作。背景去除已验证可用。
 
 ## 定位
 
@@ -122,256 +115,117 @@ Step 0: 图片预处理检查清单
 
 ## 工具分层
 
-> **核心原则：GIMP 做重活，PIL 做轻活**
+> **核心原则：PIL 做一切，GIMP 只做备选（裁剪/旋转目前走 PIL）**
+>
+> ⚠️ **GIMP Script-Fu 在 Windows console 模式下有 PDB 参数签名不一致问题，背景去除
+> 以外的操作用 PIL 替代。** 背景去除已通过 `gimp_backend` 模块使用 PIL 实现并验证可用。
 
-### 第一层：GIMP CLI（主力 — 像素级操作）
-
-GIMP 是 GNU Image Manipulation Program 的命令行模式，功能等同于 Photoshop。
-
-**适用场景：**
-- ✅ 裁剪（智能识别主体区域或指定坐标）
-- ✅ 去背景/抠图（前景选择、魔棒、颜色选择器）
-- ✅ 色彩调整（曲线、色阶、亮度/对比度、色温）
-- ✅ 旋转/透视矫正
-- ✅ 锐化/降噪
-- ✅ 图层合成
-
-**为什么 GIMP 比 PIL 更适合这些操作？**
-
-| 操作 | PIL 能做吗 | 效果 | GIMP 能做吗 | 效果 |
-|------|:---------:|------|:----------:|------|
-| 裁剪 | ✅ | 只能按坐标硬裁 | ✅ | 可结合自动检测+羽化 |
-| 去背景 | ⚠️ | 颜色容差法，边缘生硬 | ✅ | 前景选择算法，边缘平滑 |
-| 调曲线 | ❌ | 不支持 | ✅ | 专业级曲线/色阶 |
-| 锐化 | ⚠️ | 只有 UnsharpMask | ✅ | 多种锐化+遮罩 |
-| 透视矫正 | ❌ | 不支持 | ✅ | 完整透视变换 |
-
-**GIMP CLI 调用方式（无头模式）：**
+### 调用示例
 
 ```python
-import subprocess
-import tempfile
-import os
+import sys, os
+# 添加 cli-anything-gimp 路径
+sys.path.insert(0, r"C:\Users\Administrator\gimp\agent-harness")
 
-def gimp_crop(input_path: str, output_path: str,
-              x: int, y: int, width: int, height: int,
-              feather: bool = True) -> str:
-    """
-    GIMP 裁剪 — 支持羽化边缘
-    
-    Args:
-        input_path: 输入图片路径
-        output_path: 输出图片路径
-        x, y: 左上角坐标
-        width, height: 裁剪宽高
-        feather: 是否羽化边缘（默认True，3px）
-    
-    Returns:
-        output_path
-    """
-    abs_in = os.path.abspath(input_path)
-    abs_out = os.path.abspath(output_path)
+from cli_anything.gimp.utils import gimp_backend   # 背景去除
+from cli_anything.gimp.core import media            # 白底检测
+from PIL import Image, ImageDraw, ImageFilter, ImageEnhance
+import numpy as np
 
-    # ⚠️ Script-Fu 要求正斜杠路径！反斜杠会被当转义符吃掉
-    abs_in_sf = abs_in.replace('\\', '/')
-    abs_out_sf = abs_out.replace('\\', '/')
+# ── 背景去除 ────────────────────────────────────────────
+# 1. 先检测是否需要去背景
+det = media.detect_white_background(input_path)
+print(det["verdict"], det["corner_score"])
+# → "clean_white" / "not_white" / "mixed"
 
-    # Script-Fu 脚本：加载 → 裁剪 → 导出 → 退出
-    if feather:
-        script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (gimp-image-crop image {width} {height} {x} {y})
-  (file-png-save RUN-NONINTERACTIVE image
-      (car (gimp-image-get-active-drawable image))
-      "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
-    else:
-        script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (gimp-image-crop image {width} {height} {x} {y})
-  (file-png-save RUN-NONINTERACTIVE image
-      (car (gimp-image-get-active-drawable image))
-      "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
+if det["verdict"] != "clean_white":
+    # 2. 去背景 → 白底 PNG
+    result = gimp_backend.remove_background_and_export(
+        input_path=input_path,
+        output_path=output_path,
+        method="color",        # 默认颜色选择法
+        output_bg="white",     # "white" | "transparent"
+        threshold=50,          # 1-100，越高越激进
+        timeout=120,
+    )
+    print(result["file_size"], result["method"])
 
-    cmd = [
-        r'C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe', '-i', '-b', f'({script})', '-b', '(gimp-quit 0)'
-    ]
-    
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-    if result.returncode != 0:
-        raise RuntimeError(f"GIMP crop failed: {result.stderr}")
-    
-    return abs_out
+# ── 裁剪 ────────────────────────────────────────────────
+img = Image.open(input_path)
+# x, y 是左上角坐标，w, h 是宽高
+cropped = img.crop((x, y, x + w, y + h))
+cropped.save(output_path)
 
+# ── 调色（亮度/对比度/饱和度）── PIL ──────────────────────
+img = Image.open(input_path)
+ enhancer = ImageEnhance.Brightness(img)
+ img_bright = enhancer.enhance(1.3)   # 1.0=原图，>1=变亮
 
-def gimp_remove_background(input_path: str, output_path: str,
-                           method: str = 'color') -> str:
-    """
-    GIMP 去背景 — 三种方法可选
-    
-    Args:
-        input_path: 输入图片路径（非白底的脏图）
-        output_path: 输出图片路径（PNG透明底或白底）
-        method: 'color' | 'foreground' | 'alpha'
-            - color: 颜色选择器（适合单一背景色，最快）
-            - foreground: 前景选择工具（适合复杂背景，最准）
-            - alpha: Alpha通道（适合渐变背景）
-    
-    Returns:
-        output_path
-    """
-    abs_in = os.path.abspath(input_path)
-    abs_out = os.path.abspath(output_path)
+ enhancer = ImageEnhance.Contrast(img)
+ img_contrast = enhancer.enhance(1.2)  # 1.0=原图，>1=高对比
 
-    # ⚠️ Script-Fu 正斜杠路径
-    abs_in_sf = abs_in.replace('\\', '/')
-    abs_out_sf = abs_out.replace('\\', '/')
+ enhancer = ImageEnhance.Color(img)
+ img_saturated = enhancer.enhance(1.3) # 1.0=原图，0=灰度
 
-    if method == 'foreground':
-        # 最精确的方法 — 前景选择工具自动检测主体
-        script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (plug-in-sel-gpath RUN-NONINTERACTIVE image drawable 100 1.5 7 100 200 0 5 2)
-  (gimp-selection-invert image)
-  (gimp-context-set-foreground '(255 255 255))
-  (gimp-edit-fill drawable FILL-FOREGROUND)
-  (gimp-selection-none image)
-  (file-png-save RUN-NONINTERACTIVE image drawable "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
-    elif method == 'alpha':
-        # Alpha通道方法 — 保留半透明边缘
-        script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (gimp-image-flatten image)
-  (set! drawable (car (gimp-image-get-active-drawable image)))
-  (plug-in-autocrop RUN-NONINTERACTIVE image drawable)
-  (gimp-layer-add-alpha drawable)
-  (gimp-by-color-select drawable 
-      (car (gimp-drawable-get-pixel drawable 0 0)) 30 CHANNEL-OP-REPLACE TRUE FALSE 0 FALSE)
-  (gimp-context-set-foreground '(0 0 0))
-  (gimp-edit-fill drawable FILL-FOREGROUND)
-  (gimp-selection-none image)
-  (file-png-save RUN-NONINTERACTIVE image drawable "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
-    else:
-        # 默认: 颜色选择器 — 取左上角像素作为背景色
-        script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-    (bg-color (car (gimp-drawable-get-pixel drawable 0 0)))
-  )
-  (gimp-by-color-select drawable bg-color 50 CHANNEL-OP-REPLACE TRUE FALSE 0 FALSE)
-  (gimp-context-set-foreground '(255 255 255))
-  (gimp-edit-fill drawable FILL-FOREGROUND)
-  (gimp-selection-none image)
-  (file-png-save RUN-NONINTERACTIVE image drawable "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
+# ── 旋转 ────────────────────────────────────────────────
+img = Image.open(input_path)
+rotated = img.rotate(angle, expand=True, fillcolor=(255, 255, 255))
 
-    cmd = [r'C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe', '-i', '-b', f'({script})', '-b', '(gimp-quit 0)']
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
-    
-    if result.returncode != 0:
-        raise RuntimeError(f"GIMP remove_background failed: {result.stderr}")
-    
-    return abs_out
+# ── 加 HOLO 水印 ─────────────────────────────────────────
+def add_holo_watermark(img: Image.Image) -> Image.Image:
+    draw = ImageDraw.Draw(img)
+    brand_color = (211, 47, 47)  # #D32F2F
+    text = "HOLO"
+    try:
+        font = ImageFont.truetype("arial.ttf", 24)
+    except Exception:
+        font = ImageFont.load_default()
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    padding = 8
+    x = img.width - tw - padding * 2 - 15
+    y = 15
+    overlay = Image.new('RGBA', img.size, (0, 0, 0, 0))
+    overlay_draw = ImageDraw.Draw(overlay)
+    overlay_draw.rounded_rectangle(
+        [x - padding, y - padding, x + tw + padding, y + th + padding],
+        radius=4, fill=(211, 47, 47, 200)
+    )
+    overlay_draw.text((x, y), text, fill=(255, 255, 255, 255), font=font)
+    img = img.convert('RGBA')
+    return Image.alpha_composite(img, overlay).convert('RGB')
 
+# ── 等比缩放 ────────────────────────────────────────────
+img = Image.open(input_path)
+w, h = img.size
+if max(w, h) > 1200:
+    ratio = 1200 / max(w, h)
+    img = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+img.save(output_path, quality=85)
 
-def gimp_adjust_color(input_path: str, output_path: str,
-                      brightness: float = 0, contrast: float = 0) -> str:
-    """
-    GIMP 色彩调整（亮度/对比度）
-    
-    Args:
-        brightness: -127 到 127（负值变暗，正值变亮）
-        contrast: -127 到 127（负值降低对比度，正值增加）
-    """
-    abs_in = os.path.abspath(input_path)
-    abs_out = os.path.abspath(output_path)
-
-    # ⚠️ Script-Fu 正斜杠路径
-    abs_in_sf = abs_in.replace('\\', '/')
-    abs_out_sf = abs_out.replace('\\', '/')
-
-    script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (gimp-brightness-contrast drawable {brightness:.0f} {contrast:.0f})
-  (file-png-save RUN-NONINTERACTIVE image drawable "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
-
-    cmd = [r'C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe', '-i', '-b', f'({script})', '-b', '(gimp-quit 0)']
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-    
-    if result.returncode != 0:
-        raise RuntimeError(f"GIMP adjust failed: {result.stderr}")
-    
-    return abs_out
-
-
-def gimp_rotate(input_path: str, output_path: str,
-                angle: float = 0, auto_level: bool = True) -> str:
-    """
-    GIMP 旋转 + 自动水平矫正
-    
-    Args:
-        angle: 旋转角度（度），正=顺时针
-        auto_level: 是否自动裁剪旋转后多余的空白
-    """
-    abs_in = os.path.abspath(input_path)
-    abs_out = os.path.abspath(output_path)
-
-    # ⚠️ Script-Fu 正斜杠路径
-    abs_in_sf = abs_in.replace('\\', '/')
-    abs_out_sf = abs_out.replace('\\', '/')
-    
-    level_cmd = "(plug-in-autocrop RUN-NONINTERACTIVE image (car (gimp-image-flatten image)))" if auto_level else ""
-    
-    script = f'''
-(let* (
-    (image (car (gimp-file-load RUN-NONINTERACTIVE "{abs_in_sf}" "{abs_in_sf}")))
-    (drawable (car (gimp-image-get-active-drawable image)))
-  )
-  (gimp-item-transform-rotate drawable (* {angle:.2f} (/ 3.14159265 180)) TRUE 0 0)
-  (gimage-flatten image)
-  {level_cmd}
-  (file-png-save RUN-NONINTERACTIVE image 
-      (car (gimp-image-get-active-drawable image))
-      "{abs_out_sf}" "{abs_out_sf}" 0 9 1 1 1 1 1)
-  (gimage-delete image)
-)'''
-
-    cmd = [r'C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe', '-i', '-b', f'({script})', '-b', '(gimp-quit 0)']
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-    
-    if result.returncode != 0:
-        raise RuntimeError(f"GIMP rotate failed: {result.stderr}")
-    
-    return abs_out
+# ── 格式转换 ────────────────────────────────────────────
+img = Image.open(input_path)
+img.save(output_path)  # PIL 根据扩展名自动选格式
 ```
 
-### 第二层：PIL/Pillow（轻量操作 — 不需要启动 GIMP 的简单任务）
+### 工具依赖
+
+| 工具 | 来源 | 用途 |
+|------|------|------|
+| `gimp_backend.remove_background_and_export()` | `cli-anything-gimp` | 去背景（内部 PIL 实现） |
+| `media.detect_white_background()` | `cli_anything-gimp` | 白底检测 |
+| PIL / Pillow | 独立库 ≥ 9.0 | 裁剪/调色/旋转/水印/resize |
+| numpy | 独立库 ≥ 1.21 | 颜色计算（背景检测） |
+
+**GIMP 安装检查（仅供参考，当前不需要 GIMP 运行）：**
+
+```powershell
+& "C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe" --version
+# 应输出: GNU 图像处理程序 版本 2.10.x
+```
+
+> ⚠️ `gimp-console-2.10.exe` 在 Windows 上存在 PDB 参数签名与文档不符的问题。
+> `remove_background_and_export()` 已改用 PIL 实现规避此问题，无需 GIMP 实际运行。
 
 **适用场景：**
 - ✅ 加 HOLO 水印（固定位置文字叠加）
@@ -432,120 +286,25 @@ def to_base64(img: Image.Image, format: str = 'JPEG', quality: int = 85) -> str:
     return base64.b64encode(buffer.getvalue()).decode('ascii')
 ```
 
-### 第三层：PIL 快速检测（判断需不需要处理）
+## 快速检测
 
-在做任何处理之前，先用 PIL 快速检测图片状态，决定用什么工具：
+`media.detect_white_background(path)` 返回结构化判断：
 
-| 检测项 | 方法 | 判断逻辑 |
-|--------|------|---------|
-| **白底检测** | 四角+边缘采样 RGB | 四角均值>240 且方差<10 = 白底 |
-| **背景色检测** | 边缘像素主色调 | 灰底(180-220)、杂背景(多主色)、纯白(>240) |
-| **尺寸检测** | `Image.size` | 任一边 > 2000px = 需要缩放 |
-| **格式检测** | `Image.format` | BMP/TIFF = 需转换 |
-| **文件大小** | `os.path.getsize()` | > 2MB = 需压缩 |
-| **透明通道** | `Image.mode` + alpha 统计 | 已有透明层则跳过去背景 |
-
-```python
-def analyze_image(path: str) -> dict:
-    """快速分析图片，返回处理建议"""
-    from PIL import Image
-    import numpy as np
-    
-    img = Image.open(path)
-    w, h = img.size
-    mode = img.mode
-    fmt = img.format
-    file_size = os.path.getsize(path) / 1024  # KB
-    
-    # 白底检测：四角采样
-    pixels = np.array(img.convert('RGB'))
-    corners = [
-        pixels[0, 0],                    # 左上
-        pixels[0, w-1],                  # 右上
-        pixels[h-1, 0],                  # 左下
-        pixels[h-1, w-1],               # 右下
-    ]
-    corner_mean = np.mean(corners)
-    corner_std = np.std(corners)
-    is_white_bg = corner_mean > 240 and corner_std < 10
-    
-    # 边缘采样（检测非纯白的边缘情况）
-    edge_pixels = np.concatenate([
-        pixels[0, :],       # 上边
-        pixels[-1, :],      # 下边
-        pixels[:, 0],       # 左边
-        pixels[:, -1],      # 右边
-    ])
-    edge_mean = np.mean(edge_pixels)
-    
-    return {
-        'width': w,
-        'height': h,
-        'mode': mode,
-        'format': fmt,
-        'size_kb': round(file_size),
-        'is_white_bg': is_white_bg,
-        'corner_brightness': round(corner_mean, 1),
-        'corner_variance': round(corner_std, 1),
-        'edge_brightness': round(edge_mean, 1),
-        'needs_resize': max(w, h) > 2000,
-        'needs_compress': file_size > 2048,
-        'recommendations': _build_recommendations(
-            is_white_bg, max(w,h)>2000, file_size>2048, fmt
-        )
-    }
-
-def _build_recommendations(is_white_bg, needs_resize, needs_compress, fmt):
-    recs = []
-    if not is_white_bg:
-        recs.append("⚠️ 非白底 → 建议 GIMP 去背景")
-    if needs_resize:
-        recs.append("📐 尺寸过大 → 建议 PIL 缩放到 1200px")
-    if needs_compress:
-        recs.append("🗜️ 文件太大 → 建议 JPEG quality=85 压缩")
-    if fmt in ('BMP', 'TIFF'):
-        recs.append("🔄 格式不兼容 → 建议转为 PNG/JPG")
-    if not recs:
-        recs.append("✅ 图片质量良好，可直接使用")
-    return recs
 ```
+verdict: "clean_white" | "not_white" | "mixed" | "edge_noise"
+corner_score: 0.0-1.0  (四角白度置信分)
+recommendation: "skip_remove" | "force_remove" | "inspect"
+```
+
+**检测逻辑：** 四角 5% 区域均值 > 230 且方差 < 10 = 白底。
 
 ## 工具依赖
 
 | 工具 | 版本要求 | 用途 | 优先级 |
 |------|---------|------|-------|
-| **GIMP Console** (`gimp-console-2.10.exe`) | ≥ 2.10 | 裁剪/抠图/调色/旋转/锐化 | **主力（无头模式）** |
-| **Python PIL/Pillow** | ≥ 9.0 | 水印/resize/格式转换/base64/检测 | **必需** |
+| **Python PIL/Pillow** | ≥ 9.0 | 裁剪/调色/旋转/水印/resize/去背景 | **主力** |
 | **numpy** | ≥ 1.21 | 颜色计算和图像分析 | **必需** |
-
-> ⚠️ 必须使用 `gimp-console-2.10.exe`（控制台版），不是 `gimp-2.10.exe`（GUI 版需要显示器）。
-
-**GIMP 安装检查：**
-
-```powershell
-& "C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe" --version
-# 应输出: GNU 图像处理程序 版本 2.10.x
-```
-
-如果 GIMP 未安装，从 https://www.gimp.org/downloads/ 下载 Windows 安装包。
-
-### ⚠️ GIMP Script-Fu 路径规则（重要！）
-
-GIMP 的脚本引擎是 Scheme 方言，**反斜杠 `\` 会被当作转义符吃掉**：
-
-```python
-# ❌ 错误 — 反斜杠被转义
-path = r"c:\temp_gimp_test\input.jpg"
-# GIMP 内部变成: c:[tab]emp_gimp_testinput.jpg  （\t→tab, \i被吞）
-
-# ✅ 正确 — 用正斜杠代替反斜杠
-path = "c:/temp_gimp_test/input.jpg"
-
-# 或者双反斜杠（不推荐，容易出错）
-path = "c:\\\\temp_gimp_test\\\\input.jpg"
-```
-
-**所有传给 GIMP Script-Fu 的路径都必须 `.replace('\\', '/')` 转成正斜杠。**
+| **cli-anything-gimp** | installed | `gimp_backend.remove_background_and_export()` + `media.detect_white_background()` | **必需** |
 
 ## 数据源约束
 

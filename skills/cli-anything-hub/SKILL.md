@@ -1,16 +1,9 @@
 ---
-name: cli-anything-hub
-version: 1.0.0
+name: cli-hub-meta-skill
 description: >-
   Discover agent-native CLIs for professional software. Access the live catalog
   to find tools for creative workflows, productivity, AI, and more.
-triggers:
-  - find CLI
-  - discover command
-  - what CLI
-  - CLI tool
-  - 命令行工具
-  - cli-anything
+version: "1.0.0"
 ---
 
 # CLI-Hub Meta-Skill

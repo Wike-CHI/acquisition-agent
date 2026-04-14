@@ -1,9 +1,11 @@
+---
 name: smart-quote
 version: 2.0.0
-description: >-
+description: |
   红龙智能报价技能 v2.0 - 先背调后报价，给业务员利润率范围和价格区间。
   先调用company-research背调，根据企业规模/ICP评分/付款能力确定利润率区间，让业务员灵活报价。
   核心原则：不直接给价格表，只给利润率范围，让业务员灵活报价。
+always: false
 triggers:
   - 报价
   - 报价单
@@ -14,27 +16,39 @@ triggers:
   - quote
   - quotation
   - pricing
-dependencies:
-  - company-research
-tags:
-  - sales
-  - quote
-  - pricing
-author:
-  name: 红龙团队
-  github: https://github.com/Wike-CHI
-license: Proprietary
-entry: SKILL.md
-directories:
-  scripts: scripts/
-  references: references/
-requires:
-  bins: []
-  api_keys: []
-  env: {}
-capability: enhanced
-priority: 70
-compatibility:
-  workbuddy: '>=2.0'
-  claude_code: true
-  openclaw: '>=2.5'
+---
+
+# smart-quote — 智能报价技能 v2.0
+
+## 核心原则
+
+> **❌ 以前**：AI直接给价格 → 价格固化 → 不会变通
+>
+> **✅ 现在**：AI先背调查户口 → 给利润率范围 → 业务员灵活报价
+
+## 报价流程
+
+1. **获取客户信息** - 公司名、目的国、产品、数量
+2. **检查/执行背调** - 调用 company-research 技能
+3. **确定利润率区间** - 根据背调结果计算加成
+4. **输出报价指引** - 给业务员利润率范围和价格区间
+5. **业务员灵活报价** - 在区间内自主决定
+
+## 关键规则
+
+- 所有报价均为未税价，开票加13%
+- 孟加拉国利润率 ≥10%，印度 ≥20%，马来西亚 ≥20%
+- 非标产品加价10-30%，首次开模加¥12,000
+- 导条机模具¥1,000/个，挡板焊接机模具¥600/个
+
+## 参考文件
+
+- references/profit_rates.md - 47国利润率指导表
+- references/products.md - 103款产品价格表
+- references/报价指引模板.md - 标准化输出格式
+- scripts/quote_calculator.py - v2.0计算器（支持利润率区间计算）
+
+---
+_version: 2.0.0_
+_updated: 2026-04-09_
+_integrated: HOLO-AGENT v2.6.0_

@@ -1,6 +1,5 @@
 ---
 name: sales-response
-version: 1.0.1
 description: >
   销售智能应答技能 - 红龙获客系统的客户回复处理中心。
   收到客户邮件/WhatsApp回复后，自动分类异议、匹配合适话术、生成个性化回复。

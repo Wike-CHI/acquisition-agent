@@ -1,5 +1,5 @@
 name: honglong-assistant
-version: 3.0.0
+version: 2.0.1
 description: 红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。
 triggers:
 - 红龙助手
