@@ -23,7 +23,7 @@
   "sdr-humanizer": "20fa7179002e64a5bb2ca5c7e0cac200",
   "whatsapp-outreach": "258e82d28a45e66ba282bd35f4aeda93",
   "ai-social-media-content": "8de43c0cccac90a8a19e365460cba86e",
-  "holo-social-gen": "c16e0a1ef6b941603524aa261fd0d838",
+  "holo-social-gen": "04f0aa715238f116c0e6e36076a8e34b",
   "holo-social-image": "6857493d17613e98e276268347cc0148",
   "holo-social-infographic": "72ba8a3b00b22826b00f1d7dc08ddadc",
   "linkedin-writer": "031d83b465149e8f9c831bcd40362b8a",
@@ -65,5 +65,6 @@
   "exa-search": "795122d540bddbc5dc0d962fa65c71c6",
   "holo-updater": "141d1df58603bd101b8ff542b1132923",
   "skill-system-audit": "ec92eafe4dae50c9b11691de7b03122a",
-  "bash-patch-safe": "b6fb28ded904f623e12b14b5563b0709"
+  "bash-patch-safe": "b6fb28ded904f623e12b14b5563b0709",
+  "skill-auditor": "7d67771c5c615d441fdeadcee7b9249a"
 }

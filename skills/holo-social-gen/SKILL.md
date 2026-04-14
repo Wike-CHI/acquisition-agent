@@ -1,3 +1,8 @@
+---
+name: holo-social-gen
+description: HOLO社媒图片生成器 v7.2。AI-First设计模式，Agent直接手写HTML生成多语种社媒图片（Instagram/Facebook/LinkedIn等）。触发：生成社媒图片、社媒配图、社交媒体图片、holo-social-gen。
+---
+
 # HOLO 社媒图片生成器 v7.2
 
 > ⭐ **v7: AI-First 架构 — 我是设计师，每张图都是独立设计作品**  
