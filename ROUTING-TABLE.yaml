@@ -400,6 +400,12 @@ routing:
       - sdr-humanizer
       fallback:
       - cold-email-generator
+  follow_up_signal:
+    all_markets:
+    - skill: follow-up-signal-monitor
+      priority: 5
+      condition: 检查跟进信号/客户没回复/沉默检测/提案后续/跟进提醒/跟进监控
+      fallback: []
   proposal_generation:
     all_markets:
     - skill: holo-proposal-generator
@@ -640,6 +646,10 @@ skills_index:
     path: skill://inquiry-response
     description: 询盘应答技能 v1.1.0 — 异议处理（15场景×6语种）+ 谈判策略（9国文化）+ 竞品情报（Beltwin底牌话术）+ 成交收尾话术。客户回复后自动应答。
     layer: outreach
+  follow-up-signal-monitor:
+    path: skill://follow-up-signal-monitor
+    description: 跟进信号监控系统 v1.0 — 沉默检测（5级：正常→关注→警戒→深度→弱信号）+ 价值型跟进草稿生成（按沉默天数分级）。自动感知客户动静，提案/邮件发出后自动跟进。
+    layer: support
   exa-web-search-free:
     path: skill://exa-web-search-free
     description: 'Exa Web Search (Free)。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！'
