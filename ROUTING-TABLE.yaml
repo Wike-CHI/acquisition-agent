@@ -1,0 +1,651 @@
+multilang:
+  enabled: true
+  keywords_file: references/MULTILANG-KEYWORDS.md
+  language_map:
+    DE: german
+    AT: german
+    CH: german
+    ES: spanish
+    MX: spanish_latam
+    CO: spanish_latam
+    PE: spanish_latam
+    AR: spanish_latam
+    CL: spanish_latam
+    VE: spanish_latam
+    FR: french
+    BE: french
+    MA: french_africa
+    DZ: french_africa
+    TN: french_africa
+    BR: portuguese_brazil
+    PT: portuguese_europe
+    AO: portuguese_europe
+    SA: arabic
+    AE: arabic
+    EG: arabic
+    KW: arabic
+    QA: arabic
+    ID: indonesian
+    VN: vietnamese
+    TR: turkish
+    PL: polish
+  search_rounds:
+  - round: 1
+    language: local
+    mandatory: true
+  - round: 2
+    language: english
+    mandatory: true
+  - round: 3
+    language: local
+    platform: linkedin
+    mandatory: false
+intents:
+  customer_discovery:
+    keywords:
+    - 找客户
+    - 搜索客户
+    - 获客
+    - 批量搜索
+    - 搜索公司
+    - find customers
+    - lead generation
+    - prospecting
+    description: 发现潜在客户
+    market_aware: true
+  market_development:
+    keywords:
+    - 开发市场
+    - 开发南美
+    - 开发非洲
+    - 开发东南亚
+    - 开发中东
+    - 开发欧洲
+    - 开发北美
+    - 开发澳洲
+    - 拓展市场
+    - 市场拓展
+    - 市场分析
+    - 市场调研
+    - market development
+    - market research
+    - explore market
+    - expand market
+    - South America
+    - Africa
+    - Southeast Asia
+    description: 市场分析与批量获客
+    market_aware: true
+    auto_detect_region: true
+  company_research:
+    keywords:
+    - 背调
+    - 评估
+    - ICP
+    - 调研
+    - 公司分析
+    - 背景调查
+    - research
+    - due diligence
+    - evaluate
+    description: 企业背调和评估
+    market_aware: true
+  decision_maker_search:
+    keywords:
+    - 决策人
+    - 联系人
+    - 采购经理
+    - LinkedIn搜索
+    - decision maker
+    - contact
+    - buyer
+    - procurement
+    description: 搜索企业决策人/采购负责人
+    market_aware: false
+  email_outreach:
+    keywords:
+    - 发邮件
+    - 开发信
+    - 邮件
+    - 发送
+    - outreach
+    - cold email
+    - send email
+    description: 邮件触达（开发信生成+发送）
+    market_aware: true
+  whatsapp_outreach:
+    keywords:
+    - WhatsApp
+    - 发WhatsApp
+    - WhatsApp消息
+    - wa消息
+    - whatsapp
+    - whatsapp outreach
+    description: WhatsApp消息触达
+    market_aware: false
+  multi_channel_outreach:
+    keywords:
+    - 智能触达
+    - 多渠道触达
+    - 多通道
+    - 双通道
+    - 全渠道触达
+    - omni-channel
+    description: 智能选择触达渠道（邮箱/WhatsApp）
+    market_aware: true
+  social_media_outreach:
+    keywords:
+    - Facebook
+    - Instagram
+    - LinkedIn运营
+    - 社媒
+    - 发帖
+    - social media
+    - post
+    description: 社交媒体运营和内容发布
+    platform_aware: true
+  quotation:
+    keywords:
+    - 报价
+    - 报价单
+    - 价格
+    - quote
+    - quotation
+    - pricing
+    description: 生成产品报价单
+  crm_import:
+    keywords:
+    - 导入孚盟
+    - 导入CRM
+    - 生成导入模板
+    - 一键导入
+    - 批量导入客户
+    - 客户数据同步
+    - 导出到孚盟
+    description: 客户数据导入孚盟CRM
+    market_aware: false
+  sdr_training:
+    keywords:
+    - 训练
+    - 练手
+    - 模拟
+    - 演练
+    - 练习
+    - 培训
+    - 话术练习
+    - 角色扮演
+    - 模拟客户
+    - sales training
+    - role play
+    - objection handling
+    - 业务员培训
+    - 新人培训
+    description: AI模拟客户对话，新业务员训练场，实时评分+改进报告
+  full_pipeline:
+    keywords:
+    - 完整流程
+    - 端到端
+    - 全流程
+    - 全套
+    - full pipeline
+    - end to end
+    description: 完整获客流程（搜索→背调→筛选→触达）
+routing:
+  customer_discovery:
+    overseas:
+    - skill: teyi-customs
+      priority: 5
+      condition: 需要采购记录数据
+      fallback:
+      - exa-search
+    - skill: exa-web-search-free
+      priority: 4
+      condition: 通用语义搜索（非英语市场必须先用本地语言词簇，见multilang配置）
+      multilang: true
+      search_rounds: 3
+      fallback:
+      - exa-search
+    - skill: facebook-acquisition
+      priority: 3
+      condition: Facebook渠道
+      fallback:
+      - exa-search
+    domestic:
+    - skill: exa-web-search-free
+      priority: 5
+      condition: 通用搜索
+      fallback:
+      - exa-search
+  market_development:
+    overseas:
+    - skill: market-research
+      priority: 5
+      condition: 市场研究+行业分析
+      next:
+      - company-research
+      - exa-search
+      fallback:
+      - exa-search
+    - skill: exa-web-search-free
+      priority: 4
+      condition: 批量客户发现（非英语市场自动切换本地词簇，参见multilang配置）
+      multilang: true
+      search_rounds: 3
+      fallback:
+      - exa-search
+    domestic:
+    - skill: exa-web-search-free
+      priority: 5
+      condition: 国内市场分析
+      fallback:
+      - exa-search
+  company_research:
+    overseas:
+    - skill: teyi-customs
+      priority: 5
+      condition: 需要海关采购数据
+      fallback:
+      - exa-search
+    - skill: company-research
+      priority: 4
+      condition: 通用企业背调
+      fallback:
+      - exa-search
+    - skill: deep-research
+      priority: 3
+      condition: 深度调研
+      fallback:
+      - company-research
+    domestic:
+    - skill: company-research
+      priority: 5
+      condition: 通用企业背调
+      fallback:
+      - exa-search
+  decision_maker_search:
+    all_markets:
+    - skill: exa-web-search-free
+      priority: 5
+      condition: 通过Exa搜索LinkedIn公开档案
+      fallback:
+      - exa-search
+    - skill: company-research
+      priority: 3
+      condition: 通过企业背调获取联系人
+      fallback: []
+  email_outreach:
+    overseas:
+    - skill: cold-email-generator
+      priority: 5
+      condition: 开发信生成（v2.0打磨流程）
+      next:
+      - email-sender
+    - skill: email-sender
+      priority: 4
+      condition: SMTP邮件发送
+      next:
+      - delivery-queue
+    - skill: delivery-queue
+      priority: 3
+      condition: 分段队列发送
+      fallback:
+      - email-sender
+    - skill: cold-email-generator
+      priority: 2
+      condition: 开发信运营（供应商询价等）
+      fallback:
+      - cold-email-generator
+    domestic:
+    - skill: email-sender
+      priority: 5
+      condition: SMTP邮件发送
+      next:
+      - delivery-queue
+    - skill: delivery-queue
+      priority: 4
+      condition: 分段队列发送
+      fallback:
+      - email-sender
+  whatsapp_outreach:
+    all_markets:
+    - skill: whatsapp-outreach
+      priority: 5
+      condition: WhatsApp消息触达
+      next:
+      - delivery-queue
+      fallback:
+      - email-sender
+    - skill: delivery-queue
+      priority: 3
+      condition: WhatsApp分段队列
+      fallback:
+      - whatsapp-outreach
+  multi_channel_outreach:
+    overseas:
+    - skill: whatsapp-outreach
+      priority: 5
+      condition: 有WhatsApp号码 → WhatsApp触达
+      fallback:
+      - cold-email-generator
+    - skill: cold-email-generator
+      priority: 4
+      condition: 只有邮箱 → 邮件触达
+      next:
+      - email-sender
+      fallback:
+      - whatsapp-outreach
+    domestic:
+    - skill: email-sender
+      priority: 5
+      condition: 邮件触达
+      fallback: []
+  social_media_outreach:
+    facebook:
+    - skill: ai-social-media-content
+      priority: 5
+      condition: AI社媒内容生成（9平台）
+      fallback:
+      - facebook-acquisition
+    - skill: facebook-acquisition
+      priority: 4
+      condition: Facebook获客操作
+      fallback: []
+    instagram:
+    - skill: ai-social-media-content
+      priority: 5
+      condition: AI社媒内容生成
+      fallback: []
+    linkedin:
+    - skill: ai-social-media-content
+      priority: 5
+      condition: AI社媒内容生成
+      fallback:
+      - linkedin-writer
+    - skill: linkedin-writer
+      priority: 4
+      condition: LinkedIn专属内容
+      fallback: []
+  quotation:
+    all_markets:
+    - skill: smart-quote
+      priority: 6
+      condition: 智能报价（国家+客户类型+采购量）
+      fallback:
+      - honglong-products
+    - skill: honglong-products
+      priority: 5
+      condition: 产品匹配+基础报价
+      fallback: []
+  crm_import:
+    all_markets:
+    - skill: fumamx-crm
+      priority: 5
+      condition: 孚盟导入适配器
+      fallback: []
+    - skill: fumamx-crm
+      priority: 3
+      condition: 孚盟CRM手动操作
+  sdr_training:
+    all_markets:
+    - skill: holo-sales-trainer
+      priority: 6
+      condition: AI模拟客户对话训练/话术评估
+      fallback: []
+  inquiry_response:
+    all_markets:
+    - skill: inquiry-response
+      priority: 6
+      condition: 客户回复/异议处理/谈判策略/成交收尾/客户太贵/FAQ/竞品对比
+      next:
+      - sdr-humanizer
+      fallback:
+      - cold-email-generator
+  proposal_generation:
+    all_markets:
+    - skill: holo-proposal-generator
+      priority: 7
+      condition: 生成提案/PDF提案/数字提案/商业提案
+      fallback:
+      - smart-quote
+  full_pipeline:
+    overseas:
+    - skill: acquisition-coordinator
+      priority: 5
+      condition: 完整获客编排
+      fallback: []
+    domestic:
+    - skill: acquisition-coordinator
+      priority: 5
+      condition: 完整获客编排
+      fallback: []
+fallback_map:
+  teyi-customs:
+  - exa-search
+  linkedin:
+  - exa-search
+  facebook-acquisition:
+  - exa-search
+  email-sender:
+  - delivery-queue
+  cold-email-generator:
+  - email-sender
+  whatsapp-outreach:
+  - cold-email-generator
+  ai-social-media-content:
+  - facebook-acquisition
+  exa-web-search-free:
+  - exa-search
+iron_rules:
+- id: email_rule
+  description: 必须用决策人邮箱，禁用info@
+  stage: phase_1.5
+  blocking: true
+- id: icp_score_rule
+  description: ICP评分≥75分才发邮件
+  stage: phase_3
+  blocking: true
+- id: email_quality_rule
+  description: 开发信评分≥9.0分才发送
+  stage: phase_4
+  blocking: true
+- id: contact_verification
+  description: 禁止未经验证的单一来源联系方式
+  stage: phase_1.5
+  blocking: true
+- id: no_email_no_continue
+  description: 无有效邮箱不继续触达流程
+  stage: phase_1.5
+  blocking: true
+- id: no_mining
+  description: 禁止矿业客户
+  stage: phase_3
+  blocking: true
+- id: whatsapp_safety
+  description: WhatsApp消息必须用户确认后才发送，禁止群发
+  stage: phase_4
+  blocking: true
+- id: whatsapp_frequency
+  description: 同一联系人每天最多3条WhatsApp消息
+  stage: phase_4
+  blocking: true
+- id: email_polish
+  description: 开发信必须经过打磨流程
+  stage: phase_4
+  blocking: false
+- id: skill_protocol
+  description: 使用skill://协议引用技能
+  stage: all
+  blocking: false
+skills_index:
+  holo-sales-trainer:
+    path: skill://holo-sales-trainer
+    description: HOLO销售训练场 v1.0 — AI模拟真实客户对话（8大场景）+ 话术评估（8维度评分）。降低业务员成长曲线，扮演永不疲倦的师父。
+    layer: training
+  holo-proposal-generator:
+    path: skill://holo-proposal-generator
+    description: HOLO数字提案包生成器 v1.0 — 将智能报价升级为专业PDF提案包，含封面/客户摘要/方案对比/成功案例/商务条款/CTA。
+    layer: outreach
+  acquisition-coordinator:
+    path: skill://acquisition-coordinator
+    description: 获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2)
+      批量背调 (3) 并行搜索 (
+    layer: orchestration
+  acquisition-evaluator:
+    path: skill://acquisition-evaluator
+    description: 独立验收Agent - 评估其他Agent的工作质量。当需要：(1) 验收背调报告 (2) 检查开发信质量 (3) 审核报价准确性
+      (4) 质量控制 时使用此技
+    layer: orchestration
+  acquisition-init:
+    path: skill://acquisition-init
+    description: 获客系统初始化引导。首次使用时引导用户配置凭据、挂载NAS、测试邮箱。当用户说'初始化获客系统'、'开始使用获客系统'时触发。
+    layer: orchestration
+  acquisition-workflow:
+    path: skill://acquisition-workflow
+    description: 获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。
+    layer: orchestration
+  cold-email-generator:
+    path: skill://cold-email-generator
+    description: 开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9.
+    layer: outreach
+  company-research:
+    path: skill://company-research
+    description: 红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、Link
+    layer: intelligence
+  credential-manager:
+    path: skill://credential-manager
+    description: 统一凭据管理技能。支持对话式配置各平台账号密码，使用Windows DPAPI安全加密存储。
+    layer: support
+  crm:
+    path: skill://crm
+    description: Guide users building a personal CRM from simple files to structured
+      database.
+    layer: support
+  customer-deduplication:
+    path: skill://customer-deduplication
+    description: 客户去重技能。跨平台合并重复客户，按公司名称、域名、联系方式匹配。当用户需要：(1) 合并多个平台的客户列表 (2) 去除重复客户
+      (3) 统一客户信息 (4)
+    layer: support
+  customer-intelligence:
+    path: skill://customer-intelligence
+    description: 客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。
+    layer: intelligence
+  delivery-queue:
+    path: skill://delivery-queue
+    description: 消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。
+    layer: support
+  email-marketing:
+    path: skill://email-marketing
+    description: Email deliverability, list management, sequences, segmentation, campaign
+      optimiz
+    layer: outreach
+  email-sender:
+    path: skill://email-sender
+    description: 邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送
+      (4) 自动跟进 时使用此技能
+    layer: outreach
+  facebook-acquisition:
+    path: skill://facebook-acquisition
+    description: Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。
+    layer: discovery
+  fumamx-crm:
+    path: skill://fumamx-crm
+    description: 孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说'配置孚盟账号'或'初始化获客系统
+    layer: support
+  fumamx-import-adapter:
+    path: skill://fumamx-import-adapter
+    description: 孚盟导入适配器 - 将获客系统的客户数据转换为孚盟导入模板格式，支持批量处理、去重检查、字段标准化。
+    layer: support
+  holo-agent:
+    path: skill://holo-agent
+    description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi
+    layer: entry
+  honglong-assistant:
+    path: skill://honglong-assistant
+    description: 红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。
+    layer: persona
+  honglong-products:
+    path: skill://honglong-products
+    description: 红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则
+      (2) 技
+    layer: persona
+  in-depth-research:
+    path: skill://in-depth-research
+    description: 深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
+    layer: intelligence
+  instagram-acquisition:
+    path: skill://instagram-acquisition
+    description: Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。
+    layer: discovery
+  linkedin:
+    path: skill://linkedin
+    description: 'LinkedIn AI-driven outreach via agent-browser. Search for decision
+      makers, send '
+    layer: discovery
+  linkedin-writer:
+    path: skill://linkedin-writer
+    description: Writes LinkedIn posts that sound like a real person, not a content
+      mill. 红龙定制版增加
+    layer: discovery
+  market-research:
+    path: skill://market-research
+    description: 市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
+    layer: intelligence
+  sales-pipeline-tracker:
+    path: skill://sales-pipeline-tracker
+    description: Track deals through every stage from lead to close. Manage pipeline
+      stages, upda
+    layer: support
+  smart-quote:
+    path: skill://smart-quote
+    description: 红龙智能报价技能 v2.0 - 先背调后报价，给业务员利润率范围和价格区间。先调用company-research背调，根据企业规模/ICP评分/付款能力确定利润率区间，让业务员灵活报价。
+    layer: outreach
+  understand-honglong-acquisition:
+    path: skill://understand-honglong-acquisition
+    description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习
+      (6)优化改进时。完整功能使用
+    layer: support
+  teyi-customs:
+    path: skill://teyi-customs
+    description: 特易海关数据搜索 - 采购记录数据，用于发现从中国进口工业设备的海外买家
+    layer: discovery
+  exa-search:
+    path: skill://exa-search
+    description: 'AI深度搜索技能。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！支持LinkedIn决策人搜索、企业情报、网页抓取'
+    layer: discovery
+  scrapling:
+    path: skill://scrapling
+    description: 网页抓取技能 - 从网站提取结构化数据，支持动态页面渲染
+    layer: discovery
+  whatsapp-outreach:
+    path: skill://whatsapp-outreach
+    description: WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送
+    layer: outreach
+  humanize-ai-text:
+    path: skill://humanize-ai-text
+    description: AI文本去味工具 - 将AI生成的文本改写成更自然的人类写作风格
+    layer: support
+  deep-research:
+    path: skill://deep-research
+    description: 深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入
+    layer: intelligence
+  ai-social-media-content:
+    path: skill://ai-social-media-content
+    description: AI社媒营销内容生成器。一次主题，自动生成9个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）
+    layer: outreach
+  email-outreach-ops:
+    path: skill://email-outreach-ops
+    description: 邮件外联运营技能。生成和管理供应商询价邮件、跟进流程、邮件汇总
+    layer: outreach
+  inquiry-response:
+    path: skill://inquiry-response
+    description: 询盘应答技能 v1.1.0 — 异议处理（15场景×6语种）+ 谈判策略（9国文化）+ 竞品情报（Beltwin底牌话术）+ 成交收尾话术。客户回复后自动应答。
+    layer: outreach
+  exa-web-search-free:
+    path: skill://exa-web-search-free
+    description: 'Exa Web Search (Free)。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！'
+    layer: discovery
+  multilang-keywords:
+    path: references/MULTILANG-KEYWORDS.md
+    description: 多语种词簇库（P0升级）。覆盖DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言。非英语市场客户发现时必须加载。
+    layer: discovery
+    note: 不是技能文件，是词簇参考文档。AI读取后构造本地语言搜索查询。
