@@ -659,7 +659,7 @@ Step 9: 日报生成
 | 功能 | 调用技能 |
 |------|----------|
 | Office文档生成 | `skill://office` / `skill://excel-xlsx` |
-| 搜索与调研 | `skill://tavily-search` / `skill://brave-web-search` |
+| 搜索与调研 | `skill://exa-search` |
 | 邮件与通信 | `skill://email-sender` / `skill://cold-email-generator` |
 | WhatsApp触达 | `skill://whatsapp-outreach` → `wacli` CLI |
 | PDF处理 | `skill://pdf-extract` |
@@ -684,7 +684,7 @@ Step 9: 日报生成
 
 ## 学习指南
 
-让AI理解系统架构：`skill://understand-honglong-acquisition`
+让AI理解系统架构：`skill://skills/acquisition/SKILLS-MANIFEST.yaml-REF`
 
 ---
 

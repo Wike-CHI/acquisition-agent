@@ -73,4 +73,4 @@ triggers:
 - `acquisition-coordinator` → 派发深度调研任务
 - `customer-intelligence` → ICP 评分依赖调研数据
 - `in-depth-research` → 本技能的具体实现
-- `exa-search` / `tavily-search` → 调研数据来源
+- `exa-search` → 调研数据来源

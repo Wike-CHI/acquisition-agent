@@ -277,5 +277,5 @@ wacli messages search "关键词" --limit 20
 
 _版本: 2.0.0_
 _更新: 2026-04-06_
-_依赖: wacli CLI (skill://WhatsApp)_
+_依赖: wacli CLI_
 _实战验证: 2026-04-06 沙特客户 8/8 批量发送成功_
