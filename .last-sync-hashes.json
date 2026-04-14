@@ -64,5 +64,6 @@
   "honglong-assistant": "5e8c9b43bcb68cafa9df12fe102ad789",
   "exa-search": "795122d540bddbc5dc0d962fa65c71c6",
   "holo-updater": "141d1df58603bd101b8ff542b1132923",
-  "skill-system-audit": "ec92eafe4dae50c9b11691de7b03122a"
+  "skill-system-audit": "ec92eafe4dae50c9b11691de7b03122a",
+  "bash-patch-safe": "b6fb28ded904f623e12b14b5563b0709"
 }
