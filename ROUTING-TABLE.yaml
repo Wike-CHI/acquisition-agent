@@ -218,6 +218,14 @@ routing:
       - exa-search
   market_development:
     overseas:
+    - skill: market-development-report
+      priority: 6
+      condition: 生成市场调研报告/开发XX市场/市场分析报告
+      next:
+      - market-research
+      - exa-web-search-free
+      fallback:
+      - market-research
     - skill: market-research
       priority: 5
       condition: 市场研究+行业分析
@@ -415,11 +423,23 @@ routing:
       - smart-quote
   full_pipeline:
     overseas:
+    - skill: global-customer-acquisition
+      priority: 6
+      condition: 全流程获客/端到端获客/全套服务/完整pipeline
+      next:
+      - acquisition-coordinator
+      fallback: []
     - skill: acquisition-coordinator
       priority: 5
       condition: 完整获客编排
       fallback: []
     domestic:
+    - skill: global-customer-acquisition
+      priority: 6
+      condition: 全流程获客/端到端获客
+      next:
+      - acquisition-coordinator
+      fallback: []
     - skill: acquisition-coordinator
       priority: 5
       condition: 完整获客编排
@@ -613,6 +633,14 @@ skills_index:
   teyi-customs:
     path: skill://teyi-customs
     description: 特易海关数据搜索 - 采购记录数据，用于发现从中国进口工业设备的海外买家
+    layer: discovery
+  global-customer-acquisition:
+    path: skill://global-customer-acquisition
+    description: HOLO智能获客Agent核心入口 — 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。触发：全流程获客/端到端获客/全套服务
+    layer: orchestration
+  market-development-report:
+    path: skill://market-development-report
+    description: 市场开发调研报告技能 — 生成结构化目标市场分析报告（规模/竞争/关税/优先级/获客关键词）。触发：开发XX市场/市场分析报告
     layer: discovery
   exa-search:
     path: skill://exa-search
