@@ -1,25 +1,13 @@
 ---
 name: holo-updater
-version: 1.0.0
-description: HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本。一键更新红龙获客系统到最新代码。触发词：更新HOLO-AGENT、更新获客系统、拉取最新版本、git pull、更新系统。
-triggers:
-  - 更新HOLO-AGENT
-  - 更新获客系统
-  - 拉取最新版本
-  - 更新到最新
-  - 从GitHub更新
-  - holo-update
-  - git pull
-  - 更新系统
+description: HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本到本地。一键更新红龙获客系统到最新代码。触发：更新HOLO-AGENT、更新获客系统、拉取最新版本、更新系统、git pull。
 ---
 
-# HOLO-AGENT 更新技能 v1.0
+# HOLO-AGENT 更新技能
 
-## 功能
+## 快速使用
 
-从 GitHub 仓库 `Wike-CHI/acquisition-agent` 拉取最新版本，一键更新本地 HOLO-AGENT 技能集群到最新代码。
-
-## 一键更新
+用户说「更新HOLO-AGENT」等触发词时，Agent自动执行：
 
 ```bash
 bash ~/.hermes/skills/acquisition/holo-updater/scripts/pull-update.sh
@@ -28,43 +16,49 @@ bash ~/.hermes/skills/acquisition/holo-updater/scripts/pull-update.sh
 ## 工作流程
 
 ```
-1. 预检 → 网络连通性、git配置、GitHub连接
-2. 拉取远程仓库最新代码
-3. 对比本地 vs 远程 → 显示变更概览
-4. 备份当前版本（时间戳目录）
-5. 执行更新（rsync覆盖）
-6. 验证 → YAML合法性、关键文件存在性
+1. 预检 → 网络连通性、git 是否安装
+2. 获取远程最新 commit，对比本地
+3. 显示变更文件预览
+4. 备份当前版本到 .backup/{timestamp}/（保留最近5份）
+5. rsync 同步 skills/（排除 .git .backup .archive）
+6. 验证关键文件存在 + YAML 合法性
 7. 输出更新报告
 ```
 
-## 触发条件
+## 脚本参数
 
-用户说以下任一命令时触发：
-
-| 命令 | 场景 |
+| 参数 | 作用 |
 |------|------|
-| `更新HOLO-AGENT` | 通用更新 |
-| `更新获客系统` | 同上 |
-| `拉取最新版本` | 明确要求拉取 |
-| `更新到最新` | 同上 |
-| `从GitHub更新` | 指定来源 |
-| `holo-update` | 快捷命令 |
-| `git pull` | 类git语言 |
-| `更新系统` | 简短命令 |
+| (无参数) | 全流程：检查→预览→确认→备份→同步→验证 |
+| `--check-only` | 仅检查更新，不执行 |
+| `--force` | 跳过确认，直接更新 |
 
-## 注意事项
+## 环境变量
 
-- **会覆盖本地修改**：如果本地有未推送的更改，更新前会提示
-- **自动备份**：每次更新前自动备份当前版本到 `.backup/` 目录
-- **GitHub认证失败仍可读**：公共仓库无需认证即可拉取
-- **离线保护**：如果网络不通，脚本会中止并给出错误信息
+可自定义默认行为：
 
-## 版本兼容性
+```bash
+REPO_OWNER=Wike-CHI \
+REPO_NAME=acquisition-agent \
+BRANCH=main \
+SKILLS_DIR=$HOME/.hermes/skills/acquisition \
+bash ~/.hermes/skills/acquisition/holo-updater/scripts/pull-update.sh
+```
 
-- 从 v2.7+ 到最新版本均可使用本脚本更新
-- 首次安装请使用 `acquisition-init`
+## 已知约束
+
+- **rsync 必需**：Linux/macOS/WSL2 环境需要 rsync（`apt-get install rsync` 或 `brew install rsync`）
+- **备份≠回滚**：脚本只做备份，无 restore 功能；如需回滚，从 `.backup/{timestamp}/` 手动恢复
+- **.archive 不更新**：归档的技能（`.archive/`）不在同步范围，不会被远程覆盖
+
+## 陷阱记录（维护者必读）
+
+- **RETAINED_SKILLS 漏加**：新增技能必须加入 `release-manager/scripts/sync-to-github.sh` 的 RETAINED_SKILLS 清单
+- **patch 误删整块技能**：修改 RETAINED_SKILLS 时，字符串替换容易吞掉整行技能组，修复后必须重新计数验证
+- **REPO_DIR 写死 /tmp**：系统 tmpwatch 可能清理，脚本内置保护机制处理此情况
+- **--skip-prereq**：GitHub 网络预检常失败但实际 clone/pull 成功，sync-to-github.sh 内置此标志绕过
 
 ---
 
 _版本: 1.0.0_
-_更新: 2026-04-14_
+_updated: 2026-04-14_

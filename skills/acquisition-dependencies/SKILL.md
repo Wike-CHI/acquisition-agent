@@ -22,30 +22,37 @@ triggers:
 
 ```bash
 # Linux/macOS/WSL2
-bash <(curl -fsSL https://raw.githubusercontent.com/Wike-CHI/acquisition-agent/main/skills/acquisition-dependencies/scripts/install-deps.sh)
+bash ~/.hermes/skills/acquisition/acquisition-dependencies/scripts/install-deps.sh
 
 # Windows (PowerShell)
-irm https://raw.githubusercontent.com/Wike-CHI/acquisition-agent/main/skills/acquisition-dependencies/scripts/install-deps.ps1 | iex
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.hermes\skills\acquisition\acquisition-dependencies\scripts\install-deps.ps1"
 ```
 
-## 环境检测逻辑
+离线环境下直接运行本地脚本即可（脚本已安装在 skills/ 目录内，无需联网）。
 
-技能加载时自动执行以下检测：
+## 环境检测逻辑
 
 ```
 检测顺序：
   1. uname -s  → 判断 Linux/Darwin/NT
-  2. /proc/version 或 os-release → 判断 WSL2
+  2. /proc/version → 判断 WSL2
   3. command -v node/npm/python3 → 判断已安装的工具
-  4. python3 -c "import platform; print(platform.system())" → 确认 OS
 ```
 
 | 检测结果 | 系统类型 | 安装方式 |
 |----------|----------|----------|
+| Linux + /proc/version含microsoft | WSL2 | apt-get + node symlink修复 |
 | Linux + 无WSL特征 | Debian/Ubuntu | apt-get |
-| Linux + WSL2 | WSL2 | apt-get + WSL2特殊处理 |
-| NT + Windir存在 | Windows | PowerShell + choco/scoop |
 | Darwin | macOS | brew |
+| NT/CYGWIN/MINGW | Windows | PowerShell + pip |
+
+## 陷阱记录
+
+- **不要依赖远程curl安装**：GitHubraw可能不通，脚本必须已在本地 skills/ 目录内
+- **WSL2 node路径问题**：WSL2下node可能在~/.nvm/，需要symlink到/usr/bin/否则子进程找不到
+- **pip3 --user vs sudo apt**：apt的python包版本可能旧，pip3 --user补充安装确保最新版
+- **Playwright Chromium体积大**：180MB，首次安装用tail -5避免长时间无输出
+- **patch误删风险**：修改RETAINED_SKILLS清单时易漏掉整块技能组（如CRM/工具层），修复后需重新验证清单数量与目录一致
 
 ## 依赖清单
 

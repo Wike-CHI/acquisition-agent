@@ -4,7 +4,7 @@
   "acquisition-evaluator": "6ffc83c30d8ddba74a821efc24f3c9a4",
   "acquisition-init": "a9cd5469066f1a41b2fcea41eb4bbf9a",
   "acquisition-workflow": "ca4973c2745fbca9996659172e7455ab",
-  "acquisition-dependencies": "fad1da9a47ce9c5a48c0e12b498b434e",
+  "acquisition-dependencies": "b73ade62a366c9c05af727c126e71667",
   "facebook-acquisition": "02efe5ba8c8496e79355fc68f1fc1da0",
   "instagram-acquisition": "819f46423875f6c3eac5183a0184e62b",
   "linkedin": "9870ed140e92bcbaa2fc54801482a7cb",
@@ -63,6 +63,6 @@
   "MCP管理器": "f08edfc5ddadd1ed0e8e9bfb6284b69b",
   "honglong-assistant": "5e8c9b43bcb68cafa9df12fe102ad789",
   "exa-search": "795122d540bddbc5dc0d962fa65c71c6",
-  "holo-updater": "9eb89afaef7c07b3a2e76e672ad67cd2",
+  "holo-updater": "141d1df58603bd101b8ff542b1132923",
   "skill-system-audit": "ec92eafe4dae50c9b11691de7b03122a"
 }

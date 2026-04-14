@@ -12,10 +12,10 @@ REPO_OWNER="${REPO_OWNER:-Wike-CHI}"
 REPO_NAME="${REPO_NAME:-acquisition-agent}"
 BRANCH="${BRANCH:-main}"
 SKILLS_DIR="${SKILLS_DIR:-$HOME/.hermes/skills/acquisition}"
+# REPO_DIR 用固定路径，避免 /tmp 被清理
 REPO_DIR="/tmp/acquisition-agent-update"
 BACKUP_DIR="${SKILLS_DIR}/.backup"
-CHECK_ONLY=false
-FORCE=false
+RSYNC_CMD=""
 
 # --- 颜色 ---
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
@@ -25,26 +25,62 @@ ok()   { echo -e "${GREEN}  ✓${NC}  $*"; }
 warn() { echo -e "${YELLOW}  ⚠${NC}  $*"; }
 fail() { echo -e "${RED}  ✗${NC}  $*"; }
 
-# --- 参数解析 ---
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --check-only) CHECK_ONLY=true; shift ;;
-        --force) FORCE=true; shift ;;
-        -h|--help)
-            echo "用法: pull-update.sh [选项]"
-            echo "  --check-only  仅检查更新，不执行"
-            echo "  --force       强制更新，跳过备份确认"
-            exit 0 ;;
-        *) echo "未知参数: $1"; exit 1 ;;
-    esac
-done
+# --- 全局选项 ---
+CHECK_ONLY=false
+FORCE=false
+
+# --- rsync 检测 + 回退 ---
+detect_rsync() {
+    if command -v rsync &>/dev/null; then
+        RSYNC_CMD="rsync"
+        ok "rsync 可用"
+    else
+        if cp --version &>/dev/null; then
+            RSYNC_CMD="cp"
+            warn "rsync 不可用，使用 cp --delete 回退"
+        else
+            fail "rsync 和 cp 均不可用，无法执行更新"
+            exit 1
+        fi
+    fi
+}
+
+# --- python3 检测 ---
+detect_python() {
+    if command -v python3 &>/dev/null; then
+        ok "python3 $(python3 --version 2>&1 | awk '{print $2}')"
+    else
+        warn "python3 未安装，跳过 YAML 验证"
+    fi
+}
+
+# --- 参数解析（最先执行，--help/-h 应立即退出） ---
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --check-only) CHECK_ONLY=true; shift ;;
+            --force) FORCE=true; shift ;;
+            -h|--help)
+                echo "用法: pull-update.sh [选项]"
+                echo "  --check-only  仅检查更新，不执行"
+                echo "  --force       强制更新，跳过备份确认"
+                exit 0 ;;
+            *) echo "未知参数: $1"; exit 1 ;;
+        esac
+    done
+}
 
 # --- 预检 ---
+parse_args "$@"
+
 echo ""
 echo "═══════════════════════════════════════════════════"
 echo "  HOLO-AGENT · 更新检查"
 echo "═══════════════════════════════════════════════════"
 echo ""
+
+detect_rsync
+detect_python
 
 log "检查网络连通性..."
 if curl -sf --connect-timeout 5 -I "https://github.com" &>/dev/null; then
@@ -143,7 +179,7 @@ if [[ "$FORCE" != "true" ]]; then
     fi
 fi
 
-# 备份关键文件（保留最近2个备份，清理更旧的）
+# 备份完成后清理旧备份（保留最近5个）
 cp -r "$SKILLS_DIR" "$BACKUP_PATH" 2>/dev/null || true
 ok "备份完成: ${BACKUP_PATH}"
 
@@ -156,16 +192,24 @@ fi
 log "执行更新 (rsync 覆盖 skills/)..."
 
 # 同步 skills/ 目录
-if ! rsync -a --delete \
-    --exclude='.git' \
-    --exclude='.backup' \
-    --exclude='.archive' \
-    --exclude='acquisition.bak.*' \
-    --exclude='node_modules' \
-    --exclude='__pycache__' \
-    "$REPO_DIR/skills/" "$SKILLS_DIR/" 2>&1; then
-    fail "rsync 同步失败"
-    exit 1
+if [[ "$RSYNC_CMD" == "rsync" ]]; then
+    if ! rsync -a --delete \
+        --exclude='.git' \
+        --exclude='.backup' \
+        --exclude='.archive' \
+        --exclude='acquisition.bak.*' \
+        --exclude='node_modules' \
+        --exclude='__pycache__' \
+        "$REPO_DIR/skills/" "$SKILLS_DIR/" 2>&1; then
+        fail "rsync 同步失败"
+        exit 1
+    fi
+else
+    # cp 回退（不支持增量，保留 .backup .archive）
+    if ! cp -r "$REPO_DIR/skills/"* "$SKILLS_DIR/" 2>&1; then
+        fail "cp 同步失败"
+        exit 1
+    fi
 fi
 ok "同步完成"
 
