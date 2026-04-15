@@ -323,6 +323,25 @@ Phase 4: 触达（铁律：开发信≥9.0分）
 | 日历提醒 | calendar-skill |
 | 社媒运营 | ai-social-media-content |
 | **操作日志埋点** | holo-activity-log |
+| **Pipeline自动巡检** | HEARTBEAT.md（13项心跳任务）|
+| **客户记忆管理** | MEMORY.md（4层防遗忘协议）|
+
+---
+
+## 配套文档
+
+本流程配合以下文档使用：
+
+| 文档 | 用途 |
+|------|------|
+| `HEARTBEAT.md` | Pipeline 自动巡检（13项心跳任务），每次心跳自动执行 |
+| `MEMORY.md` | 4层防遗忘记忆协议，对话全程记忆管理 |
+| `AGENTS.md` | 10阶段Pipeline详细动作文档，所有操作人员可查 |
+| `smart-quote` | 智能报价系统（含报价锁定机制 + 授权矩阵）|
+| `cold-email-generator` | 开发信（含 Email Sequence 4步序列化跟进）|
+| `telegram-toolkit` | Telegram-first市场支持（俄罗斯/伊朗/独联体）|
+| `honglong-assistant` | 人格层（含反verbosity规则：消息必须短）|
+| `acquisition-coordinator` | 实际执行引擎，读取本流程规范后调度子技能 |
 
 ---
 

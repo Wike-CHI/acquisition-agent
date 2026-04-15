@@ -229,6 +229,91 @@ Address: Ruian, Wenzhou, Zhejiang 325200, China
 | 美国/英国 | 专业简洁 | 强调价值和质量 |
 | 德国 | 正式详细 | 强调技术规格和认证 |
 
+---
+
+## 📧 Email Sequence（自动序列化跟进）
+
+> 冷线索邮件触达必须走完 4 步序列。每个节点都有明确状态机管理。
+
+### 4步序列定义
+
+| 步次 | 时间 | 状态标签 | 内容类型 | 目标 |
+|------|------|---------|---------|------|
+| Day 0 | 首日 | `email_sent` | 个性化开场 + 产品亮点 | 建立联系 |
+| Day 3 | 第3天 | `email_followup_1` | 价值型跟进 + 案例 | 提供证明 |
+| Day 7 | 第7天 | `email_followup_2` | 直接诉求 + 具体产品 | 推动响应 |
+| Day 14 | 第14天 | `email_final` | 最终跟进 + 限时理由 | 最后激活 |
+
+### 各步次邮件要素
+
+**Day 0 首封（email_sent）**
+
+```
+Subject: [公司名] — [具体痛点/近期动态]
+Hook: 提及客户公司具体事件（扩展/新品/竞品动态）
+Value: 红龙如何解决该痛点
+Benefits: 3个要点
+CTA: 开放式问题
+```
+
+**Day 3（email_followup_1）**
+
+```
+Subject: Re: [原Subject]
+Hook: "想补充一个案例，[客户同类公司]用了我们的设备后..."
+CTA: "想了解详情可以回复这条消息"
+```
+
+**Day 7（email_followup_2）**
+
+```
+Subject: Re: [原Subject]
+Hook: "我们的XDT2000刚通过CE认证，对[国家]市场很重要"
+CTA: 直接问是否有兴趣
+```
+
+**Day 14 最终（email_final）**
+
+```
+Subject: [公司名] — 最后一次联系
+Hook: "我们的优惠期到[具体日期]，想确认是否还有兴趣"
+CTA: 回复或移入nurture
+```
+
+### 序列管理规则
+
+```
+email_sent
+  → Day 3 无回复 → email_followup_1
+  → Day 7 无回复 → email_followup_2
+  → Day 14 无回复 → nurture，停止序列
+
+收到任何回复 → email_replied → 进入BANT流程
+退信 → 标记 bounced，跳过序列
+举报 spam → 标记 spam，停止接触
+```
+
+### 序列触发条件
+
+- CRM 中客户有 `email` 字段（非 info@）
+- CRM 中客户 `source = cold_lead` 或 `web_discovery`
+- CRM 中客户 `status = new` 且超过 48h 无互动
+- 当前无 `email_sent` / `email_followup_*` 记录
+
+### 给老板的报告格式
+
+```
+[Email Sequence 状态]
+- Day 0 待发送：X 封（今日新客户）
+- Day 3 待发送：X 封（无回复）
+- Day 7 待发送：X 封（无回复）
+- Day 14 最终：X 封（最后激活）
+- 已回复（待处理）：X 封
+- 已 bounce/spam：X 封
+```
+
+---
+
 ## 与获客系统集成
 
 - `customer-intelligence` → 提供客户背调数据作为输入
