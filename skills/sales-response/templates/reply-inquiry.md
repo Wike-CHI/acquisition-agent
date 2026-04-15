@@ -55,7 +55,7 @@ I'll prepare a formal quotation within 24 hours.
 Best regards,
 Wike Chen
 Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
-+86 131 6586 2311 | wikeye2025@163.com
+{{SENDER_PHONE}} | {{SENDER_EMAIL}}
 ```
 
 ---

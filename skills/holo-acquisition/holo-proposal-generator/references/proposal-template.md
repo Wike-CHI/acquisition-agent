@@ -44,7 +44,7 @@
 │                                          │
 │     Wike Chen | Sale Manager             │
 │     HOLO Industrial Equipment Mfg Co.   │
-│     wikeye@163.com | +86 131 6586 2311  │
+│     {{SENDER_EMAIL}} | {{SENDER_PHONE}}  │
 │                                          │
 └──────────────────────────────────────────┘
 ```
@@ -141,8 +141,8 @@
 │                                          │
 │     Wike Chen | Sale Manager             │
 │     HOLO Industrial Equipment Mfg Co.,  │
-│     M: +86 131 6586 2311                │
-│     E: wikeye@163.com                   │
+│     M: {{SENDER_PHONE}}                │
+│     E: {{SENDER_EMAIL}}                   │
 │                                          │
 └──────────────────────────────────────────┘
 ```

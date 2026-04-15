@@ -200,7 +200,7 @@ def build_proposal_content(client_info, quote_info, case_studies):
 │                                         │
 │    Wike Chen | Sale Manager             │
 │    HOLO Industrial Equipment Mfg Co.    │
-│    wikeye@163.com | +86 131 6586 2311  │
+│    {{SENDER_EMAIL}} | {{SENDER_PHONE}}  │
 │                                         │
 └─────────────────────────────────────────┘
 ```
@@ -290,8 +290,8 @@ def build_proposal_content(client_info, quote_info, case_studies):
 │                                         │
 │    Wike Chen | Sale Manager             │
 │    HOLO Industrial Equipment Mfg Co., Ltd│
-│    M: +86 131 6586 2311                │
-│    E: wikeye@163.com                    │
+│    M: {{SENDER_PHONE}}                │
+│    E: {{SENDER_EMAIL}}                    │
 │    W: www.holo-industrial.com           │
 │                                         │
 └─────────────────────────────────────────┘
