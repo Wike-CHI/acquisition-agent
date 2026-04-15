@@ -395,9 +395,9 @@ routing:
       condition: 孚盟CRM手动操作
   sdr_training:
     all_markets:
-    - skill: holo-sales-trainer
+    - skill: sdr-training-ground
       priority: 6
-      condition: AI模拟客户对话训练/话术评估
+      condition: AI模拟客户对话训练/话术评估/新兵训练场/练手/演练
       fallback: []
   inquiry_response:
     all_markets:
@@ -503,9 +503,9 @@ iron_rules:
   stage: all
   blocking: false
 skills_index:
-  holo-sales-trainer:
-    path: skill://holo-sales-trainer
-    description: HOLO销售训练场 v1.0 — AI模拟真实客户对话（8大场景）+ 话术评估（8维度评分）。降低业务员成长曲线，扮演永不疲倦的师父。
+  sdr-training-ground:
+    path: skill://sdr-training-ground
+    description: B2B工业设备销售新兵训练场 v1.0 — AI扮演海外采购商，新业务员扮演HOLO销售，模拟真实对话，系统全程记录+实时评分+改进报告。4难度×5场景，20个剧本组合。
     layer: training
   holo-proposal-generator:
     path: skill://holo-proposal-generator
@@ -687,3 +687,23 @@ skills_index:
     description: 多语种词簇库（P0升级）。覆盖DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言。非英语市场客户发现时必须加载。
     layer: discovery
     note: 不是技能文件，是词簇参考文档。AI读取后构造本地语言搜索查询。
+  skill-auditor:
+    path: skill://skill-auditor
+    description: 技能系统审查技能 v1.0 — 扫描全量技能、问题分类（ERROR/WARN）、优先级排序、逐个修复。触发："审查技能""审计技能""检查技能系统"
+    layer: maintenance
+  bash-patch-safe:
+    path: skill://bash-patch-safe
+    description: Bash脚本安全patch指南 v1.0 — 防止patch时常见误伤（函数重复/调用丢失/参数解析缺失）
+    layer: maintenance
+  routing-table-audit:
+    path: skill://routing-table-audit
+    description: 路由表审计技能 v1.0 — 检测ROUTING-TABLE.yaml两层结构（keywords层/routing层）、技能路由覆盖、skills_index注册完整性、空intent、路径断裂
+    layer: maintenance
+  acquisition-development-notes:
+    path: skill://acquisition-development-notes
+    description: HOLO获客系统开发笔记 v1.0 — 记录技能开发踩坑经验、已知bug、工作流规范。经验性知识，非流程性
+    layer: notes
+  skill-onboarding-checklist:
+    path: skill://skill-onboarding-checklist
+    description: 新技能安装规范流程 v1.0 — 安装后必须完成位置检查+ROUTING-TABLE注册+重复检测，防止技能"消失"
+    layer: maintenance
