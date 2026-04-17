@@ -107,6 +107,120 @@ for sd in skill_dirs:
                 print(f"  → {sd}/{fname}")
 ```
 
+## 本地 vs GitHub Repo 同步检查（必查）
+
+本地系统（`~/.hermes/skills/acquisition/`）和 GitHub 备份（`/tmp/acquisition-agent/`）必须完全对齐。常见不一致场景：
+
+| 场景 | 原因 | 后果 |
+|------|------|------|
+| 修复本地 skill 后未同步到 repo | 单次同步不完整 | repo 包含旧版本，tag 指向错误 commit |
+| repo 有本地没有的文件 | 中间同步引入了非预期文件 | `.gitignore` 不一致 |
+| deploy/ 和 local/ 在两边 | 这些是环境专属目录 | size 对比时干扰 |
+
+**正确比较方式（排除环境专属目录）：**
+```python
+def get_file_map(root, exclude_dirs=None):
+    m = {}
+    for dirpath, dirname, filenames in os.walk(root):
+        if exclude_dirs:
+            dirname[:] = [d for d in dirname if d not in exclude_dirs]
+        for fn in filenames:
+            fp = os.path.join(dirpath, fn)
+            m[os.path.relpath(fp, root)] = fp
+    return m
+
+exclude = {'.git', 'deploy/', 'local/'}
+lt = get_file_map(local_root, exclude)
+rt = get_file_map(repo_root,  exclude)
+
+only_local = sorted(set(lt) - set(rt))
+only_repo  = sorted(set(rt) - set(lt))
+diff_sizes = [(k, os.path.getsize(lt[k]), os.path.getsize(rt[k]))
+              for k in sorted(set(lt) & set(rt))
+              if os.path.getsize(lt[k]) != os.path.getsize(rt[k])]
+
+print(f"Files only in local:  {only_local  or 'none ✅'}")
+print(f"Files only in repo:   {only_repo   or 'none ✅'}")
+print(f"Different sizes:      {diff_sizes  or 'none ✅'}")
+```
+
+**同步流程（每次推送前必须执行）：**
+```
+1. git -C REPO reset --hard origin/main  # 确保 repo 是 origin 最新
+2. rm -rf REPO/*                          # 清理（保留 .git/）
+3. 重建 REPO 内容（cp -r 排除 deploy/ local/ .git/）
+4. git add -A && git status --short        # 确认变更范围合理
+5. git commit -m "描述"
+6. git push
+```
+
+## 目录结构 vs GitHub 同步规则
+
+**当参考模板要求 `workspace/` 子目录时：**
+参考模板将运营文件（AGENTS.md/HEARTBEAT.md等）放在 `workspace/` 子目录里。本地系统根目录的运营文件应该移入 `workspace/`，但以下文件**留在根目录**（Windows cron 脚本依赖）：
+- `.last-sync-hashes.json` — Windows 定时任务写入，必须在根目录
+- `.gitignore` — Git 本身需要
+
+**检查点：**
+```python
+# workspace/ 里应该有这些文件
+expected_ws = ['AGENTS.md', 'HEARTBEAT.md', 'MEMORY.md',
+               'ROUTING-TABLE.yaml', 'SKILLS-MANIFEST.yaml']
+for f in expected_ws:
+    in_root = os.path.exists(os.path.join(LOCAL, f))
+    in_ws   = os.path.exists(os.path.join(LOCAL, 'workspace', f))
+    if in_root and not in_ws:
+        print(f"⚠️  {f} 在根目录，应该移入 workspace/")
+    elif in_ws and not in_root:
+        print(f"✅ {f} 在 workspace/（正确）")
+```
+
+## 区分 Phantom Refs vs 合法子程序调用
+
+交叉技能引用不一定都是 phantom ref。以下两种情况是**合法的**，不是错误：
+
+| 调用关系 | 说明 | 是否 phantom |
+|---------|------|-------------|
+| `smart-quote → company-research` | 报价前必须先背调，正确的流程依赖 | ✅ 合法 |
+| `cold-email-generator → sdr-humanizer` | 开发信生成后去AI味，正确的工作流 | ✅ 合法 |
+| `A → archive/skill-X` | 引用已归档技能 | ❌ Phantom，必须修复 |
+| `A → nonexistent-skill` | 引用不存在的技能 | ❌ Phantom，必须修复 |
+
+**判断方法：** 读取被引用的 SKILL.md，看是否真的存在于 `skills/` 或 `archive/` 目录里。
+
+```python
+import os, re
+
+def find_all_skill_refs(skills_dir):
+    """扫描所有 .md/.yaml 文件，收集 skill://xxx 引用"""
+    refs = {}
+    for root, dirs, files in os.walk(skills_dir):
+        dirs[:] = [d for d in dirs if d not in {'.git', '__pycache__'}]
+        for fn in files:
+            if not fn.endswith(('.md', '.yaml', '.yml')):
+                continue
+            fp = os.path.join(root, fn)
+            try:
+                content = open(fp).read()
+            except:
+                continue
+            for m in re.finditer(r'skill://([a-zA-Z0-9_/-]+)', content):
+                skill_name = m.group(1)
+                refs.setdefault(skill_name, []).append(fp)
+    return refs
+
+def check_legitimacy(refs, disk_skills, archived_skills):
+    """区分合法子程序调用 vs phantom refs"""
+    phantom = []
+    legitimate = []
+    for skill, files in refs.items():
+        if skill in disk_skills or skill in archived_skills:
+            legitimate.append((skill, files))
+        else:
+            phantom.append((skill, files))
+    return phantom, legitimate
+```
+
 ## 完整审计报告模板
 
 ```
@@ -114,19 +228,26 @@ for sd in skill_dirs:
 技能系统审计报告
 =================================================================
 【基础数据】
-  活跃技能: N | 归档技能: M | Manifest: K
+  活跃技能: N | 归档技能: M | Manifest: K | skills_index: L
 
-【YAML合法性】
-  ROUTING-TABLE.yaml:   ✓/✗
-  SKILLS-MANIFEST.yaml:  ✓/✗
+【P0 安全】
+  硬编码凭证: N个（全部需清理）
+  本地↔Repo同步: ✓/✗
 
-【一致性检查】
-  目录 = Manifest:  ✓/✗
-  路由引用全部存在: ✓/✗
-  归档技能零泄露:   ✓/✗
+【P1 结构】
+  Frontmatter错误: N | 警告: M
+  workspace/结构:  ✓/✗（运营文件是否在正确位置）
+  skills_index死引用: N
+  SKILLS-MANIFEST phantom: N
+  name≠目录名: N
+
+【P2 功能】
+  Phantom refs vs 合法子程序: N phantom / M legitimate
+  "库存有货路由无货": N
+  归档技能泄露: N
 
 【结论】
-  ✓ 所有检查通过  或  ✗ 发现 N 个问题（见修复记录）
+  ✓ 所有检查通过  或  ✗ 发现 N 个问题（按优先级修复）
 =================================================================
 ```
 
