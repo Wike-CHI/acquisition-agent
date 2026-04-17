@@ -14,6 +14,9 @@ orchestration:
   acquisition-workflow:
     desc: 获客流程规范。定义12步标准流程、质量检查点、输出格式。
     trigger: 流程是什么/规范/怎么做
+  acquisition-development-notes:
+    desc: HOLO获客系统开发笔记。记录技能开发踩坑经验/已知bug/工作流规范，经验性知识非流程性。
+    trigger: 开发笔记/踩坑/bug
 discovery:
   teyi-customs:
     desc: 特易海关数据。查采购记录，发现从中国进口工业皮带设备的海外买家。
@@ -68,6 +71,18 @@ outreach:
   sdr-humanizer:
     desc: 拟人化销售对话。AI生成消息→自然人类风格，支持文化适配+时区感知+消息节奏。
     trigger: 拟人化/自然对话/去AI味
+  follow-up-signal-monitor:
+    desc: 跟进信号监控系统。提案/邮件发出后自动感知客户动静，覆盖沉默检测（3/7/14/30天分级）+价值型跟进+IMAP邮件监控。
+    trigger: 检查跟进信号/客户没回复/沉默检测
+  exa-web-search-free:
+    desc: Exa免费AI搜索。必须通过mcporter调用，语义搜索+企业情报+决策人搜索。
+    trigger: 免费搜索/exa免费搜索
+  telegram-toolkit:
+    desc: Telegram SDR最佳实践与模板，覆盖俄罗斯/独联体/伊朗等Telegram-first市场。
+    trigger: Telegram/电报/俄罗斯市场
+  holo-proposal-generator:
+    desc: HOLO数字提案包生成器。包含封面/客户摘要/方案对比/案例/报价/CTA，专业PDF提案。
+    trigger: 生成提案/提案包/PDF提案
 social:
   ai-social-media-content:
     desc: AI社媒内容生成。一次主题自动生成9平台内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）。
@@ -91,6 +106,12 @@ product:
   smart-quote:
     desc: 智能报价v2.0。先调用company-research背调，根据ICP评分确定利润率区间，让业务员灵活报价。
     trigger: 报价/价格/报价单/问价
+  graphify:
+    desc: 知识图谱构建。从红龙产品目录/客户对话/市场调研中构建知识图谱，发现隐藏关联+交叉销售机会+竞争洞察。
+    trigger: 知识图谱/客户关系/竞争格局
+  quotation-generator:
+    desc: PDF形式发票生成。自动生成红龙专业报价单，含公司抬头/多语言支持/报价后追踪。
+    trigger: 报价单/PDF报价/生成报价
 crm:
   fumamx-crm:
     desc: 孚盟MX CRM自动化。客户查询/创建/更新/筛选/发送邮件，与孚盟CRM实时同步。
@@ -174,21 +195,50 @@ agent:
   skill-finder-cn:
     desc: 技能查找器（中文）。ClawHub Skills查找，辅助发现新技能。
     trigger: 找技能/技能库
-  skill-auditor: 系统审查并优化Hermes Agent技能，全流程扫描+修复
-  skill-system-audit: 技能系统自动审计，交叉引用错误+路由损坏检测
+  skill-onboarding-checklist:
+    desc: 新技能安装规范流程。每次安装/创建新技能后必须完成注册，否则不会被路由系统识别。
+    trigger: 安装新技能/新增技能/创建技能
+  routing-table-audit:
+    desc: 路由表审计技能。检查ROUTING-TABLE.yaml的两层结构（keywords描述层+routing执行层）。
+    trigger: 审查路由表/审计技能系统/路由表有问题
+  composio:
+    desc: Composio工具路由。通过CLI连接1000+外部应用（Gmail/Slack/GitHub等），SDK支持多框架。
+    trigger: Composio/外部工具/连接应用
+  smart-memory:
+    desc: OpenClaw持久化认知记忆。FastAPI+LanceDB向量存储，跨会话记忆持续性保障。
+    trigger: 智能记忆/smart memory
+  knowledge-base:
+    desc: 团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研。
+    trigger: 知识库/查一下/市场知识
+  skill-system-audit:
+    desc: 技能系统自动审计。发现技能碎片化/交叉引用错误/路由表损坏/YAML合法性问题。
+    trigger: 审查技能系统/审计技能/路由表问题
+  skill-auditor:
+    desc: 系统审查并优化Hermes Agent技能，全流程扫描+修复P0/P1/P2问题。
+    trigger: 审查技能/优化技能/修复技能
+training:
+  holo-sales-trainer:
+    desc: HOLO销售训练场。AI模拟真实客户对话+话术评估，降低业务员成长曲线。
+    trigger: 练手/训练/话术练习/销售训练
+  sdr-training-ground:
+    desc: B2B工业设备销售新兵训练场。AI扮演海外采购商/技术决策人，系统全程记录+实时评分+改进报告。
+    trigger: 训练/练手/模拟/销售演练
 special:
   release-manager:
     desc: 发布管理v3.2.0。双模式：ZIP打包+GitHub仓库同步。发布新版本时使用。
     trigger: 发布/打包/GitHub
+  holo-heartbeat-executor:
+    desc: HEARTBEAT执行器v1.0。执行Pipeline自动巡检13项检查，cron定时任务触发。
+    trigger: 执行HEARTBEAT检查/Pipeline巡检
+  holo-updater:
+    desc: 从GitHub拉取HOLO-AGENT最新版本。一键更新获客系统。
+    trigger: 更新HOLO-AGENT/更新获客系统/拉取最新版本/更新系统/git pull
   data-automation-service:
     desc: 数据处理与自动化Workflow服务。
     trigger: 数据处理/自动化
   business-development:
     desc: 合作伙伴拓展与市场调研。合作关系建立、市场进入策略。
     trigger: 合作/BD/合作伙伴
-  holo-updater:
-    desc: 从GitHub拉取HOLO-AGENT最新版本。一键更新获客系统。
-    trigger: 更新HOLO-AGENT/更新获客系统/拉取最新版本/更新系统/git pull
 entry:
   global-customer-acquisition:
     desc: HOLO智能获客Agent入口。主技能，客户发现/背调/开发信/报价/社媒/Pipeline管理全能入口。触发词最广。
@@ -204,19 +254,20 @@ memory:
     desc: 类脑记忆系统。V-score记忆整合+Ebbinghaus遗忘曲线模拟，智能记忆 consolidation。
     trigger: 记忆管理/遗忘曲线/V-score
 summary:
-  total_active: 81
+  total_active: 82
   total_archived: 33
-  groups: 12
+  groups: 13
   layers:
-    orchestration: 5
-    discovery: 6
+    orchestration: 6
+    discovery: 5
     intelligence: 5
-    outreach: 8
+    outreach: 11
     social: 5
-    product: 2
+    product: 4
     crm: 5
-    tools: 15
-    agent: 6
-    special: 4
+    tools: 17
+    agent: 13
+    special: 5
     entry: 2
     memory: 2
+    training: 2
