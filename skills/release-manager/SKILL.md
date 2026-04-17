@@ -1,21 +1,81 @@
 ---
 name: release-manager
 description: >
-  发布管理技能 v3.1.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
+  发布管理技能 v3.2.0 - 双模式发布：ZIP打包 + GitHub仓库同步。
   当用户说"发布新版本"、"打包系统"、"同步到GitHub"、"推送技能到仓库"、
   "sync to github"、"release"、"技能版本管理"、"清理仓库"、
   "更新GitHub仓库"、"force push"、"submodule修复"时使用。
   专为红龙获客系统定制，支持增量同步、submodule检测、大文件过滤。
-version: 3.1.0
+version: 3.2.0
 triggers:
   - 发布管理
   - 打包
   - release
+  - 目录结构
 ---
 
 # release-manager
 
 发布管理技能 - 双模式：ZIP 打包发布 + GitHub 仓库同步。
+
+## 红龙获客系统目录结构（正确版）
+
+> ⚠️ **2026-04-17 踩坑记录**：`workspace/` 子目录是错误概念！运营文件必须
+> 直接放在集群根目录，不存在 `~/.hermes/skills/acquisition/workspace/` 这个路径。
+
+红龙获客系统运行在 `~/.hermes/skills/acquisition/`，结构如下：
+
+```
+~/.hermes/skills/acquisition/          ← 集群根目录（Hermes Agent 读取这里）
+│
+├── README.md                          ← 项目说明
+├── CHANGELOG.md                       ← 变更记录
+├── AGENTS.md                          ← AI SDR Pipeline 操作手册
+├── HEARTBEAT.md                       ← 自动巡检配置
+├── MEMORY.md                          ← 持久化记忆
+├── ROUTING-TABLE.yaml                 ← 技能路由表（~74条）
+├── SKILLS-MANIFEST.yaml               ← 技能分类目录（82个）
+│
+├── skills/                            ← 82个活跃技能
+├── archive/                           ← 33个已归档技能
+├── deploy/                            ← 部署脚本和CLI工具链
+├── product-kb/                        ← 产品知识库（NAS挂载后填入）
+├── examples/                          ← 行业场景案例（南美/中东/东南亚）
+├── docs/internal/                     ← 内部文档
+└── local/                             ← Windows平台特定工具（turix-win）
+```
+
+**不存在** `workspace/` 子目录。运营文件（AGENTS.md 等）直接在根目录。
+
+GitHub 仓库结构与本地完全一致，克隆到 `/tmp/acquisition-agent/`。
+
+---
+
+## 核心原则：双环境同步约束
+
+> ⚠️ **最容易犯的错误**：只编辑 GitHub 克隆或只编辑本地系统，导致两处分歧。
+
+| 环境 | 路径 | 角色 |
+|------|------|------|
+| **本地运行系统** | `~/.hermes/skills/acquisition/` | Hermes Agent 实际读取 |
+| **GitHub 仓库克隆** | `/tmp/acquisition-agent/` | GitHub 同步用的临时工作区 |
+
+**正确操作顺序**：
+1. 在本地运行系统（`~/.hermes/skills/acquisition/`）直接编辑文件
+2. 将变更同步到 GitHub 克隆（`/tmp/acquisition-agent/`）
+3. 在克隆里 commit + push
+4. **完成！本地系统已经是最新，无需额外同步**
+
+**错误的做法**：
+- ❌ 直接在 `/tmp/acquisition-agent/` 编辑文件而不回写本地
+- ❌ 在本地编辑后不更新 GitHub 克隆就 push
+- ❌ 创建 `~/.hermes/skills/acquisition/workspace/` 子目录（这是错误概念）
+
+**文件分布规则**：
+- `skills/`、`archive/`、`deploy/` → 直接同步子目录
+- 根目录运营文件（`AGENTS.md` 等）→ 用 `cp` 同步（不是 `git mv`）
+
+---
 
 ## 功能
 
