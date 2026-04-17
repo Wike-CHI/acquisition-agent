@@ -239,6 +239,9 @@ special:
   business-development:
     desc: 合作伙伴拓展与市场调研。合作关系建立、市场进入策略。
     trigger: 合作/BD/合作伙伴
+  holo-crm-snapshot:
+    desc: HOLO CRM每日快照备份。从Pipeline Excel读取数据存入向量库，HEARTBEAT第12项专用。
+    trigger: CRM快照/CRM backup
 entry:
   global-customer-acquisition:
     desc: HOLO智能获客Agent入口。主技能，客户发现/背调/开发信/报价/社媒/Pipeline管理全能入口。触发词最广。
@@ -254,7 +257,7 @@ memory:
     desc: 类脑记忆系统。V-score记忆整合+Ebbinghaus遗忘曲线模拟，智能记忆 consolidation。
     trigger: 记忆管理/遗忘曲线/V-score
 summary:
-  total_active: 82
+  total_active: 83
   total_archived: 33
   groups: 13
   layers:
