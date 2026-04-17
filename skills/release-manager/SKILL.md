@@ -105,7 +105,32 @@ git add skills/global-customer-acquisition
 git ls-files --stage skills/global-customer-acquisition | Select-Object -First 1
 ```
 
-### 2. 仓库体积膨胀
+### 4. WSL/Linux 下 GitHub 推送
+
+**发现**：在 WSL 环境中，如果已有克隆好的 git 仓库在 `/tmp/`，仓库本身已配置了 git remote（通过 SSH 或 HTTPS URL），则可以直接 `git push`，无需额外配置认证。推送时 git 自动使用 `~/.gitconfig` 中定义的 user.email。
+
+**操作流程（WSL/Linux）**：
+```bash
+# 假设仓库已在 /tmp/acquisition-agent
+cd /tmp/acquisition-agent
+
+# 同步新技能/文档
+rsync -a --delete \
+    --exclude=node_modules --exclude=.git \
+    ~/.hermes/skills/acquisition/{新技能目录}/ skills/{新技能目录}/
+
+# 提交并推送
+git add 新文件...
+git commit -m "feat: ..."
+git push origin main
+git tag v3.0.0 && git push origin v3.0.0
+```
+
+**优势**：无需重新 clone（仓库已存在），无需手动配置 gh auth 或 token 环境变量。
+
+---
+
+### 3. 仓库体积膨胀
 
 **症状**：仓库从 5MB 膨胀到 2GB+
 

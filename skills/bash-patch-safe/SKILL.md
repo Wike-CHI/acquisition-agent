@@ -1,5 +1,6 @@
 ---
 name: bash-patch-safe
+version: "1.0.0"
 description: Bash 脚本安全 patch 指南。当需要修改 bash 脚本时（通过 patch 工具或文本替换），防止常见误伤：函数定义重复、函数调用丢失、参数解析缺失。适用于所有 bash 脚本维护工作。
 triggers:
   - patch bash 脚本

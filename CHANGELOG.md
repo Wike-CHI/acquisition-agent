@@ -2,92 +2,75 @@
 
 All notable changes to the HOLO Acquisition Agent system.
 
+## [v3.0.0] - 2026-04-17
+
+### 🔥 重大重构：目录结构升级
+
+参考 [iPythoning/b2b-sdr-agent-template](https://github.com/iPythoning/b2b-sdr-agent-template) 进行了完整的目录结构重构，与上游保持兼容。
+
+#### 新目录结构
+
+```
+acquisition/
+├── skills/          ← 82个技能（路由系统索引）
+├── workspace/       ← 运营文件（Pipeline/HEARTBEAT/路由表）
+├── archive/         ← 33个已归档技能（历史版本）
+├── deploy/          ← 部署脚本和工具链
+├── product-kb/      ← 产品知识库（NAS挂载后填入）
+├── examples/        ← 行业场景案例
+├── docs/internal/   ← 内部文档
+└── local/           ← 本地平台特定工具
+```
+
+**变更：**
+- 81个技能从根目录 → `skills/`
+- 运营文件（AGENTS/HEARTBEAT/MEMORY/路由表）→ `workspace/`
+- 部署脚本（.cli/ + scripts/）→ `deploy/`
+- .archive/ → `archive/`（33个归档技能统一管理）
+- 新增 `product-kb/`（产品知识库目录）
+- 新增 `examples/`（南美/中东/东南亚3个区域目录）
+- 新增 `docs/internal/`（内部文档目录）
+- 新增 `NEW-STRUCTURE.md`（结构说明文档）
+
+---
+
+### 🛡️ 系统审查与修复
+
+#### P0 安全
+- 全量凭证扫描：**无真实硬编码凭证泄漏** ✅
+- `/tmp/sender.mjs` 凭证已改为环境变量（`HOLO_SMTP_PASS`）注入
+- `composio` 工具配置的9处均为模板占位符（非真实密钥）
+
+#### P1 结构完整性
+- 10个路由表死引用已清理（`skills_index` 中已归档技能）
+- 4个技能补全 frontmatter（`graphify` / `knowledge-base` / `quotation-generator` / `telegram-toolkit`）
+- 9个技能补全 `version` 字段
+- 2个技能 name 不匹配已修正（`cli-anything-hub` / `market-development-report`）
+- 9个技能补全 `triggers` 字段
+
+#### P1 路由系统
+- `skills_index` 从 48条 → 74条（新增36个未注册的磁盘技能）
+- `SKILLS-MANIFEST.yaml` 与 `skills_index` 完全同步
+- 归档技能清理：移除 `SKILLS-MANIFEST` 中的 `exa-search` / `sales-response` 遗留条目
+
+#### P2 系统健康
+- `skills_index` ↔ `SKILLS-MANIFEST` ↔ 磁盘三层对齐
+- 82技能全部通过 frontmatter 验证（0错误 0警告）
+- 空 `.archive/` 等遗留目录已清理
+
+---
+
+### 📊 技能统计
+
+| 指标 | 数量 |
+|------|------|
+| 活跃技能（skills_index） | 74 |
+| 磁盘技能 | 82 |
+| 归档技能 | 33 |
+| SKILLS-MANIFEST | 67 |
+
+---
+
 ## [v2.6.0] - 2026-04-14
 
-### 🎯 重大升级：新增4大P0技能
-
-#### `holo-proposal-generator` (NEW)
-数字提案包生成器 v1.0.0 — 一键生成专业PDF提案，7页结构：
-封面 → 客户背景 → 方案对比(vs Beltwin vs 现状) → 推荐产品 → 成功案例 → 商务条款 → CTA
-支持中英葡西4语种，reportlab纯Python实现。
-
-#### `holo-sales-trainer` (NEW)
-AI销售训练场 v1.0.0 — 系统扮演海外采购商，新业务员练手。
-覆盖：初次电话/讨价还价/技术拒绝/竞品对比，实时评分+话术报告。
-
-#### `inquiry-response` (ROUTING FIXED)
-询盘应答技能 v1.1.0 — 路由修复正式激活。
-内容：15场景×6语种异议处理 + 9国文化谈判策略 + Beltwin底牌话术 + 成交收尾。
-
-#### `follow-up-signal-monitor` (NEW)
-跟进信号监控系统 v1.0.0 — 自动感知客户动静。
-5级沉默检测（正常→关注→警戒→深度→弱信号），
-价值型跟进草稿生成（A1市场情报/A2案例匹配/A3付款优化/B1技术澄清/B2到期提醒/B3软着陆/C1弱信号降频）。
-
----
-
-### 🔧 路由修复
-
-- `global-customer-acquisition` — 接入 `full_pipeline` 路由（优先级6）
-- `market-development-report` — 接入 `market_development.overseas` 路由（优先级6）
-- `inquiry_response` — 注册到 `routing.all_markets`（优先级6），skills_index同步注册
-- `full_pipeline` — 接入 `global-customer-acquisition`
-- `sales_response` — 旧路由引用已清理
-
----
-
-### 📦 技能系统
-
-- 新增 `skill-auditor` — 系统审查技能，定期健康检查
-- 新增 `bash-patch-safe` — Bash脚本patch安全指南
-- 新增 `acquisition-development-notes` — 开发笔记，踩坑记录
-- `holo-updater` v1.1 — 新增 rsync fallback，跨平台GitHub拉取
-- `acquisition-dependencies` v2.0 — Linux/macOS/WSL2/Windows全平台自动安装
-- `acquisition-init` v2.0 — 一键依赖安装
-- `release-manager` v3.2.0 — 新增 pull-from-github.ps1 双向同步
-
----
-
-### 🏢 业务知识更新
-
-- Beltwin 重新定标：**十年合作伙伴（经销商）**，非直接竞品
-  - 话术调整：「源头厂家供货」vs「贸易商中间差价」
-  - 底牌：配件库存有限/售后响应慢/质保仅6个月 vs HOLO 12个月
-- 客户分类重构：明确排除矿业/港口/电力/水泥终端用户
-- Beltwin已覆盖的终端客户列为争夺对象
-
----
-
-### 📚 知识库
-
-- `holo-products` v3.1 — 双层读取架构（references优先 + NAS兜底）
-- `market-research` v1.2 — 六维度市场分析框架
-- `knowledge-base` v1.2 — 知识库门卫规则 + 中文slug修复
-- 新增产品应用知识：输送带/硫化/选型指南/客户痛点
-
----
-
-### 🐛 Bug修复
-
-- NAS路径引用修正（Y盘产品图册/市场营销/竞品分析 → 真实路径）
-- 邮件编码乱码修复（UTF-8 BOM处理）
-- WhatsApp批量发送LOCK残留问题
-- skill-cli P1+P2一致性问题（13个技能）
-- ICP评分动态检测修复
-
----
-
-### 📊 系统状态（v2.6.0）
-
-| 指标 | 数值 |
-|------|------|
-| 活跃技能 | 71个 |
-| 路由意图 | 15个 |
-| skills_index注册 | 43个 |
-| 自研holo-*技能 | 4个（全部在线） |
-| 累计commit | v2.5.3后+78个 |
-
----
-
-## [v2.5.3] - 2026-04-10
-Previous stable release
+> 历史版本详见 CHANGELOG.md 归档

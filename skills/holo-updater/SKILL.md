@@ -1,6 +1,14 @@
 ---
 name: holo-updater
-description: HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本到本地。一键更新红龙获客系统到最新代码。触发：更新HOLO-AGENT、更新获客系统、拉取最新版本、更新系统、git pull。
+version: "1.0.0"
+description: HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本到本地。一键更新红龙获客系统到最新代码。
+triggers:
+  - 更新HOLO-AGENT
+  - 更新获客系统
+  - 拉取最新版本
+  - 更新系统
+  - git pull
+  - holo-updater
 ---
 
 # HOLO-AGENT 更新技能

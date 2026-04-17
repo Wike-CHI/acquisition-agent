@@ -133,6 +133,26 @@ intents:
     keywords: [完整流程, 端到端, 全流程, 全套, full pipeline, end to end]
     description: "完整获客流程（搜索→背调→筛选→触达）"
 
+  telegram_outreach:
+    keywords: [Telegram, 电报, tg, telegram outreach, 电报触达]
+    description: "Telegram消息触达（俄罗斯/伊朗/独联体市场）"
+    market_aware: false
+
+  heartbeat_check:
+    keywords: [心跳, 自动巡检, pipeline检查, heartbeat, 系统检查]
+    description: "手动触发HEARTBEAT检查"
+    market_aware: false
+
+  knowledge_graph:
+    keywords: [知识图谱, 图谱, graphify, 客户关系图, 产品关系图, 构建图谱]
+    description: "构建和分析知识图谱"
+    market_aware: false
+
+  pdf_quote:
+    keywords: [PDF报价, 生成报价单, pdf quote, 报价单PDF, 形式发票]
+    description: "生成PDF格式报价单"
+    market_aware: false
+
 
 # ── 技能路由 ──────────────────────────────────────────────
 #
@@ -172,7 +192,7 @@ routing:
       - skill: market-research
         priority: 5
         condition: "市场研究+行业分析"
-        next: [customer-discovery, exa-search]
+        next: [market-research, exa-search]
         fallback: [exa-search]
       - skill: exa-search
         priority: 4
@@ -343,6 +363,34 @@ routing:
         condition: "完整获客编排"
         fallback: []
 
+  telegram_outreach:
+    all_markets:
+      - skill: telegram-toolkit
+        priority: 5
+        condition: "Telegram消息触达"
+        fallback: [whatsapp-outreach]
+
+  heartbeat_check:
+    all_markets:
+      - skill: HEARTBEAT.md
+        priority: 5
+        condition: "手动触发HEARTBEAT检查"
+        fallback: []
+
+  knowledge_graph:
+    all_markets:
+      - skill: graphify
+        priority: 5
+        condition: "构建知识图谱"
+        fallback: []
+
+  pdf_quote:
+    all_markets:
+      - skill: quotation-generator
+        priority: 5
+        condition: "生成PDF报价单"
+        fallback: [smart-quote]
+
 
 # ── 故障切换映射 ──────────────────────────────────────────
 #
@@ -408,6 +456,16 @@ iron_rules:
     description: "开发信必须经过打磨流程"
     stage: phase_4
     blocking: false
+
+  - id: quote_lock
+    description: "客户问价必须锁对话等审批，不能直接给数字"
+    stage: phase_5
+    blocking: true
+
+  - id: authorization_matrix
+    description: "超出授权矩阵的参数（折扣>5%/非标付款/OA赊账/延期交期等）必须升级老板"
+    stage: phase_6
+    blocking: true
 
   - id: skill_protocol
     description: "使用skill://协议引用技能"
@@ -515,7 +573,15 @@ skills_index:
     layer: outreach
   smart-quote:
     path: "skill://smart-quote"
-    description: "智能报价v2.0。先背调后报价，给业务员利润率范围和价格区间。"
+    description: "智能报价v2.0。先背调后报价，给业务员利润率范围和价格区间，含报价锁定机制和授权矩阵。"
+    layer: outreach
+  quotation-generator:
+    path: "skill://quotation-generator"
+    description: "PDF报价单生成。生成专业Proforma Invoice，支持多语言，用于报价审批后发送给客户。"
+    layer: outreach
+  telegram-toolkit:
+    path: "skill://telegram-toolkit"
+    description: "Telegram渠道技能。Bot commands/inline keyboard/大文件策略，俄罗斯/伊朗/独联体市场主渠道。"
     layer: outreach
 
   # === 支持层 ===

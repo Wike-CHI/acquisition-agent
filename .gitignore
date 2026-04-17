@@ -100,3 +100,23 @@ skills/honglong-products/**/*.tiff
 # --- 临时产品文档（NAS 上有原件）---
 temp-*
 package-lock.json
+
+# === 红龙系统特定 ===
+# NAS视频索引（包含本地路径引用）
+skills/honglong-products/videos/index.json
+
+# 视频文件（存储在NAS，按需挂载）
+skills/honglong-products/videos/*.mp4
+skills/honglong-products/videos/*.mov
+skills/honglong-products/videos/*.avi
+
+# 产品大图
+skills/honglong-products/images/*.jpg
+skills/honglong-products/images/*.jpeg
+skills/honglong-products/images/*.png
+
+# NAS原始文件（挂在Y: drive）
+# Y:/
+
+# Windows个人文件
+# C:/Users/Administrator/

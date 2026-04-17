@@ -1,6 +1,12 @@
 ---
 name: holo-social-gen
-description: HOLO社媒图片生成器 v7.2。AI-First设计模式，Agent直接手写HTML生成多语种社媒图片（Instagram/Facebook/LinkedIn等）。触发：生成社媒图片、社媒配图、社交媒体图片、holo-social-gen。
+version: "1.0.0"
+description: HOLO社媒图片生成器 v7.2。AI-First设计模式，Agent直接手写HTML生成多语种社媒图片（Instagram/Facebook/LinkedIn等）。
+triggers:
+  - 生成社媒图片
+  - 社媒配图
+  - 社交媒体图片
+  - holo-social-gen
 ---
 
 # HOLO 社媒图片生成器 v7.2

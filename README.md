@@ -6,103 +6,108 @@
 
 红龙获客系统是一套基于 AI Agent 技能集群框架的自动化获客系统，涵盖客户发现、情报分析、开发信触达、Pipeline 管理等端到端流程。
 
-## 业务员文档
+**架构版本：** v3.0.0  
+**参考模板：** [iPythoning/b2b-sdr-agent-template](https://github.com/iPythoning/b2b-sdr-agent-template)
+
+---
+
+## 目录结构
+
+```
+~/.hermes/skills/acquisition/
+├── skills/          82个技能（路由系统索引）
+├── workspace/       运营文件
+├── archive/         33个已归档技能
+├── deploy/         部署脚本和工具链
+├── product-kb/     产品知识库（NAS挂载后填入）
+├── examples/        行业场景案例
+├── docs/internal/   内部文档
+└── local/           本地平台特定工具
+```
+
+详见 [NEW-STRUCTURE.md](NEW-STRUCTURE.md)
+
+---
+
+## 快速开始
+
+1. 克隆仓库到 `~/.hermes/skills/acquisition/`
+2. 运行 `deploy/scripts/sync-to-github.ps1` 初始化
+3. 查看 [workspace/AGENTS.md](AGENTS.md) — AI SDR Pipeline 操作手册
+4. 查看 [workspace/HEARTBEAT.md](HEARTBEAT.md) — 系统自动巡检配置
+
+---
+
+## 核心文档
 
 | 文档 | 说明 |
 |------|------|
-| [业务员使用手册](业务员使用手册.md) | 快速上手指南，包含常用场景、完整流程、质量规则、常见问题 |
-| [红龙获客系统-提示词库](红龙获客系统-提示词库.md) | 可直接复制粘贴的提示词，按搜索/调研/开发信/WhatsApp/数据管理分类 |
+| [AGENTS.md](workspace/AGENTS.md) | AI SDR Pipeline 操作手册（10阶段） |
+| [HEARTBEAT.md](workspace/HEARTBEAT.md) | 系统自动巡检配置（13项检查） |
+| [MEMORY.md](workspace/MEMORY.md) | 持久化记忆（客户/竞品/上下文） |
+| [ROUTING-TABLE.yaml](workspace/ROUTING-TABLE.yaml) | 路由表（74个技能索引） |
+| [SKILLS-MANIFEST.yaml](workspace/SKILLS-MANIFEST.yaml) | 技能目录（67个技能分类） |
+| [NEW-STRUCTURE.md](workspace/NEW-STRUCTURE.md) | 目录结构说明 |
 
-> 业务员先看手册学会基本操作，再用提示词库提高效率。
+---
 
-## 架构
+## 技能导航
 
-```
-acquisition-agent/
-├── skills/                          ← 技能集群
-│   ├── global-customer-acquisition/ ← HOLO-AGENT 主入口 (v2.3.0)
-│   ├── understand-honglong-acquisition/ ← 学习指南 (v3.1.0)
-│   │
-│   ├── acquisition-coordinator/     ← 编排层
-│   ├── acquisition-evaluator/
-│   ├── acquisition-init/
-│   ├── acquisition-workflow/
-│   │
-│   ├── linkedin/                    ← 发现层
-│   ├── facebook-acquisition/
-│   ├── instagram-acquisition/
-│   ├── teyi-customs/
-│   ├── scrape/
-│   ├── scrapling/
-│   │
-│   ├── company-research/            ← 情报层
-│   ├── market-research/
-│   ├── in-depth-research/
-│   ├── autoresearch/
-│   ├── customer-intelligence/
-│   ├── deep-research/
-│   │
-│   ├── email-sender/                ← 触达层
-│   ├── email-marketing/
-│   ├── cold-email-generator/
-│   ├── linkedin-writer/
-│   ├── email-outreach-ops/
-│   ├── delivery-queue/
-│   │
-│   ├── customer-deduplication/      ← 支持层
-│   ├── sales-pipeline-tracker/
-│   ├── crm/
-│   ├── fumamx-crm/
-│   ├── credential-manager/
-│   │
-│   ├── honglong-assistant/          ← 人格层
-│   ├── honglong-products/           ← 产品层
-│   │
-│   └── ...（搜索/浏览器/文档/社媒等支撑技能）
-│
-├── scripts/
-│   └── sync-to-github.ps1           ← 本地→GitHub 同步脚本
-│
-├── .gitignore
-└── README.md
-```
+### 核心入口
+- `global-customer-acquisition` — HOLO-AGENT 主入口
+- `acquisition-coordinator` — 获客任务编排器
+- `acquisition-workflow` — 端到端获客流程
 
-## 技能层级
+### 发现层
+- `company-research` — 海外 B2B 企业背景调查
+- `market-research` — 六维度市场研究
+- `teyi-customs` — 海关数据搜索
 
-| 层级 | 技能 | 说明 |
+### 触达层
+- `cold-email-generator` — 开发信生成（v2.0）
+- `whatsapp-outreach` — WhatsApp 批量触达
+- `linkedin` — LinkedIn AI 触达
+- `telegram-toolkit` — Telegram 触达（独联体/俄罗斯）
+
+### 情报层
+- `customer-intelligence` — 客户情报整合
+- `deep-research` — 深度多源调研
+- `honglong-products` — 红龙产品知识库
+
+### 运营层
+- `smart-quote` — 智能报价系统
+- `quotation-generator` — 报价单生成
+- `follow-up-signal-monitor` — 跟进信号监控
+- `email-sender` — 邮件自动发送
+- `sales-pipeline-tracker` — Pipeline 阶段追踪
+
+---
+
+## 运营指标
+
+| 市场 | 状态 | 线索 |
 |------|------|------|
-| **主入口** | global-customer-acquisition | HOLO-AGENT v2.3.0，统一调度入口 |
-| **编排层** | coordinator / evaluator / workflow / init | 任务分解、质量评估、流程编排 |
-| **发现层** | linkedin / facebook / instagram / 海关数据 / 爬虫 | 多渠道客户发现 |
-| **情报层** | company-research / market-research / deep-research | 企业背调、市场分析 |
-| **触达层** | email-sender / cold-email / linkedin-writer | 开发信生成与发送 |
-| **支持层** | deduplication / pipeline / crm / 凭据管理 | 客户管理基础设施 |
-| **人格层** | honglong-assistant | 红龙小助手身份配置 |
-| **产品层** | honglong-products | 产品参数、图片、报价资料 |
+| 南美（巴西/智利/阿根廷） | 🟡 开发中 | 31家已发现，10家A级 |
+| 中东（沙特/阿联酋） | 🔴 待开发 | — |
+| 东南亚（越南/印尼/菲律宾） | 🔴 待开发 | — |
+| 独联体（俄罗斯） | 🔴 待开发 | — |
+| 非洲 | 🔴 待开发 | — |
 
-## 核心铁律
+---
 
-1. 邮箱铁律：必须用决策人邮箱，禁用 info@
-2. ICP 评分 ≥ 75 分才发邮件
-3. 开发信评分 ≥ 9.0 分才发送
-4. 禁止矿业客户
-5. 无邮箱不继续
+## 技术栈
 
-## 同步更新
+- **框架：** Hermes Agent（OpenClaw）技能集群
+- **语言：** Python + Node.js + PowerShell
+- **存储：** SQLite/supermemory 向量库 + CSV/JSON 文件
+- **通信：** 163邮箱（SMTP）+ WhatsApp + Telegram + LinkedIn
+- **自动化：** Cron（7个定时任务）
+- **路由：** YAML-based intent routing + skills_index
 
-本地更新技能后，运行同步脚本推送到 GitHub：
+---
 
-```powershell
-.\scripts\sync-to-github.ps1
-```
+## 版本历史
 
-## 公司信息
-
-- **公司**：温州红龙工业设备制造有限公司
-- **地址**：瑞安市东山街道望新路188号3幢101室
-- **核心产品**：风冷机、水冷机、分层机、导条机、木工设备
-- **官网**：http://www.18816.cn
-
-## License
-
-Proprietary — 温州红龙工业设备制造有限公司内部使用
+- **v3.0.0** (2026-04-17) — 目录结构重构，参考 b2b-sdr-agent-template
+- **v2.6.0** (2026-04-14) — P0+P1+P2全面升级
+- 详见 [CHANGELOG.md](CHANGELOG.md)

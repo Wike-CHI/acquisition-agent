@@ -1,0 +1,222 @@
+orchestration:
+  acquisition-coordinator:
+    desc: 复杂任务编排器。拆解多步骤任务、调度子技能、整合结果。
+    trigger: 完整流程/端到端/批量背调/并行搜索
+  acquisition-evaluator:
+    desc: 独立验收Agent。背调报告评分/开发信质量审核/报价准确性审核。
+    trigger: 验收/评分/审核/质量检查
+  acquisition-dependencies:
+    desc: 依赖安装技能。自动安装Python/npm系统依赖（openpyxl/docx/yaml/playwright等）。
+    trigger: 安装依赖/配置环境
+  acquisition-init:
+    desc: 初始化引导。配置凭据/挂载NAS/测试邮箱。
+    trigger: 初始化/开始使用/配置
+  acquisition-workflow:
+    desc: 获客流程规范。定义12步标准流程、质量检查点、输出格式。
+    trigger: 流程是什么/规范/怎么做
+discovery:
+  teyi-customs:
+    desc: 特易海关数据。查采购记录，发现从中国进口工业皮带设备的海外买家。
+    trigger: 海关数据/进口商/HS编码/采购记录
+  facebook-acquisition:
+    desc: Facebook客户搜索。挖掘行业群组、获取公司主页和联系方式。
+    trigger: Facebook/脸书/Facebook客户
+  instagram-acquisition:
+    desc: Instagram客户搜索。挖掘行业标签、获取公司账号信息。
+    trigger: Instagram/图片社交
+  linkedin:
+    desc: LinkedIn AI触达。通过agent-browser搜索决策人并发送消息。
+    trigger: LinkedIn/领英/找决策人
+  agent-reach-setup:
+    desc: agent-reach安装配置引导。用于深度网络搜索和数据采集。
+    trigger: 配置agent-reach/安装
+intelligence:
+  company-research:
+    desc: 海外B2B企业背调。6维度ICP评分，输出结构化报告用于客户筛选和开发信个性化。
+    trigger: 背调/评估/公司信息/企业背景
+  market-research:
+    desc: 市场研究（红龙定制）。六维度市场分析，自动加载HONGLONG-OVERRIDE.md。
+    trigger: 市场分析/市场规模/竞争分析/行业研究
+  market-development-report:
+    desc: 市场开发调研报告。触发「开发XX市场」时自动生成结构化报告（规模/竞争/关税/优先级）。
+    trigger: 开发XX市场/市场调研报告
+  deep-research:
+    desc: 深度多源调研。系统性研究公司/市场/行业，方法论追踪+迭代深入。
+    trigger: 深度调研/全面调研/系统调研
+  customer-intelligence:
+    desc: 客户情报整合。市场调研+背调+竞品分析，支持动态ICP评分。
+    trigger: 情报报告/竞争对手/ICP评分
+outreach:
+  cold-email-generator:
+    desc: 开发信生成v2.0。打磨流程+AI检测+多轮润色+评分≥9.0，生成后自动调用email-sender发送。
+    trigger: 开发信/写邮件/生成邮件
+  email-sender:
+    desc: SMTP邮件发送。配置163等邮箱、批量发送、自动跟进节奏控制。
+    trigger: 发邮件/发送邮件/批量发邮件
+  email-inbox:
+    desc: 邮件收件检测。IMAP连接企业邮箱，监听客户回复和询价，自动触发CRM。
+    trigger: 检查邮箱/客户回复/收件箱
+  whatsapp-outreach:
+    desc: WhatsApp触达。通过wacli发送，支持文本/文件/产品目录，智能判断发送时机。
+    trigger: WhatsApp/wa消息/发WhatsApp
+  delivery-queue:
+    desc: 消息分段队列。模拟真人发送节奏（间隔/静默时段），支持drip campaign定时序列。
+    trigger: 队列发送/定时发送/drip
+  inquiry-response:
+    desc: 询盘应答系统。客户询价后的智能应答，含54条多语种话术(6语种×9场景)，覆盖异议处理+技术问题+竞品对比。
+    trigger: 询盘/客户询价/技术问题
+  sdr-humanizer:
+    desc: 拟人化销售对话。AI生成消息→自然人类风格，支持文化适配+时区感知+消息节奏。
+    trigger: 拟人化/自然对话/去AI味
+social:
+  ai-social-media-content:
+    desc: AI社媒内容生成。一次主题自动生成9平台内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）。
+    trigger: 社媒内容/发帖/发Facebook/发Instagram
+  holo-social-gen:
+    desc: HOLO社媒文案生成（红龙定制）。多语种i18n内容，覆盖6种语言的市场推广文案。
+    trigger: HOLO社媒/多语言内容
+  holo-social-image:
+    desc: 社媒图片预处理。GIMP CLI+PIL裁剪/抠图/调色/品牌一致性处理。
+    trigger: 产品图片/社媒配图/图片处理
+  holo-social-infographic:
+    desc: 信息图生成。Draw.io CLI生成技术参数图/流程图/对比图，HTML模板输出。
+    trigger: 信息图/技术图/对比图
+  linkedin-writer:
+    desc: LinkedIn帖子写作。生成自然人性化的文章，不是内容工厂风。
+    trigger: LinkedIn文章/LinkedIn帖子/写文章
+product:
+  honglong-products:
+    desc: 红龙产品知识库。风冷机/水冷机/分层机/导条机/打齿机等全系列规格参数、选型指南。
+    trigger: 产品/型号/规格/参数/选型
+  smart-quote:
+    desc: 智能报价v2.0。先调用company-research背调，根据ICP评分确定利润率区间，让业务员灵活报价。
+    trigger: 报价/价格/报价单/问价
+crm:
+  fumamx-crm:
+    desc: 孚盟MX CRM自动化。客户查询/创建/更新/筛选/发送邮件，与孚盟CRM实时同步。
+    trigger: 孚盟/CRM客户/导入客户
+  crm:
+    desc: 通用CRM搭建指南。从文件型到结构化数据库的个人CRM搭建方法。
+    trigger: CRM/客户管理
+  customer-deduplication:
+    desc: 客户去重。跨平台合并重复客户，按公司名称/域名/联系方式智能匹配。
+    trigger: 去重/合并客户/重复客户
+  sales-pipeline-tracker:
+    desc: 销售漏斗管理。追踪线索→意向→报价→成交全阶段，更新pipeline数据。
+    trigger: Pipeline/销售管道/漏斗/转化
+  sales:
+    desc: CRM集成+销售自动化。lead tracking/outreach automation/pipeline管理。
+    trigger: 销售自动化/lead跟踪
+tools:
+  MCP管理器:
+    desc: MCP服务器管理。配置/认证/调用MCP服务器工具（如exa/tavily等），查看可用工具列表。
+    trigger: MCP/配置MCP/MCP工具
+  browser-automation:
+    desc: 浏览器自动化（browser-use CLI）。自然语言控制浏览器操作，抓取动态页面数据。
+    trigger: 浏览器自动化/控制浏览器
+  playwright:
+    desc: Playwright MCP浏览器自动化。导航/点击/填表/截图，支持复杂Web交互。
+    trigger: playwright/浏览器测试
+  document-pro:
+    desc: 文档处理综合工具。读取解析PDF/DOCX/PPT，提取关键信息。
+    trigger: 分析文档/读取文档/PDF
+  pdf-extract:
+    desc: PDF文本提取。OCR识别+文本提取，供LLM处理。
+    trigger: PDF提取/扫描件OCR
+  pdf-smart-tool-cn:
+    desc: PDF智能处理工具（中文）。转换/OCR/合并拆分/数字签名。
+    trigger: PDF转换/PDF处理
+  nano-pdf:
+    desc: PDF自然语言编辑。用自然语言指令编辑PDF内容。
+    trigger: 编辑PDF/PDF修改
+  excel-xlsx:
+    desc: Excel读写生成。正确数据类型处理，生成格式化表格。
+    trigger: Excel/表格/数据处理
+  office:
+    desc: Office综合工具。Excel/Word/PowerPoint/Google Workspace操作。
+    trigger: Office文档/Word/PPT
+  nas-file-reader:
+    desc: NAS文件读取。挂载读取群晖NAS文件，支持PDF OCR+图片分析。
+    trigger: NAS/读取NAS/挂载
+  credential-manager:
+    desc: 统一凭据管理。Windows DPAPI加密存储各平台账号密码，安全方便。
+    trigger: 凭据/密码/账号管理
+  web-content-fetcher:
+    desc: 网页内容获取。r.jina.ai/markdown.new等替代方案，绕过反爬获取网页内容。
+    trigger: 获取网页/抓取内容/fetch
+  cli-anything-hub:
+    desc: CLI工具发现中心。发现专业软件的agent-native CLIs，快速调用。
+    trigger: CLI工具/命令行
+  calendar-skill:
+    desc: 日历提醒与任务调度。客户跟进日程/邮件发送提醒/会议安排。
+    trigger: 日历/提醒/日程/跟进
+  daily-report-writer:
+    desc: 日报生成器。根据输入生成Markdown日报草稿，写入reports目录。
+    trigger: 日报/周报/月报
+  bash-patch-safe: Bash脚本安全patch指南，防止函数定义重复/调用丢失
+  web-access: web-access v2.4.3 - 联网工具自动选择+CDP浏览器操作+并行分治+站点经验积累
+agent:
+  evolver:
+    desc: Agent自进化引擎。分析运行时行为、自我优化，是系统的学习组件。
+    trigger: 自进化/自我优化
+  proactive-agent:
+    desc: 主动型Agent转换。将被动应答Agent变成主动预测型Agent。
+    trigger: 主动Agent/预测
+  proactive-agent-lite:
+    desc: 轻量级主动Agent。简化版的主动型Agent转换。
+    trigger: 主动Agent/轻量
+  skill-creator:
+    desc: 技能创建指南。如何写SKILL.md的完整方法论指导。
+    trigger: 创建技能/写技能
+  skill-discovery:
+    desc: 技能发现。搜索可复用的skills across OpenSpace registry。
+    trigger: 发现技能/找技能
+  skill-finder-cn:
+    desc: 技能查找器（中文）。ClawHub Skills查找，辅助发现新技能。
+    trigger: 找技能/技能库
+  skill-auditor: 系统审查并优化Hermes Agent技能，全流程扫描+修复
+  skill-system-audit: 技能系统自动审计，交叉引用错误+路由损坏检测
+special:
+  release-manager:
+    desc: 发布管理v3.2.0。双模式：ZIP打包+GitHub仓库同步。发布新版本时使用。
+    trigger: 发布/打包/GitHub
+  data-automation-service:
+    desc: 数据处理与自动化Workflow服务。
+    trigger: 数据处理/自动化
+  business-development:
+    desc: 合作伙伴拓展与市场调研。合作关系建立、市场进入策略。
+    trigger: 合作/BD/合作伙伴
+  holo-updater:
+    desc: 从GitHub拉取HOLO-AGENT最新版本。一键更新获客系统。
+    trigger: 更新HOLO-AGENT/更新获客系统/拉取最新版本/更新系统/git pull
+entry:
+  global-customer-acquisition:
+    desc: HOLO智能获客Agent入口。主技能，客户发现/背调/开发信/报价/社媒/Pipeline管理全能入口。触发词最广。
+    trigger: 找客户/获客/HOLO/红龙/开发信/报价
+  honglong-assistant:
+    desc: 红龙小助手人格层。激活红龙助手身份，在获客集群中扮演销售助手的角色。
+    trigger: 小助手/红龙助手/人格
+memory:
+  supermemory:
+    desc: 增强记忆引擎。LanceDB向量存储，非对话类知识管理，跨会话记忆持续性。
+    trigger: 记忆/向量存储/知识管理
+  humanoid-memory:
+    desc: 类脑记忆系统。V-score记忆整合+Ebbinghaus遗忘曲线模拟，智能记忆 consolidation。
+    trigger: 记忆管理/遗忘曲线/V-score
+summary:
+  total_active: 81
+  total_archived: 33
+  groups: 12
+  layers:
+    orchestration: 5
+    discovery: 6
+    intelligence: 5
+    outreach: 8
+    social: 5
+    product: 2
+    crm: 5
+    tools: 15
+    agent: 6
+    special: 4
+    entry: 2
+    memory: 2

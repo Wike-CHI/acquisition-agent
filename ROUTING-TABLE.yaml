@@ -559,11 +559,6 @@ skills_index:
     path: skill://delivery-queue
     description: 消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。
     layer: support
-  email-marketing:
-    path: skill://email-marketing
-    description: Email deliverability, list management, sequences, segmentation, campaign
-      optimiz
-    layer: outreach
   email-sender:
     path: skill://email-sender
     description: 邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送
@@ -577,14 +572,6 @@ skills_index:
     path: skill://fumamx-crm
     description: 孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说'配置孚盟账号'或'初始化获客系统
     layer: support
-  fumamx-import-adapter:
-    path: skill://fumamx-import-adapter
-    description: 孚盟导入适配器 - 将获客系统的客户数据转换为孚盟导入模板格式，支持批量处理、去重检查、字段标准化。
-    layer: support
-  holo-agent:
-    path: skill://holo-agent
-    description: HOLO智能获客Agent - 客户发现、背调、开发信、报价单、社媒运营、Pipeline管理。触发：找客户、背调公司、发开发信、生成报价单、社媒运营、查看Pi
-    layer: entry
   honglong-assistant:
     path: skill://honglong-assistant
     description: 红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。
@@ -594,10 +581,6 @@ skills_index:
     description: 红龙(HOLO)工业皮带设备产品知识库，涵盖风冷机、水冷机、分层机、导条机、打齿机、裁切机等全系列产品。当用户询问：(1) 产品型号、规格、编码规则
       (2) 技
     layer: persona
-  in-depth-research:
-    path: skill://in-depth-research
-    description: 深度研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。
-    layer: intelligence
   instagram-acquisition:
     path: skill://instagram-acquisition
     description: Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。
@@ -625,11 +608,6 @@ skills_index:
     path: skill://smart-quote
     description: 红龙智能报价技能 v2.0 - 先背调后报价，给业务员利润率范围和价格区间。先调用company-research背调，根据企业规模/ICP评分/付款能力确定利润率区间，让业务员灵活报价。
     layer: outreach
-  understand-honglong-acquisition:
-    path: skill://understand-honglong-acquisition
-    description: 红龙获客系统的AI学习指南。加载时机：(1)理解系统架构 (2)引用技能集群 (3)使用获客命令 (4)排错时 (5)踩坑后学习
-      (6)优化改进时。完整功能使用
-    layer: support
   teyi-customs:
     path: skill://teyi-customs
     description: 特易海关数据搜索 - 采购记录数据，用于发现从中国进口工业设备的海外买家
@@ -642,22 +620,10 @@ skills_index:
     path: skill://market-development-report
     description: 市场开发调研报告技能 — 生成结构化目标市场分析报告（规模/竞争/关税/优先级/获客关键词）。触发：开发XX市场/市场分析报告
     layer: discovery
-  exa-search:
-    path: skill://exa-search
-    description: 'AI深度搜索技能。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！支持LinkedIn决策人搜索、企业情报、网页抓取'
-    layer: discovery
-  scrapling:
-    path: skill://scrapling
-    description: 网页抓取技能 - 从网站提取结构化数据，支持动态页面渲染
-    layer: discovery
   whatsapp-outreach:
     path: skill://whatsapp-outreach
     description: WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送
     layer: outreach
-  humanize-ai-text:
-    path: skill://humanize-ai-text
-    description: AI文本去味工具 - 将AI生成的文本改写成更自然的人类写作风格
-    layer: support
   deep-research:
     path: skill://deep-research
     description: 深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入
@@ -665,10 +631,6 @@ skills_index:
   ai-social-media-content:
     path: skill://ai-social-media-content
     description: AI社媒营销内容生成器。一次主题，自动生成9个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube等）
-    layer: outreach
-  email-outreach-ops:
-    path: skill://email-outreach-ops
-    description: 邮件外联运营技能。生成和管理供应商询价邮件、跟进流程、邮件汇总
     layer: outreach
   inquiry-response:
     path: skill://inquiry-response
@@ -682,11 +644,6 @@ skills_index:
     path: skill://exa-web-search-free
     description: 'Exa Web Search (Free)。⚠️必须使用MCP: mcporter call exa.xxx，禁止用web_search工具！'
     layer: discovery
-  multilang-keywords:
-    path: references/MULTILANG-KEYWORDS.md
-    description: 多语种词簇库（P0升级）。覆盖DE/ES/FR/PT/AR/ID/VI/TR/PL 9种语言。非英语市场客户发现时必须加载。
-    layer: discovery
-    note: 不是技能文件，是词簇参考文档。AI读取后构造本地语言搜索查询。
   skill-auditor:
     path: skill://skill-auditor
     description: 技能系统审查技能 v1.0 — 扫描全量技能、问题分类（ERROR/WARN）、优先级排序、逐个修复。触发："审查技能""审计技能""检查技能系统"
@@ -707,3 +664,183 @@ skills_index:
     path: skill://skill-onboarding-checklist
     description: 新技能安装规范流程 v1.0 — 安装后必须完成位置检查+ROUTING-TABLE注册+重复检测，防止技能"消失"
     layer: maintenance
+  MCP管理器:
+    path: skill://MCP管理器
+    description: MCP服务器管理。配置/认证/调用MCP服务器工具（如exa/tavily等），查看可用工具列表。
+    category: tools
+    trigger: MCP/配置MCP/MCP工具
+  acquisition-dependencies:
+    path: skill://acquisition-dependencies
+    description: 依赖安装技能。自动安装Python/npm系统依赖（openpyxl/docx/yaml/playwright等）。
+    category: orchestration
+    trigger: 安装依赖/配置环境
+  agent-reach-setup:
+    path: skill://agent-reach-setup
+    description: agent-reach安装配置引导。用于深度网络搜索和数据采集。
+    category: discovery
+    trigger: 配置agent-reach/安装
+  browser-automation:
+    path: skill://browser-automation
+    description: 浏览器自动化（browser-use CLI）。自然语言控制浏览器操作，抓取动态页面数据。
+    category: tools
+    trigger: 浏览器自动化/控制浏览器
+  business-development:
+    path: skill://business-development
+    description: 合作伙伴拓展与市场调研。合作关系建立、市场进入策略。
+    category: special
+    trigger: 合作/BD/合作伙伴
+  calendar-skill:
+    path: skill://calendar-skill
+    description: 日历提醒与任务调度。客户跟进日程/邮件发送提醒/会议安排。
+    category: tools
+    trigger: 日历/提醒/日程/跟进
+  cli-anything-hub:
+    path: skill://cli-anything-hub
+    description: CLI工具发现中心。发现专业软件的agent-native CLIs，快速调用。
+    category: tools
+    trigger: CLI工具/命令行
+  daily-report-writer:
+    path: skill://daily-report-writer
+    description: 日报生成器。根据输入生成Markdown日报草稿，写入reports目录。
+    category: tools
+    trigger: 日报/周报/月报
+  data-automation-service:
+    path: skill://data-automation-service
+    description: 数据处理与自动化Workflow服务。
+    category: special
+    trigger: 数据处理/自动化
+  document-pro:
+    path: skill://document-pro
+    description: 文档处理综合工具。读取解析PDF/DOCX/PPT，提取关键信息。
+    category: tools
+    trigger: 分析文档/读取文档/PDF
+  email-inbox:
+    path: skill://email-inbox
+    description: 邮件收件检测。IMAP连接企业邮箱，监听客户回复和询价，自动触发CRM。
+    category: outreach
+    trigger: 检查邮箱/客户回复/收件箱
+  evolver:
+    path: skill://evolver
+    description: Agent自进化引擎。分析运行时行为、自我优化，是系统的学习组件。
+    category: agent
+    trigger: 自进化/自我优化
+  excel-xlsx:
+    path: skill://excel-xlsx
+    description: Excel读写生成。正确数据类型处理，生成格式化表格。
+    category: tools
+    trigger: Excel/表格/数据处理
+  holo-social-gen:
+    path: skill://holo-social-gen
+    description: HOLO社媒文案生成（红龙定制）。多语种i18n内容，覆盖6种语言的市场推广文案。
+    category: social
+    trigger: HOLO社媒/多语言内容
+  holo-social-image:
+    path: skill://holo-social-image
+    description: 社媒图片预处理。GIMP CLI+PIL裁剪/抠图/调色/品牌一致性处理。
+    category: social
+    trigger: 产品图片/社媒配图/图片处理
+  holo-social-infographic:
+    path: skill://holo-social-infographic
+    description: 信息图生成。Draw.io CLI生成技术参数图/流程图/对比图，HTML模板输出。
+    category: social
+    trigger: 信息图/技术图/对比图
+  holo-updater:
+    path: skill://holo-updater
+    description: 从GitHub拉取HOLO-AGENT最新版本。一键更新获客系统。
+    category: special
+    trigger: 更新HOLO-AGENT/更新获客系统/拉取最新版本/更新系统/git pull
+  humanoid-memory:
+    path: skill://humanoid-memory
+    description: 类脑记忆系统。V-score记忆整合+Ebbinghaus遗忘曲线模拟，智能记忆 consolidation。
+    category: memory
+    trigger: 记忆管理/遗忘曲线/V-score
+  nano-pdf:
+    path: skill://nano-pdf
+    description: PDF自然语言编辑。用自然语言指令编辑PDF内容。
+    category: tools
+    trigger: 编辑PDF/PDF修改
+  nas-file-reader:
+    path: skill://nas-file-reader
+    description: NAS文件读取。挂载读取群晖NAS文件，支持PDF OCR+图片分析。
+    category: tools
+    trigger: NAS/读取NAS/挂载
+  office:
+    path: skill://office
+    description: Office综合工具。Excel/Word/PowerPoint/Google Workspace操作。
+    category: tools
+    trigger: Office文档/Word/PPT
+  pdf-extract:
+    path: skill://pdf-extract
+    description: PDF文本提取。OCR识别+文本提取，供LLM处理。
+    category: tools
+    trigger: PDF提取/扫描件OCR
+  pdf-smart-tool-cn:
+    path: skill://pdf-smart-tool-cn
+    description: PDF智能处理工具（中文）。转换/OCR/合并拆分/数字签名。
+    category: tools
+    trigger: PDF转换/PDF处理
+  playwright:
+    path: skill://playwright
+    description: Playwright MCP浏览器自动化。导航/点击/填表/截图，支持复杂Web交互。
+    category: tools
+    trigger: playwright/浏览器测试
+  proactive-agent:
+    path: skill://proactive-agent
+    description: 主动型Agent转换。将被动应答Agent变成主动预测型Agent。
+    category: agent
+    trigger: 主动Agent/预测
+  proactive-agent-lite:
+    path: skill://proactive-agent-lite
+    description: 轻量级主动Agent。简化版的主动型Agent转换。
+    category: agent
+    trigger: 主动Agent/轻量
+  release-manager:
+    path: skill://release-manager
+    description: 发布管理v3.2.0。双模式：ZIP打包+GitHub仓库同步。发布新版本时使用。
+    category: special
+    trigger: 发布/打包/GitHub
+  sales:
+    path: skill://sales
+    description: CRM集成+销售自动化。lead tracking/outreach automation/pipeline管理。
+    category: crm
+    trigger: 销售自动化/lead跟踪
+  sdr-humanizer:
+    path: skill://sdr-humanizer
+    description: 拟人化销售对话。AI生成消息→自然人类风格，支持文化适配+时区感知+消息节奏。
+    category: outreach
+    trigger: 拟人化/自然对话/去AI味
+  skill-creator:
+    path: skill://skill-creator
+    description: 技能创建指南。如何写SKILL.md的完整方法论指导。
+    category: agent
+    trigger: 创建技能/写技能
+  skill-discovery:
+    path: skill://skill-discovery
+    description: 技能发现。搜索可复用的skills across OpenSpace registry。
+    category: agent
+    trigger: 发现技能/找技能
+  skill-finder-cn:
+    path: skill://skill-finder-cn
+    description: 技能查找器（中文）。ClawHub Skills查找，辅助发现新技能。
+    category: agent
+    trigger: 找技能/技能库
+  skill-system-audit:
+    path: skill://skill-system-audit
+    description: 技能系统自动审计，交叉引用错误+路由损坏检测
+    category: agent
+    trigger: ''
+  supermemory:
+    path: skill://supermemory
+    description: 增强记忆引擎。LanceDB向量存储，非对话类知识管理，跨会话记忆持续性。
+    category: memory
+    trigger: 记忆/向量存储/知识管理
+  web-access:
+    path: skill://web-access
+    description: web-access v2.4.3 - 联网工具自动选择+CDP浏览器操作+并行分治+站点经验积累
+    category: tools
+    trigger: ''
+  web-content-fetcher:
+    path: skill://web-content-fetcher
+    description: 网页内容获取。r.jina.ai/markdown.new等替代方案，绕过反爬获取网页内容。
+    category: tools
+    trigger: 获取网页/抓取内容/fetch

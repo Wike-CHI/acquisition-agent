@@ -1,3 +1,15 @@
+---
+name: quotation-generator
+version: "1.0.0"
+description: 自动生成红龙专业 PDF 形式发票，含公司抬头、多语言支持、报价后追踪。
+triggers:
+  - 报价单
+  - PDF报价
+  - 生成报价
+  - 发报价
+  - quotation-generator
+---
+
 # quotation-generator — 红龙 PDF 报价单生成技能
 
 > 自动生成红龙专业 PDF 形式发票（Proforma Invoice），含公司抬头、多语言支持、报价后追踪。

@@ -1,6 +1,13 @@
 ---
 name: skill-auditor
-description: 系统审查并优化 Hermes Agent 技能。触发：当用户说"审查技能"、"审计技能"、"检查技能系统"、或需要"全面审查"时使用。执行批量扫描、问题分类、优先级排序、逐个修复完整流程。
+version: "1.0.0"
+description: 系统审查并优化 Hermes Agent 技能。
+triggers:
+  - 审查技能
+  - 审计技能
+  - 检查技能系统
+  - 全面审查
+  - skill-auditor
 ---
 
 # Skill Auditor - 技能系统审查技能
@@ -110,7 +117,54 @@ print(f"\nP2 多余文档: {len(doc_issues)}"); [print(f"  {s} - {p}") for s,p i
 print(f"\nP3 CRLF: {len(crlf_issues)}"); [print(f"  {s} - {p}") for s,p in crlf_issues[:5]]
 ```
 
-### Step 2: 问题优先级排序
+### Step 2: 路由连通性检查（关键！）
+
+> 教训：`inquiry-response` 有9KB完整内容（谈判策略+异议库+竞品情报），但未注册到ROUTING-TABLE，导致完全无法触发。技能存在 ≠ 技能可用。
+
+```python
+import yaml, os
+
+skill_dir = os.path.expanduser("~/.hermes/skills/acquisition")
+rt_path = os.path.join(skill_dir, "ROUTING-TABLE.yaml")
+
+with open(rt_path) as f:
+    rt = yaml.safe_load(f)
+
+routing_skills = set()
+for intent, config in rt.get('routing', {}).items():
+    markets = config if isinstance(config, dict) else {}
+    for market, skills in markets.items():
+        if isinstance(skills, list):
+            for s in skills:
+                if isinstance(s, dict) and 'skill' in s:
+                    routing_skills.add(s['skill'])
+
+indexed_skills = set(rt.get('skills_index', {}).keys())
+
+active_skills = [s for s in os.listdir(skill_dir)
+                 if os.path.isdir(os.path.join(skill_dir, s))
+                 and os.path.exists(os.path.join(skill_dir, s, 'SKILL.md'))]
+
+orphaned = []
+for skill in sorted(active_skills):
+    in_routing = skill in routing_skills or skill in indexed_skills
+    if not in_routing:
+        size = os.path.getsize(os.path.join(skill_dir, skill, 'SKILL.md'))
+        orphaned.append((skill, size))
+
+print(f"\n=== 孤儿技能（内容存在但未注册路由）===")
+print(f"总数: {len(orphaned)}")
+for skill, size in orphaned:
+    print(f"  ⚠️  {skill}/ — {size//1024}KB，内容存在但路由不可达")
+```
+
+**路由注册点（两个都要有才算连通）：**
+1. `routing.<intent>.<market>[]..skill` — 激活路径（是否被意图触发）
+2. `skills_index.<skill_name>.path` — 解析路径（skill:// URI能否解析）
+
+**P0孤儿 = 有内容但两边都没注册。必须修复。**
+
+### Step 3: 问题优先级排序
 
 **P0（影响功能，立即修复）**:
 - SKILL.md 不存在
@@ -128,7 +182,7 @@ print(f"\nP3 CRLF: {len(crlf_issues)}"); [print(f"  {s} - {p}") for s,p in crlf_
 **P3（工具可靠性）**:
 - CRLF 行结尾影响 patch 工具
 
-### Step 3: P0 立即修复
+### Step 4: P0 立即修复
 
 **缺失 frontmatter** — 最优先，直接补上：
 ```bash
@@ -162,7 +216,7 @@ for s in os.listdir(skill_dir):
         print(f"空技能目录（无SKILL.md）: {s} — 内容: {files}")
 ```
 
-### Step 4: P2 批量删除多余文档
+### Step 5: P2 批量删除多余文档
 
 ```bash
 # 找出所有多余 .md 文件（不是 SKILL.md 的）
@@ -176,7 +230,7 @@ find ~/.hermes/skills/acquisition -name "README.md" -o -name "CHANGELOG.md" \
     ! -path "*/.archive/*" 2>/dev/null | xargs echo "将删除:"
 ```
 
-### Step 5: P3 修复 CRLF
+### Step 6: P3 修复 CRLF
 
 ```bash
 # 批量修复 CRLF（preview）
@@ -188,7 +242,7 @@ find ~/.hermes/skills/acquisition -type f \( -name "*.sh" -o -name "*.md" -o -na
     -exec sed -i 's/\r$//' {} \;
 ```
 
-### Step 6: 大技能精简（渐进式）
+### Step 7: 大技能精简（渐进式）
 
 对于 > 10KB 的技能，按以下顺序处理：
 
@@ -214,7 +268,7 @@ find ~/.hermes/skills/acquisition -type f \( -name "*.sh" -o -name "*.md" -o -na
    - 子技能：< 5KB
    - 工具类技能：< 3KB
 
-### Step 7: 验证与推送
+### Step 8: 验证与推送
 
 ```bash
 # 1. 验证所有 SKILL.md YAML 合法

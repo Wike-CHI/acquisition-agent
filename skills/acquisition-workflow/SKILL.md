@@ -393,6 +393,35 @@ AI：
 
 ---
 
+## CRM数据源说明（2026-04-16）
+
+> ⚠️ 本地无CRM数据库。CRM为web-based fumamx系统（`skill://fumamx-crm`）。
+> **邮件序列追踪使用文件方式**，非数据库查询。
+
+### 邮件序列追踪路径（HEARTBEAT Item 7专用）
+```
+/tmp/us_outreach_log.md        # 主发送记录（Markdown表格）
+/tmp/email_*.html              # 各客户邮件HTML正文
+/tmp/email_followup_*.html    # 跟进邮件HTML正文
+```
+
+### 字段约定（us_outreach_log.md）
+| 字段 | 说明 |
+|------|------|
+| `状态` | `SENT` / `REPLIED` / `BOUNCED` / `SPAM` / `NURTURE` |
+| `MessageID` | 邮件发送ID |
+| `首封日期` | 推断自文件创建日期 |
+| `Day3发送日` | 实际发送日期（文件mtime） |
+
+### 判断序列状态
+- **Day 3 无回复**：当前日期 > 首封+3天 且 状态=SENT 且 无 `email_followup_1.html` mtime在期限内
+- **Day 7 无回复**：当前日期 > 首封+7天 且 状态=SENT
+- **Day 14 无回复**：当前日期 > 首封+14天 且 状态=SENT
+- **有回复**：状态列含 `REPLIED`
+- **培育**：状态列含 `NURTURE`
+
+---
+
 ## 快速命令
 
 ```
@@ -404,5 +433,5 @@ AI：
 
 ---
 
-*版本: 2.1.0 | 更新时间: 2026-04-03*
-*变更: 标准化5节结构（调用时机/输入/步骤/输出/质量门控）*
+*版本: 2.1.1 | 更新时间: 2026-04-16*
+*变更: 增加CRM数据源说明（邮件序列追踪文件路径+判断逻辑）*

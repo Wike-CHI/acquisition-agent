@@ -1,3 +1,14 @@
+---
+name: telegram-toolkit
+version: "1.0.0"
+description: Telegram SDR 最佳实践与模板，覆盖俄罗斯/独联体/伊朗等 Telegram-first 市场。
+triggers:
+  - Telegram
+  - 电报
+  - 俄罗斯市场
+  - telegram-toolkit
+---
+
 # telegram-toolkit — 红龙获客 Telegram 渠道技能
 
 > Telegram SDR 最佳实践与模板。覆盖：Bot commands、inline keyboards、大文件处理、Telegram-first 市场策略。

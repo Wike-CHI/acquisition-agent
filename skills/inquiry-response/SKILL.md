@@ -1,12 +1,14 @@
 ---
 name: inquiry-response
 description: >
-  询盘应答技能 v1.0.0 - 客户回复后的智能应答系统。
+  询盘应答技能 v1.1.0 - 客户回复后的智能应答系统。
   覆盖五大类客户回复：异议处理(A)、技术问题(B)、竞品对比(C)、商务条款(D)、兴趣信号(E)。
-  核心是异议应答库，提供"场景→策略→话术"三级结构，中英双语。
+  核心是异议应答库，提供"场景→策略→话术"三级结构，中英双语+6语种本地化。
+  新增：谈判策略库（报价后价格拉锯、条款谈判、成交收尾）、各国文化画像（18国）。
   当用户说"客户说太贵了"、"客户问交期"、"客户提到Beltwin"、"询盘回复"、"FAQ"、
-  "客户回了邮件"、"异议处理"、"客户拒绝了"时使用。
-version: 1.0.0
+  "客户回了邮件"、"异议处理"、"客户拒绝了"、"回复客户"、"收到询盘"、"客户议价"
+  "谈判策略"、"成交收尾"时使用。
+version: 1.1.0
 triggers:
   - 询盘
   - 客户回复
@@ -15,6 +17,16 @@ triggers:
   - 客户说
   - inquiry
   - objection
+  - 回复客户
+  - 收到询盘
+  - 客户说太贵
+  - 客户议价
+  - 销售应答
+  - negotiation
+  - 谈判策略
+  - 成交
+  - objection handling
+  - sales reply
 ---
 
 # inquiry-response - 询盘应答技能
@@ -38,15 +50,20 @@ triggers:
 │        → 选策略 → 选语种 → 填背景 → 拟人化      │
 ├─ B类 → references/product-faq.md             │ 产品技术FAQ
 │        → 查参数 → 补充说明                      │
-├─ C类 → PARTNER-REGISTRY.md 先查合作伙伴        │
-│        → 查竞品库 → 生成对比                    │
-│        → Beltwin等合作伙伴？查 multilingual-    │
-│           objections.md A15节                  │
-├─ D类 → references/business-policy.md         │ 商务条款
-│        → 查政策 → 回复                         │
-└─ E类 → references/interest-signals.md        │ 兴趣信号
-         → 快速推进 → multilingual-objections.md
-            底部"强信号快速推进"节有多语种版本
+├─ C类 → references/competitor-intel.md         竞品/经销商情报（Beltwin等）
+│        → references/objection-library.md A15节  合作伙伴场景
+├─ D类 → references/business-policy.md         商务条款
+│        → references/negotiation-tactics.md   谈判策略库（价格拉锯/条款/成交）
+└─ E类 → references/interest-signals.md        兴趣信号
+         → references/cultural-profiles.md     18国文化画像（辅助适配）
+
+### 新增模块（从 sales-response 迁移）
+
+| 模块 | 文件 | 内容 |
+|------|------|------|
+| 竞品情报 | references/competitor-intel.md | Beltwin定位话术、其他竞品应对、覆盖地图 |
+| 文化画像 | references/cultural-profiles.md | 18国商业文化+购买心理+话术 |
+| 谈判策略 | references/negotiation-tactics.md | 让步策略、各国谈判风格、成交收尾 |
 ```
 
 ## 使用方式
@@ -77,10 +94,11 @@ triggers:
 
 ## 核心原则
 
-### 1. 先查合作伙伴注册表
+### 1. 先查竞品/合作伙伴情报
 
-收到任何提到其他公司名的回复，先查 `PARTNER-REGISTRY.md`。
-如果是合作伙伴，切换到"源头厂家"话术，不做竞品攻击。
+收到任何提到其他公司名的回复，先查 `references/competitor-intel.md`。
+如果是合作伙伴（如Beltwin），切换到"源头厂家"话术，不做竞品攻击。
+（旧的 PARTNER-REGISTRY.md 废除，以 competitor-intel.md 为准）
 
 ### 2. 异议不是拒绝
 
@@ -156,7 +174,9 @@ triggers:
 | 技能 | 用途 |
 |------|------|
 | honglong-products | 查产品参数、技术规格 |
-| PARTNER-REGISTRY.md | 判断是否合作伙伴 |
+| references/competitor-intel.md | 判断是否合作伙伴、Beltwin话术 |
+| references/cultural-profiles.md | 客户国家文化适配 |
+| references/negotiation-tactics.md | 报价后拉锯、条款谈判、成交收尾 |
 | smart-quote | 查价格区间、利润率 |
 | sdr-humanizer | 话术拟人化 |
 | 163-email-sender | 发送回复邮件 |
@@ -172,10 +192,32 @@ inquiry-response/
 │   ├── multilingual-objections.md     # 多语种异议话术（6语种×8场景=54条）
 │   ├── product-faq.md                 # 产品技术FAQ（30+问答）
 │   ├── business-policy.md             # 商务条款FAQ
-│   └── interest-signals.md            # 兴趣信号应答（快速推进）
+│   ├── interest-signals.md            # 兴趣信号应答（快速推进）
+│   ├── competitor-intel.md            # 竞品/经销商情报（从sales-response迁入）
+│   ├── cultural-profiles.md           # 18国商业文化画像（从sales-response迁入）
+│   └── negotiation-tactics.md         # 谈判策略库（从sales-response迁入）
 └── templates/
     └── response-templates.md          # 邮件回复模板
 ```
+
+## 谈判与文化适配（v1.1新增）
+
+### 报价后价格拉锯
+
+查 `references/negotiation-tactics.md`，核心原则：
+- **让步必须换东西**：降价必须换预付款/快速确认/批量，不无偿让步
+- **分三步走**：先给最小让步 → 等值交换 → 最后给大让步同时要求承诺
+- **美德日谈判风格不同**：美国人要ROI数字，德国人要合同条款细节，日本人要长期承诺
+
+### 各国文化画像
+
+查 `references/cultural-profiles.md`，18个国家的：
+- 决策速度（美国快，日本慢）
+- 价格敏感度（印度极高，德国低）
+- 关系vs效率（巴西重关系，美国重效率）
+- 沟通禁忌（德国不能催，日本不能绕弯）
+
+---
 
 ## 学习机制
 
@@ -188,4 +230,13 @@ inquiry-response/
 
 ---
 
-_Version: 1.0.0_
+## 版本历史
+
+| 版本 | 日期 | 更新内容 |
+|------|------|---------|
+| 1.0.0 | 2026-04-11 | 初始版本，15异议+6语种+产品FAQ |
+| 1.1.0 | 2026-04-14 | 合并sales-response精华：谈判策略库(negotiation-tactics.md)、18国文化画像(cultural-profiles.md)、竞品情报(competitor-intel.md)；废除PARTNER-REGISTRY.md |
+
+---
+
+_Version: 1.1.0_

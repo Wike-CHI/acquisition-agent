@@ -48,7 +48,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 红龙获客系统保留的技能清单
-# v2.9 (2026-04-14): 64个活跃技能，按业务分组
+# v2.12 (2026-04-14): 新增 skill-auditor，68个活跃技能
 RETAINED_SKILLS=(
     # 主入口
     "global-customer-acquisition"
@@ -57,7 +57,7 @@ RETAINED_SKILLS=(
     # 发现层
     "facebook-acquisition" "instagram-acquisition" "linkedin" "teyi-customs"
     # 情报层
-    "company-research" "customer-intelligence" "deep-research" "market-research" "market-development-report"
+    "company-research" "customer-intelligence" "deep-research" "market-research" "market-development-report" "exa-search"
     # 触达层
     "cold-email-generator" "delivery-queue" "email-inbox" "email-sender" "inquiry-response" "sales-response" "sdr-humanizer" "whatsapp-outreach"
     # 社媒
@@ -69,15 +69,17 @@ RETAINED_SKILLS=(
     # 工具层
     "browser-automation" "calendar-skill" "cli-anything-hub" "daily-report-writer" "data-automation-service"
     "document-pro" "excel-xlsx" "nas-file-reader" "nano-pdf" "office" "pdf-extract" "pdf-smart-tool-cn"
-    "playwright" "release-manager" "sales" "skill-creator" "skill-discovery" "skill-finder-cn"
-    "web-content-fetcher" "business-development" "evolver"
+    "playwright" "sales" "skill-creator" "skill-discovery" "skill-finder-cn" "web-content-fetcher" "evolver"
     # 记忆
     "humanoid-memory" "supermemory"
     # 代理/自动化
     "proactive-agent" "proactive-agent-lite" "agent-reach-setup"
     # 特殊
-    "agent-reach-setup"
-    "MCP管理器"
+    "business-development" "release-manager" "holo-updater" "skill-auditor"
+    # 脚本安全
+    "bash-patch-safe"
+    # 其他
+    "MCP管理器" "skill-system-audit"
     # 人格
     "honglong-assistant"
 )

@@ -1,11 +1,14 @@
 ---
 name: proactive-agent
-version: 3.1.0
-description: "Transform AI agents from task-followers into proactive partners that anticipate needs and continuously improve. Now with WAL Protocol, Working Buffer, Autonomous Crons, and battle-tested patterns. Part of the Hal Stack 🦞"
-author: halthelobster
+version: "1.0.0"
+description: Transform AI agents from task-followers into proactive partners that anticipate needs and continuously improve. With WAL Protocol, Working Buffer, Autonomous Crons, and battle-tested patterns. Part of the Hal Stack.
 triggers:
   - 主动agent
   - proactive
+  - 主动思考
+  - 主动建议
+  - proactive-agent
+updated: 2026-04-14
 ---
 
 # Proactive Agent 🦞
@@ -61,26 +64,6 @@ Most agents just wait. This one anticipates your needs — and gets better at it
 ✅ **Safe evolution** — Guardrails prevent drift and complexity creep
 
 ---
-
-## Contents
-
-1. [Quick Start](#quick-start)
-2. [Core Philosophy](#core-philosophy)
-3. [Architecture Overview](#architecture-overview)
-4. [Memory Architecture](#memory-architecture)
-5. [The WAL Protocol](#the-wal-protocol) ⭐ NEW
-6. [Working Buffer Protocol](#working-buffer-protocol) ⭐ NEW
-7. [Compaction Recovery](#compaction-recovery) ⭐ NEW
-8. [Security Hardening](#security-hardening) (expanded)
-9. [Relentless Resourcefulness](#relentless-resourcefulness)
-10. [Self-Improvement Guardrails](#self-improvement-guardrails)
-11. [Autonomous vs Prompted Crons](#autonomous-vs-prompted-crons) ⭐ NEW
-12. [Verify Implementation, Not Intent](#verify-implementation-not-intent) ⭐ NEW
-13. [Tool Migration Checklist](#tool-migration-checklist) ⭐ NEW
-14. [The Six Pillars](#the-six-pillars)
-15. [Heartbeat System](#heartbeat-system)
-16. [Reverse Prompting](#reverse-prompting)
-17. [Growth Loops](#growth-loops)
 
 ---
 

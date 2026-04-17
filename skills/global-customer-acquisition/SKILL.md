@@ -1,6 +1,17 @@
 ---
 name: global-customer-acquisition
-description: HOLO智能获客Agent核心入口 - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。触发：找客户、背调公司、发开发信、智能报价、社媒运营、查看Pipeline、HOLO、honglong、WhatsApp触达、开发市场、批量获客。
+version: "1.0.0"
+description: HOLO智能获客Agent核心入口 - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。
+triggers:
+  - 找客户
+  - 背调公司
+  - 发开发信
+  - 智能报价
+  - 社媒运营
+  - 查看Pipeline
+  - 开发市场
+  - 批量获客
+  - global-customer-acquisition
 updated: 2026-04-14
 ---
 
@@ -92,12 +103,14 @@ Skills Router（声明式路由）→ 意图匹配 → 技能选择
 
 | 文档 | 内容 |
 |------|------|
-| `skill://acquisition-workflow/references/PIPELINE.md` | 完整12步获客流程 |
-| `skill://acquisition-workflow/references/SCORING.md` | ICP评分体系 |
-| `skill://acquisition-workflow/references/HOLO-ICP-PROFILE.md` | 目标客户画像 |
-| `skill://acquisition-workflow/references/ROUTING-TABLE.yaml` | 技能路由配置 |
-| `skill://acquisition-workflow/references/MULTILANG-KEYWORDS.md` | 多语种词簇库 |
-| `skill://smart-quote` | 智能报价系统 |
+| `HEARTBEAT.md` | Pipeline 自动巡检（13项心跳任务），Cron驱动 |
+| `MEMORY.md` | 4层防遗忘记忆协议，对话全程记忆管理 |
+| `smart-quote` | 智能报价系统（含报价锁定机制 + 授权矩阵）|
+| `acquisition-workflow/references/PIPELINE.md` | 完整12步获客流程 |
+| `acquisition-workflow/references/SCORING.md` | ICP评分体系 |
+| `acquisition-workflow/references/HOLO-ICP-PROFILE.md` | 目标客户画像 |
+| `acquisition-workflow/references/ROUTING-TABLE.yaml` | 技能路由配置 |
+| `acquisition-workflow/references/MULTILANG-KEYWORDS.md` | 多语种词簇库 |
 | `skill://honglong-products` | 产品知识库 |
 | `skill://holo-social-gen` | 社媒图片生成 |
 

@@ -27,7 +27,7 @@ This will help me recommend the best configuration for your setup.
 Best regards,
 Wike Chen
 Sale Manager | HOLO Industrial Equipment Mfg Co., Ltd
-{{SENDER_PHONE}} | {{SENDER_EMAIL}}
++86 131 6586 2311 | wikeye2025@163.com
 www.beltsplicepress.com
 ```
 
