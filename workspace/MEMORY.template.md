@@ -10,18 +10,18 @@
 > L3 ChromaDB: 服务未启动（端口 8000 DOWN）
 > L4 Supermemory: 服务未启动（端口 8080 DOWN）
 > **临时方案**：所有关键记忆写入 MEMORY.md 本身 + 文件系统备份。
-> **等 Wike 配置 NAS 挂载后切换到持久化方案。**
+> **等 ${OWNER_NAME} 配置 NAS 挂载后切换到持久化方案。**
 
 ---
 
 ## 用户自定义铁律存储区（最高优先级）
 
-> Wike 设立的规则存储在这里。每次会话开始时必须首先读取此区域。
+> ${OWNER_DISPLAY_NAME} 设立的规则存储在这里。每次会话开始时必须首先读取此区域。
 
 ```json
 {
   "rule_version": "2026-04-17",
-  "source": "Wike Chen",
+  "source": "${OWNER_DISPLAY_NAME}",
   "rules": [
     {
       "id": "R1",
@@ -42,7 +42,7 @@
 }
 ```
 
-> 后续 Wike 新增规则时，在此区域追加，格式保持一致。
+> 后续 ${OWNER_NAME} 新增规则时，在此区域追加，格式保持一致。
 > 每次规则变更后，同步更新 SOUL.md 的铁律注册表。
 
 ---

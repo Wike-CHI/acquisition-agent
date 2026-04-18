@@ -1,7 +1,7 @@
 ---
 name: acquisition-init
-version: 2.0.0
-description: 获客系统初始化引导 v2.0。首次使用时引导用户配置凭据、挂载NAS、测试邮箱、安装依赖。当用户说"初始化获客系统"、"开始使用获客系统"、"一键安装依赖"时触发。
+version: 2.1.0
+description: 获客系统初始化引导 v2.1。首次使用时引导用户配置凭据、生成工作台配置、挂载NAS、测试邮箱、安装依赖。当用户说"初始化获客系统"、"开始使用获客系统"、"一键安装依赖"时触发。
 always: false
 triggers:
   - 初始化获客系统
@@ -45,6 +45,14 @@ $teyi_cred  = Test-Path "$wb\.teyi_credentials"
 $email_cfg  = Test-Path "$wb\.email_config.json"
 $signature  = Test-Path "$wb\.email_signatures.json"
 
+# 检测 workspace 配置文件是否存在且已填充（非模板占位符）
+$ws = "workspace"
+$ws_configured = $false
+if (Test-Path "$ws/USER.md") {
+    $content = Get-Content "$ws/USER.md" -Raw
+    if ($content -notmatch '\$\{OWNER_NAME\}') { $ws_configured = $true }
+}
+
 # 检测 NAS 是否已挂载
 $nas_mounted = Test-Path "Y:\"
 
@@ -79,12 +87,13 @@ if (Test-Path "$wb\.email_signatures.json") {
 [特易凭据]   若 $teyi_cred 为 true → 显示 ✅ 特易凭据已配置   否则显示 ⚠️ 特易凭据未配置
 [邮箱配置]   若 $email_cfg 为 true → 显示 ✅ 邮箱配置已完成   否则显示 ⚠️ 邮箱配置未完成
 [邮件签名]   若 $signature 为 true → 显示 ✅ 邮件签名已配置   否则显示 ⚠️ 邮件签名未配置
+[工作台配置] 若 $ws_configured 为 true → 显示 ✅ 工作台配置已生成 否则显示 ⚠️ 工作台配置未生成
 [NAS挂载]    若 $nas_mounted 为 true → 显示 ✅ NAS已挂载(Y:) 否则显示 ⚠️ NAS未挂载
 ```
 
 **底部状态提示（AI 根据检测结果选择对应内容展示）：**
 
-- **情况A**：三项核心凭据（NAS/特易/邮箱）全部未配置 →
+- **情况A**：三项核心凭据（NAS/特易/邮箱）和工作台配置全部未配置 →
   ```
   ⚠️ 尚未配置任何凭据。
   [若 $email_addr 不为空则显示: 检测到邮箱: $email_addr]
@@ -254,6 +263,87 @@ HONGLONG Industrial Equipment
 
 ---
 
+#### 1.6 生成工作台配置
+
+> **自动生成** — AI Agent 根据用户在 Step 1.3-1.4 中填写的信息，自动生成 workspace 配置文件。无需用户额外操作。
+
+**执行逻辑**：
+
+1. 从以下来源收集变量值：
+
+| 变量 | 来源 | 默认值 |
+|------|------|--------|
+| `OWNER_NAME` | Step 1.4 姓名的中文/拼音 | 未设置 |
+| `OWNER_DISPLAY_NAME` | Step 1.4 姓名 + 职位 | 未设置 |
+| `OWNER_EMAIL` | Step 1.3 邮箱地址 | 未设置 |
+| `OWNER_PHONE` | Step 1.4 手机号 | 未设置 |
+| `COMPANY_NAME` | 公司常量 | HOLO Industrial Equipment Mfg Co., Ltd |
+| `COMPANY_FULL_NAME` | 公司常量 | 温州红龙工业设备制造有限公司（HOLO Industrial Equipment Mfg Co., Ltd） |
+| `BRAND_NAME` | 公司常量 | HOLO |
+| `GITHUB_USER` | 跳过或用户自定义 | 未设置 |
+| `FACTORY_LOCATION` | 公司常量 | 中国温州 |
+| `TIMEZONE` | 公司常量 | 中国（UTC+8） |
+| `COMPETITOR_NAME` | 公司常量 | Beltwin |
+| `PIPELINE_DATA_PATH` | 自动检测 | `C:/Users/{系统用户名}/WorkBuddy/` |
+
+2. 执行生成命令：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File workspace/setup-user.ps1 `
+  -OwnerName "用户填写的姓名" `
+  -DisplayName "用户填写的姓名 / 职位" `
+  -Email "用户填写的邮箱" `
+  -Phone "用户填写的手机号" `
+  -PipelinePath "C:/Users/$env:USERNAME/WorkBuddy/"
+```
+
+3. 验证生成结果：
+
+```powershell
+# 检查生成的文件是否包含实际值（而非占位符）
+$files = @("USER.md", "IDENTITY.md", "AGENTS.md", "TOOLS.md", "SOUL.md", "MEMORY.md", "HEARTBEAT.md")
+$all_ok = $true
+foreach ($f in $files) {
+    $path = "workspace/$f"
+    if (Test-Path $path) {
+        $content = Get-Content $path -Raw
+        if ($content -match '\$\{[A-Z_]+\}') {
+            Write-Host "⚠️ $f 仍有未替换的占位符"
+            $all_ok = $false
+        } else {
+            Write-Host "✅ $f"
+        }
+    } else {
+        Write-Host "❌ $f 未生成"
+        $all_ok = $false
+    }
+}
+```
+
+**输出示例**：
+
+```
+📝 【6/6】生成工作台配置
+
+根据你填写的信息，正在生成系统配置文件...
+
+✅ USER.md      — 所有者档案
+✅ IDENTITY.md  — AI 身份卡
+✅ AGENTS.md    — SDR 操作手册
+✅ TOOLS.md     — 工具配置
+✅ SOUL.md      — 人格规范
+✅ MEMORY.md    — 记忆协议
+✅ HEARTBEAT.md — Pipeline 巡检
+
+配置文件已生成到 workspace/ 目录。
+后续可通过 bash workspace/setup-user.sh 重新生成。
+```
+
+> **备选方式**（IT 管理员批量部署）：
+> 手动编辑 `.env` 文件后运行 `powershell workspace/setup-user.ps1` 或 `bash workspace/setup-user.sh`，无需经过引导流程。
+
+---
+
 ### Step 2: 挂载NAS
 
 ```
@@ -344,6 +434,10 @@ ls ~/.workbuddy/skills/*/SKILL.md
    ✅ 特易凭据
    ✅ 邮箱配置
    ✅ 邮件签名
+
+✅ 工作台配置 (7/7)
+   ✅ USER.md / IDENTITY.md / AGENTS.md
+   ✅ TOOLS.md / SOUL.md / MEMORY.md / HEARTBEAT.md
 
 ⚠️ 可选依赖（按需检查）
    ⚪ wacli CLI — WhatsApp触达必需
@@ -528,6 +622,7 @@ fi
 
 ---
 
-_版本: 1.0.0_
-_更新: 2026-03-31_
+_版本: 2.1.0_
+_更新: 2026-04-17_
 _依赖: credential-manager, nas-file-reader, email-sender_
+_v2.1 新增: Step 1.6 自动生成 workspace 配置文件_

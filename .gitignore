@@ -19,6 +19,15 @@ skills/honglong-products/images/
 *.key
 .env
 
+# User profile (generated from template, never commit)
+workspace/USER.md
+workspace/IDENTITY.md
+workspace/AGENTS.md
+workspace/TOOLS.md
+workspace/SOUL.md
+workspace/MEMORY.md
+workspace/HEARTBEAT.md
+
 # NAS video/image files (stored on mounted NAS, not in git)
 skills/honglong-products/videos/
 skills/honglong-products/images/

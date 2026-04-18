@@ -300,8 +300,8 @@ memory_health_check_time: "14:00" # 记忆健康检查时间
 ## 与 B2B-SDR Template 的差异说明
 
 红龙版本针对以下场景做了定制：
-1. **邮箱**：使用 163 邮箱（wikeye2025@163.com）而非 Gmail
-2. **竞品**：重点监控 Beltwin（长期合作伙伴，非纯竞品）
+1. **邮箱**：使用 ${OWNER_EMAIL} 而非 Gmail
+2. **竞品**：重点监控 ${COMPETITOR_NAME}（长期合作伙伴，非纯竞品）
 3. **禁止项**：禁止矿业客户（已在 ICP 铁律中）
 4. **获客关键词**：Exa 搜索优先覆盖 conveyor belt / industrial belt / rubber belt 等关键词
 5. **市场轮换**：非洲/中东/东南亚/拉美/南亚 5天轮换 + 欧洲1天

@@ -6,12 +6,12 @@
 - **发送脚本**: `/tmp/sender.mjs`（nodemailer）
 - **凭证**: 环境变量 `HOLO_SMTP_USER` / `HOLO_SMTP_PASS` 注入
 - **SMTP**: smtp.163.com:465 (SSL)
-- **发送邮箱**: wikeye2025@163.com
+- **发送邮箱**: ${OWNER_EMAIL}
 
 ### 使用方式
 ```javascript
 // 凭证通过环境变量注入，不写死在代码里
-process.env.HOLO_SMTP_USER  // wikeye2025@163.com
+process.env.HOLO_SMTP_USER  // ${OWNER_EMAIL}
 process.env.HOLO_SMTP_PASS  // 163邮箱授权码
 ```
 
@@ -84,7 +84,7 @@ wacli send --phone "+86138xxxx" --message "消息内容"
 - 支持: 客户管理 / 查询 / 创建 / 更新 / 筛选 / 发送邮件
 
 ### 备选
-- **Google Sheets Pipeline** — `C:/Users/Administrator/WorkBuddy/` 路径
+- **Google Sheets Pipeline** — `${PIPELINE_DATA_PATH}` 路径
 - 字段: name / company / whatsapp / email / country / language / status / source / icp_score / lead_tier / product_interest / created_at / last_contact / next_action / notes
 
 ## Exa 搜索
