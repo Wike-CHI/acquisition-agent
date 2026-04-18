@@ -12,6 +12,9 @@ triggers:
   - 一键安装依赖
   - 安装系统依赖
   - 安装全部依赖
+  - 清理工作台配置
+  - 清理业务员配置
+  - 重置工作台
 ---
 
 # 获客系统初始化引导
@@ -572,8 +575,17 @@ fi
 
 会询问：
 ```
-⚠️ 这将清除所有已保存的凭据，确定继续吗？(y/N)
+⚠️ 这将清除所有已保存的凭据和工作台配置，确定继续吗？(y/N)
 ```
+
+**确认后执行清理**：
+
+```powershell
+# 清理 workspace 配置文件
+powershell -ExecutionPolicy Bypass -File workspace/cleanup-user.ps1 -Force
+```
+
+清理完成后自动回到 Step 0 重新开始引导流程。
 
 ---
 
@@ -590,6 +602,22 @@ fi
 ```
 获客系统状态
 ```
+
+## 🗑️ 清理业务员配置
+
+业务员离职或换人时，清理已生成的配置文件：
+
+```
+清理工作台配置
+```
+
+或手动执行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File workspace/cleanup-user.ps1
+```
+
+清理后重新运行 `初始化获客系统` 即可为新业务员生成配置。
 
 ---
 

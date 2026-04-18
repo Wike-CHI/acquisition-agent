@@ -3,7 +3,11 @@ name: acquisition-development-notes
 version: 1.0.0
 description: HOLO获客系统开发笔记 — 记录技能开发过程中的踩坑经验、已知bug、工作流规范。非流程性知识，是经验性知识。
 triggers:
-  - null
+  - 开发笔记
+  - 踩坑记录
+  - 已知bug
+  - 技能开发
+  - 开发规范
 category: holo-acquisition
 tags: [development, notes, gotchas, acquired]
 memory: null

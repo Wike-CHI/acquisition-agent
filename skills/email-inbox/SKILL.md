@@ -4,16 +4,13 @@ version: 1.0.0
 description: 邮件收件检测技能。通过IMAP连接企业邮箱，检测客户回复和询价，自动触发CRM更新和日志记录。当用户需要：(1) 检查邮箱 (2) 查看新邮件 (3) 监听客户回复 时使用此技能。
 always: false
 triggers:
-  # 检查相关
   - 检查邮箱
   - 查看邮件
   - 有新邮件吗
   - 收件箱
-  # 客户回复
   - 客户回复
   - 有客户回信吗
   - 收到回复了吗
-  # 英文
   - email inbox
   - check email
   - unread
