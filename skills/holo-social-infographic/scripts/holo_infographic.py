@@ -210,7 +210,7 @@ def main():
         print('  applications              - 应用场景图')
         print('\n示例:')
         print('  python holo_infographic.py spec A3FLJ')
-        print('  python holo_infographic.py spec A3FLJ "Y:\\图片\\三代风冷.jpg"')
+        print('  python holo_infographic.py spec A3FLJ "\\\\192.168.0.194\\公司报价资料\\图片\\三代风冷.jpg"')
         print('  python holo_infographic.py faq A3FLJ')
         print('  python holo_infographic.py selector')
         print('  python holo_infographic.py applications')

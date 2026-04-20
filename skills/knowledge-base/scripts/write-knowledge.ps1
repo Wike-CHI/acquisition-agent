@@ -14,54 +14,26 @@ param(
 
     [string]$SubName = "",
 
-    [string]$Overwrite = "yes"
+    [string]$Overwrite = "yes",
+
+    [string]$DriveLetter = "K:"
 )
 
-# NAS配置
-$NAS_IP = "192.168.0.194"
-$NAS_USER = "HOLO-AGENT"
-$NAS_PASS = "Hl88889999"
-$DriveLetter = "K:"
-$MountPath = "\\$NAS_IP\home"
+# 加载共享模块
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+. "$scriptDir\nas-common.ps1"
 
-# 生成slug - 支持中英文
-function New-Slug($text) {
-    if ($text -match '^[\w]+$') {
-        # 纯英文/数字，直接小写
-        return $text.ToLower()
-    }
-    # 中文或其他语言：用URL编码的前4位 + 拼音首字母缩写
-    $result = ""
-    # 提取所有汉字拼音首字母（简单实现）
-    $chars = $text.ToCharArray()
-    foreach ($c in $chars) {
-        if ([int]$c -gt 127) {
-            # 非ASCII字符用短横线替代
-            $result += "-"
-        } else {
-            $result += $c
-        }
-    }
-    # 清理
-    $result = $result -replace '-+', '-' -replace '^-|-$', ''
-    if ([string]::IsNullOrEmpty($result)) {
-        # 兜底：用时间戳
-        return (Get-Date -Format "yyyyMMddHHmmss")
-    }
-    return $result
+# 确保NAS已挂载
+$mountPath = "\\$NAS_IP\home"
+if (-not (Ensure-NasMount -DriveLetter $DriveLetter -SharePath $mountPath)) {
+    @{success=$false; error="NAS mount failed"; drive=$DriveLetter; path=$mountPath} | ConvertTo-Json -Compress
+    exit 1
 }
 
 $slug = New-Slug $Name
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $basePath = "$DriveLetter\knowledge"
-
-# 获取当前设备信息
-$localIP = $env:COMPUTERNAME
-try {
-    $netIP = Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "Ethernet*" -ErrorAction Stop | Select-Object -First 1
-    if ($netIP.IPAddress) { $localIP = $netIP.IPAddress }
-} catch {}
-$deviceId = "$env:USERNAME@$localIP"
+$deviceId = Get-DeviceId
 
 # 构建路径
 switch ($Type) {
@@ -84,7 +56,7 @@ if ($Type -eq "company") {
         $icpScore = if ($Content -match 'icp_score:\s*(\d+)') { [int]$matches[1] } else { 0 }
         $icpGrade = if ($Content -match 'icp_grade:\s*([A-D])') { $matches[1] } else { "C" }
 
-        $metaHeader = "---\ntitle: $Name\nstatus: researched\nicp_score: $icpScore\nicp_grade: $icpGrade\nlast_researcher: $deviceId\nlast_research_time: $timestamp\nresearch_count: 1\ncreated_time: $timestamp\n---\n\n"
+        $metaHeader = "---`ntitle: $Name`nstatus: researched`nicp_score: $icpScore`nicp_grade: $icpGrade`nlast_researcher: $deviceId`nlast_research_time: $timestamp`nresearch_count: 1`ncreated_time: $timestamp`n---`n`n"
 
         if ($Content -match '(?s)^---.*?---') {
             $Content = $Content -replace '(?s)^---.*?---', $metaHeader.Trim()

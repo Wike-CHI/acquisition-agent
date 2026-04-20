@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-18",
+  "updatedAt": "2026-04-20",
   "categories": [
     {
       "id": "automation",
@@ -13,7 +13,7 @@
           "id": "browser-automation",
           "name": "browser-automation",
           "description": "Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, click buttons, or interact with web applications.",
-          "hash": "2bcefb4f2bbce18aae9fb44ec75ed216f183d2fa4e93f2e1c9df5cf784ac1dc7"
+          "hash": "dd108b1afc38769ffffc5f4ead72fe33de75cffb35dd50e5b7dbbd80d1c772ac"
         },
         {
           "id": "composio",
@@ -99,6 +99,12 @@
       "icon": "Wrench",
       "description": "红龙/HOLO 定制化技能",
       "skills": [
+        {
+          "id": "holo-activity-log",
+          "name": "holo-activity-log",
+          "description": "记录业务操作日志到NAS共享活动日志（CSV），供Boss监控页面读取",
+          "hash": "4b5188c4371a616360bf3e7192956d1a10d0773c627e268081b761b30bb265b0"
+        },
         {
           "id": "holo-heartbeat-executor",
           "name": "holo-heartbeat-executor",
@@ -199,7 +205,7 @@
           "id": "email-sender",
           "name": "email-sender",
           "description": "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能。",
-          "hash": "46d46d4e8c22199e1c3b5476c017872273d1a8a527115ae99c2ed014591cf9d7"
+          "hash": "c17e892db42207927b3cd096736b482e08165cb0c161a08be636cd1f8a97e637"
         }
       ]
     },
@@ -307,25 +313,25 @@
           "id": "daily-report-writer",
           "name": "daily-report-writer",
           "description": "根据输入生成日报 Markdown 草稿并写入 reports 目录",
-          "hash": "cea943bf082c15c760970ed745aa1942e951be82861bf3aaea8224e4b1796992"
+          "hash": "d2be67a551258eccc283104932d9d2cbce9cfc858f56580d2f645c47cc22afa0"
         },
         {
           "id": "holo-proposal-generator",
           "name": "holo-proposal-generator",
           "description": "HOLO数字提案包生成器 — 将「智能报价指引」升级为专业提案PDF。包含封面、客户摘要、方案对比、案例、报价、CTA，一套顶过去十张表格。",
-          "hash": "dbf85a00605ba72b1265cbdffc4820508bfd779ef0a1c6695c28d0f9e4e8992c"
+          "hash": "beebbc31e13d9432064c9bb3b874434eb3d8716d83f897e3a06e68ba3866258c"
         },
         {
           "id": "quotation-generator",
           "name": "quotation-generator",
           "description": "自动生成红龙专业 PDF 形式发票，含公司抬头、多语言支持、报价后追踪。",
-          "hash": "9004dced851fe910b9752a5a374b18e7d1e83bd0cc405358cceec4d084293660"
+          "hash": "915e9b6315531f6e540a4f2f32af3fbf2744e313e336c9b10173f486b1c0de14"
         },
         {
           "id": "smart-quote",
           "name": "smart-quote",
           "description": "|",
-          "hash": "ebd66e81b3a799813151ac8c13a20a1e37fc237224b0a94c2ee65a19713b785f"
+          "hash": "cdf2b1852de2ad69aad36a5ab29f3afb22b246f5551f2f6b715064044820aab9"
         }
       ]
     },
@@ -340,7 +346,7 @@
           "id": "company-research",
           "name": "company-research",
           "description": "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。",
-          "hash": "5bdb2588643d75305bad6e38cb0ff22fc48bd92a71b93b068e1eea6950848236"
+          "hash": "b71c2d990ec91425d9d880ba2aded082dc94a6725dd44efa9b3cfbbd1bae4035"
         },
         {
           "id": "customer-intelligence",

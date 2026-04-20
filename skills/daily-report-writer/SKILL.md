@@ -24,7 +24,33 @@ metadata: {"openclaw":{"emoji":"📝"}}
 1. 校验参数是否齐全。
 2. 读取（或创建）`reports/{{date}}-daily-report.md`。
 3. 按固定模板写入内容。
-4. 返回 `status/summary/data/nextAction`。
+4. **REQUIRED** — 备份到 NAS 共享目录（见下方）。
+5. 返回 `status/summary/data/nextAction`。
+
+## 📌 REQUIRED: 日报备份到 NAS
+
+> 日报生成后，必须尝试复制到 NAS 共享目录，供主管查阅。
+
+```powershell
+# 确保 NAS 已挂载
+$credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
+$enc = Get-Content $credFile -Raw | ConvertFrom-Json
+$user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$nasDir = "\\192.168.0.194\AI数据\reports\$env:USERNAME"
+if (!(Test-Path "K:")) { net use K: \\192.168.0.194\home /user:$user $pass /persistent:yes }
+if (!(Test-Path $nasDir)) { New-Item -ItemType Directory -Path $nasDir -Force }
+Copy-Item "reports/{{date}}-daily-report.md" "$nasDir\{{date}}-daily-report.md" -Force
+```
+
+**NAS 路径**：`\\192.168.0.194\AI数据\reports\{用户名}\{YYYY-MM-DD}-daily-report.md`
+
+**降级策略**：NAS 不可用时仅本地存储，不阻断流程。
+
+**活动日志**：
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType report -Result success -Notes "日报已生成" -SkillName daily-report-writer
+```
 
 ## Failure
 - 缺参数：明确指出缺哪一项，并给示例输入。

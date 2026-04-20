@@ -399,7 +399,16 @@ to see what we can do for you — I'll get back to you shortly."
 
 ```powershell
 # 挂载公司报价资料共享（W盘）
-net use W: \\192.168.0.194\公司报价资料 /user:HOLO-AGENT Hl88889999
+# 凭据从 DPAPI 加密文件读取（~/.openclaw/.nas_credentials）
+$credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
+if (Test-Path $credFile) {
+    $enc = Get-Content $credFile -Raw | ConvertFrom-Json
+    $user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+    $pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+    net use W: \\192.168.0.194\公司报价资料 /user:$user $pass /persistent:yes
+} else {
+    Write-Warning "NAS credentials not found. Run mount-nas.ps1 -Setup first."
+}
 
 # 核心价格文件
 W:\报价参考表.xlsx        # 最完整，含所有产品销售内部价
@@ -425,6 +434,64 @@ wb = openpyxl.load_workbook('W:/报价参考表.xlsx', data_only=True, read_only
 | 第18列 | 备注（是否备库存） |
 
 > 如果NAS不可用，使用 `references/products.md` 中的缓存数据（2025-11-27版本）
+
+---
+
+## 📌 REQUIRED: 报价记录回写（Phase 6）
+
+> **MUST** — 每次完成报价后，必须执行以下两个步骤。不可跳过。
+
+### Step 6.1：查询历史报价记录
+
+在报价前，先查询该客户是否已有报价记录：
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../knowledge-base/scripts/read-knowledge.ps1" -Type email -Name "{公司名}"
+```
+
+- 如果 `exists=true`：读取历史报价记录，在报价指引中标注"历史报价"
+- 如果 `exists=false`：标注"首次报价"
+
+### Step 6.2：保存报价记录到知识库
+
+报价完成后，将报价摘要写入知识库：
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../knowledge-base/scripts/write-knowledge.ps1" -Type email -Name "{公司名}" -Content @"
+---
+title: {公司名} - 报价记录
+type: quote
+customer: {公司名}
+country: {国家}
+---
+
+# 报价记录
+
+## 报价信息
+- 报价日期：{日期}
+- 报价产品：{产品名}
+- 数量：{数量}
+- 利润率区间：{最低}% - {最高}%
+- 推荐利润率：{推荐}%
+- 报价有效期：{有效期}
+- 付款方式：{付款方式}
+
+## 背调信息
+- ICP评分：{分数}（{等级}级）
+- 企业规模：{规模}
+
+## 状态
+- 报价状态：pending_approval
+- 是否发送客户：否
+- 客户反馈：待跟进
+"@
+```
+
+### Step 6.3：记录活动日志
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType quote -Customer "{公司名}" -Result success -Score {ICP分数} -Notes "利润率{最低}-{最高}%，产品{产品名}" -SkillName smart-quote
+```
 
 ---
 

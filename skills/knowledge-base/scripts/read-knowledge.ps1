@@ -11,38 +11,24 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$Name,
 
-    [string]$SubName = ""
+    [string]$SubName = "",
+
+    [string]$DriveLetter = "K:"
 )
 
-# NAS配置
-$NAS_IP = "192.168.0.194"
-$NAS_USER = "HOLO-AGENT"
-$NAS_PASS = "Hl88889999"
-$DriveLetter = "K:"
-$basePath = "$DriveLetter\knowledge"
+# 加载共享模块
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+. "$scriptDir\nas-common.ps1"
 
-# 生成slug - 支持中英文
-function New-Slug($text) {
-    if ($text -match '^[\w]+$') {
-        return $text.ToLower()
-    }
-    $result = ""
-    $chars = $text.ToCharArray()
-    foreach ($c in $chars) {
-        if ([int]$c -gt 127) {
-            $result += "-"
-        } else {
-            $result += $c
-        }
-    }
-    $result = $result -replace '-+', '-' -replace '^-|-$', ''
-    if ([string]::IsNullOrEmpty($result)) {
-        return (Get-Date -Format "yyyyMMddHHmmss")
-    }
-    return $result
+# 确保NAS已挂载
+$mountPath = "\\$NAS_IP\home"
+if (-not (Ensure-NasMount -DriveLetter $DriveLetter -SharePath $mountPath)) {
+    @{exists=$false; error="NAS mount failed"; drive=$DriveLetter; path=$mountPath} | ConvertTo-Json -Compress
+    exit 1
 }
 
 $slug = New-Slug $Name
+$basePath = "$DriveLetter\knowledge"
 
 # 构建路径
 switch ($Type) {

@@ -250,6 +250,79 @@ items: [产品列表]
 
 ---
 
+## 📌 REQUIRED: 报价单生成后回写钩子
+
+> **MUST** — PDF 生成后必须执行以下步骤。不可跳过。
+
+### Step 7.1：保存报价摘要到知识库
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../knowledge-base/scripts/write-knowledge.ps1" -Type email -Name "{公司名}" -Content @"
+---
+title: {公司名} - 报价单记录
+type: quotation
+customer: {公司名}
+country: {国家代码}
+---
+
+# 报价单生成记录
+
+## 报价单信息
+- 报价单号：{HL-XX-YYYYMMDD-NNN}
+- 生成日期：{日期}
+- 金额：{总金额} USD
+- 产品明细：{产品列表}
+- 付款方式：{付款条款}
+- 交货时间：{交期}
+- 运输方式：{贸易术语}
+- 有效期至：{有效期}
+
+## 状态
+- 报价单状态：generated
+- 审批状态：pending_approval
+- 发送渠道：待定（email/whatsapp/telegram）
+- 客户反馈：待跟进
+"@
+```
+
+### Step 7.2：记录活动日志
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType quote -Customer "{公司名}" -Result success -Score 0 -Notes "报价单{HL-XX-YYYYMMDD-NNN}已生成，金额{总金额}USD" -SkillName quotation-generator
+```
+
+### 发送报价单后追加
+
+报价单发送给客户后，额外记录 `email_send` 日志：
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType email_send -Customer "{公司名}" -Result success -Notes "报价单{HL-XX-YYYYMMDD-NNN}已通过{渠道}发送" -SkillName quotation-generator
+```
+
+同时更新知识库中的报价状态：将 `报价单状态：generated` 改为 `报价单状态：sent`，将 `审批状态：pending_approval` 改为 `审批状态：approved`。
+
+### Step 7.3：备份 PDF 到 NAS（REQUIRED）
+
+PDF 生成后，复制一份到 NAS 共享目录，供团队和主管查阅：
+
+```powershell
+# 确保 NAS 已挂载
+$credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
+$enc = Get-Content $credFile -Raw | ConvertFrom-Json
+$user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$nasPath = "\\192.168.0.194\AI数据\proposals"
+if (!(Test-Path "K:")) { net use K: \\192.168.0.194\home /user:$user $pass /persistent:yes }
+if (!(Test-Path $nasPath)) { New-Item -ItemType Directory -Path $nasPath -Force }
+Copy-Item "{本地PDF路径}" "$nasPath\{报价单号}.pdf" -Force
+```
+
+**NAS 路径**：`\\192.168.0.194\AI数据\proposals\{报价单号}.pdf`
+
+**降级策略**：NAS 不可用时仅本地存储，不阻断流程。
+
+---
+
 ## 实施检查清单
 
 - [ ] Python 环境有 `reportlab` 或 `weasyprint`
@@ -257,3 +330,5 @@ items: [产品列表]
 - [ ] 各语言报价单模板（EN/PT/ES/RU/AR/FR）
 - [ ] 报价单编号规则已定义
 - [ ] PDF 生成脚本测试通过
+- [ ] 知识库回写钩子已验证（write-knowledge.ps1）
+- [ ] 活动日志已验证（log-activity.ps1）

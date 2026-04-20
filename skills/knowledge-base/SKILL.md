@@ -1,14 +1,29 @@
 ---
 name: knowledge-base
-version: "1.0.0"
-description: 团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。
+version: "1.1.0"
+description: 团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！
 triggers:
   - 知识库
   - 查一下
   - 市场知识
   - 产品知识
   - knowledge-base
+  - 保存报告
+  - 写入知识库
+  - 保存到NAS
+  - write_to_knowledge
+  - read_from_knowledge
+allowed-tools: Bash,Read,Write
 ---
+
+> ⚠️ **【强制执行规则] 知识库不是文档，是必须执行的工具！**
+>
+> 收到调研报告/背调报告/竞品分析后，**必须**：
+> 1. 用 `exec` 工具运行 `write-knowledge.ps1` 保存到 NAS
+> 2. 返回保存结果（含实际路径），不能只说"已保存"
+>
+> **错误示例**：`报告保存路径: \\192.168.0.194\home\knowledge\...` ❌（只输出，没保存）
+> **正确示例**：执行 `exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name 'Flexco' ...\"})` ✅
 
 # Knowledge Base Skill - 红龙知识库管理
 
@@ -116,35 +131,75 @@ triggers:
 
 ### 2.1 read-knowledge.ps1
 
+**⚠️ 必须用 exec 工具实际执行查询！**
+
 ```powershell
 # 查询产品知识库
-. .\read-knowledge.ps1 -Type products -Name "风冷机三代"
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 
 # 查询市场调研
-. .\read-knowledge.ps1 -Type market -Name "东南亚市场"
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type market -Name '东南亚市场'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 
 # 查询企业档案
-. .\read-knowledge.ps1 -Type company -Name "ABC Corp"
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type company -Name 'ABC Corp'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 
 # 查询开发信记录
-. .\read-knowledge.ps1 -Type email -Name "ABC Corp"
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type email -Name 'ABC Corp'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+
+# 搜索关键词
+exec({command: "powershell -Command \". '.\\search-knowledge.ps1' -Query '风冷机 规格'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 ```
 
 ### 2.2 write-knowledge.ps1
 
-```powershell
-# 保存产品知识
-. .\write-knowledge.ps1 -Type products -Name "风冷机三代" -Content $content
+**⚠️ 关键：必须用 exec 工具实际执行保存命令，不能只输出路径！**
 
-# 保存市场调研
-. .\write-knowledge.ps1 -Type market -Name "东南亚市场" -Content $report
+保存报告的标准流程（3步）：
 
-# 保存企业档案
-. .\write-knowledge.ps1 -Type company -Name "ABC Corp" -Content $report
-
-# 保存开发信
-. .\write-knowledge.ps1 -Type email -Name "ABC Corp" -Content $emailContent
+**Step 1**: 先把报告内容写入临时文件（避免命令行转义问题）
 ```
+exec({
+  command: "powershell -Command \"[System.IO.File]::WriteAllText('C:\\Users\\Administrator\\temp_kb_report.txt', @'\n# 报告标题\n\n报告内容...\n'@.Replace('\\n', \"`n\"), [System.Text.Encoding]::UTF8)\"",
+  workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"
+})
+```
+
+**Step 2**: 调用 write-knowledge.ps1 读取临时文件并保存到 NAS
+```
+exec({
+  command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name 'Flexco' -ContentFile 'C:\\Users\\Administrator\\temp_kb_report.txt' -Overwrite yes\"",
+  workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"
+})
+```
+
+**Step 3**: 清理临时文件
+```
+exec({
+  command: "powershell -Command \"Remove-Item 'C:\\Users\\Administrator\\temp_kb_report.txt' -ErrorAction SilentlyContinue\""
+})
+```
+
+常用保存示例：
+
+```powershell
+# 保存市场调研报告 → Type=market
+Type=market, Name="Flexco竞品分析", ContentFile=临时文件路径
+
+# 保存企业档案 → Type=company
+Type=company, Name="National Cement Ethiopia", ContentFile=临时文件路径
+
+# 保存开发信记录 → Type=email
+Type=email, Name="National Cement - 开发信v1", ContentFile=临时文件路径
+
+# 保存产品知识 → Type=products
+Type=products, Name="风冷接头机三代", ContentFile=临时文件路径
+```
+
+⚠️ **注意**：
+- `-Content` 参数直接接受字符串（短内容可用）
+- 长报告（报告正文）一律用 `-ContentFile` 传入临时文件路径，避免命令行转义问题
+- `-ContentFile` 会读取文件内容作为报告正文保存
+- 执行完保存后，必须告知用户保存结果（含实际路径）
 
 ### 2.3 search-knowledge.ps1
 
@@ -168,7 +223,7 @@ triggers:
 │         告知："已在知识库找到相关产品信息"
 │
 └─ 不存在 → 查询honglong-products技能获取产品信息
-            → 保存到products/目录
+            → **必须执行 exec 命令保存到 NAS（见2.2节）**
             → 返回产品信息
 ```
 
@@ -185,7 +240,7 @@ triggers:
 │
 └─ 不存在 → 执行market-research技能调研
             → 生成六维度报告
-            → 保存到market-research/目录
+            → **必须执行 exec 命令保存到 NAS（见2.2节）**
             → 返回完整报告
 ```
 
@@ -202,7 +257,7 @@ triggers:
 │
 └─ 不存在 → 执行company-research技能背调
             → 生成背调报告
-            → 保存到companies/目录
+            → **必须执行 exec 命令保存到 NAS（见2.2节）**
             → 返回完整报告
 ```
 
@@ -236,16 +291,17 @@ C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\
 └── list-knowledge.ps1      # 列出档案
 ```
 
-### 调用方式
+### 调用方式（必须通过 exec 工具执行）
 
 ```powershell
-# 方式1：cd到脚本目录
-cd "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts"
-. .\read-knowledge.ps1 -Type products -Name "风冷机三代"
+# 读取知识库（通过 exec 工具）
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 
-# 方式2：绝对路径
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type products -Name "风冷机三代"
+# 写入知识库（通过 exec 工具）
+exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name '东南亚市场' -ContentFile 'C:\\Users\\Administrator\\temp_report.txt'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
 ```
+
+⚠️ **禁止**只输出路径不执行！必须调用 exec 工具实际保存。
 
 ---
 
@@ -310,6 +366,7 @@ net use K: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
 
 | 版本 | 日期 | 更新内容 |
 |------|------|---------|
+| v1.1.0 | 2026-04-20 | **修复：显式要求AI用exec工具保存，禁止只输出路径** |
 | v1.2.0 | 2026-04-11 | **新增产品知识库 + 知识库门卫规则** |
 | v1.1.0 | 2026-04-10 | 更新NAS账号为HOLO-AGENT |
 | v1.0.0 | 2026-04-10 | 初始版本 |

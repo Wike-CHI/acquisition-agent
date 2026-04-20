@@ -498,6 +498,58 @@ Best regards,
 
 ---
 
+## 📌 REQUIRED: 发信后回写钩子
+
+> **MUST** — 每封邮件发送后，必须执行以下步骤。不可跳过。
+
+### 发送成功后
+
+#### 9.1 写入知识库（团队共享）
+
+将邮件记录写入 `K:\knowledge\emails\{公司名}.md`，供全团队查阅：
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../knowledge-base/scripts/write-knowledge.ps1" -Type email -Name "{公司名}" -Content @"
+---
+title: {公司名} - 邮件记录
+type: email_record
+customer: {公司名}
+---
+
+# 邮件发送记录
+
+## 邮件信息
+- 发送时间：{时间}
+- 收件人：{邮箱}
+- 主题：{主题}
+- 邮件类型：{开发信/跟进/报价}
+- 发送渠道：email
+
+## 邮件摘要
+{AI生成的邮件正文摘要，50字以内}
+
+## 跟进状态
+- 下次跟进日期：{发送日期+3天}
+- 回复状态：待回复
+"@
+```
+
+#### 9.2 记录活动日志
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType email_send -Customer "{公司名}" -Result success -SkillName email-sender
+```
+
+### 发送失败时
+
+**不写入知识库**（没有成功发送无需记录），但记录失败日志：
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType email_send -Customer "{公司名}" -Result failed -Notes "{失败原因}" -SkillName email-sender
+```
+
+---
+
 ## 十、配置文件位置
 
 | 文件 | 路径 | 说明 |

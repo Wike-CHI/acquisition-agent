@@ -1,9 +1,9 @@
 ---
 name: company-research
-version: 2.1.0
+version: 3.0.0
 description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。"
-metadata: {"openclaw":{"requires":{"bins":["agent-browser"]}}}
-allowed-tools: Bash(agent-browser:*)
+metadata: {"openclaw":{"requires":{"bins":["mcporter"]}}}
+allowed-tools: Bash
 triggers:
   - 公司调研
   - company research
@@ -14,71 +14,60 @@ triggers:
   - background check
 ---
 
-# 海外B2B企业背景调查 v2.0
+# 海外B2B企业背景调查 v3.0
 
-红龙获客系统的海外客户企业背调工具。输入企业名称（英文），自动搜索公开信息并输出结构化背调报告，用于评估客户资质和开发信个性化。
+红龙获客系统的海外客户企业背调工具。输入企业名称（英文），自动搜索公开信息并输出结构化背调报告。
 
-> 🔄 v2.0 变更：从通用企业查询工具重构为红龙B2B获客场景专用，增加ICP匹配度评估。
+> v3.0 变更：搜索工具从 agent-browser 切换为 Exa MCP（mcporter），不再依赖浏览器。
 
-## 环境检测（首次运行必须执行）
+## 搜索工具
 
-在开始搜索前，先检测 `agent-browser` 是否可用：
-
-```bash
-which agent-browser
-```
-
-- **如果输出路径**（如 `/usr/local/bin/agent-browser`）：环境就绪，使用 `agent-browser` 模式。
-- **如果输出为空或 not found**：告知用户需要安装：
-
-> ⚠️ 本技能需要 agent-browser（headless 浏览器工具）才能获取完整的企业数据。
-> 推荐通过 ClawHub 技能注册表安装（已审核）：
-> ```
-> clawhub install TheSethRose/agent-browser
-> ```
-> 或通过 npm 手动安装：
-> ```
-> npm install -g agent-browser && agent-browser install --with-deps
-> ```
-> 安装完成后重新发起查询即可。
-
-## 浏览器工具
-
-使用 `agent-browser` 的以下三个只读命令进行网页访问：
+### 主力工具：Exa MCP（通过 mcporter）
 
 ```bash
-agent-browser open "<url>"       # 打开页面
-agent-browser snapshot -c        # 获取页面文本内容（compact 模式）
-agent-browser close              # 完成后关闭浏览器
+# 通用搜索
+mcporter call exa.web_search_exa 'query={搜索关键词}&numResults=10'
+
+# 高级搜索（支持日期范围、域名过滤）
+mcporter call exa.web_search_advanced_exa 'query={关键词}&numResults=10&startPublishedDate=2025-01-01'
+
+# 公司专属搜索
+mcporter call exa.company_research_exa 'query={公司名}&numResults=5'
+
+# 人物搜索（LinkedIn 决策者）
+mcporter call exa.people_search_exa 'query={姓名} {公司名}&numResults=5'
 ```
 
-> **重要**：每次 `open` 后必须 `snapshot -c` 读取内容，然后从 snapshot 输出中提取所需信息。
+### 降级工具：内置 web_search / web_fetch
 
-### 安全约束
+当 mcporter 不可用时，使用内置工具：
 
-本技能**仅使用**以下 agent-browser 命令：`open`、`snapshot`、`close`。
+```
+web_search({query: "搜索关键词"})
+web_fetch({url: "https://目标URL"})
+```
 
-**禁止使用**以下功能：
-- `state save` / `state load`（会话状态保存/加载）
-- `cookies` / `storage`（Cookie 和本地存储访问）
-- `network route`（网络请求拦截）
-- `eval`（JavaScript 执行）
-- `fill` / `click` / `type`（表单交互）
+### 降级判断
 
-本技能不请求任何凭据、不访问已认证资源、不保存任何浏览器状态。所有访问目标均为公共搜索引擎和企业官网。
+```
+1. 先执行 mcporter call exa.web_search_exa 测试连通性
+2. 如果返回正常结果 → 使用 Exa MCP 完成所有搜索
+3. 如果报错或超时 → 降级到 web_search + web_fetch
+4. 降级时告知用户："Exa 搜索暂不可用，使用内置搜索工具"
+```
 
-## 搜索引擎
+## URL 拼接规则（严格遵守）
 
-优先使用国际搜索引擎（面向海外客户）：
+搜索结果中常见的残缺 URL 必须补全：
 
-| 引擎 | URL 模板 | 用途 |
-|------|----------|------|
-| Google | `https://www.google.com/search?q={keyword}` | 全球企业信息、新闻、官网（主力） |
-| Google News | `https://news.google.com/search?q={keyword}` | 近期新闻、融资动向 |
-| LinkedIn | `https://www.linkedin.com/company/{company}` | 企业规模、员工、业务范围 |
-| Bing | `https://www.bing.com/search?q={keyword}` | 补充搜索、企业信息验证 |
+| 残缺格式 | 补全为 |
+|---------|--------|
+| `br.linkedin.com/in/xxx` | `https://br.linkedin.com/in/xxx` |
+| `linkedin.com/in/xxx` | `https://www.linkedin.com/in/xxx` |
+| `www.example.com` | `https://www.example.com` |
+| `example.com/path` | `https://example.com/path` |
 
-> **备选引擎**：如果 Google 被限制，使用 Bing 作为主力搜索引擎。
+**规则**：所有输出的 URL 必须包含 `https://` 协议前缀。如果搜索结果中的链接缺少协议前缀，自动补全后再输出。
 
 ## 搜索步骤
 
@@ -87,66 +76,52 @@ agent-browser close              # 完成后关闭浏览器
 ### 第一轮：企业基础信息
 
 ```bash
-# 1. 企业核心信息（官网、规模、行业、总部）
-agent-browser open "https://www.google.com/search?q={company}+company+profile+headquarters+industry"
-agent-browser snapshot -c
-# 提取：官网URL、总部地址、成立年份、员工规模、主营业务
+# 1. 公司综合搜索
+mcporter call exa.company_research_exa 'query={company}&numResults=5'
+# 提取：官网URL、总部地址、行业、员工规模、主营业务
 
-# 2. 企业官网
-agent-browser open "https://www.google.com/search?q={company}+official+website"
-agent-browser snapshot -c
-# 提取：官网URL、About页面信息、产品/服务列表
+# 2. 补充企业信息
+mcporter call exa.web_search_exa 'query={company} company profile headquarters industry employees&numResults=8'
+# 提取：成立年份、员工规模、子公司、业务范围
 
-# 3. LinkedIn 企业页
-agent-browser open "https://www.linkedin.com/company/{company-slug}"
-agent-browser snapshot -c
-# 提取：员工总数、行业分类、总部、 specialties、近期动态
+# 3. LinkedIn 企业页（注意URL补全）
+mcporter call exa.web_search_exa 'query=site:linkedin.com/company {company}&numResults=5'
+# 提取：员工总数、行业分类、specialties
 ```
 
 ### 第二轮：业务与市场信息
 
 ```bash
 # 4. 产品和业务范围
-agent-browser open "https://www.google.com/search?q={company}+products+services+business"
-agent-browser snapshot -c
+mcporter call exa.web_search_exa 'query={company} products services business model&numResults=8'
 # 提取：主要产品线、目标市场、业务范围
 
-# 5. 近期新闻
-agent-browser open "https://news.google.com/search?q={company}"
-agent-browser snapshot -c
+# 5. 近期动态
+mcporter call exa.web_search_advanced_exa 'query={company} news expansion partnership&numResults=8&startPublishedDate=2025-06-01'
 # 提取：近6个月新闻、扩张动态、合作签约
 
-# 6. 融资与财务
-agent-browser open "https://www.google.com/search?q={company}+funding+revenue+investment"
-agent-browser snapshot -c
-# 提取：融资轮次、投资方、营收规模
-
-# 7. 进出口贸易信息
-agent-browser open "https://www.google.com/search?q={company}+import+export+trade+customs"
-agent-browser snapshot -c
+# 6. 进出口贸易信息
+mcporter call exa.web_search_exa 'query={company} import export trade customs&numResults=5'
 # 提取：贸易伙伴、进出口品类、采购规模
 ```
 
 ### 第三轮：决策者与联系方式
 
 ```bash
-# 8. 关键决策者
-agent-browser open "https://www.google.com/search?q={company}+CEO+director+owner+management"
-agent-browser snapshot -c
-# 提取：CEO/CTO/采购总监等关键人姓名和职位
+# 7. 关键决策者
+mcporter call exa.people_search_exa 'query={company} CEO CTO director procurement&numResults=10'
+# 提取：关键人姓名、职位、LinkedIn链接（注意URL补全）
 
-# 9. 采购/供应链信息
-agent-browser open "https://www.google.com/search?q={company}+procurement+sourcing+supplier"
-agent-browser snapshot -c
-# 提取：采购需求、供应链模式、当前供应商
+# 8. 采购需求线索
+mcporter call exa.web_search_exa 'query="{company}" procurement OR sourcing OR supplier OR equipment&numResults=5'
+# 提取：采购需求、当前供应商、设备需求
 
-# 10. 补充验证（Bing）
-agent-browser open "https://www.bing.com/search?q={company}+company+overview+reviews"
-agent-browser snapshot -c
-# 交叉验证之前获取的信息
+# 9. 招聘信息（采购需求信号）
+mcporter call exa.web_search_exa 'query="{company}" jobs procurement OR buyer OR sourcing&numResults=5'
+# 提取：正在招聘的采购相关职位 → 说明有采购需求
 ```
 
-> **注意**：每轮搜索后评估已获取信息，如某维度已有充分数据则跳过后续同类查询。完成后执行 `agent-browser close`。
+> **注意**：每轮搜索后评估已获取信息，如某维度已有充分数据则跳过后续同类查询。
 
 ## 输出格式
 
@@ -160,34 +135,39 @@ agent-browser snapshot -c
 
 - **企业名称**：{原文英文名}（{当地语言名，如有}）
 - **基本信息**：{总部地址}、{成立年份}、{行业分类}（并列显示，用"、"隔开）
-- **官网网址**：{官网链接}
+- **官网网址**：{完整URL，含https://}
+- **LinkedIn**：{完整URL，含https://}（如有）
 - **主营业务**：{核心产品/服务描述}
 - **员工规模**：{数量范围}
 - **企业标签**：{上市公司、家族企业、跨国集团等}
 
 #### 1.2 关键决策者
 
-- **CEO/总经理**：{姓名}（{国籍，如有}）
-- **采购/供应链负责人**：{姓名和职位}
-- **其他关键人**：{CTO/COO等}
+对每位决策者输出：
+- **姓名**：{全名}
+- **职位**：{英文职位 + 中文翻译}
+- **LinkedIn**：{完整URL，含https://}（如有）
+- **价值判断**：{一句话说明为什么此人是关键联系人}
+
+按优先级排序：采购决策人 > 技术决策人 > 高管
 
 #### 1.3 近期动态
 
 - **重要事件**：{近6个月的重要变更、扩张、合作}
-- **融资/投资**：{最新融资信息及趋势}
+- **招聘信号**：{正在招聘的与采购相关的职位}
 - **市场扩张**：{新市场、新产品线、新工厂等}
 
 ---
 
 ### 二、ICP匹配度评估
 
-根据搜得的企业信息，按 `skill://acquisition-workflow/references/ICP-STANDARDS.md` 的 6 维度体系评估：
+根据搜得的企业信息，按以下 6 维度体系评估：
 
 | 维度 | 匹配条件 | 匹配结果 | 得分 |
 |------|----------|----------|------|
-| **行业匹配度**（20分） | 制造业/加工业/木工/3D打印 | ✅/❌ | {}/20 |
-| **采购能力**（20分） | 海关金额等级 | ✅/❌ | {}/20 |
-| **采购频率**（20分） | 交易次数+最新日期 | ✅/❌ | {}/20 |
+| **行业匹配度**（20分） | 制造业/加工业/矿业/物流 | ✅/❌ | {}/20 |
+| **采购能力**（20分） | 企业规模和营收推断 | ✅/❌ | {}/20 |
+| **采购频率**（20分） | 招聘信号+贸易活跃度 | ✅/❌ | {}/20 |
 | **客户类型**（15分） | 制造商/经销商/终端等 | ✅/❌ | {}/15 |
 | **决策周期**（15分） | 企业规模推断 | ✅/❌ | {}/15 |
 | **决策人联系**（10分） | LinkedIn/官网联系方式 | ✅/❌ | {}/10 |
@@ -195,7 +175,6 @@ agent-browser snapshot -c
 **综合得分**：{}/100 → {A/B/C/D 级}
 
 > 阈值：A≥75（立即触达）| B 50-74（正常跟进）| C 30-49（低优先级）| D<30（暂不开发）
-> 详细评分细则见 `skill://acquisition-workflow/references/SCORING.md`
 
 **匹配理由**：{一句话说明为什么匹配或不匹配}
 
@@ -218,29 +197,11 @@ agent-browser snapshot -c
 
 ---
 
-## 信息质量规则
-
-1. **优先级**：优先选择与企业采购行为、生产设备、供应链直接相关的信息
-2. **信息整合**：如果多个参考片段涉及同一主题，整合为一段
-3. **禁止编造**：只能根据搜索到的信息整理和总结，禁止引入外部知识或无依据推测
-4. **防止混淆**：严禁混入名称相近但不是目标企业的信息
-5. **时效性**：优先展示近2年的信息，超过3年的信息标注年份
-6. **过滤噪音**：不要提供劳动纠纷、法律诉讼等与采购决策无关的信息
-7. **语言处理**：搜索结果可能为多语言，统一整理为中文输出
-
----
-
 ## 四、知识库钩子（自动保存）
 
-> 🔄 v2.0 新增：背调完成后自动保存到 NAS 知识库，全员复用
+背调完成后自动保存到 NAS 知识库，全员复用。
 
-### 4.1 知识库路径
-
-```
-\\192.168.0.194\home\knowledge\companies\{公司名-slug}.md
-```
-
-### 4.2 工作流程
+### 4.1 工作流程
 
 ```
 输入：公司名
@@ -253,9 +214,27 @@ agent-browser snapshot -c
        [钩子2] 保存到知识库 → 返回报告 + "已入库"
 ```
 
-### 4.3 知识库档案格式
+### 4.2 脚本调用
 
-背调完成后，按以下格式保存：
+```powershell
+# 背调前：检查是否已有档案
+.\scripts\read-knowledge.ps1 -Type company -Name "{公司名}"
+
+# 背调后：保存到知识库
+.\scripts\write-knowledge.ps1 -Type company -Name "{公司名}" -Content $report
+```
+
+### 4.3 触发时机
+
+| 阶段 | 动作 |
+|------|------|
+| **背调前** | 先调用 `read-knowledge` 检查已有档案 |
+| **背调后** | 调用 `write-knowledge` 保存报告 |
+| **返回报告时** | 提示"已保存到知识库" |
+
+### 4.4 知识库档案格式
+
+保存时使用以下 Markdown 格式：
 
 ```markdown
 ---
@@ -303,9 +282,9 @@ created_time: {时间戳}
 
 ## 关键决策者
 
-| 姓名 | 职位 | 邮箱 |
-|------|------|------|
-| {姓名} | {职位} | {邮箱} |
+| 姓名 | 职位 | LinkedIn |
+|------|------|----------|
+| {姓名} | {职位} | {完整URL} |
 
 ## 产品需求
 
@@ -324,36 +303,14 @@ created_time: {时间戳}
 
 ```
 
-### 4.4 脚本调用
+---
 
-背调完成后，调用以下脚本保存：
+## 信息质量规则
 
-```powershell
-# 保存到知识库
-.\\scripts\\write-knowledge.ps1 -Type company -Name "{公司名}" -Content $report
-
-# 参数说明：
-# - Type: 固定为 "company"
-# - Name: 公司原文名称
-# - Content: 格式化后的背调报告
-```
-
-### 4.5 读取已有档案
-
-```powershell
-# 检查是否已有档案
-.\\scripts\\read-knowledge.ps1 -Type company -Name "{公司名}"
-
-# 返回：
-# - exists: true/false
-# - metadata: ICP评分、调查时间等
-# - content: 完整档案内容
-```
-
-### 4.6 触发时机
-
-| 阶段 | 动作 |
-|------|------|
-| **背调前** | 先调用 `read-knowledge` 检查 |
-| **背调后** | 调用 `write-knowledge` 保存 |
-| **返回报告时** | 提示"已保存到知识库" |
+1. **URL 完整性**：所有输出的 URL 必须包含 `https://` 协议前缀
+2. **优先级**：优先选择与企业采购行为、生产设备、供应链直接相关的信息
+3. **禁止编造**：只能根据搜索到的信息整理和总结，禁止引入外部知识或无依据推测
+4. **防止混淆**：严禁混入名称相近但不是目标企业的信息
+5. **时效性**：优先展示近2年的信息，超过3年的信息标注年份
+6. **过滤噪音**：不要提供劳动纠纷、法律诉讼等与采购决策无关的信息
+7. **语言处理**：搜索结果可能为多语言，统一整理为中文输出

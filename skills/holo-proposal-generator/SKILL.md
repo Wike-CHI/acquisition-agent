@@ -354,6 +354,36 @@ holo-proposal-generator/
 
 ---
 
+## 📌 REQUIRED: 提案 PDF 备份到 NAS
+
+> **MUST** — PDF 生成后必须尝试备份到 NAS。不可跳过。
+
+### 备份步骤
+
+```powershell
+# 确保 NAS 已挂载
+$credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
+$enc = Get-Content $credFile -Raw | ConvertFrom-Json
+$user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
+$nasPath = "\\192.168.0.194\AI数据\proposals"
+if (!(Test-Path "K:")) { net use K: \\192.168.0.194\home /user:$user $pass /persistent:yes }
+if (!(Test-Path $nasPath)) { New-Item -ItemType Directory -Path $nasPath -Force }
+Copy-Item "~/proposals/{ClientName}_Proposal_{Date}.pdf" "$nasPath/{ClientName}_Proposal_{Date}.pdf" -Force
+```
+
+**NAS 路径**：`\\192.168.0.194\AI数据\proposals\{客户名}_Proposal_{日期}.pdf`
+
+**降级策略**：NAS 不可用时仅本地存储，不阻断流程。
+
+### 记录活动日志
+
+```powershell
+powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -ActionType quote -Customer "{公司名}" -Result success -Notes "提案PDF已生成并备份" -SkillName holo-proposal-generator
+```
+
+---
+
 ## 已知Bug
 
 ### Python脚本禁止中文字符变量名
