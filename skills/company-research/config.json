@@ -11,6 +11,6 @@
     {"name": "天眼查", "url": "https://www.tianyancha.com/search?key={keyword}", "type": "enterprise"},
     {"name": "爱企查", "url": "https://aiqicha.baidu.com/s?q={keyword}", "type": "enterprise"}
   ],
-  "region": "苏州",
-  "focus_area": "苏州工业园区"
+  "region": "浙江",
+  "focus_area": "温州瑞安"
 }

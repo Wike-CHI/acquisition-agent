@@ -1,0 +1,26 @@
+{
+  "company": {
+    "name_zh": "温州红龙工业设备制造有限公司",
+    "name_en": "HOLO Industrial Equipment Mfg Co., Ltd",
+    "brand": "HOLO",
+    "address_zh": "瑞安市东山街道望新路188号3幢101室",
+    "address_en": "Ruian, Wenzhou, Zhejiang 325200, China",
+    "phone": "+86 0577-66856856",
+    "mobile": "+86 18057753889",
+    "email": "sale@18816.cn",
+    "websites": {
+      "domestic": "www.18816.cn",
+      "international": "www.beltsplicepress.com",
+      "brand": "www.holobelt.com",
+      "pu_belt": "www.aibelt.com"
+    },
+    "factory_location": "中国温州"
+  },
+  "competitors": {
+    "own_brands": ["Beltwin"],
+    "rivals": ["Flexco", "Almex", "ASGCO", "ContiTech", "Fonmar"]
+  },
+  "team": {
+    "default_name": "红龙团队"
+  }
+}

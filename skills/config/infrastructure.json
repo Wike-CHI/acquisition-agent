@@ -1,0 +1,19 @@
+{
+  "nas": {
+    "ip": "192.168.0.194",
+    "shares": {
+      "marketing": "Y:\\\\192.168.0.194\\市场营销",
+      "sales": "X:\\\\192.168.0.194\\销售",
+      "home": "Z:\\\\192.168.0.194\\home",
+      "pricing": "W:\\\\192.168.0.194\\公司报价资料",
+      "ai_data": "\\\\192.168.0.194\\AI数据"
+    },
+    "env_user": "NAS_USER",
+    "env_pass": "NAS_PASSWORD"
+  },
+  "paths": {
+    "workbuddy": "C:/Users/${USERNAME}/WorkBuddy/",
+    "chromadb": "C:/Users/${USERNAME}/chromadb/acquisition/",
+    "lancedb": "C:/Users/${USERNAME}/lancedb/acquisition/"
+  }
+}

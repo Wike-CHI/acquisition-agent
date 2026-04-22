@@ -15,6 +15,11 @@ triggers:
 
 # 获客任务协调器 v2.1
 
+> **⚠️ 重要：读取配置优先**
+> 执行本技能前，必须先读取以下配置文件获取最新业务数据：
+> - `../../config/company-profile.json` — 公司信息
+> - `../../config/infrastructure.json` — NAS 路径
+
 ---
 
 ## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️

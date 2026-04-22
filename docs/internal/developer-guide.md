@@ -4,7 +4,7 @@
 
 - Node.js 18+ (for /tmp/sender.mjs)
 - Python 3.10+ (for skills)
-- NAS: \\192.168.0.194 (not yet mounted)
+- NAS: \192.168.0.194 (通过 `config/infrastructure.json` 管理)
 
 ## 技能开发规范
 
@@ -14,6 +14,37 @@
 - frontmatter 格式：`---` 包围，YAML解析必须通过
 - 禁止在SKILL.md里硬编码凭证
 - 禁止在技能描述里引用不存在的其他技能名
+
+## 中央配置系统
+
+业务数据统一在 `skills/config/` 下管理，**禁止在单个技能的 SKILL.md 中硬编码**公司信息、联系方式、产品数据。
+
+### 配置文件
+
+| 文件 | 用途 | 关键字段 |
+|------|------|---------|
+| `config/company-profile.json` | 公司身份 | name, address, phone, email, websites, competitors |
+| `config/infrastructure.json` | 基础设施 | nas.ip, nas.shares, paths |
+
+### 读取配置的方式
+
+SKILL.md 是 Markdown，不能 `import json`。AI 执行技能时需先读取配置：
+
+```markdown
+## 前置步骤
+1. 读取 `../../config/company-profile.json` 获取公司信息
+2. 读取 `../../config/infrastructure.json` 获取 NAS 路径
+```
+
+### 已有配置 vs 硬编码
+
+- ✅ **已有配置（应读取）**：`config/company-profile.json` 中的 email/phone/websites
+- ⚠️ **仍为硬编码（待迁移）**：产品目录、价格数据、业务规则、ICP 标准
+
+### 新增/修改公司信息
+
+只需改 `config/company-profile.json`，所有技能自动获取最新值。
+改完后建议运行：`python3 scripts/validate_skills.py` 确认无 YAML 错误。
 
 ## 本地调试
 

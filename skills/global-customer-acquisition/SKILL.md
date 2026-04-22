@@ -17,6 +17,13 @@ updated: 2026-04-14
 
 # HOLO智能获客Agent v3.1.0
 
+> **⚠️ 重要：读取配置优先**
+> 执行本技能前，必须先读取以下配置文件：
+> - `../../config/company-profile.json` — 公司信息（联系方式/竞品/品牌）
+> - `../../config/infrastructure.json` — NAS 路径
+
+---
+
 全能型获客+运营技能。业务员说一句话，AI完成全部操作。
 
 ## 核心搜索规则（MCP）
