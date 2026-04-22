@@ -121,7 +121,7 @@ curl -H "Accept: text/html" "https://r.jina.ai/https://客户官网.com"
 
 ### 挂载命令（Windows）
 ```powershell
-net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
+net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ### 用途

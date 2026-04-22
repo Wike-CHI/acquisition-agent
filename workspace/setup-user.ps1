@@ -58,13 +58,14 @@ if (-not $hasParams -and (Test-Path $EnvFile)) {
 
 # ── 每个模板文件使用的变量 ──
 $fileVars = @{
-    "USER.md"      = @("OWNER_NAME", "COMPANY_NAME", "BRAND_NAME", "OWNER_EMAIL", "OWNER_PHONE", "GITHUB_USER", "TIMEZONE")
-    "IDENTITY.md"  = @("OWNER_DISPLAY_NAME", "COMPANY_NAME", "FACTORY_LOCATION", "BRAND_NAME", "COMPANY_FULL_NAME")
-    "AGENTS.md"    = @("COMPANY_NAME", "OWNER_DISPLAY_NAME", "OWNER_PHONE", "OWNER_EMAIL")
-    "TOOLS.md"     = @("OWNER_EMAIL", "PIPELINE_DATA_PATH")
-    "SOUL.md"      = @("OWNER_NAME")
-    "MEMORY.md"    = @("OWNER_NAME", "OWNER_DISPLAY_NAME")
-    "HEARTBEAT.md" = @("OWNER_EMAIL", "COMPETITOR_NAME")
+    "USER.md"             = @("OWNER_NAME", "COMPANY_NAME", "BRAND_NAME", "OWNER_EMAIL", "OWNER_PHONE", "GITHUB_USER", "TIMEZONE")
+    "IDENTITY.md"         = @("OWNER_DISPLAY_NAME", "COMPANY_NAME", "FACTORY_LOCATION", "BRAND_NAME", "COMPANY_FULL_NAME")
+    "AGENTS.md"           = @("COMPANY_NAME", "OWNER_DISPLAY_NAME", "OWNER_PHONE", "OWNER_EMAIL")
+    "TOOLS.md"            = @("OWNER_EMAIL", "PIPELINE_DATA_PATH")
+    "SOUL.md"             = @("OWNER_NAME")
+    "MEMORY.md"           = @("OWNER_NAME", "OWNER_DISPLAY_NAME")
+    "HEARTBEAT.md"        = @("OWNER_EMAIL", "COMPETITOR_NAME")
+    "operator-config.md"  = @("OWNER_DISPLAY_NAME", "OWNER_EMAIL", "OWNER_PHONE", "COMPANY_NAME", "COMPANY_FULL_NAME", "BRAND_NAME", "FACTORY_LOCATION")
 }
 
 # ── 执行替换 ──

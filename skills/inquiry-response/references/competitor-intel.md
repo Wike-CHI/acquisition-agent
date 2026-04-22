@@ -114,6 +114,157 @@ Ferry走高端路线，红龙走性价比路线。不正面竞争，强调TCO（
 
 ---
 
+## 二-B、全球主要竞品（2026-04 补充）
+
+> 来源：`全球大客户战略地图.md` — 以下竞品为红龙在海外市场的主要竞争对手
+
+### 5. Flexco（美国 — 最大竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 输送带配件制造商（竞品） |
+| 总部 | 伊利诺伊州 Itasca |
+| 成立 | 1907 年 |
+| 营收 | 数亿美元 |
+| 产品 | 输送带接头、清扫器、拉紧件、维护设备 |
+| 覆盖 | 15+ 国家（美、加、墨、智利、巴西、德、英、西、印、中、澳、南非、阿联酋等） |
+| 优势 | 百年品牌、全球分销网络、矿业/农业/回收全行业覆盖 |
+| 劣势 | 价格极高（HOLO 的 3-5 倍）、产品线宽但非设备专精 |
+
+**销售话术：**
+> "Flexco is the gold standard in our industry — we respect them. The reality is they price at a premium for their brand and distribution network. What we offer is the same splice quality at a fraction of the cost, with direct factory support. If you're doing [X] splices per month, switching to HOLO could save you $[Y] annually on equipment alone. Want me to run the numbers?"
+
+### 6. Almex（加拿大 — 北美重型市场竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 硫化机/接头设备制造商（竞品） |
+| 总部 | 安大略省 |
+| 成立 | 1975 年 |
+| 产品 | 输送带硫化机、接头设备 |
+| 覆盖 | 15+ 国家（美、加、墨、智利、秘鲁、西、印、印尼、中、澳、南非、英、德、巴西、哥伦比亚等） |
+| 优势 | 重型矿业市场强势、加拿大品牌信任度 |
+| 劣势 | 交付慢（60-90 天 vs HOLO 15-20 天）、价格高 |
+
+**销售话术：**
+> "Almex makes excellent heavy-duty vulcanizers. Two things to consider: lead time and total cost. They typically need 8-12 weeks for delivery, and their pricing reflects the Canadian manufacturing overhead. We can deliver in 15-20 working days at roughly half the price, with equivalent splice quality. If lead time matters for your project, that's worth discussing."
+
+### 7. ASGCO（美国 — 全方案竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 输送带全套解决方案（竞品） |
+| 总部 | 宾夕法尼亚州 Nazareth |
+| 成立 | 1971 年 |
+| 产品 | 接头、清扫系统、硫化/维护设备、系统服务 |
+| 覆盖 | 10+ 国家（美、加、墨、巴西、秘鲁、智利、南非、中、韩等） |
+| 优势 | 全套解决方案（不只是设备，还有服务和系统） |
+| 劣势 | 价格高、以服务捆绑销售 |
+
+**销售话术：**
+> "ASGCO offers a complete package — equipment plus service. If you already have a maintenance team, you may not need the bundled service model. Our equipment alone delivers the same splice quality, and you can use your own technicians for installation. That flexibility typically saves 30-40% compared to a full-service contract."
+
+### 8. Continental / ContiTech（德国 — 全球巨头）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 输送带+硫化机全系列（竞品/潜在客户） |
+| 总部 | 德国汉诺威 |
+| 成立 | 1871 年 |
+| 营收 | 集团 3,260 亿人民币 |
+| 覆盖 | 40+ 国家，全球最广 |
+| 优势 | 品牌最响、产品线最全、技术最深厚 |
+| 劣势 | 价格极高、非设备专精、响应慢 |
+
+**策略**：ContiTech 既是竞品也是潜在客户。他们的输送带客户都需要接头设备。定位为"ContiTech 输送带的最佳接头方案"而非替代 ContiTech。
+
+**销售话术：**
+> "ContiTech makes world-class conveyor belts. We actually complement them — our splicing presses are designed to work with ContiTech belt materials. Many ContiTech customers use our equipment for in-house belt splicing because it's faster and more cost-effective than outsourcing. Would a compatibility spec sheet be useful?"
+
+### 9. Fenner / Fenner Dunlop（英国/澳大利亚 — 矿业竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 重载输送带+接头设备（竞品） |
+| 总部 | 英国伯明翰 |
+| 成立 | 1861 年 |
+| 产品 | 重载输送带、矿业带、接头与硫化工艺 |
+| 覆盖 | 全球矿业（澳、英、巴西、南非、加、美、智利等） |
+| 优势 | 矿业市场占有率极高、耐磨技术强 |
+| 劣势 | 专注矿业、价格极高 |
+
+### 10. MLT（法国 — 欧洲专业竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 接头设备专业厂（竞品） |
+| 总部 | 法国巴黎 |
+| 成立 | 1945 年 |
+| 产品 | 输送带接头、硫化机、专用接头工具 |
+| 覆盖 | 欧洲为主 |
+| 优势 | 欧洲专业品牌、接头工具品类全 |
+| 劣势 | 产能有限、价格高、欧洲以外覆盖弱 |
+
+**销售话术：**
+> "MLT makes quality splicing tools, particularly for the European market. We've found their production capacity can be a bottleneck during peak seasons — lead times of 8+ weeks are common. We maintain stock and can ship within 3 weeks. If you've experienced delays with MLT orders, we'd be happy to discuss backup supply arrangements."
+
+### 11. Fonmar（西班牙 — 欧洲/拉美竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 硫化机/接头设备（竞品） |
+| 总部 | 西班牙马德里 |
+| 成立 | 1985 年 |
+| 产品 | 多类型输送带硫化机和接头设备 |
+| 覆盖 | 西班牙、欧洲经销网络、拉美分销 |
+| 优势 | 欧洲品牌、拉美分销网络 |
+| 劣势 | 规模较小、产品线窄 |
+
+### 12. Dunlop Conveyor Belting（荷兰 — 矿业竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 采矿/工业输送带+接头设备（竞品） |
+| 总部 | 荷兰哈尔斯特 |
+| 成立 | 1921 年 |
+| 产品 | 采矿/工业输送带与接头设备 |
+| 覆盖 | 全球矿业（南非、澳洲、巴西、智利、加、中等） |
+| 优势 | 矿业品牌历史悠久、耐磨技术强 |
+| 劣势 | 价格极高、专注矿业 |
+
+### 13. Hejatex（德国 — 欧洲竞品）
+
+| 项目 | 信息 |
+|------|------|
+| 类型 | 接头与相关工具（竞品） |
+| 总部 | 德国斯特劳宾 |
+| 成立 | 2002 年 |
+| 产品 | 多类型输送带接头和硫化设备 |
+| 覆盖 | 欧洲与全球分销 |
+| 优势 | 德国制造品质、产品多样 |
+| 劣势 | 品牌知名度低、规模小 |
+
+---
+
+## 三、竞品应对速查表（完整版）
+
+| 客户提到 | 策略 | 核心话术方向 |
+|---------|------|-------------|
+| Flexco | TCO 算账 | "同等接头质量，省 60% 设备成本" |
+| Almex | 交付速度 | "15 天 vs 60 天，项目不等人" |
+| ASGCO | 灵活度 | "你已有维护团队，不需要捆绑服务" |
+| ContiTech | 互补定位 | "我们的设备完美适配 ContiTech 输送带" |
+| Fenner | 非矿业场景 | "矿业之外的场景我们有更灵活的方案" |
+| MLT | 产能和交期 | "旺季不缺货，3 周交付" |
+| Fonmar | 全系列覆盖 | "从 300mm 到 3000mm+，一家搞定" |
+| Dunlop | 定制能力 | "定制规格我们更快更便宜" |
+| Hejatex | 品牌+价格平衡 | "德国品质不用花德国价格" |
+| Beltwin | 原厂直供 | "同源同质，无中间商" |
+| Ferry | 交期+成本 | "省 30-40%，快 8-12 周" |
+| Niichi | 全系列覆盖 | "产品线更全，不只特定应用" |
+
+---
+
 ## 三、市场覆盖地图
 
 ### Beltwin 覆盖的市场（谨慎进入）

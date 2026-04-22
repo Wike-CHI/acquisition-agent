@@ -113,6 +113,8 @@ Skills Router（声明式路由）→ 意图匹配 → 技能选择
 | `acquisition-workflow/references/MULTILANG-KEYWORDS.md` | 多语种词簇库 |
 | `skill://honglong-products` | 产品知识库 |
 | `skill://holo-social-gen` | 社媒图片生成 |
+| `全球大客户战略地图.md` | 全球 9 大区域战略地图、11 家竞品情报、区域优先级 P0-P3 |
+| `competitor-intel.md` | 竞品应对话术库（Flexco/Almex/ContiTech 等） |
 
 ---
 

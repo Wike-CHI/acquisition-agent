@@ -30,6 +30,29 @@
 
 **永远不要免费让步。** 每一次降价、每一个让步，都必须从客户那里换回点什么。
 
+### S6：让步交换条件表
+
+> 每次让步必须明确告诉客户"我给你这个，是因为你给了我那个"。
+
+| 你让出的 | 要求客户换的 | 话术 |
+|---------|-------------|------|
+| 价格降 3% | 预付款从 30% 提到 50% | "If you can do 50% deposit, I can bring the price down 3% — that saves us both on financing." |
+| 价格降 5% | 订单量 +1 台 | "For [X+1] units, I can offer a 5% bundle discount. That's the volume break." |
+| 免费配件/备件包 | 本周确认订单 | "I'll throw in a spare parts kit at no charge if we can confirm by Friday — that lets me bundle it into the shipment." |
+| 延长付款到 60 天 | 接受略高单价 | "60-day payment is doable — it adds about 2% to cover our financing cost. Fair?" |
+| 免费运费到 CIF | 全额预付款 | "CIF is normally extra. If you're comfortable with 100% prepayment, I'll cover the freight." |
+| 降价 + 配件 | 签年度采购框架 | "For a 12-month supply agreement, I can do [X]% off plus priority production slots." |
+
+**让步铁律：**
+
+```
+1. 第一步让步永远最小（条款/配件，不是价格）
+2. 每次让步后暂停，等客户反应
+3. 最后一次让步必须同时要求承诺
+4. 永远不要说"这是我最大的权限"——说"I'd need to get my director's approval"
+5. 降价幅度递减：3% → 2% → 1%，让客户感觉到底线
+```
+
 ### 分步让步法
 
 把可让步的空间分成 3 份，分步给出：

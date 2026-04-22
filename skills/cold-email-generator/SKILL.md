@@ -1,8 +1,7 @@
 ---
 name: cold-email-generator
-version: 2.0.0
-description: "开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9.0分）。"
-always: false
+version: 2.1.0
+description: "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling."
 triggers:
   - 开发信
   - cold email
@@ -12,168 +11,89 @@ triggers:
   - 生成邮件
   - 写开发信
   - 起草邮件
+  - follow up
+  - 跟进邮件
+  - 邮件序列
 ---
 
-# Cold Email Generator v2.0 - 真正打磨流程
+# Cold Email Generator v2.1
 
-根据客户情报自动生成个性化 B2B 开发信，经过AI检测、多轮润色、严格评分，确保每封信都是高质量、去AI味、为该客户量身定制。
+生成个性化 B2B 开发信，经过 AI 检测、多轮润色、严格评分（≥9.0）。
 
 ---
 
-## 🔴 开发信前必须读取 NAS 资料
+## 何时使用 / 何时不使用
 
-> ⚠️ **生成开发信前必须先读取 NAS 上的相关资料**
+### ✅ 使用场景
+- 给新客户写第一封开发信
+- 写跟进邮件（Day 3/7/14）
+- 管理邮件序列（4 步自动跟进）
+- 需要去 AI 味的个性化邮件
 
-### 前置检查流程
+### ❌ 不使用场景
+- 客户已回复且进入谈判 → 用 `inquiry-response`
+- 需要报价 → 用 `smart-quote`
+- 需要背调 → 用 `company-research`
 
-```
-用户请求："给ABC公司发开发信"
-         ↓
-┌─────────────────────────────────────────┐
-│ 1. 挂载NAS（如果未挂载）                 │
-│    net use Y: \\192.168.0.194\home       │
-│              /user:HOLO-AGENT Hl88889999 │
-└─────────────────────────────────────────┘
-         ↓
-┌─────────────────────────────────────────┐
-│ 2. 检查公司档案                          │
-│    读取 Y:\knowledge\companies\ABC.md    │
-│    → 获取公司背景、ICP评分、决策人        │
-└─────────────────────────────────────────┘
-         ↓
-┌─────────────────────────────────────────┐
-│ 3. 读取产品资料（用于个性化）             │
-│    读取 Y:\1.HOLO机器目录\...            │
-│    → 获取产品参数、竞争优势              │
-└─────────────────────────────────────────┘
-         ↓
-┌─────────────────────────────────────────┐
-│ 4. 检查邮件记录                          │
-│    读取 Y:\knowledge\emails\ABC.md      │
-│    → 检查是否已发送过                    │
-└─────────────────────────────────────────┘
-         ↓
-┌─ 已发送过 → 告知："已在X月X日发送过开发信"
-│             询问："是否要重新发送或跟进？"
-│
-└─ 未发送 → 继续生成开发信
-```
+---
 
-### NAS 关键路径
+## 快速参考
 
-```powershell
-# 公司档案
-Y:\knowledge\companies\{公司名-slug}.md
-
-# 邮件记录
-Y:\knowledge\emails\{公司名-slug}.md
-
-# 产品资料
-Y:\1.HOLO机器目录（最终资料存放）\
-
-# 营销宣传资料（Y盘）
-Y:\3..产品图册.产品单页.折页 产品海报\
-Y:\7.企业介绍宣传视频  企业宣传手册\
-Y:\14.展会照片视频海报 素材.邀请函 促销海报节日海报\
-```
-
-### 调用脚本
-
-```powershell
-# 挂载NAS
-net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
-
-# 读取公司档案
-Get-Content "Y:\knowledge\companies\{公司名-slug}.md"
-
-# 读取邮件记录
-Get-Content "Y:\knowledge\emails\{公司名-slug}.md"
-```
+| 你要做的 | 执行 |
+|---------|------|
+| 给新客户写开发信 | ① 检查 NAS 档案 ② 用初稿模板生成 ③ 调用 humanize-ai-text 润色 ④ 评分 ≥9.0 |
+| 写跟进邮件 | 查 `references/email-sequence.md` 对应步次的要素和 CTA 策略 |
+| 客户已回复 | 切换到 `inquiry-response`，不再用本技能 |
+| 需要 NAS 资料 | 查 `references/nas-paths.md` |
 
 ---
 
 ## 核心原则
 
-1. **个性化** - 每封信必须包含客户特定信息（公司名、产品线、近期动态）
-2. **简洁** - 控制在 150 词以内，3-4 段
-3. **价值导向** - 强调客户能获得什么，而非我们卖什么
-4. **文化适配** - 根据目标国家文化调整语气和格式
-5. **去AI味** - 强制调用 `humanize-ai-text` 技能，AI密度 < 2%
+1. **个性化** — 必须包含客户特定信息（公司名、产品线、近期动态）
+2. **简洁** — 150 词以内，3-4 段
+3. **价值导向** — 强调客户获得什么，不是我们卖什么
+4. **文化适配** — 根据目标国家调整语气（查 `cultural-profiles.md`）
+5. **去 AI 味** — 强制调用 `humanize-ai-text`，AI 密度 < 2%
+6. **绝对禁止报价** — 不得出现具体金额（$、¥、€），只能用 "competitive pricing" 等定性描述。报价走 `smart-quote`
 
-## 标准打磨流程（v2.0 强制）
+---
 
-```python
-开发信生成
-  ↓
-第1轮润色
-  ↓
-第1轮评分
-  ↓
-评分 < 9.0分？
-  ├─ 是 → 第2轮润色 → 第2轮评分
-  └─ 否 → 最终版本
+## 核心流程
+
+```
+检查 NAS 档案（references/nas-paths.md）
+       ↓
+未发送 → 初稿生成（下方模板）
+       ↓
+调用 humanize-ai-text 润色（detect → transform → 验证）
+       ↓
+评分 ≥ 9.0？→ 否 → 第2轮润色 → 再评分
+       ↓
+最终版本 → 读取签名（references/nas-paths.md 签名规范）
+       ↓
+发送（email-sender）
 ```
 
-### 第1轮润色（自动）
+## 评分标准
 
-**工具**：`humanize-ai-text` 技能
+| 维度 | 分值 | 标准 |
+|------|------|------|
+| 个性化 | 2.0 | 包含客户特定信息 |
+| 相关性 | 2.0 | 产品匹配度高，解决痛点 |
+| 简洁性 | 2.0 | ≤150 词，≤4 段 |
+| 语法 | 2.0 | 无错误，专业语气 |
+| 去AI味 | 2.0 | AI 密度 < 2% |
 
-**步骤**：
-1. `detect.py`：检测AI模式（16个类别）
-2. `transform.py`：自动修复
-3. 重新检测：确认AI密度下降
+## 输入要求
 
-**AI模式类别**（Wikipedia Signs of AI Writing）：
-- AI词汇（"key", "optimize"等）
-- 填充短语（"furthermore", "additionally"等）
-- 负向平行结构（"not just..., but..."）
-- 过度使用被动语态
-- 过度使用复杂句式
-- ...
+| 必需 | 可选 |
+|------|------|
+| 公司名 + 国家 | 联系人姓名 |
+| 业务范围 | 客户近期动态 |
+| 匹配产品 | 竞品信息 |
 
-### 评分标准（满分10分）
-
-| 维度 | 分值 | 评分标准 |
-|------|------|---------|
-| **个性化程度** | 2.0 | 包含客户特定信息（公司名、产品线、近期动态） |
-| **相关性** | 2.0 | 产品匹配度高，解决客户痛点 |
-| **简洁性** | 2.0 | 字数 ≤ 150词，段落 ≤ 4 |
-| **语法质量** | 2.0 | 无语法错误，专业语气 |
-| **去AI味** | 2.0 | AI密度 < 2%，无明显的AI模式 |
-
-**通过标准**：总分 ≥ 9.0分（满分10分）
-
-### 第2轮润色（手动优化误报）
-
-**触发条件**：
-- 第1轮评分 < 9.0分
-- 或AI检测工具误报（如"key"是"America"子串）
-
-**优化策略**：
-1. 移除误报的AI模式
-2. 简化句子结构
-3. 替换AI词汇为更自然的表达
-4. 检查负向平行结构
-
-### 第2轮评分
-
-使用相同评分标准，总分 ≥ 9.0分才通过。
-
-## 输入信息收集
-
-### 必需输入
-- 客户公司名 + 国家
-- 客户业务范围
-- 匹配的红龙产品
-- ICP 评分等级
-
-### 可选输入
-- 联系人姓名
-- 客户近期动态（收购、扩张等）
-- 竞品信息
-- 特殊文化要求
-
-## 初稿生成模板
+## 初稿模板
 
 ```
 Subject: [个性化主题行]
@@ -184,166 +104,57 @@ Hook: [与客户相关的行业趋势/痛点/近期动态]
 
 Value: [红龙产品如何解决该痛点，1-2句话]
 
-Benefits: [3个要点，每个≤1行]
+Benefits:
 - [利益点1]
 - [利益点2]
 - [利益点3]
 
-CTA: [明确但不过于强硬的行动号召]
+CTA: [从 references/cta-strategies.md 选择，优先选择题钩子 S1]
 
-Signature: [Wike 签名]
+Signature: [从 NAS 签名文件读取]
 ```
 
-## 签名规范（强制）
+## CTA 策略库
 
-所有开发信必须从 `{{SKILL_DATA_DIR}}/.email_signatures.json` 读取签名信息。
+> 详细模板见 `references/cta-strategies.md`
+> 选择题钩子(S1) > 免费价值(S2) > 限时窗口(S3) > 行业定制(S4)
+> ⚠️ CTA 中绝对禁止出现具体金额
 
-**读取命令（PowerShell）：**
-```powershell
-$sig = Get-Content "{{SKILL_DATA_DIR}}/.email_signatures.json" | ConvertFrom-Json
-# 可用字段：$sig.name, $sig.title, $sig.phone, $sig.whatsapp, $sig.email, $sig.website
-```
+## 签名规范
 
-**签名格式模板：**
-```
-Best regards,
-{$sig.name} | {$sig.title}
-HONGLONG Industrial Equipment
-Phone/WhatsApp: {$sig.phone}
-Email: {$sig.email}
-Web: {$sig.website}
-Address: Ruian, Wenzhou, Zhejiang 325200, China
-```
-
-> 若签名文件不存在，提示用户先运行"初始化获客系统"完成签名配置（skill://acquisition-init）。
+从 `../../workspace/operator-config.md` 读取。
+详细配置见 `references/nas-paths.md`。
 
 ## 目标市场文化适配
 
-| 市场 | 语气 | 注意事项 |
-|------|------|----------|
-| 越南 | 友好直接 | 可用 Vietnamese 问候语 |
-| 印度 | 正式商务 | 强调价格优势 |
-| 巴西 | 热情 | 可用 Portuguese 问候 |
-| 马来西亚 | 中等正式 | 注意宗教节日 |
-| 埃及 | 正式 | 注意时差和工作日 |
+详细文化画像见 `inquiry-response/references/cultural-profiles.md`
+
+| 市场 | 语气 | 注意 |
+|------|------|------|
 | 美国/英国 | 专业简洁 | 强调价值和质量 |
-| 德国 | 正式详细 | 强调技术规格和认证 |
+| 德国 | 正式详细 | 强调技术规格 |
+| 巴西 | 热情 | 可用葡萄牙语 |
+| 日本 | 极度礼貌 | 绝不催单 |
 
 ---
 
-## 📧 Email Sequence（自动序列化跟进）
+## 参考文档
 
-> 冷线索邮件触达必须走完 4 步序列。每个节点都有明确状态机管理。
-
-### 4步序列定义
-
-| 步次 | 时间 | 状态标签 | 内容类型 | 目标 |
-|------|------|---------|---------|------|
-| Day 0 | 首日 | `email_sent` | 个性化开场 + 产品亮点 | 建立联系 |
-| Day 3 | 第3天 | `email_followup_1` | 价值型跟进 + 案例 | 提供证明 |
-| Day 7 | 第7天 | `email_followup_2` | 直接诉求 + 具体产品 | 推动响应 |
-| Day 14 | 第14天 | `email_final` | 最终跟进 + 限时理由 | 最后激活 |
-
-### 各步次邮件要素
-
-**Day 0 首封（email_sent）**
-
-```
-Subject: [公司名] — [具体痛点/近期动态]
-Hook: 提及客户公司具体事件（扩展/新品/竞品动态）
-Value: 红龙如何解决该痛点
-Benefits: 3个要点
-CTA: 开放式问题
-```
-
-**Day 3（email_followup_1）**
-
-```
-Subject: Re: [原Subject]
-Hook: "想补充一个案例，[客户同类公司]用了我们的设备后..."
-CTA: "想了解详情可以回复这条消息"
-```
-
-**Day 7（email_followup_2）**
-
-```
-Subject: Re: [原Subject]
-Hook: "我们的XDT2000刚通过CE认证，对[国家]市场很重要"
-CTA: 直接问是否有兴趣
-```
-
-**Day 14 最终（email_final）**
-
-```
-Subject: [公司名] — 最后一次联系
-Hook: "我们的优惠期到[具体日期]，想确认是否还有兴趣"
-CTA: 回复或移入nurture
-```
-
-### 序列管理规则
-
-```
-email_sent
-  → Day 3 无回复 → email_followup_1
-  → Day 7 无回复 → email_followup_2
-  → Day 14 无回复 → nurture，停止序列
-
-收到任何回复 → email_replied → 进入BANT流程
-退信 → 标记 bounced，跳过序列
-举报 spam → 标记 spam，停止接触
-```
-
-### 序列触发条件
-
-- CRM 中客户有 `email` 字段（非 info@）
-- CRM 中客户 `source = cold_lead` 或 `web_discovery`
-- CRM 中客户 `status = new` 且超过 48h 无互动
-- 当前无 `email_sent` / `email_followup_*` 记录
-
-### 给老板的报告格式
-
-```
-[Email Sequence 状态]
-- Day 0 待发送：X 封（今日新客户）
-- Day 3 待发送：X 封（无回复）
-- Day 7 待发送：X 封（无回复）
-- Day 14 最终：X 封（最后激活）
-- 已回复（待处理）：X 封
-- 已 bounce/spam：X 封
-```
+| 文件 | 何时读取 |
+|------|---------|
+| `references/cta-strategies.md` | 写 CTA 时 |
+| `references/email-sequence.md` | 写跟进邮件/管理序列时 |
+| `references/nas-paths.md` | 需要读取/保存资料时 |
 
 ---
 
-## 与获客系统集成
+## 踩坑记录
 
-- `customer-intelligence` → 提供客户背调数据作为输入
-- `honglong-products` → 提供产品匹配信息
-- `humanize-ai-text` → AI检测和润色（强制调用）
-- `acquisition-evaluator` → 验收开发信质量（需≥9.0分）
-- `email-sender` → 发送最终版本
+| 日期 | 问题 | 修复 |
+|------|------|------|
+| 2026-04-22 | AI 幻觉 $2,800 报价（实际 $7,800） | 新增原则 #6 绝对禁止报价 |
+| 2026-04-01 | 评分虚高（10/10 但未调用润色） | 强制调用 humanize-text，评分提升至 ≥9.0 |
 
-## 踩坑经验（2026-04-01）
+---
 
-- **评分虚高问题**：早期版本自我评分10/10但未真正调用润色技能，已修正为强制调用 `humanize-ai-text`
-- **AI检测误报**：检测工具对"key"（"America"子串）和"but"（负向平行结构）存在误报，需人工判断是否真的存在AI模式
-- **润色工具调用**：必须显式调用 `humanize-ai-text` 技能的 `detect.py` 和 `transform.py`，不能只依赖自动引用
-
-## Self-Improving 学习记录
-
-**2026-04-01 - 开发信真正打磨流程**
-
-**What I did**: 发现原有开发信生成流程存在缺陷（自我评分10/10但未真正调用润色技能），重构为标准打磨流程，强制调用 `humanize-ai-text` 进行AI检测和润色，评分标准提升至≥9.0分。
-
-**Outcome**: 成功。重构后的流程真正调用了润色技能，6封开发信平均评分9.97/10，AI密度平均1.04%，全部达标。
-
-**Reflection**:
-1. **流程设计比工具使用更重要**：早期虽然引用了润色技能，但执行流程中未自动触发，导致评分虚高
-2. **评分标准要严格**：提升从≥7.0分到≥9.0分，确保只有高质量的开发信才能通过
-3. **去AI味是必须的**：强制调用AI检测工具，不能只依赖自我评分
-
-**Lesson**:
-1. 开发信生成 = 初稿 + AI检测 + 润色 + 评分 + 优化（直到≥9.0分）
-2. 必须显式调用 `humanize-ai-text` 技能，不能只依赖自动引用
-3. 评分虚高时，要检查流程是否真的执行了所有步骤
-
-**Status**: ✅ 已将新流程写入 SKILL.md v2.0
+_Version: 2.1.0 | 更新: 2026-04-22_

@@ -56,6 +56,19 @@ if (Test-Path "$ws/USER.md") {
     if ($content -notmatch '\$\{OWNER_NAME\}') { $ws_configured = $true }
 }
 
+# 从 workspace operator-config.md 读取签名姓名（优先于 .email_signatures.json）
+$op_cfg = "$ws/operator-config.md"
+if (Test-Path $op_cfg) {
+    $op_content = Get-Content $op_cfg -Raw
+    if ($op_content -match '未设置') {
+        # workspace 未配置，继续用旧文件
+    } else {
+        $ws_identity_ok = $true
+        # 提取姓名用于显示
+        if ($op_content -match '\| 姓名 \| ([^|]+) \|') { $sig_name = $Matches[1].Trim() }
+    }
+}
+
 # 检测 NAS 是否已挂载
 $nas_mounted = Test-Path "Y:\"
 
@@ -89,7 +102,7 @@ if (Test-Path "$wb\.email_signatures.json") {
 [NAS凭据]    若 $nas_cred  为 true → 显示 ✅ NAS凭据已配置    否则显示 ⚠️ NAS凭据未配置
 [特易凭据]   若 $teyi_cred 为 true → 显示 ✅ 特易凭据已配置   否则显示 ⚠️ 特易凭据未配置
 [邮箱配置]   若 $email_cfg 为 true → 显示 ✅ 邮箱配置已完成   否则显示 ⚠️ 邮箱配置未完成
-[邮件签名]   若 $signature 为 true → 显示 ✅ 邮件签名已配置   否则显示 ⚠️ 邮件签名未配置
+[邮件签名]   若 $ws_identity_ok 为 true → 显示 ✅ 业务员身份已配置   否则若 $signature 为 true → 显示 ✅ 邮件签名已配置(旧格式)   否则显示 ⚠️ 业务员身份未配置
 [工作台配置] 若 $ws_configured 为 true → 显示 ✅ 工作台配置已生成 否则显示 ⚠️ 工作台配置未生成
 [NAS挂载]    若 $nas_mounted 为 true → 显示 ✅ NAS已挂载(Y:) 否则显示 ⚠️ NAS未挂载
 ```

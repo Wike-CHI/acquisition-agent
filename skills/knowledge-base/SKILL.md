@@ -311,14 +311,13 @@ exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -N
 |------|-----|
 | IP | `192.168.0.194` |
 | Agent账号 | `HOLO-AGENT` |
-| Agent密码 | `Hl88889999` |
 | 共享路径 | `\\192.168.0.194\home` |
 | 知识库目录 | `\\192.168.0.194\home\knowledge` |
 
 ### 挂载命令
 
 ```powershell
-net use K: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
+net use K: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ---

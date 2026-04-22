@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-20",
+  "updatedAt": "2026-04-22",
   "categories": [
     {
       "id": "automation",
@@ -82,7 +82,7 @@
           "id": "global-customer-acquisition",
           "name": "global-customer-acquisition",
           "description": "HOLO智能获客Agent核心入口 - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。",
-          "hash": "ef3f3bb12b567627c5cd9d69d873d7877e6848b31d591302cff1d0a52cfcf3c5"
+          "hash": "e7bdc986ae5e75e95aff1ab3eac0d7b240559a13d689a10c64e16a4a649e3deb"
         },
         {
           "id": "sales-pipeline-tracker",
@@ -109,7 +109,7 @@
           "id": "holo-heartbeat-executor",
           "name": "holo-heartbeat-executor",
           "description": "|",
-          "hash": "afcc68ae2f280c969d171cb5d87401abccc5d09195af59724b303d6321202026"
+          "hash": "e11b2936ac3c047598fc2fe21e8d549771c8e04cd33f32912bffb3d114056aec"
         },
         {
           "id": "holo-updater",
@@ -127,7 +127,7 @@
           "id": "honglong-products",
           "name": "honglong-products",
           "description": "红龙(HOLO)工业皮带设备产品知识库。优先读取技能本地结构化文档，NAS原始文件作为兜底权威来源，支持产品型号查询、技术参数、BOM、选型建议等。",
-          "hash": "c4ef996a90a47f759e031a100d36b3aae873c5ba008b6df207093a0ab59a12db"
+          "hash": "172f65cbc2cbcbd1a53e2ecf3bd796c8d72f69b6172f82d1b40b4e9e2c3a6164"
         },
         {
           "id": "teyi-customs",
@@ -192,8 +192,8 @@
         {
           "id": "cold-email-generator",
           "name": "cold-email-generator",
-          "description": "开发信生成技能v2.0 - 真正打磨流程。根据客户背景、产品匹配度、目标市场文化，生成高质量、个性化的 B2B 开发信。支持AI检测、多轮润色、严格评分（≥9.0分）。",
-          "hash": "d771ebdb64afe57da2e2eaebc4decd8e00374b7f8ce81fb4f613a51621f7c7cb"
+          "description": "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling.",
+          "hash": "28a392884402ee84e16239b90838e9575c67697264fb9789111a1c0bca091891"
         },
         {
           "id": "email-inbox",
@@ -205,7 +205,7 @@
           "id": "email-sender",
           "name": "email-sender",
           "description": "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能。",
-          "hash": "c17e892db42207927b3cd096736b482e08165cb0c161a08be636cd1f8a97e637"
+          "hash": "923302a8bd260442f54e382b8ddd50bc80e7790e49bb48f5634babcfae5b1f72"
         }
       ]
     },
@@ -225,8 +225,8 @@
         {
           "id": "knowledge-base",
           "name": "knowledge-base",
-          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。",
-          "hash": "7acb47474f51ed6861d1561c9a4ef33af30aef1cacea5128d194f04523cdf6de"
+          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！",
+          "hash": "262a06e2006ab70a8fb1ceaca9df7131bba830ce69d562ee51c3db0f3ad923ac"
         },
         {
           "id": "smart-memory",
@@ -289,6 +289,12 @@
           "hash": "0795a8997a849ba9437664e4919eeba9fbbaf43a4ac6aa8ae13d1307270de3d4"
         },
         {
+          "id": "humanize-ai-text",
+          "name": "humanize-ai-text",
+          "description": "AI文本拟人化技能 — 检测并转化AI生成文本为自然人性化的表达，降低AI检测率至2%以下。冷邮件开发信必经流程。",
+          "hash": "1f2de98cc832601a70c1ced3825ef399aba16235c3693802429c65eb98b47191"
+        },
+        {
           "id": "inquiry-response",
           "name": "inquiry-response",
           "description": ">",
@@ -346,13 +352,13 @@
           "id": "company-research",
           "name": "company-research",
           "description": "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。",
-          "hash": "b71c2d990ec91425d9d880ba2aded082dc94a6725dd44efa9b3cfbbd1bae4035"
+          "hash": "333d5961f0eb617791526a82e0dc38100f81b3a6889ed6a8f37fd27972bef27a"
         },
         {
           "id": "customer-intelligence",
           "name": "customer-intelligence",
           "description": "客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。",
-          "hash": "ef4e4a6fdb916f05f66e177c31a62675ba2b2fdb5178abd68f74ef999dad46ed"
+          "hash": "50341a9f5415025591edfe0bb5e00b848a7b03fb5e24bd8295903480f33aadca"
         },
         {
           "id": "deep-research",
@@ -370,7 +376,7 @@
           "id": "market-research",
           "name": "market-research",
           "description": "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。六维度市场分析框架：市场规模、市场增长、市场细分、竞争格局、客户画像、进入策略。",
-          "hash": "b7ec66bcb49d5f7a0637820e836e3e7a99d9ac6e3dcadbf3bcd972c1f5665b59"
+          "hash": "1cdbc5c874681d1df02cf731f371b410890384e0d38914eb5b7c96c0a832351e"
         }
       ]
     },
@@ -493,7 +499,7 @@
           "id": "acquisition-init",
           "name": "acquisition-init",
           "description": "获客系统初始化引导 v2.1。首次使用时引导用户配置凭据、生成工作台配置、挂载NAS、测试邮箱、安装依赖。当用户说\"初始化获客系统\"、\"开始使用获客系统\"、\"一键安装依赖\"时触发。",
-          "hash": "d0d8dfd23627c41d4c251feb23208fe37b352b2bd031cddec0ac1a39aa461a2b"
+          "hash": "77c44cc57ee55f5505d652f63ba4d9d5b18abc5e14c24018bb38ab4045d761fe"
         },
         {
           "id": "acquisition-workflow",

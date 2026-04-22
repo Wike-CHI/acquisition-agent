@@ -90,10 +90,10 @@ Channel(11), Status(12), Notes(13)
 
 ```powershell
 # NAS 共享盘（公司资料）
-net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
+net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 
 # 报价资料盘
-net use W: \\192.168.0.194\公司报价资料 /user:HOLO-AGENT Hl88889999
+net use W: \\192.168.0.194\公司报价资料 /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ## 13项检查执行顺序

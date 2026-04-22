@@ -4,7 +4,6 @@
 
 - Node.js 18+ (for /tmp/sender.mjs)
 - Python 3.10+ (for skills)
-- Windows WSL2 + Wike's Hermes Agent
 - NAS: \\192.168.0.194 (not yet mounted)
 
 ## 技能开发规范

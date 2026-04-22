@@ -144,7 +144,7 @@ Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\referenc
 Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\INDEX.md"
 
 # ★ 查不到时 → 第二步：挂载NAS读原始文件
-net use Y: \\192.168.0.194\home /user:HOLO-AGENT Hl88889999
+net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 
 # 查看产品目录
 Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）" -Depth 2

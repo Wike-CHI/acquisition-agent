@@ -556,7 +556,7 @@ powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -
 |------|------|------|
 | 邮箱配置 | `{{SKILL_DATA_DIR}}/.email_config.json` | SMTP配置（加密） |
 | 发送日志 | `{{SKILL_DATA_DIR}}/email_logs/` | 发送记录 |
-| 签名配置 | `{{SKILL_DATA_DIR}}/.email_signatures.json` | 签名模板 |
+| 签名配置 | `../../workspace/operator-config.md` | 业务员身份信息，见 `cold-email-generator/references/nas-paths.md` |
 
 > **迁移说明**：旧路径（`.openclaw/` 下同名文件）已废弃。如检测到旧路径文件存在且新路径不存在，自动复制到新路径。
 

@@ -6,10 +6,10 @@ param(
     [string]$Query
 )
 
-# NAS配置
+# NAS配置（凭证从环境变量读取，不要硬编码！）
 $NAS_IP = "192.168.0.194"
-$NAS_USER = "HOLO-AGENT"
-$NAS_PASS = "Hl88889999"
+$NAS_USER = if ($env:NAS_USER) { $env:NAS_USER } else { "HOLO-AGENT" }
+$NAS_PASS = if ($env:NAS_PASSWORD) { $env:NAS_PASSWORD } else { "" }
 $DriveLetter = "K:"
 $basePath = "$DriveLetter\knowledge"
 

@@ -188,7 +188,7 @@ external_skills:
 
 **NAS配置信息**:
 - 主NAS地址: 192.168.0.194
-- 用户: HOLO / 密码: Hl88889999
+- 用户: HOLO / 密码: ${env.NAS_PASSWORD}
 - 共享目录: 市场营销
 - 映射盘符: Y:
 - 产品资料: Y:\1.HOLO机器目录\

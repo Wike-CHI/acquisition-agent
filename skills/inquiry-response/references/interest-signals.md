@@ -208,6 +208,86 @@ When would be a good time to reconnect?
 
 ---
 
+## 营销推进策略（v1.0）
+
+> 从 interest-signals 识别到购买信号后，用以下策略加速推进。
+
+### S4：区域社会证明
+
+**原理**：同区域/同行业的真实案例比任何形容词都有说服力。
+
+**适用条件**：该区域确实已有红龙客户（查 NAS 客户档案或 CRM 记录）。
+
+**⚠️ 禁止编造客户名**：如果没有该区域的真实客户记录，不要使用此策略。
+
+**模板 1 — 同州案例**
+```
+We're already working with [X] belting companies in [State].
+Their feedback has been consistent: faster splicing, less downtime.
+Happy to connect you with one of them if you'd like a reference.
+```
+
+**模板 2 — 同行业案例**
+```
+Several [industry] distributors in your region have switched to our
+presses in the past year. The common feedback? Setup time cut in half
+compared to their previous equipment.
+```
+
+**模板 3 — 出货数据证明**
+```
+We've shipped [X]+ units to [country/region] this year.
+Zero warranty claims so far — that's a number I'm proud of.
+```
+
+### S5：ROI 算账
+
+**原理**：美国/德国等市场的客户是算账型的，用数字代替形容词。
+
+**⚠️ 数字必须有依据**：基于真实产品参数和合理的行业数据推算，禁止凭空编造。
+
+**模板 1 — 人工成本回本**
+```
+Here's a quick calculation that might help with your internal discussion:
+
+- Average belt splice by outside service: $[X] per joint
+- In-house with our press: $[X] per joint (materials only)
+- Savings per splice: $[X]
+- If you do [Y] splices per month, the press pays for itself
+  in about [Z] months on labor savings alone.
+
+Want me to put this into a one-page cost comparison for your team?
+```
+
+**模板 2 — 停机成本**
+```
+One unplanned belt failure typically costs [industry estimate] in
+downtime and emergency repair. Our press lets your team do preventive
+splicing in-house during scheduled maintenance windows, which
+eliminates the emergency call entirely.
+```
+
+### S3：限时窗口（询盘阶段）
+
+**原理**：报价有效期是真实的商业惯例，用于推动犹豫客户做决定。
+
+**模板 1 — 报价有效期**
+```
+This quotation is valid for 5 business days (through [date]).
+Material costs have been fluctuating, so I can't guarantee this
+pricing beyond that window without re-confirmation.
+```
+
+**模板 2 — 产能窗口**
+```
+I want to be upfront: our production lead for this model is currently
+[X] weeks. I have a slot opening in [week/month], but it's first
+come first served. If you'd like to move forward, confirming by
+[date] would secure that slot.
+```
+
+---
+
 ## 快速推进技巧
 
 ### 技巧1：假设成交
