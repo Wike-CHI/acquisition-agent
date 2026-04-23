@@ -6,11 +6,14 @@
 
 - [开发者指南](developer-guide.md) — 环境搭建、调试、技能开发规范
 - [故障排查](troubleshooting.md) — 常见问题与解决方案
+- [代码风格指南](code-style-guide.md) — holo-agent 前端代码规范（命名、组件、Store、样式）
+- [Chat 模式审查报告](chat-mode-review.md) — Chat 页面架构剖析、流式状态机、审查发现
+- [Agent 技能更新指南](agent-skill-update-guide.md) — 技能创建/修改/同步/归档全流程
 
 ## 系统架构
 
 ```
-skills/          82个技能（业务逻辑）
+skills/          84个技能（业务逻辑）
   holo-*         红龙定制技能
   acquisition-*  获客编排技能
   cold-email-*   开发信技能

@@ -2,33 +2,72 @@
 
 > 温州红龙工业设备制造有限公司 — AI 智能 B2B 获客技能集群
 
-**版本：** v3.0.0 · [CHANGELOG](CHANGELOG.md)
+**版本：** v4.0.0 · [CHANGELOG](CHANGELOG.md)
 
 ---
 
 ## 目录结构
 
 ```
-~/.hermes/skills/acquisition/
-├── skills/          82个技能（路由系统索引）
-├── archive/         33个已归档技能
-├── deploy/          部署脚本 + CLI工具链
-├── workspace/       ← 本地路径，仓库中为根目录文件
-│   AGENTS.md        AI SDR Pipeline（10阶段）
-│   HEARTBEAT.md     自动巡检（13项）
-│   MEMORY.md        持久化记忆
-│   ROUTING-TABLE.yaml   技能路由（74条）
-│   SKILLS-MANIFEST.yaml 技能分类目录
-│   NEW-STRUCTURE.md     结构说明
-├── examples/        行业场景（建目录，内容待填）
-├── product-kb/       产品知识库（NAS挂载后填入）
-├── docs/internal/    内部文档
-└── local/           Windows特定工具（turix-win）
+acquisition-agent/
+├── skills/              84个活跃技能
+├── archive/             33个已归档技能
+├── workspace/           工作空间模板
+│   ├── AGENTS.template.md       AI SDR Pipeline（10阶段）
+│   ├── HEARTBEAT.template.md    自动巡检（13项）
+│   ├── IDENTITY.template.md     公司身份
+│   ├── MEMORY.template.md       持久化记忆
+│   ├── SOUL.template.md         AI 灵魂/人格
+│   ├── USER.template.md         用户画像
+│   ├── TOOLS.template.md        工具配置
+│   ├── ROUTING-TABLE.yaml       技能路由（74条）
+│   ├── SKILLS-MANIFEST.yaml     技能分类目录
+│   └── operator-config.template.md  操作员配置
+├── product-kb/          产品知识库
+├── docs/                内部文档
+├── examples/            行业场景
+├── local/               Windows特定工具
+└── deploy/              部署脚本
 
-# 仓库中 workspace/ 文件直接在根目录
+# 注意：skills/config/ 是内部配置目录，不是技能
 ```
 
-> **参考模板：** [iPythoning/b2b-sdr-agent-template](https://github.com/iPythoning/b2b-sdr-agent-template)
+---
+
+## 安装方式
+
+### 方式一：集成到 HOLO Agent（推荐）
+
+acquisition-agent 作为 HOLO Agent 的内置技能库，通过以下方式集成：
+
+1. **打包阶段**：`holo-agent/scripts/bundle-acquisition-skills.mjs`
+   - 从 GitHub 拉取 `skills/`、`workspace/`、`product-kb/`
+   - 打包到 `holo-agent/build/acquisition-skills/`
+   - electron-builder 打包时放入 `resources/`
+
+2. **运行时阶段**：`holo-agent/electron/utils/acquisition-skills.ts`
+   - 启动时同步技能到 `~/.openclaw/skills/market/`
+   - 基于 SHA-256 hash 增量同步
+   - workspace 模板同步到 `~/.openclaw/workspace/`
+
+```
+holo-agent/build/acquisition-skills/
+    ├── skills/           → ~/.openclaw/skills/market/
+    ├── workspace-templates/ → ~/.openclaw/workspace/
+    └── product-kb/       → ~/.openclaw/product-kb/
+```
+
+### 方式二：独立部署
+
+```bash
+# 克隆到本地
+git clone https://github.com/Wike-CHI/acquisition-agent.git \
+  ~/acquisition-agent
+
+# 安装技能（独立使用）
+cd ~/acquisition-agent
+./deploy/scripts/install-skills.sh
+```
 
 ---
 
@@ -96,7 +135,7 @@
     → 邮件序列 → 多渠道编排
 ```
 
-详见 [AGENTS.md](AGENTS.md)
+详见 [AGENTS.md](workspace/AGENTS.template.md)
 
 ---
 
@@ -127,25 +166,9 @@
 
 ---
 
-## 快速部署
-
-```bash
-# 克隆
-git clone https://github.com/Wike-CHI/acquisition-agent.git \
-  ~/.hermes/skills/acquisition
-
-# 同步到GitHub
-pwsh deploy/scripts/sync-to-github.ps1
-
-# 查看Pipeline手册
-cat AGENTS.md
-```
-
----
-
 ## 技术栈
 
-**框架** Hermes Agent（OpenClaw）技能集群
+**框架** OpenClaw Agent 技能集群
 **语言** Python + Node.js + PowerShell
 **存储** SQLite/supermemory 向量库 + CSV/JSON
 **通信** 163邮箱 · WhatsApp · Telegram · LinkedIn
@@ -155,6 +178,7 @@ cat AGENTS.md
 
 ## 版本
 
+- **v4.0.0** (2026-04-22) — 重构为 HOLO Agent 内置技能库
 - **v3.0.0** (2026-04-17) — 目录结构重构
 - **v2.6.0** (2026-04-14) — P0+P1+P2全面升级
 - [完整变更记录](CHANGELOG.md)

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-22",
+  "updatedAt": "2026-04-23",
   "categories": [
     {
       "id": "automation",
@@ -82,7 +82,7 @@
           "id": "global-customer-acquisition",
           "name": "global-customer-acquisition",
           "description": "HOLO智能获客Agent核心入口 - 客户发现、背调、开发信、智能报价、社媒运营、Pipeline管理、市场拓展。",
-          "hash": "e7bdc986ae5e75e95aff1ab3eac0d7b240559a13d689a10c64e16a4a649e3deb"
+          "hash": "4b4d7f2d10bf903de547d7646ce8ba3431112a50f62d40ac5885b67c3ad516a7"
         },
         {
           "id": "sales-pipeline-tracker",
@@ -121,7 +121,7 @@
           "id": "honglong-assistant",
           "name": "honglong-assistant",
           "description": "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。",
-          "hash": "6e9a4b6e66b9abaec1e68824977a905e5487f00dea696b79ad9049c2733ab24d"
+          "hash": "2a128ce394b50f93678efa6858060079da9a8f6a4a8aa32d163f7397fdc47380"
         },
         {
           "id": "honglong-products",
@@ -352,7 +352,7 @@
           "id": "company-research",
           "name": "company-research",
           "description": "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。",
-          "hash": "333d5961f0eb617791526a82e0dc38100f81b3a6889ed6a8f37fd27972bef27a"
+          "hash": "6220d7e88e6b6f029a468732661b1d57e15247794001d3efa17a2733b837ed00"
         },
         {
           "id": "customer-intelligence",
@@ -475,7 +475,7 @@
           "id": "acquisition-coordinator",
           "name": "acquisition-coordinator",
           "description": "获客任务协调器。负责拆解复杂获客任务、读取子技能SKILL.md并按步骤执行、整合结果。当用户请求：(1) 完整获客流程 (2) 批量背调 (3) 并行搜索 (4) 多步骤获客任务 时使用此技能。",
-          "hash": "6a5912ba1f3a9b7220b8bd61a32ccd9d1ca08da14897a900f0d4a73288734d10"
+          "hash": "5c84831314be376787408fbf8e7a3d3978ceb9b0b3f700cdae16f5fc1298b9c4"
         },
         {
           "id": "acquisition-dependencies",
@@ -505,7 +505,7 @@
           "id": "acquisition-workflow",
           "name": "acquisition-workflow",
           "description": "获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。",
-          "hash": "0e0584953630ed76813788c411036638e452f9bb08bb5031bb7a196405bda398"
+          "hash": "26805d2db2b12f9e2c7f0dae536961057a38318f40506da1f730ead275e520a0"
         },
         {
           "id": "bash-patch-safe",

@@ -157,4 +157,21 @@ Signature: [从 NAS 签名文件读取]
 
 ---
 
-_Version: 2.1.0 | 更新: 2026-04-22_
+_Version: 2.1.0 | 更新: 2026-04-23_
+
+---
+
+## 交互式卡片输出（A2UI）
+
+生成邮件草稿后，在 Markdown 内容末尾附加 A2UI 邮件预览卡片。
+
+**参考文件**：`references/a2ui-output-guide.md`（读取此文件获取完整格式说明）
+
+**输出规则：**
+1. 先输出 Markdown 格式的邮件内容
+2. 在末尾附加 ```` ```a2ui ``` 卡片，包含：
+   - 收件人邮箱（Text 组件）
+   - 邮件主题（Text 组件）
+   - 邮件正文摘要（Text 组件）
+   - "发送此邮件"按钮（action: `send_email`，context 含 to/subject/body）
+3. surfaceId 格式：`email-{客户域名关键词}-{序号}`
