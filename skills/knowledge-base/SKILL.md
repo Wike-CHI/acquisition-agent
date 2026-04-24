@@ -1,7 +1,7 @@
 ---
 name: knowledge-base
-version: "1.1.0"
-description: 团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！
+version: "1.2.0"
+description: 团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！NAS目标：K:\knowledge\（\\192.168.0.194\home）。被 company-research/cold-email-generator/smart-quote 调用。
 triggers:
   - 知识库
   - 查一下

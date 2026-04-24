@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-23",
+  "updatedAt": "2026-04-24",
   "categories": [
     {
       "id": "automation",
@@ -193,7 +193,7 @@
           "id": "cold-email-generator",
           "name": "cold-email-generator",
           "description": "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling.",
-          "hash": "28a392884402ee84e16239b90838e9575c67697264fb9789111a1c0bca091891"
+          "hash": "79ecd4423e0324dcd0bc867f6b67bbc10ca079a8848450ea3ae013678459b9c7"
         },
         {
           "id": "email-inbox",
@@ -225,8 +225,8 @@
         {
           "id": "knowledge-base",
           "name": "knowledge-base",
-          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！",
-          "hash": "262a06e2006ab70a8fb1ceaca9df7131bba830ce69d562ee51c3db0f3ad923ac"
+          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！NAS目标：K:\\knowledge\\（\\\\192.168.0.194\\home）。被 company-research/cold-email-generator/smart-quote 调用。",
+          "hash": "806ab2089edd53fbecf8960725d410fa358dba36004744d11d8065e333963346"
         },
         {
           "id": "smart-memory",
@@ -337,7 +337,7 @@
           "id": "smart-quote",
           "name": "smart-quote",
           "description": "|",
-          "hash": "cdf2b1852de2ad69aad36a5ab29f3afb22b246f5551f2f6b715064044820aab9"
+          "hash": "e0777447a1b06304df166f8aeb9a5371199897eba58a6d6a1b5552217e4c3593"
         }
       ]
     },
@@ -352,7 +352,7 @@
           "id": "company-research",
           "name": "company-research",
           "description": "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。",
-          "hash": "6220d7e88e6b6f029a468732661b1d57e15247794001d3efa17a2733b837ed00"
+          "hash": "0732024a0c40177e4b89352821209b9b171b469a955b09b805900c3808c2d102"
         },
         {
           "id": "customer-intelligence",

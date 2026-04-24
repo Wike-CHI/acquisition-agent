@@ -1,6 +1,6 @@
 ---
 name: company-research
-version: 3.0.0
+version: 3.1.0
 description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。"
 metadata: {"openclaw":{"requires":{"bins":["mcporter"]}}}
 allowed-tools: Bash
@@ -14,11 +14,51 @@ triggers:
   - background check
 ---
 
-# 海外B2B企业背景调查 v3.0
+# 海外B2B企业背景调查 v3.1
 
 红龙获客系统的海外客户企业背调工具。输入企业名称（英文），自动搜索公开信息并输出结构化背调报告。
 
+> v3.1 变更：修复 NAS 保存路径；NAS 挂载失败时强制降级存本地并告知用户；脚本路径修正为相对于知识库根目录。
 > v3.0 变更：搜索工具从 agent-browser 切换为 Exa MCP（mcporter），不再依赖浏览器。
+
+---
+
+## 前置条件：NAS 凭据配置（首次使用必须）
+
+知识库脚本需要 NAS 访问凭据，**仅需配置一次**：
+
+```powershell
+# 创建凭据文件（只需运行一次，IP 已写死为 192.168.0.194）
+$cred = Get-Credential -Message "输入 NAS 登录账号（格式: 用户名 或 域名\用户名）"
+$cred | Select-Object -ExpandProperty UserName | Out-File "$env:USERPROFILE\.openclaw\.nas_credentials" -Encoding UTF8
+$pass = $cred.Password | ConvertFrom-SecureString
+@{User=$cred.UserName; Pass=$pass} | ConvertTo-Json | Out-File "$env:USERPROFILE\.openclaw\.nas_credentials" -Encoding UTF8
+```
+
+或者手动创建 `C:\Users\你的用户名\.openclaw\.nas_credentials`，内容为：
+```json
+{"User":"你的NAS账号","Pass":"加密密码（由上面脚本生成）"}
+```
+
+> 技能执行时会自动尝试挂载 K: 盘指向 `\\192.168.0.194\home`，无需手动挂载。
+
+---
+
+## 执行流程（强制顺序）
+
+```
+输入：公司名
+       ↓
+[Step 1] 读知识库 — 检查是否已有档案
+       ↓
+[Step 2] 执行背调 — 搜索 + 生成报告
+       ↓
+[Step 3] 保存知识库（必须）— NAS 或本地降级
+       ↓
+[Step 4] 输出报告 + A2UI 卡片
+```
+
+**禁止跳过 Step 3。** 无论 NAS 是否可用，背调结果必须存入知识库。
 
 ## 搜索工具
 
@@ -292,137 +332,48 @@ mcporter call exa.web_search_exa 'query="{company}" jobs procurement OR buyer OR
 
 ---
 
-## 四、知识库钩子（自动保存）
-
-背调完成后自动保存到 NAS 知识库，全员复用。
-
-### 4.1 工作流程
-
-```
-输入：公司名
-       ↓
-[钩子1] 检查知识库 → 存在？
-       ├── 是 → 读取档案 → 返回"已有档案" + 显示摘要
-       │         ↓ 更新 research_count++
-       └── 否 → 执行背调 → 生成报告
-                   ↓
-       [钩子2] 保存到知识库 → 返回报告 + "已入库"
-```
-
-### 4.2 脚本调用
+### Step 1：读知识库（背调前必须）
 
 ```powershell
-# 背调前：检查是否已有档案
-.\scripts\read-knowledge.ps1 -Type company -Name "{公司名}"
+# 脚本位于 knowledge-base 技能目录
+# 工作目录：acquisition-agent/skills/knowledge-base/scripts/
 
-# 背调后：保存到知识库
-.\scripts\write-knowledge.ps1 -Type company -Name "{公司名}" -Content $report
+# 检查是否已有档案（存在则跳过背调，直接返回摘要）
+.\read-knowledge.ps1 -Type company -Name "{公司名}"
+
+# 返回 {exists: true} → 已有档案，显示摘要 + research_count++
+# 返回 {exists: false} → 无档案，继续执行背调
 ```
 
-### 4.3 触发时机
+**注意**：脚本路径是相对于 `knowledge-base/scripts/` 目录，不是 `company-research/scripts/`。
 
-| 阶段 | 动作 |
-|------|------|
-| **背调前** | 先调用 `read-knowledge` 检查已有档案 |
-| **背调后** | 调用 `write-knowledge` 保存报告 |
-| **返回报告时** | 提示"已保存到知识库" |
+### Step 3：保存知识库（背调后必须）
 
-### 4.4 知识库档案格式
+```powershell
+# 背调完成后必须调用，路径同上
+.\write-knowledge.ps1 -Type company -Name "{公司名}" -Content $report -DriveLetter K:
 
-保存时使用以下 Markdown 格式（与 360 度 6+6 框架对齐）：
-
-```markdown
----
-title: {公司名}
-status: researched
-icp_score: {评分}
-icp_grade: {等级}
-last_researcher: {设备ID}
-last_research_time: {时间戳}
-research_count: 1
-created_time: {时间戳}
----
-
-# {公司名}
-
-**状态**: ✅ 已调查
-**ICP评分**: {评分}/100 ({等级}级)
-**最后调查**: {时间}
-**调查次数**: 1
-
----
-
-## 企业层面
-
-| 维度 | 信息 |
-|------|------|
-| 性质 | {制造商/贸易商/经销商} |
-| 总部 | {地址} |
-| 行业 | {行业} |
-| 规模 | {员工数} |
-| 网站 | {网站} |
-| 产品范围 | {主要产品线} |
-
-### 采购分析
-
-| 维度 | 信息 |
-|------|------|
-| 现有供应商 | {列表} |
-| 对中国供应商态度 | {积极/中立/负面} |
-| 进出口活跃度 | {高/中/低} |
-
-### 风险评估
-
-| 维度 | 评估 |
-|------|------|
-| 财务状况 | {健康/一般/风险} |
-| 付款信用 | {良好/一般/差} |
-
----
-
-## 决策人层面
-
-| 姓名 | 职位 | 是否KP | LinkedIn |
-|------|------|--------|----------|
-| {姓名} | {职位} | {是/否} | {完整URL} |
-
-### 沟通建议
-
-| 维度 | 建议 |
-|------|------|
-| 主力渠道 | {Email/WhatsApp/电话} |
-| 跟进频率 | {每X天} |
-| 语气风格 | {直接/正式/关系导向} |
-
----
-
-## ICP匹配度
-
-| 维度 | 得分 |
-|------|------|
-| 行业匹配度 | {}/20 |
-| 采购能力 | {}/20 |
-| 采购频率 | {}/20 |
-| 客户类型 | {}/15 |
-| 决策周期 | {}/15 |
-| 决策人联系 | {}/10 |
-| **总计** | **{总分}/100 ({等级})** |
-
-## 推荐触达产品
-
-| 产品 | 匹配理由 |
-|------|---------|
-| {产品名} | {理由} |
-
-## 开发历史
-
-| 日期 | 动作 | 结果 |
-|------|------|------|
-| {日期} | 背调 | 完成 |
-
-## 备注
-
+# 成功 → 返回 {success: true, path: "K:\knowledge\companies\{slug}.md"}
+# 失败 → 返回 {success: false, error: "NAS mount failed"}
 ```
+
+#### 降级逻辑（NAS 不可用时强制执行）
+
+NAS 挂载失败的降级路径：
+
+```powershell
+# 如果 K: 盘不存在或 NAS 凭据缺失，自动降级存本地
+$localPath = "$env:USERPROFILE\.openclaw\workspace-agents\acquisition-agent\knowledge\companies\{slug}.md"
+New-Item -ItemType Directory -Path (Split-Path $localPath) -Force | Out-Null
+$report | Out-File -FilePath $localPath -Encoding UTF8
+
+# 输出时必须告知用户：
+# "⚠️ NAS 暂不可用，档案已暂存本地（$localPath），请手动同步到共享盘"
+```
+
+**禁止静默跳过。** NAS 失败时必须降级存本地并明确告知用户。
+
+> 档案格式由 `write-knowledge.ps1` 脚本自动生成，包含 frontmatter 元数据（icp_score、icp_grade、research_count 等），无需手动拼装。
 
 ---
 

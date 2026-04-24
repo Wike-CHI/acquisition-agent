@@ -1,5 +1,105 @@
 # TOOLS.md — 红龙获客系统工具配置
 
+---
+
+## A2UI 交互式卡片（重要）
+
+### 什么是 A2UI
+
+A2UI 是一种**声明式 UI 协议**。在聊天回复末尾嵌入 ```a2ui 代码块，前端会自动提取并渲染为可交互的 UI 组件（客户卡片、按钮、邮件预览等）。
+
+**不要**用 `write` 工具生成 HTML 文件，不要写入 canvas 文档系统，不要用 exec 生成文件。**只输出文本中的 ```a2ui 块**。
+
+### 基本格式
+
+在 Markdown 正文后，按顺序输出以下两个块：
+
+```a2ui
+{"beginRendering":{"surfaceId":"唯一ID","catalogId":"basic"}}
+```
+
+```a2ui
+{"surfaceUpdate":{"surfaceId":"唯一ID","components":[
+  {"id":"组件ID","component":{"Text":{"text":"显示的文本"}}},
+  {"id":"按钮ID","component":{"Button":{"text":"按钮文字","action":{"type":"动作类型","context":{}}}}}
+]}}
+```
+
+### surfaceId 命名规则
+
+`{技能缩写}-{客户名或场景}-{日期}`，例如：
+- `cr-bando-2026` — company-research 坂东背调
+- `eq-acme-2026` — cold-email-generator 开发信
+- `sq-hl200-2026` — smart-quote 报价
+
+### 组件类型
+
+#### Text（文本）
+
+```json
+{"id":"name","component":{"Text":{"text":"🏢 坂东化学 Bando"}}}
+```
+
+#### Button（按钮）
+
+```json
+{"id":"send_btn","component":{"Button":{"text":"📧 发送开发信","action":{"type":"send_email","context":{"to":"kouhou@bandogrp.com","subject":"Partnership Inquiry"}}}}}
+```
+
+**可用动作类型：**
+- `send_email` — context: `{to, subject, body}`
+- `send_whatsapp` — context: `{phone, message}`
+- `openUrl` — context: `{url}`
+- `copy_text` — context: `{text}`
+- `generate_quote` — context: `{company, product, quantity}`
+
+### 完整示例（客户背调）
+
+在 Markdown 报告后输出：
+
+```a2ui
+{"beginRendering":{"surfaceId":"cr-bando-2026","catalogId":"basic"}}
+```
+
+```a2ui
+{"surfaceUpdate":{"surfaceId":"cr-bando-2026","components":[
+  {"id":"name","component":{"Text":{"text":"🏢 坂东化学 Bando Chemical · ICP 38/100（C级）"}}},
+  {"id":"info","component":{"Text":{"text":"东京证交所: 5195.T · 年营收 ~$717M · 全球约4,000人"}}},
+  {"id":"decision","component":{"Text":{"text":"关键决策人: 高宫晃(社长) · 河野彰(董事/采购)"}}},
+  {"id":"send","component":{"Button":{"text":"📧 发送日文开发信","action":{"type":"send_email","context":{"to":"kouhou@bandogrp.com","subject":"阪東化学×紅龍工业  협력사 문의"}}}}}},
+  {"id":"quote","component":{"Button":{"text":"💰 生成报价","action":{"type":"generate_quote","context":{"company":"坂东化学","product":"全自动包装机","quantity":"待确认"}}}}}
+]}}
+```
+
+### 规则
+
+1. **先 Markdown 后 A2UI** — 文字报告在前，交互卡片在后
+2. **beginRendering 和 surfaceUpdate 缺一不可**
+3. **surfaceId 必须唯一**
+4. **按钮动作必须有 context**，不要传空对象
+5. **不要在 A2UI 中透露精确利润率**，用范围代替（如 15%-20%）
+6. **不要用 write/exec 生成 HTML/文件**，这不是 A2UI 的用法
+7. **不要写入 canvas 文档系统**，A2UI 是聊天内嵌，不是独立文档
+
+### 完整示例（邮件草稿）
+
+```a2ui
+{"beginRendering":{"surfaceId":"eq-acme-2026","catalogId":"basic"}}
+```
+
+```a2ui
+{"surfaceUpdate":{"surfaceId":"eq-acme-2026","components":[
+  {"id":"subject","component":{"Text":{"text":"Subject: Partnership Opportunity - HongLong Industrial Equipment"}}},
+  {"id":"preview","component":{"Text":{"text":"Dear John,\n\nWe specialize in... (邮件正文摘要)"}}},
+  {"id":"send","component":{"Button":{"text":"📤 发送此邮件","action":{"type":"send_email","context":{"to":"john@acme.com","subject":"Partnership Opportunity - HongLong Industrial Equipment"}}}}},
+  {"id":"copy","component":{"Button":{"text":"📋 复制邮件内容","action":{"type":"copy_text","context":{"text":"Dear John..."}}}}}
+]}}
+```
+
+---
+
+
+
 ## 邮件发送（163邮箱 SMTP）
 
 ### 配置
