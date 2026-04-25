@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-24",
+  "updatedAt": "2026-04-25",
   "categories": [
     {
       "id": "automation",
@@ -99,6 +99,12 @@
       "icon": "Wrench",
       "description": "红龙/HOLO 定制化技能",
       "skills": [
+        {
+          "id": "fumamx-update",
+          "name": "fumamx-update",
+          "description": "Fumamx CRM 客户更新与培育流程自动化 — 更新已有客户信息、添加到培育序列。Feature Flag: FUMAMX_ENABLE_UPDATE=true 时启用。",
+          "hash": "a87c8d55100821e7ef498a8ca9131a5ae02742f06af0fedd152f08b3e5e6aa09"
+        },
         {
           "id": "holo-activity-log",
           "name": "holo-activity-log",
