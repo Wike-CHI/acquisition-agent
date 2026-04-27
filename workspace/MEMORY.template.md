@@ -1,49 +1,18 @@
 # MEMORY.md — 红龙获客系统 4层防遗忘记忆协议
 
 > 红龙获客系统的记忆架构，确保跨会话客户信息永不丢失。
-> 基于 B2B-SDR template 的 ANTI-AMNESIA.md 改造，适配红龙业务场景。
+> 基于 B2B-SDR template v2026.4.24 MEMORY.md 改造，适配红龙业务场景。
+> 最后更新：2026-04-27
 
 ---
 
-> ⚠️ **当前状态（2026-04-17）**：L1/L3/L4 记忆服务均未运行。
-> L1 MemOS: 未配置 API Key
-> L3 ChromaDB: 服务未启动（端口 8000 DOWN）
-> L4 Supermemory: 服务未启动（端口 8080 DOWN）
-> **临时方案**：所有关键记忆写入 MEMORY.md 本身 + 文件系统备份。
-> **等 ${OWNER_NAME} 配置 NAS 挂载后切换到持久化方案。**
-
----
-
-## 用户自定义铁律存储区（最高优先级）
-
-> ${OWNER_DISPLAY_NAME} 设立的规则存储在这里。每次会话开始时必须首先读取此区域。
-
-```json
-{
-  "rule_version": "2026-04-17",
-  "source": "${OWNER_DISPLAY_NAME}",
-  "rules": [
-    {
-      "id": "R1",
-      "priority": "HARD",
-      "rule": "NAS公盘（\\\\192.168.0.194）只读，禁止修改、删除、新建任何文件",
-      "enforced_since": "2026-04-17",
-      "test_status": "PENDING"
-    },
-    {
-      "id": "R2",
-      "priority": "HARD",
-      "rule": "新建任务不得违背公盘只读规则",
-      "enforced_since": "2026-04-17",
-      "test_status": "PENDING"
-    }
-  ],
-  "notes": "这两条铁律在SOUL.md铁律执行协议中也有记录。两处保持同步。"
-}
-```
-
-> 后续 ${OWNER_NAME} 新增规则时，在此区域追加，格式保持一致。
-> 每次规则变更后，同步更新 SOUL.md 的铁律注册表。
+> ⚠️ **架构说明**：本文件定义 4 层防遗忘记忆架构的设计规范。
+> **当前部署状态（2026-04-27）**：尚未部署持久化记忆服务。
+> L1 MemOS: 依赖外部 API Key，需 owner 配置
+> L3 ChromaDB: 本地服务需手动启动（chroma run --port 8000）
+> L4 Supermemory: 本地服务需手动启动
+> **当前实际运行模式**：依赖 OpenClaw Active Memory 插件 + MEMORY.md 文件系统记录。
+> **owner 可按需逐一启用各层服务。**
 
 ---
 
@@ -51,15 +20,45 @@
 
 ```
 消息进入
-  → L0 Active Memory sub-agent（可选，OpenClaw v2026.4.10+）
-  → L1 MemOS 结构化记忆（对话开始自动注入）
-  → L2 双阈值压缩（50%后台保存 / 65%全文压缩）
-  → L3 ChromaDB 向量存储（每轮对话永久存档）
+  → L0 Active Memory sub-agent（可选，OpenClaw v2026.4.10+，在主回复前自动搜索记忆）
+  → L1 MemOS 结构化记忆（对话开始自动注入，对话结束自动捕获）
+  → L2 双阈值压缩（50% 后台保存 → 65% 全文压缩）
+  → L3 ChromaDB 向量存储（每轮对话永久存档，customer_id 隔离 + 自动打标）
   → L4 CRM 每日快照（12:00 灾难恢复）
-  → L5 MEMORY.md 本地持久化（临时兜底，Wike确认前的主要备份）
 ```
 
-**当前运行层级：L5（MEMORY.md）+ L2（Hermes Agent 内置压缩）**
+| 层级 | 引擎 | 机制 | 你的动作 |
+|------|------|------|---------|
+| **L0: Active Memory** | OpenClaw 可选子 Agent | 在主回复前自动搜索记忆，注入相关上下文。支持 message/recent/full 三种模式 | 设置 `mode: recent` 用于 SDR |
+| **L1: MemOS** | 结构化记忆 | 对话开始自动注入过往记忆，对话结束自动捕获 BANT/承诺/异议 | 读取它给你的内容 |
+| **L2: Proactive Summary** | 双阈值监控 | **50%**：后台非阻塞保存关键事实到 ChromaDB。**65%**：haiku 级模型全文压缩，数字/报价/承诺零丢失 | 超过 20 轮时在回复中嵌入关键数据摘要 |
+| **L3: ChromaDB** | 每轮存储 | 每轮对话存储，customer_id 隔离 + 自动打标。检索用 recency-weighted 排序 | 触达前用 `chroma:search`，回复客户引用历史前用 `chroma:recall` |
+| **L4: CRM Snapshot** | 每日备份 | 12:00 每日 Pipeline 快照存 ChromaDB，作为灾难恢复 | 无需手动操作 |
+
+---
+
+## 回退链（当某层不可用时）
+
+| 故障层 | 降级行为 |
+|--------|---------|
+| **L1 MemOS 故障** | 读 CRM 获取客户上下文 + `chroma:recall` 获取最近对话。通知 owner："MemOS 不可用，以 CRM + ChromaDB 运行" |
+| **L3 ChromaDB 故障** | 继续对话，使用 L1 MemOS 数据。临时用 Supermemory（`memory:add`）存研究资料。通知 owner："ChromaDB 不可用" |
+| **L1 + L3 同时故障** | 以 CRM 为唯一数据源。返回客户可简要询问："上次我们聊到哪了？" 通知 owner |
+| **Supermemory 故障** | 跳过研究资料存储，直接用 CRM notes。继续用 CRM + ChromaDB |
+| **全部故障** | 无状态模式运行。立即通知 owner。每次交互前读 CRM |
+
+---
+
+## 操作规则（每次对话）
+
+1. **对话开始**：读取 L1 MemOS 记忆快照。自然引用上次话题以保持连续性
+2. **触达前**：`chroma:search` + `memory:search` 召回客户历史和研究资料
+3. **每轮结束**：L3 自动存储 turn。在脑中提取 BANT 变化、新承诺、新异议
+4. **研究后**：`memory:add` 将发现存入 Supermemory（公司情报、竞品数据）
+5. **超过 20 轮**：在回复中嵌入简短关键数据摘要（防止 L2 压缩丢失）
+6. **客户引用历史**：先 `chroma:search` + `memory:search` 再回复
+7. **7 天以上未联系的返回客户**：`chroma:recall <customer_id>` 获取完整历史
+8. **永远不说"抱歉我不记得了"**：用 `memory:search` 或 `chroma:search`，或者说 "let me check my notes"
 
 ---
 
@@ -274,6 +273,9 @@ chroma:recall "{{customer_id}}" --limit 10
 
 # 按话题检索（找某个具体讨论）
 chroma:search "交期谈判" --customer "{{customer_id}}" --limit 3
+
+# 展开被压缩的 turn 查看原文
+chroma:expand <turn_id>
 ```
 
 ---
@@ -315,17 +317,51 @@ chroma:search "交期谈判" --customer "{{customer_id}}" --limit 3
 
 ---
 
-## 降级策略
+## 记忆优先级矩阵
 
-某层记忆不可用时的处理：
+| 信息类型 | L1 MemOS | L2 压缩 | L3 ChromaDB | L4 CRM | 保留期限 |
+|---------|----------|---------|-------------|--------|---------|
+| 客户 BANT / 承诺 | 自动捕获 | 原文保留 | 每轮存储 | — | 永久 |
+| 报价 / 定价讨论 | 自动捕获 | 原文保留 | 自动打标 `has_quote` | — | 永久 |
+| 客户异议 | 自动捕获 | 原文保留 | 自动打标 `has_objection` | — | 永久 |
+| 公司调研 / 竞品情报 | — | — | — | — | 永久（Supermemory） |
+| 有效话术 / 模式 | — | — | — | — | 永久（Supermemory） |
+| 市场信号 / 趋势 | — | — | — | — | 30 天（Supermemory） |
+| Pipeline 状态 | — | — | — | 每日快照 | 永久 |
+| 原始对话轮次 | — | 压缩 | 全文存储 | — | 永久（ChromaDB） |
 
-| 故障层 | 降级行为 |
-|--------|---------|
-| L1 MemOS 故障 | 读 CRM 获取基本信息 + `chroma:recall` 获取最近对话，通知 owner |
-| L3 ChromaDB 故障 | 继续对话，使用 MemOS 数据，临时用 Supermemory 存研究资料 |
-| L1 + L3 同时故障 | 以 CRM 为唯一数据源，询问客户简要回顾 |
-| Supermemory 故障 | 跳过研究资料存储，直接用 CRM notes |
-| 全部故障 | 通知 owner，告知系统处于降级模式 |
+---
+
+## 跨会话连续性规则
+
+1. **永不冷启动**：如果 MemOS 注入了记忆，自然引用它（"上次我们聊到 X…"）
+2. **追踪所有承诺**：己方和客户的都追踪。己方过期的 → 先道歉再补救。客户过期的 → 礼貌提醒
+3. **检测返回客户**：CRM 有历史交互记录 → `chroma:recall` 后再回复
+4. **交接保护**：会话结束前确保 CRM 已更新 + 关键研究已存 Supermemory
+5. **每周记忆卫生**：周一 HEARTBEAT → `memory:stats` + `chroma:stats`。归档过期市场信号（>30天）
+
+---
+
+## 监控指标
+
+### 健康检查项（HEARTBEAT 第11项）
+
+| 指标 | 正常范围 | 告警 |
+|------|---------|------|
+| Supermemory 总数 | 100-500 | >500 建议归档旧 market_signal |
+| Supermemory customer_fact 数 | >0 | =0 则研究未存储 |
+| ChromaDB 总 turn 数 | — | 24h 无新增 turn → L3 可能未捕获 |
+| ChromaDB 覆盖客户数 | 与 CRM active 数一致 | 差距 >30% → 部分客户未覆盖 |
+| L4 快照天数 | 连续 >0 | 缺失 >2 天 → 备份异常 |
+
+### 验证清单（4项测试场景）
+
+| 场景 | 测试方法 | 预期结果 |
+|------|---------|---------|
+| 1. 新客户首次对话 | 创建空白 customer_session → BANT 逐轮捕获 | MemOS 正确初始化，每轮后 BANT 字段更新 |
+| 2. 返回客户（7天+） | `chroma:recall <id>` → 恢复上下文 | 检索到完整历史对话和上次话题 |
+| 3. 报价谈判中途压缩 | 超过 20 轮 → L2 触发 65% 压缩 | 报价数字/承诺/异议原文保留，寒暄压缩 |
+| 4. 灾难恢复 | 模拟 L1+L3 全部不可用 | 回退到 CRM 数据，通知 owner，继续服务 |
 
 ---
 
@@ -334,30 +370,17 @@ chroma:search "交期谈判" --customer "{{customer_id}}" --limit 3
 | 命令 | 用途 |
 |------|------|
 | `memory:add "[内容]" --type customer_fact` | 存研究资料到 Supermemory |
-| `memory:search "[关键词]"` | 搜索 Supermemory |
+| `memory:add "[内容]" --type competitor_intel` | 存竞品情报 |
+| `memory:add "[内容]" --type effective_tactic` | 存有效话术 |
+| `memory:search "[关键词]" --limit 5` | 搜索 Supermemory |
+| `memory:list --type customer_fact` | 列出指定类型记忆 |
 | `memory:stats` | 查看 Supermemory 统计 |
-| `chroma:store` | 存储对话轮次（自动触发）|
-| `chroma:search "[查询]" --customer "[id]"` | 语义搜索对话 |
-| `chroma:recall "[customer_id]"` | 获取客户完整历史 |
+| `chroma:store --customer "[id]" --turn N --user "..." --agent "..." --stage [stage] --topic [topic]` | 手动存储对话轮次 |
+| `chroma:search "[查询]" --customer "[id]" --limit 5` | 语义搜索对话 |
+| `chroma:recall "[customer_id]" --limit 10` | 获取客户完整历史 |
+| `chroma:expand <turn_id>` | 查看被压缩 turn 的原文 |
 | `chroma:snapshot` | 执行 L4 CRM 快照 |
 | `chroma:stats` | 查看 ChromaDB 统计 |
-
----
-
-## L1 MemOS 配置
-
-```yaml
-environment_variables:
-  MEMOS_API_KEY: "<从 MemOS Dashboard 获取>"
-  MEMOS_NAMESPACE: "holo_acquisition"
-  CHROMA_COLLECTION: "holo_conversation_history"
-  TOKEN_THRESHOLD: 0.65
-```
-
-MemOS 接入方式：
-- Dashboard: https://memos-dashboard.openmem.net
-- API: https://api.openmem.net/v1
-- 免费额度可用
 
 ---
 
@@ -370,3 +393,9 @@ MemOS 接入方式：
 | `honglong-assistant` | 定义何时读取/写入记忆 |
 | `inquiry-response` | 读取 L1 BANT 数据决定回复策略 |
 | `follow-up-signal-monitor` | 依赖 L1 `last_contact` 和 `next_followup_date` |
+| `smart-memory` | L1 MemOS 补充（智能记忆管理） |
+| `humanoid-memory` | L1 MemOS 拟人化记忆表达 |
+
+---
+
+*基于 OpenClaw v2026.4.24 · B2B-SDR Template MEMORY.md 同步 · 红龙工业设备定制版*

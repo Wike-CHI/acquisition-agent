@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-25",
+  "updatedAt": "2026-04-27",
   "categories": [
     {
       "id": "automation",
@@ -293,6 +293,12 @@
           "name": "data-automation-service",
           "description": "數據處理同自動化 Workflow 服務",
           "hash": "0795a8997a849ba9437664e4919eeba9fbbaf43a4ac6aa8ae13d1307270de3d4"
+        },
+        {
+          "id": "hot-monitor",
+          "name": "hot-monitor",
+          "description": ">",
+          "hash": "82bd008043595bac8e4e8b0f9d6c55e29d138e18b6e9bcb2d804b921d429e614"
         },
         {
           "id": "humanize-ai-text",

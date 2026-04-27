@@ -502,6 +502,18 @@ iron_rules:
   description: 使用skill://协议引用技能
   stage: all
   blocking: false
+- id: quotation_lock_rule
+  description: 客户问价必须锁对话等审批，不能直接给数字
+  stage: phase_3
+  blocking: true
+- id: auth_matrix_rule
+  description: 超出授权矩阵必须升级，不擅自决定价格/条款
+  stage: phase_4
+  blocking: true
+- id: whatsapp_72h_rule
+  description: WhatsApp 72h窗口外禁止主动推送，切换至Email/Telegram
+  stage: phase_4
+  blocking: true
 skills_index:
   sdr-training-ground:
     path: skill://sdr-training-ground
@@ -828,7 +840,7 @@ skills_index:
     path: skill://skill-system-audit
     description: 技能系统自动审计，交叉引用错误+路由损坏检测
     category: agent
-    trigger: ''
+    trigger: '审计技能系统/交叉引用检查'
   supermemory:
     path: skill://supermemory
     description: 增强记忆引擎。LanceDB向量存储，非对话类知识管理，跨会话记忆持续性。
@@ -838,7 +850,7 @@ skills_index:
     path: skill://web-access
     description: web-access v2.4.3 - 联网工具自动选择+CDP浏览器操作+并行分治+站点经验积累
     category: tools
-    trigger: ''
+    trigger: '联网/网页/浏览器自动化'
   web-content-fetcher:
     path: skill://web-content-fetcher
     description: 网页内容获取。r.jina.ai/markdown.new等替代方案，绕过反爬获取网页内容。

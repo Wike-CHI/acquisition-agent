@@ -12,7 +12,7 @@ orchestration:
     desc: 初始化引导。配置凭据/挂载NAS/测试邮箱。
     trigger: 初始化/开始使用/配置
   acquisition-workflow:
-    desc: 获客流程规范。定义12步标准流程、质量检查点、输出格式。
+    desc: 获客流程规范。定义10步标准流程、质量检查点、输出格式。
     trigger: 流程是什么/规范/怎么做
   acquisition-development-notes:
     desc: HOLO获客系统开发笔记。记录技能开发踩坑经验/已知bug/工作流规范，经验性知识非流程性。
@@ -228,7 +228,7 @@ special:
     desc: 发布管理v3.2.0。双模式：ZIP打包+GitHub仓库同步。发布新版本时使用。
     trigger: 发布/打包/GitHub
   holo-heartbeat-executor:
-    desc: HEARTBEAT执行器v1.0。执行Pipeline自动巡检13项检查，cron定时任务触发。
+    desc: HEARTBEAT执行器v1.0。执行Pipeline自动巡检14项检查，cron定时任务触发。
     trigger: 执行HEARTBEAT检查/Pipeline巡检
   holo-updater:
     desc: 从GitHub拉取HOLO-AGENT最新版本。一键更新获客系统。
@@ -257,7 +257,7 @@ memory:
     desc: 类脑记忆系统。V-score记忆整合+Ebbinghaus遗忘曲线模拟，智能记忆 consolidation。
     trigger: 记忆管理/遗忘曲线/V-score
 summary:
-  total_active: 83
+  total_active: 84
   total_archived: 33
   groups: 13
   layers:

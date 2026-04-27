@@ -1,0 +1,496 @@
+{
+  "version": "1.0",
+  "_note": "此 JSON 目录与 honglong-products 技能 (`skills/honglong-products/`) 中的产品数据同源。honglong-products 是主数据源（含完整话术、选型指南），catalog.json 是结构化子集（含编码、规格、交期），供 generate-pi.js 及其他自动化工具使用。修改产品数据时需同步更新两者。",
+  "company": "温州红龙工业设备制造有限公司",
+  "company_en": "Wenzhou Honglong Industrial Equipment Manufacturing Co., Ltd.",
+  "last_updated": "2026-04-27",
+  "categories": [
+    {
+      "id": "cat-air-cooling",
+      "name": "风冷机系列",
+      "name_en": "Air Cooling Belt Splice Press",
+      "products": [
+        {
+          "id": "a2flj300",
+          "name": "二代风冷机 300mm",
+          "model": "PA300",
+          "code": "A2FLJ300-00-00",
+          "description": "工业皮带风冷硫化机，适用于 300mm 宽度皮带接驳",
+          "specs": { "width": "300mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 15,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj600",
+          "name": "二代风冷机 600mm",
+          "model": "PA600",
+          "code": "A2FLJ600-00-00",
+          "description": "工业皮带风冷硫化机，适用于 600mm 宽度皮带接驳",
+          "specs": { "width": "600mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 15,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj900",
+          "name": "二代风冷机 900mm",
+          "model": "PA900",
+          "code": "A2FLJ900-00-00",
+          "description": "工业皮带风冷硫化机，适用于 900mm 宽度皮带接驳",
+          "specs": { "width": "900mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 15,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj1200",
+          "name": "二代风冷机 1200mm",
+          "model": "PA1200",
+          "code": "A2FLJ1200-00-00",
+          "description": "工业皮带风冷硫化机，适用于 1200mm 宽度皮带接驳",
+          "specs": { "width": "1200mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 15,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj1500",
+          "name": "二代风冷机 1500mm",
+          "model": "PA1500",
+          "code": "A2FLJ1500-00-00",
+          "description": "工业皮带风冷硫化机，适用于 1500mm 宽度皮带接驳",
+          "specs": { "width": "1500mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 15,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj1800",
+          "name": "二代风冷机 1800mm",
+          "model": "PA1800",
+          "code": "A2FLJ1800-00-00",
+          "description": "工业皮带风冷硫化机，适用于 1800mm 宽度皮带接驳",
+          "specs": { "width": "1800mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 20,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2flj2100",
+          "name": "二代风冷机 2100mm",
+          "model": "PA2100",
+          "code": "A2FLJ2100-00-00",
+          "description": "工业皮带风冷硫化机，适用于 2100mm 宽度皮带接驳",
+          "specs": { "width": "2100mm", "series": "二代 A2", "type": "风冷" },
+          "moq": 1,
+          "lead_time_days": 20,
+          "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-air-cooling-gen3",
+      "name": "三代/四代风冷机系列",
+      "name_en": "Gen 3/4 Air Cooling Press",
+      "products": [
+        {
+          "id": "a3flj1200",
+          "name": "三代风冷机 1200mm",
+          "model": "PA1200-3",
+          "code": "A3FLJ1200-00-00",
+          "description": "三代升级风冷硫化机，效率提升",
+          "specs": { "width": "1200mm", "series": "三代 A3", "type": "风冷" },
+          "moq": 1, "lead_time_days": 15, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a3flj2100",
+          "name": "三代风冷机 2100mm",
+          "model": "PA2100-3",
+          "code": "A3FLJ2100-00-00",
+          "description": "三代升级风冷硫化机 2100mm",
+          "specs": { "width": "2100mm", "series": "三代 A3", "type": "风冷" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "c3flj2400",
+          "name": "三代箱体风冷机 2400mm",
+          "model": "PA2400-3H",
+          "code": "C3FLJ2400-00-00",
+          "description": "箱体式三代风冷硫化机，大规格工业皮带接驳",
+          "specs": { "width": "2400mm", "series": "三代箱体 C3", "type": "风冷箱体" },
+          "moq": 1, "lead_time_days": 25, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "c3flj3000",
+          "name": "三代箱体风冷机 3000mm",
+          "model": "PA3000-3H",
+          "code": "C3FLJ3000-00-00",
+          "description": "箱体式三代风冷硫化机 3000mm",
+          "specs": { "width": "3000mm", "series": "三代箱体 C3", "type": "风冷箱体" },
+          "moq": 1, "lead_time_days": 30, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "c3flj3600",
+          "name": "三代箱体风冷机 3600mm",
+          "model": "PA3600-3H",
+          "code": "C3FLJ3600-00-00",
+          "description": "箱体式三代风冷硫化机 3600mm",
+          "specs": { "width": "3600mm", "series": "三代箱体 C3", "type": "风冷箱体" },
+          "moq": 1, "lead_time_days": 35, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a4flj1800",
+          "name": "四代风冷机 1800mm",
+          "model": "PA1800-4",
+          "code": "A4FLJ1800-00-00",
+          "description": "四代最新风冷硫化机 1800mm",
+          "specs": { "width": "1800mm", "series": "四代 A4", "type": "风冷" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a4flj2400",
+          "name": "四代风冷机 2400mm",
+          "model": "PA2400-4",
+          "code": "A4FLJ2400-00-00",
+          "description": "四代最新风冷硫化机 2400mm",
+          "specs": { "width": "2400mm", "series": "四代 A4", "type": "风冷" },
+          "moq": 1, "lead_time_days": 25, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-water-cooling",
+      "name": "水冷机系列",
+      "name_en": "Water Cooling Belt Splice Press",
+      "products": [
+        {
+          "id": "a1slj600",
+          "name": "不锈钢水冷机 600X160mm",
+          "model": "WS600X160",
+          "code": "A1SLJ600X160-00-00",
+          "description": "不锈钢机身工业皮带水冷硫化机",
+          "specs": { "width": "600mm", "body": "不锈钢", "type": "水冷" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1slj900",
+          "name": "不锈钢水冷机 900X160mm",
+          "model": "WS900X160",
+          "code": "A1SLJ900X160-00-00",
+          "description": "不锈钢机身工业皮带水冷硫化机",
+          "specs": { "width": "900mm", "body": "不锈钢", "type": "水冷" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1slj1300",
+          "name": "不锈钢水冷机 1300X150mm",
+          "model": "WS1300X150",
+          "code": "A1SLJ1300X150-00-00",
+          "description": "不锈钢机身工业皮带水冷硫化机",
+          "specs": { "width": "1300mm", "body": "不锈钢", "type": "水冷" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1slj2100",
+          "name": "井字型水冷机 2100X150mm",
+          "model": "WS2100X150",
+          "code": "A1SLJ2100X150-00-00",
+          "description": "井字型机身工业皮带水冷硫化机，适合大规格皮带",
+          "specs": { "width": "2100mm", "body": "井字型", "type": "水冷" },
+          "moq": 1, "lead_time_days": 25, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1slj3200",
+          "name": "井字型水冷机 3200X150mm",
+          "model": "WS3200X150",
+          "code": "A1SLJ3200X150-00-00",
+          "description": "井字型机身工业皮带水冷硫化机",
+          "specs": { "width": "3200mm", "body": "井字型", "type": "水冷" },
+          "moq": 1, "lead_time_days": 30, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1slj4200",
+          "name": "井字型水冷机 4200X150mm",
+          "model": "WS4200X150",
+          "code": "A1SLJ4200X150-00-00",
+          "description": "井字型机身大型工业皮带水冷硫化机",
+          "specs": { "width": "4200mm", "body": "井字型", "type": "水冷" },
+          "moq": 1, "lead_time_days": 40, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-punching",
+      "name": "打齿机系列",
+      "name_en": "Finger Punching Machine",
+      "products": [
+        {
+          "id": "a1dcj300",
+          "name": "手动打齿机 300mm",
+          "model": "FP300",
+          "code": "A1DCJ300-00-00",
+          "description": "手动工业皮带打齿机，用于皮带接头打齿加工",
+          "specs": { "width": "300mm", "series": "手动 A1", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1dcj600",
+          "name": "手动打齿机 600mm",
+          "model": "FP600",
+          "code": "A1DCJ600-00-00",
+          "description": "手动工业皮带打齿机 600mm",
+          "specs": { "width": "600mm", "series": "手动 A1", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1dcj1000",
+          "name": "手动打齿机 1000mm",
+          "model": "FP1000",
+          "code": "A1DCJ1000-00-00",
+          "description": "手动工业皮带打齿机 1000mm",
+          "specs": { "width": "1000mm", "series": "手动 A1", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 12, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1dcj1500",
+          "name": "手动打齿机 1500mm",
+          "model": "FP1500",
+          "code": "A1DCJ1500-00-00",
+          "description": "手动工业皮带打齿机 1500mm",
+          "specs": { "width": "1500mm", "series": "手动 A1", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 15, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "c2dcj1000",
+          "name": "进口自动打齿机 1000mm",
+          "model": "TB1000",
+          "code": "C2DCJ1000-00-00",
+          "description": "进口自动打齿机，高精度齿形加工",
+          "specs": { "width": "1000mm", "series": "进口自动 C2", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 30, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "c2dcj3000",
+          "name": "进口自动打齿机 3000mm",
+          "model": "TB3000",
+          "code": "C2DCJ3000-00-00",
+          "description": "大型进口自动打齿机 3000mm",
+          "specs": { "width": "3000mm", "series": "进口自动 C2", "type": "打齿机" },
+          "moq": 1, "lead_time_days": 45, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-cutting",
+      "name": "裁切机系列",
+      "name_en": "Belt Cutting Machine",
+      "products": [
+        {
+          "id": "a3cqj1500",
+          "name": "轴落刀裁切机 1500mm",
+          "model": "BC1500",
+          "code": "A3CQJ1500-00-00",
+          "description": "轴落刀工业皮带裁切机",
+          "specs": { "width": "1500mm", "type": "裁切机" },
+          "moq": 1, "lead_time_days": 15, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a3cqj3200",
+          "name": "轴落刀裁切机 3200mm",
+          "model": "BC3200",
+          "code": "A3CQJ3200-00-00",
+          "description": "大型轴落刀工业皮带裁切机",
+          "specs": { "width": "3200mm", "type": "裁切机" },
+          "moq": 1, "lead_time_days": 25, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a3cqj3500",
+          "name": "轴落刀裁切机 3500mm",
+          "model": "BC3500",
+          "code": "A3CQJ3500-00-00",
+          "description": "超大型轴落刀工业皮带裁切机",
+          "specs": { "width": "3500mm", "type": "裁切机" },
+          "moq": 1, "lead_time_days": 30, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2fqj1200",
+          "name": "电蜗环切机 1200mm",
+          "model": "RC1200",
+          "code": "A2FQJ1200-00-00B",
+          "description": "电蜗环切机，用于环带分条切割",
+          "specs": { "width": "1200mm", "voltage": "三相220V", "type": "环切机" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-splitter",
+      "name": "分层机系列",
+      "name_en": "Belt Splitting Machine",
+      "products": [
+        {
+          "id": "a1fcj220",
+          "name": "欧式分层机 220mm",
+          "model": "BS220",
+          "code": "A1FCJ220-00-00",
+          "description": "欧式工业皮带分层机，用于皮带厚度分层加工",
+          "specs": { "width": "220mm", "type": "分层机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1fcj380",
+          "name": "欧式分层机 380mm",
+          "model": "BS380",
+          "code": "A1FCJ380-00-00",
+          "description": "欧式工业皮带分层机 380mm",
+          "specs": { "width": "380mm", "type": "分层机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a2fcj130",
+          "name": "美式分层机 130mm",
+          "model": "BS130",
+          "code": "A2FCJ130-00-00",
+          "description": "美式工业皮带分层机",
+          "specs": { "width": "130mm", "type": "分层机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-guide",
+      "name": "导条机系列",
+      "name_en": "Guide Bar Welding Machine",
+      "products": [
+        {
+          "id": "b1xdt1300",
+          "name": "悬臂式多功能导条机 1300mm",
+          "model": "GW1300",
+          "code": "B1XDT1300-00-00",
+          "description": "悬臂式多功能导条机，适用于裙边/导条焊接",
+          "specs": { "width": "1300mm", "voltage": "三相380V", "type": "导条机" },
+          "moq": 1, "lead_time_days": 15, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "b1xdt2000",
+          "name": "悬臂式多功能导条机 2000mm",
+          "model": "GW2000",
+          "code": "B1XDT2000-00-00",
+          "description": "悬臂式多功能导条机 2000mm",
+          "specs": { "width": "2000mm", "voltage": "三相380V", "type": "导条机" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    },
+    {
+      "id": "cat-other",
+      "name": "其他设备",
+      "name_en": "Other Equipment",
+      "products": [
+        {
+          "id": "a1gkj600",
+          "name": "钢扣机 600mm",
+          "model": "SC600",
+          "code": "A1GKJ600-00-00",
+          "description": "工业皮带钢扣机，用于皮带接头钢扣安装",
+          "specs": { "width": "600mm", "type": "钢扣机" },
+          "moq": 1, "lead_time_days": 7, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1gkj1200",
+          "name": "钢扣机 1200mm",
+          "model": "SC1200",
+          "code": "A1GKJ1200-00-00",
+          "description": "工业皮带钢扣机 1200mm",
+          "specs": { "width": "1200mm", "type": "钢扣机" },
+          "moq": 1, "lead_time_days": 10, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a5fbj1500",
+          "name": "封边机 1500mm",
+          "model": "ES1500",
+          "code": "A5FBJ1500-00-00",
+          "description": "工业皮带封边机",
+          "specs": { "width": "1500mm", "type": "封边机" },
+          "moq": 1, "lead_time_days": 15, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        },
+        {
+          "id": "a1pjj1000",
+          "name": "欧式易洁带碰接机 1000mm",
+          "model": "PD1000H",
+          "code": "A1PJJ1000-00-00",
+          "description": "进口欧式易洁带碰接机",
+          "specs": { "width": "1000mm", "type": "碰接机" },
+          "moq": 1, "lead_time_days": 20, "certifications": ["CE"],
+          "target_markets": ["Southeast Asia", "Middle East", "Africa", "Latin America"]
+        }
+      ]
+    }
+  ],
+  "pricing_notes": "所有价格为 FOB 宁波/上海。如需 CIF/DDP 报价请联系销售。定制电压/频率/颜色需额外确认交期和价格。",
+  "payment_terms": [
+    "T/T 30% 定金 + 70% 发货前付清",
+    "L/C at sight (即期信用证)",
+    "Western Union (小额订单)"
+  ],
+  "lead_time_notes": "常规型号交期如上表。定制型号（含特殊电压/频率/颜色/尺寸）额外增加 5-15 天。大规格设备（≥3000mm）可能因物料采购延长交期。",
+  "voltage_options": {
+    "default": "三相 380V 50Hz",
+    "options": [
+      { "code": "C", "spec": "单相 220V 50Hz", "market": "国内/部分东南亚" },
+      { "code": "AD", "spec": "单相 220V 60Hz", "market": "出口（如菲律宾等）" },
+      { "code": "B", "spec": "三相 220V 60Hz", "market": "出口（如韩国等）" },
+      { "code": "三相380V带零线", "spec": "三相 380V + N", "market": "欧洲/中东" }
+    ]
+  },
+  "encoding_rules": {
+    "format": "X0XXXX0000-00-00(X)",
+    "positions": {
+      "1": "款式字母 A-Z",
+      "2": "迭代数字 1-9",
+      "3-5": "机型代码 (FLJ/SLJ/DCJ/CQJ/XDT/FCJ/GKJ/FQJ/FBJ/PJJ 等)",
+      "6-9": "规格数字 (如 1000=1米)",
+      "10-14": "层级编码 (-00-00=成品, -01-00=半成品, -00-01=零件)",
+      "15+": "后缀 (电压/定制版本等)"
+    }
+  }
+}
