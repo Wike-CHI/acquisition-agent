@@ -1,24 +1,41 @@
 ---
 name: evolver
-description: A self-evolution engine for AI agents. Analyzes runtime history to identify improvements and applies protocol-constrained evolution.
+description: AI自我进化引擎。分析运行历史，识别改进点，自动优化技能。当用户说"优化技能"、"进化"、"自我改进"时使用。
 version: 1.0.0
-tags: [meta, ai, self-improvement, core]
-permissions: [network, shell]
+tags:
+  - meta
+  - ai
+  - self-improvement
+  - core
+permissions:
+  - network
+  - shell
 metadata:
-  clawdbot:
-    requires:
-      bins: [node, git]
-      env: [A2A_NODE_ID]
-    files: ["src/**", "scripts/**", "assets/**"]
   capabilities:
     allow:
-      - execute: [git, node, npm]
-      - network: [api.github.com, evomap.ai]
-      - read: [workspace/**]
-      - write: [workspace/assets/**, workspace/memory/**]
+      - execute:
+          - git
+          - node
+          - npm
+      - network:
+          - api.github.com
+          - evomap.ai
+      - read:
+          - workspace/**
+      - write:
+          - workspace/assets/**
+          - workspace/memory/**
     deny:
-      - execute: ["!git", "!node", "!npm", "!ps", "!pgrep", "!df"]
-      - network: ["!api.github.com", "!*.evomap.ai"]
+      - execute:
+          - "!git"
+          - "!node"
+          - "!npm"
+          - "!ps"
+          - "!pgrep"
+          - "!df"
+      - network:
+          - "!api.github.com"
+          - "!*.evomap.ai"
   env_declarations:
     - name: A2A_NODE_ID
       required: true
@@ -36,7 +53,8 @@ metadata:
     - name: EVOLVE_STRATEGY
       required: false
       default: balanced
-      description: "Evolution strategy: balanced, innovate, harden, repair-only, early-stabilize, steady-state, auto."
+      description: "Evolution strategy: balanced, innovate, harden, repair-only,
+        early-stabilize, steady-state, auto."
     - name: EVOLVE_ALLOW_SELF_MODIFY
       required: false
       default: "false"
@@ -81,13 +99,14 @@ metadata:
       optional: true
   shell_commands:
     - command: git
-      purpose: Version control (checkout, clean, log, status, diff, rebase --abort, merge --abort)
+      purpose: Version control (checkout, clean, log, status, diff, rebase --abort,
+        merge --abort)
       user_input: false
     - command: node
       purpose: Inline script execution for LLM review
       user_input: false
     - command: npm
-      purpose: "npm install --production for skill dependency healing"
+      purpose: npm install --production for skill dependency healing
       user_input: false
     - command: ps / pgrep / tasklist
       purpose: Process discovery for lifecycle management
@@ -97,14 +116,14 @@ metadata:
       user_input: false
   file_access:
     reads:
-      - "~/.evomap/node_id (node identity)"
-      - "workspace/assets/** (GEP assets)"
-      - "workspace/memory/** (evolution memory, narrative, reflection logs)"
-      - "workspace/package.json (version info)"
+      - ~/.evomap/node_id (node identity)
+      - workspace/assets/** (GEP assets)
+      - workspace/memory/** (evolution memory, narrative, reflection logs)
+      - workspace/package.json (version info)
     writes:
-      - "workspace/assets/gep/** (genes, capsules, events)"
-      - "workspace/memory/** (memory graph, narrative, reflection)"
-      - "workspace/src/** (evolved code, only when changes are solidified)"
+      - workspace/assets/gep/** (genes, capsules, events)
+      - workspace/memory/** (memory graph, narrative, reflection)
+      - workspace/src/** (evolved code, only when changes are solidified)
 triggers:
   - 自我进化
   - evolve

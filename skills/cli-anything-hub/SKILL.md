@@ -1,9 +1,7 @@
 ---
 name: cli-anything-hub
-version: "1.0.0"
-description: >
-  Discover agent-native CLIs for professional software. Access the live catalog
-  to find tools for creative workflows, productivity, AI, and more.
+version: 1.0.0
+description: CLI工具发现技能。搜索和发现专业软件的命令行工具。当用户说"找命令行工具"、"CLI工具"、"终端工具"时使用。
 triggers:
   - cli工具
   - 找命令行工具

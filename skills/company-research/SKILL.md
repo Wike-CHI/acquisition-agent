@@ -1,8 +1,8 @@
 ---
 name: company-research
 version: 3.1.0
-description: "红龙获客系统·海外B2B企业背景调查 — 输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。"
-metadata: {"openclaw":{"requires":{"bins":["mcporter"]}}}
+description: 红龙获客系统·海外B2B企业背景调查 —
+  输入海外企业名称，自动搜集企业公开信息并输出结构化背调报告，用于客户资质评估和开发信个性化。支持全球搜索引擎、LinkedIn、海关数据交叉验证。背调结果自动保存到NAS知识库，全员复用。
 allowed-tools: Bash
 triggers:
   - 公司调研

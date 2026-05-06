@@ -1,12 +1,11 @@
 ---
 name: crm
 version: 1.0.0
-description: Guide users building a personal CRM from simple files to structured database.
+description: 个人CRM构建技能。从简单文件到结构化数据库的客户管理系统。当用户说"建CRM"、"管理客户"、"客户管理"时使用。
 triggers:
   - CRM
   - 客户管理
   - 客户关系
-metadata: {"clawdbot":{"emoji":"🤝","os":["linux","darwin","win32"]}}
 ---
 
 ## First Interaction

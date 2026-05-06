@@ -1,12 +1,9 @@
 ---
 name: ai-social-media-content
-description: "AI 社媒营销内容生成器。一次主题，自动生成 9 个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube/Pinterest/Threads/Bluesky）。无需外部 API，纯 AI 生成，业务员手动发布。"
+description: AI 社媒营销内容生成器。一次主题，自动生成 9
+  个平台的内容（Instagram/TikTok/LinkedIn/Facebook/X/YouTube/Pinterest/Threads/Bluesky）。无需外部
+  API，纯 AI 生成，业务员手动发布。
 version: 1.1.0
-metadata:
-  openclaw:
-    requires:
-      commands: []
-      skills: []
 triggers:
   - 社媒内容
   - 社交媒体

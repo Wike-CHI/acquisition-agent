@@ -1,6 +1,7 @@
 ---
 name: office
-description: "Master Excel, Word, PowerPoint, and Google Workspace with formulas, formatting, and automation."
+description: Office办公技能。Excel、Word、PowerPoint、Google
+  Workspace操作。当用户说"处理Office"、"Word文档"、"PPT"时使用。
 version: 1.0.0
 triggers:
   - 办公文档

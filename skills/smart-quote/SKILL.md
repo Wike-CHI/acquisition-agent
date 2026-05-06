@@ -495,12 +495,41 @@ powershell -File "{{SKILL_DIR}}/../holo-activity-log/scripts/log-activity.ps1" -
 
 ---
 
+## 汇率数据来源
+
+报价时如需换算为外币，使用 `scripts/exchange_rate.py` 查询实时汇率：
+
+```bash
+# 查询特定货币汇率
+python scripts/exchange_rate.py --from CNY --to USD
+
+# 换算金额
+python scripts/exchange_rate.py 52000 CNY USD EUR BRL
+
+# JSON 格式输出（供程序调用）
+python scripts/exchange_rate.py 52000 CNY USD --json
+
+# 历史汇率
+python scripts/exchange_rate.py --from CNY --date 2026-05-01
+```
+
+| 数据源 | 说明 |
+|--------|------|
+| open.er-api.com | 主源，免费无需 API key，日更，支持 160+ 货币 |
+| frankfurter.app | 降级备用，ECB 数据，30+ 主流货币 |
+
+- 默认使用报价当日汇率
+- open.er-api.com 不可用时自动降级到 frankfurter.app
+- 汇率仅作参考，正式报价以 CNY EX-Factory 为准
+- 客户要求锁定汇率超过 7 天需升级老板审批
+
 ## 参考文档
 
 - **各国利润率指导**: references/profit_rates.md
 - **产品成本参考（缓存）**: references/products.md（NAS不可用时的备用，2025-11-27更新）
 - **报价指引模板**: references/报价指引模板.md（标准化输出格式）
 - **A2UI 交互式输出**: references/a2ui-output-guide.md（报价卡片格式）
+- **汇率查询脚本**: scripts/exchange_rate.py（实时汇率换算工具）
 
 ---
 

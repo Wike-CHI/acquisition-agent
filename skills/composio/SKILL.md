@@ -1,7 +1,16 @@
 ---
 name: composio
-description: Use 1000+ external apps via Composio - either directly through the CLI or by building AI agents and apps with the SDK
-tags: [composio, tool-router, agents, mcp, tools, api, automation, cli]
+description: 第三方应用集成技能。通过 Composio
+  连接1000+外部应用（Gmail、Slack、GitHub等）。当用户说"连接外部应用"、"集成API"、"第三方服务"时使用。
+tags:
+  - composio
+  - tool-router
+  - agents
+  - mcp
+  - tools
+  - api
+  - automation
+  - cli
 triggers:
   - composio
   - 外部应用

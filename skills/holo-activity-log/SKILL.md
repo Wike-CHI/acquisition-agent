@@ -3,7 +3,16 @@ name: holo-activity-log
 version: 1.0.0
 description: 记录业务操作日志到NAS共享活动日志（CSV），供Boss监控页面读取
 trigger: 被其他技能调用（不直接触发）
-tags: [logging, nas, monitoring]
+tags:
+  - logging
+  - nas
+  - monitoring
+triggers:
+  - holo-activity-log
+  - 活动日志
+  - 操作日志
+  - BOSS监控日志
+  - 业务日志
 ---
 
 # holo-activity-log

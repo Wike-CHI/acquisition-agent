@@ -1,7 +1,7 @@
 ---
 name: business-development
 version: 1.0.0
-description: "Partnership outreach, market research, competitor analysis, and proposal generation. Transform your AI agent into a strategic business development partner that identifies and cultivates growth opportunities."
+description: 商务拓展技能。合作伙伴外联、市场研究、竞品分析、提案生成。当用户说"找合作伙伴"、"做市场分析"、"写商务提案"时使用。
 author: openclaw
 triggers:
   - 商务拓展

@@ -1,6 +1,6 @@
 ---
 name: browser-automation
-description: Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, click buttons, or interact with web applications.
+description: 浏览器自动化技能。通过自然语言控制浏览器：浏览网页、填表、截图、提取数据。当用户说"帮我打开网页"、"自动化网页操作"、"抓取网页数据"、"浏览器"时使用。
 version: 1.0.0
 triggers:
   - browser-use

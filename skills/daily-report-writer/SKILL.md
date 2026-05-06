@@ -7,7 +7,6 @@ triggers:
   - 日报
   - daily report
 user-invocable: true
-metadata: {"openclaw":{"emoji":"📝"}}
 ---
 
 # Daily Report Writer

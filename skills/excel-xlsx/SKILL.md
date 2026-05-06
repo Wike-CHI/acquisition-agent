@@ -3,9 +3,8 @@ name: excel-xlsx
 slug: excel-xlsx
 version: 1.0.1
 homepage: https://clawic.com/skills/excel-xlsx
-description: Read, write, and generate Excel files with correct types, dates, formulas, and cross-platform compatibility.
+description: Excel文件处理技能。读取、写入、生成Excel文件，支持类型、日期、公式、跨平台。当用户说"处理Excel"、"读Excel"、"生成表格"、"xlsx"时使用。
 changelog: Added Core Rules and modern skill structure
-metadata: {"clawdbot":{"emoji":"📗","requires":{"bins":[]},"os":["linux","darwin","win32"]}}
 triggers:
   - Excel
   - xlsx

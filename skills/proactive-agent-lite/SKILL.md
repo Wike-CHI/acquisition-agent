@@ -1,15 +1,7 @@
 ---
 name: proactive-agent-lite
-description: Transform AI agents from task-followers into proactive partners with memory architecture, reverse prompting, and self-healing patterns. Lightweight version focused on core proactive capabilities.
+description: 轻量级主动式AI代理。记忆架构、反向提示、自愈模式。当用户说"轻量主动代理"时使用。
 version: 1.0.0
-metadata:
-  {
-    "openclaw":
-      {
-        "requires": {},
-        "install": []
-      }
-  }
 triggers:
   - 轻量主动agent
   - proactive lite

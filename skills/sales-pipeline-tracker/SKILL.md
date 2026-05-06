@@ -1,7 +1,7 @@
 ---
 name: sales-pipeline-tracker
 version: 1.0.0
-description: Track deals through every stage from lead to close. Manage pipeline stages, update deal status, forecast revenue, and identify bottlenecks in your sales process.
+description: 销售管线跟踪技能。从线索到成交的全阶段管理、状态更新、收入预测、瓶颈识别。当用户说"管管线"、"销售漏斗"、"deal跟踪"时使用。
 triggers:
   - Pipeline
   - 销售管线

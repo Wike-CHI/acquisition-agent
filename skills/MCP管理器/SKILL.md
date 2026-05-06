@@ -1,8 +1,8 @@
 ---
 name: MCP管理器
-description: "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation."
-description_zh: "管理和调用 MCP 服务器与工具"
-description_en: "Manage and call MCP servers & tools"
+description: MCP服务器管理工具。通过mcporter CLI列出、配置、认证、调用MCP服务器。当用户说"配置MCP"、"MCP管理"、"管理工具"时使用。
+description_zh: 管理和调用 MCP 服务器与工具
+description_en: Manage and call MCP servers & tools
 version: 1.0.0
 triggers:
   - mcporter

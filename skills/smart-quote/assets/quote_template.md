@@ -62,7 +62,7 @@ Wenzhou Honglong Industrial Equipment Manufacturing Co., Ltd.
 | 付款方式 | ☐ T/T  ☐ L/C  ☐ 其他：________ |
 | 报价有效期 | 30天 |
 | 交货期 | 收到定金后____天 |
-| 报价汇率 | 1 USD = ____ CNY |
+| 报价汇率 | 报价当日人民币汇率 |
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: sales
 version: 1.0.0
-description: "CRM integration, lead tracking, outreach automation, and pipeline management. Transform your AI agent into a sales assistant that never lets leads slip through the cracks."
+description: 销售助手技能。CRM集成、线索跟踪、外联自动化、Pipeline管理。当用户说"销售管理"、"跟踪客户"、"销售自动化"时使用。
 triggers:
   - 销售
   - 销售管理

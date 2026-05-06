@@ -1,28 +1,10 @@
 ---
 name: pdf-extract
-description: "Extract text from PDF files for LLM processing"
+description: PDF文本提取技能。从PDF中提取文本供LLM处理。当用户说"提取PDF"、"读PDF"、"PDF转文字"时使用。
 version: 1.0.0
 triggers:
   - 提取PDF
   - PDF提取
-metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📄",
-        "requires": { "bins": ["pdftotext"] },
-        "install":
-          [
-            {
-              "id": "dnf",
-              "kind": "dnf",
-              "package": "poppler-utils",
-              "bins": ["pdftotext"],
-              "label": "Install via dnf",
-            },
-          ],
-      },
-  }
 ---
 
 # PDF Extract

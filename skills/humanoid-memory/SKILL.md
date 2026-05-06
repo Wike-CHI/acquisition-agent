@@ -1,9 +1,8 @@
 ---
 name: humanoid-memory
-description: Brain-inspired memory for AI agents with V-score consolidation and Ebbinghaus forgetting
+description: AI记忆系统。基于人脑模型的V-score记忆整合和艾宾浩斯遗忘曲线。当用户说"记忆管理"、"记忆系统"时使用。
 version: 1.0.0
 user-invocable: true
-metadata: {"openclaw":{"emoji":"🧠","requires":{"bins":["node"]},"os":["darwin","linux","win32"]}}
 triggers:
   - humanoid memory
   - 记忆管理

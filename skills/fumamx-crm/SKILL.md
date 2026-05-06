@@ -1,7 +1,7 @@
 ---
 name: fumamx-crm
-version: 1.1.0
-description: 孚盟MX CRM自动化操作技能。支持客户管理、客户查询、客户创建、客户更新、客户筛选。支持发送邮件。与孚盟CRM同步。当用户说"配置孚盟账号"或"初始化获客系统"时触发。
+version: 2.0.0
+description: 孚盟MX CRM AI Agent 操作技能。B+C 双轨架构：MCP Server (23 tools) + CDP 浏览器自动化。覆盖客户/联系人/跟进/报价单/销售订单/邮件/培育/公海/任务/统计 10 大模块。
 always: false
 triggers:
   - 孚盟CRM
@@ -21,7 +21,6 @@ triggers:
   - 查看今日任务
   - 查看昨日邮件
   - 查看客户画像
-  - 查看客户详情
   - 获取联系方式
   - 查看销售机会
   - 查看线索跟进状态
@@ -29,93 +28,103 @@ triggers:
   - 查看线索详情
   - 添加跟进备注
   - 记录跟进历史
+  - 孚盟报价
+  - 孚盟订单
+  - 孚盟邮件
+  - 孚盟任务
 ---
 
-## 🔐 安全策略
+## 架构 (v2.0 B+C)
 
+```
+Agent (holo-desktop)
+  │
+  ├─ MCP 工具调用 (首选) ──── fumamx-mcp-server ──── HTTP API ──── 孚盟后端
+  │                          (23 tools, Zod schema)    (逆向中)
+  │
+  └─ CDP 浏览器自动化 (降级) ── Chrome CDP ── 孚盟 SPA 页面
+                                (scripts/*.ts)
+```
+
+**B 路线 (API 逆向)**: `scripts/capture-api.py` 捕获孚盟内部 API → `ApiFumamxClient` 直调 HTTP
+**C 路线 (MCP Server)**: `mcp-server/` 将 10 大模块封装为 23 个 MCP 结构化工具
+
+### MCP Server 工具清单
+
+启动: `cd mcp-server && npm start`
+
+| # | 工具名 | 模块 | 操作 |
+|---|--------|------|------|
+| 1 | `fumamx_search_customers` | 客户 | 按条件搜索客户 |
+| 2 | `fumamx_get_customer` | 客户 | 查看客户详情 |
+| 3 | `fumamx_create_customer` | 客户 | 创建客户 |
+| 4 | `fumamx_update_customer` | 客户 | 更新客户信息 |
+| 5 | `fumamx_delete_customer` | 客户 | 删除客户（回收站） |
+| 6 | `fumamx_check_duplicate` | 客户 | 客户查重 |
+| 7 | `fumamx_list_contacts` | 联系人 | 查看联系人列表 |
+| 8 | `fumamx_add_contact` | 联系人 | 新增联系人 |
+| 9 | `fumamx_update_contact` | 联系人 | 更新联系人 |
+| 10 | `fumamx_list_followups` | 跟进 | 查看跟进历史 |
+| 11 | `fumamx_add_followup` | 跟进 | 添加跟进记录 |
+| 12 | `fumamx_list_quotations` | 报价单 | 查看报价单列表 |
+| 13 | `fumamx_create_quotation` | 报价单 | 新建报价单 |
+| 14 | `fumamx_list_orders` | 销售订单 | 查看订单列表 |
+| 15 | `fumamx_create_order` | 销售订单 | 新建销售订单 |
+| 16 | `fumamx_send_email` | 邮件 | 发送邮件 |
+| 17 | `fumamx_check_inbox` | 邮件 | 检查收件箱 |
+| 18 | `fumamx_add_to_nurture` | 培育 | 加入培育序列 |
+| 19 | `fumamx_get_nurture_status` | 培育 | 查看培育状态 |
+| 20 | `fumamx_claim_public_customer` | 公海 | 领取公海客户 |
+| 21 | `fumamx_get_daily_tasks` | 任务 | 查看今日任务 |
+| 22 | `fumamx_complete_task` | 任务 | 完成任务 |
+| 23 | `fumamx_get_stats` | 统计 | 销售数据概览 |
+
+### API 逆向 (capture-api.py)
+
+```bash
+# 1. 启动 Chrome 远程调试
+chrome.exe --remote-debugging-port=9222
+
+# 2. 登录孚盟
+# 打开 https://fumamx.com/#/login 并登录
+
+# 3. 运行捕获脚本
+cd scripts && python capture-api.py
+
+# 4. 在 Chrome 中操作孚盟各个模块
+# (查客户 → 建报价单 → 发邮件 → ...)
+
+# 5. Ctrl+C 停止，输出 captured-apis.json
+```
+
+捕获的 API 端点用于填充 `ApiFumamxClient` 的端点路径，替换占位符 URL。
+
+---
+
+## CDP 降级路径 (v1.x 保留)
+
+当 MCP Server 不可用或 API 端点未知时，降级使用 CDP 浏览器自动化:
+
+| 脚本 | 功能 |
+|------|------|
+| `scripts/query-customer.ts` | 查询客户 |
+| `scripts/create-customer.ts` | 创建客户 |
+| `scripts/update-customer.ts` | 更新客户 |
+| `scripts/batch-operations.ts` | 批量操作 |
+| `scripts/add-to-nurture.ts` | 添加到培育 |
+| `scripts/selectors.ts` | DOM 选择器配置 (Element Plus) |
+
+### 安全策略
 - 私人信息（手机号、邮箱、客户详情）永不在消息中暴露
 - 每次CRM操作后记录操作日志
 - 定期备份（每两周）
 - 批量操作（>10条）需管理员审批
 
----
-
-## 📋 主要功能
-
-### 1. 客户管理
-
-| 功能 | 命令 | 说明 |
-|------|------|------|
-| **查询客户** | `查询客户 [公司名/国家]` | 按公司名、国家、地区、产品兴趣查询 |
-| **创建客户** | `创建客户 [姓名 公司 邮箱 电话 国家]` | 创建新客户记录 |
-| **更新客户** | `更新客户 [公司名] [字段] [值]` | 更新客户信息 |
-| **删除客户** | `删除客户 [公司名]` | 仅管理员 |
-| **批量导入** | `批量导入 [Excel文件]` | 批量导入客户到孚盟 |
-| **批量导出** | `批量导出 [字段...]` | 导出Excel文件 |
-| **添加到培育** | `添加到培育 [公司名]` | 将客户添加到培育流程 |
-
----
-
-## 🎯 资格配置
+### 孚盟访问信息
 
 | 配置项 | 值 |
 |------|-----|
 | **登录URL** | https://fumamx.com/#/login |
-| **账号类型** | 孚盟账号（手机号/邮箱) |
-| **API方式** | 浏览器自动化 + 模拟登录 |
-| **搜索端点** | 暂无（后续可扩展) |
-| **操作频率** | 根据使用频率 |
-
----
-
-## 📝 使用示例
-
-### 示例1：登录
-```
-用户: 登录孚盟MX
-AI: 请输入账号（手机/邮箱）和密码
-用户: [账号] / [密码]
-AI: 登录成功，欢迎回来！
-```
-
-### 示例2：创建客户
-```
-创建客户: BORPAC COMERCIO
-公司: BORPAC COMERCIO IMPORTACAO E EXPORTACAO LTDA
-邮箱: sergio@borpac.com.br
-国家: 巴西
-产品兴趣: 风冷机、打齿机
-```
-
-### 示例3：搜索客户
-```
-搜索客户: conveyor belt
-国家: 印度
-产品: 风冷机
-```
-
----
-
-## ⚙️ 操作说明
-
-### 登录
-1. 打开浏览器访问 https://fumamx.com/#/login
-2. 输入账号（手机号/邮箱）和密码
-3. 点击登录
-
-### 查询客户
-1. 进入"客户"模块
-2. 点击"搜索"按钮
-3. 输入搜索条件（公司名/国家/产品）
-4. 查看客户详情
-5. 可添加到CRM或保存客户信息
-
-### 添加到CRM
-1. 客户列表页 → 选择客户 → 批量操作
-2. 点击"添加到培育"
-3. 确认后客户进入培育流程
-
----
-
-_版本: 1.0.0_
-_更新: 2026-03-26_
+| **UI 框架** | Vue + Element Plus (el-*) |
+| **路由模式** | SPA hash routing (/#/...) |
+| **API 端点** | 待捕获 (运行 capture-api.py) |

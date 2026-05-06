@@ -1,6 +1,6 @@
 ---
 name: smart-memory
-description: Persistent local cognitive memory for OpenClaw via a Node adapter and FastAPI engine.
+description: 持久化认知记忆系统。基于本地向量存储的长期记忆管理。当用户说"保存记忆"、"回忆"、"长期记忆"时使用。
 version: 1.0.0
 triggers:
   - 智能记忆

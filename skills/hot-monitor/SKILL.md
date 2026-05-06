@@ -1,11 +1,19 @@
 ---
 name: hot-monitor
 description: >
-  AI hotspot monitoring and trending topic discovery across multiple sources (Bing, Google, DuckDuckGo, HackerNews,
-  Sogou, Bilibili, Weibo, Twitter). Use when users ask about: trending news, hot topics, latest developments in a field,
-  monitoring keywords, tech/AI news discovery, generating hotspot reports, "最近有什么热点", "帮我关注XX动态",
-  "查一下XX最新消息", "生成热点报告", "monitor XX", "what's trending in XX", or any request to search/track/discover
-  current events and trending content across Chinese and international platforms.
+  AI hotspot monitoring and trending topic discovery across multiple sources
+  (Bing, Google, DuckDuckGo, HackerNews, Sogou, Bilibili, Weibo, Twitter). Use
+  when users ask about: trending news, hot topics, latest developments in a
+  field, monitoring keywords, tech/AI news discovery, generating hotspot
+  reports, "最近有什么热点", "帮我关注XX动态", "查一下XX最新消息", "生成热点报告", "monitor XX", "what's
+  trending in XX", or any request to search/track/discover current events and
+  trending content across Chinese and international platforms.
+triggers:
+  - hot-monitor
+  - 热点监控
+  - 热点
+  - 趋势监控
+  - 追踪热点
 ---
 
 # Hot Monitor — AI 热点监控技能

@@ -3,9 +3,9 @@ name: playwright
 slug: playwright
 version: 1.0.3
 homepage: https://clawic.com/skills/playwright
-description: "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use when (1) you need a real browser, not static fetch; (2) the task involves Playwright MCP, browser tools, Playwright tests, scripts, or JS-rendered pages; (3) the user wants navigation, forms, screenshots, PDFs, downloads, or browser-driven extraction turned into a reliable outcome."
-changelog: Clarified the MCP-first browser automation flow and improved quick-start guidance for forms, screenshots, and extraction.
-metadata: {"clawdbot":{"emoji":"P","requires":{"bins":["node","npx"]},"os":["linux","darwin","win32"],"install":[{"id":"npm-playwright","kind":"npm","package":"playwright","bins":["playwright"],"label":"Install Playwright"},{"id":"npm-playwright-mcp","kind":"npm","package":"@playwright/mcp","bins":["playwright-mcp"],"label":"Install Playwright MCP (optional)"}]}}
+description: Playwright浏览器自动化。通过MCP控制真实浏览器：导航、点击、填表、截图、提取数据。当用户说"Playwright"、"浏览器自动化"、"真实浏览器"时使用。
+changelog: Clarified the MCP-first browser automation flow and improved
+  quick-start guidance for forms, screenshots, and extraction.
 triggers:
   - playwright
   - 浏览器测试

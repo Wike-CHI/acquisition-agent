@@ -1,9 +1,8 @@
 ---
 name: linkedin
 version: 2.0.0
-description: LinkedIn AI-driven outreach via agent-browser. Search for decision makers, send connection requests and InMail messages. Uses agent-browser CLI for AI-controlled browser interaction (no Playwright scripts).
+description: LinkedIn客户拓展技能。搜索决策人、发送连接请求和InMail。当用户说"LinkedIn找客户"、"领英开发"、"LinkedIn拓展"时使用。
 homepage: https://linkedin.com
-metadata: {"clawdbot":{"emoji":"💼"}}
 triggers:
   - LinkedIn
   - 领英

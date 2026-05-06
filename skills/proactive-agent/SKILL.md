@@ -1,7 +1,7 @@
 ---
 name: proactive-agent
-version: "1.0.0"
-description: Transform AI agents from task-followers into proactive partners that anticipate needs and continuously improve. With WAL Protocol, Working Buffer, Autonomous Crons, and battle-tested patterns. Part of the Hal Stack.
+version: 1.0.0
+description: 主动式AI代理框架。将被动AI转变为主动合作伙伴，含WAL协议、工作缓冲区、自主定时任务。当用户说"主动代理"、"自动化巡检"时使用。
 triggers:
   - 主动agent
   - proactive
