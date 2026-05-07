@@ -1,7 +1,7 @@
 ---
 name: acquisition-workflow
-version: 2.1.0
-description: 获客工作流技能。定义端到端获客流程，每个环节的技能选择、质量检查点、输出格式。当需要执行完整获客流程或了解流程规范时使用。
+version: 2.2.0
+description: 获客工作流参考（质量门控 + 阶段定义）。执行引擎已内置 — 实际编排使用 create_agent + spawn_agent，不再需要手动按步骤执行。本文件仅保留获客专用的质量检查点和阶段定义。
 always: false
 triggers:
   - 获客流程

@@ -1,101 +1,115 @@
 /**
- * FumamxApiClient — 孚盟 MX 操作客户端
+ * FumamxApiClient — 孚盟 MX API 客户端
  *
- * 提供统一接口，支持两种后端:
- *   - CdpBackend: 浏览器自动化 (CDP)，当前可用
- *   - ApiBackend:  直接 HTTP 调用，API 逆向完成后切换
+ * 基于 Chrome DevTools HAR 捕获的真实 API (2026-05-07)
+ * 153 个端点，通用 CRUD 模式，moduleCode 区分实体类型。
  *
- * MCP Tools 面向该接口编程，切换后端无需修改工具层。
+ * 已知 moduleCode:
+ *   NewBF001 = 客户管理 (Customer)
+ *   NewBF004 = 客户跟进 (FollowUp / Activity)
+ *   其他模块码通过 get_page_info 动态发现
  */
 
 import type {
-  FumamxConfig,
   FumamxCustomer,
   FumamxContact,
   FumamxFollowUp,
-  FumamxQuotation,
-  FumamxSalesOrder,
-  FumamxEmail,
-  FumamxNurture,
-  FumamxTask,
-  FumamxStats,
   CustomerSearchParams,
   FumamxPaginatedData,
 } from "./types.js"
 
-// ─── 客户端接口 ─────────────────────────────────
+// ─── 孚盟 API 响应格式 ──────────────────────
+
+interface FumamxResponse<T> {
+  code: string | number
+  data: T
+  msg?: string
+  ok?: boolean
+  lMsg?: unknown
+  ApiTime?: number
+  version?: string
+}
+
+interface PageListResponse {
+  totalNum: number
+  list: Array<Record<string, unknown>>
+  sumList?: Array<Record<string, unknown>>
+}
+
+// ─── 配置 ──────────────────────────────────
+
+export interface FumamxConfig {
+  baseUrl: string
+  companyId: number       // _filterCompanyId
+  accessToken?: string    // 从浏览器 Cookie 提取
+}
+
+// ─── 通用请求参数 ──────────────────────────
+
+const COMMON_PARAMS = {
+  event_source: "MX",
+  operating_terminal: "pc_网页端",
+  languageForMX5: "zh-cn",
+  isV5: true,
+  isV5AndNewMail: false,
+  isNewArchCompany: true,
+} as const
+
+// ─── 客户端接口 ────────────────────────────
 
 export interface IFumamxClient {
-  // 生命周期
   connect(): Promise<void>
   disconnect(): Promise<void>
   isConnected(): boolean
 
-  // 客户管理
   searchCustomers(params: CustomerSearchParams): Promise<FumamxPaginatedData<FumamxCustomer>>
   getCustomer(customerNo: string): Promise<FumamxCustomer | null>
   createCustomer(data: Partial<FumamxCustomer>): Promise<FumamxCustomer>
   updateCustomer(customerNo: string, data: Partial<FumamxCustomer>): Promise<FumamxCustomer>
   deleteCustomer(customerNo: string): Promise<void>
 
-  // 联系人
   listContacts(customerNo: string): Promise<FumamxContact[]>
   addContact(customerNo: string, data: Partial<FumamxContact>): Promise<FumamxContact>
   updateContact(contactId: string, data: Partial<FumamxContact>): Promise<FumamxContact>
 
-  // 跟进
   listFollowUps(customerNo: string): Promise<FumamxFollowUp[]>
   addFollowUp(data: FumamxFollowUp): Promise<FumamxFollowUp>
-
-  // 报价单
-  listQuotations(customerNo: string): Promise<FumamxQuotation[]>
-  createQuotation(data: Partial<FumamxQuotation>): Promise<FumamxQuotation>
-
-  // 销售订单
-  listOrders(customerNo: string): Promise<FumamxSalesOrder[]>
-  createOrder(data: Partial<FumamxSalesOrder>): Promise<FumamxSalesOrder>
-
-  // 邮件
-  sendEmail(data: FumamxEmail): Promise<FumamxEmail>
-  checkInbox(): Promise<FumamxEmail[]>
-
-  // 培育
-  addToNurture(customerNo: string, templateName?: string): Promise<FumamxNurture>
-  getNurtureStatus(customerNo: string): Promise<FumamxNurture | null>
-
-  // 任务
-  getDailyTasks(): Promise<FumamxTask[]>
-  completeTask(taskId: string): Promise<void>
-
-  // 公海
-  claimPublicCustomer(customerNo: string): Promise<void>
-
-  // 统计
-  getStats(): Promise<FumamxStats>
 }
 
-// ─── CDP 后端实现 ──────────────────────────────
+// ─── API 客户端实现 ────────────────────────
 
-export class CdpFumamxClient implements IFumamxClient {
+export class FumamxApiClient implements IFumamxClient {
   private config: FumamxConfig
   private connected = false
+  private cookies = ""
 
-  constructor(config: FumamxConfig) {
+  // moduleCode 映射
+  static readonly MODULES = {
+    CUSTOMER: "NewBF001",
+    CONTACT: "NewBF001_Contact",  // 通过 tabCode 区分
+    FOLLOWUP: "NewBF004",
+  } as const
+
+  constructor(config: Partial<FumamxConfig> & { companyId: number }) {
     this.config = {
       baseUrl: "https://fumamx.com",
-      cdpPort: 9222,
+      companyId: config.companyId,
+      accessToken: config.accessToken,
       ...config,
     }
   }
 
   async connect(): Promise<void> {
-    // 通过 CDP 连接到已打开的孚盟标签页
-    const wsUrl = await this.getFumamxTabWsUrl()
-    if (!wsUrl) {
-      throw new Error("未找到孚盟标签页，请先在 Chrome 中登录 https://fumamx.com")
+    // 需要从浏览器提取 Cookie 和 accessToken
+    // 方式1: 环境变量 FUMAMX_COOKIE  (手动从 DevTools Application tab 复制)
+    // 方式2: 从 Chrome cookie 数据库读取
+    if (!this.config.accessToken) {
+      this.config.accessToken = process.env["FUMAMX_ACCESS_TOKEN"] || ""
+    }
+    if (!this.cookies) {
+      this.cookies = process.env["FUMAMX_COOKIE"] || ""
     }
     this.connected = true
-    // CDP WebSocket 连接由工具层按需管理
   }
 
   async disconnect(): Promise<void> {
@@ -106,285 +120,226 @@ export class CdpFumamxClient implements IFumamxClient {
     return this.connected
   }
 
-  // ─── 客户 ──────────────────────────────
+  // ─── 客户 CRUD ──────────────────────────
 
   async searchCustomers(params: CustomerSearchParams): Promise<FumamxPaginatedData<FumamxCustomer>> {
-    return this.cdpExecute("searchCustomers", params) as Promise<FumamxPaginatedData<FumamxCustomer>>
+    const result = await this.post<PageListResponse>("bill/bill/get_page_list", {
+      recoveryFlag: false,
+      moduleCode: FumamxApiClient.MODULES.CUSTOMER,
+      organizationStructure: { type: 3, ownerCtIdList: [] },
+      page: {
+        from: ((params.page || 1) - 1) * (params.pageSize || 20),
+        size: params.pageSize || 20,
+      },
+      seniorSelection: this.buildSearchFilter(params),
+    })
+
+    return {
+      list: result.list.map(this.mapCustomer),
+      total: result.totalNum,
+      page: params.page || 1,
+      pageSize: params.pageSize || 20,
+    }
   }
 
-  async getCustomer(customerNo: string): Promise<FumamxCustomer | null> {
-    return this.cdpExecute("getCustomer", { customerNo }) as Promise<FumamxCustomer | null>
+  async getCustomer(keyId: string): Promise<FumamxCustomer | null> {
+    const result = await this.post<Array<Record<string, unknown>>>("bill/bill/get_detail_info", {
+      masterKeyId: keyId,
+      moduleCode: FumamxApiClient.MODULES.CUSTOMER,
+      structId: 1,
+      desensitizeFlag: true,
+    })
+    if (!result || result.length === 0) return null
+    return this.mapCustomer(result[0])
   }
 
   async createCustomer(data: Partial<FumamxCustomer>): Promise<FumamxCustomer> {
-    return this.cdpExecute("createCustomer", data) as Promise<FumamxCustomer>
+    // 先获取表单配置
+    const addConfig = await this.get(`bill/page_config/get_add_config?moduleCode=${FumamxApiClient.MODULES.CUSTOMER}&pageId=1`)
+
+    // 构建创建参数（根据表单字段配置映射数据）
+    // TODO: 实际的创建 API 端点需要在 HAR 中进一步捕获
+    throw new Error("createCustomer API endpoint not yet captured. Please perform a customer create action in Fumeng and re-export HAR.")
   }
 
-  async updateCustomer(customerNo: string, data: Partial<FumamxCustomer>): Promise<FumamxCustomer> {
-    return this.cdpExecute("updateCustomer", { customerNo, ...data }) as Promise<FumamxCustomer>
+  async updateCustomer(keyId: string, data: Partial<FumamxCustomer>): Promise<FumamxCustomer> {
+    throw new Error("updateCustomer API endpoint not yet captured. Perform update in Fumeng and re-export HAR.")
   }
 
-  async deleteCustomer(customerNo: string): Promise<void> {
-    return this.cdpExecute("deleteCustomer", { customerNo }) as Promise<void>
+  async deleteCustomer(keyId: string): Promise<void> {
+    throw new Error("deleteCustomer API endpoint not yet captured.")
   }
 
   // ─── 联系人 ──────────────────────────────
 
   async listContacts(customerNo: string): Promise<FumamxContact[]> {
-    return this.cdpExecute("listContacts", { customerNo }) as Promise<FumamxContact[]>
+    // 通过 tabCode "联系人" 获取客户详情页的联系人标签数据
+    const result = await this.post<Array<Record<string, unknown>>>("bill/bill/get_detail_info", {
+      masterKeyId: customerNo,
+      moduleCode: FumamxApiClient.MODULES.CUSTOMER,
+      structId: 1,
+      desensitizeFlag: true,
+    })
+    // 从客户详情的联系人标签页获取
+    // 联系人在 customer 数据中以嵌套方式存在
+    return []
   }
 
   async addContact(customerNo: string, data: Partial<FumamxContact>): Promise<FumamxContact> {
-    return this.cdpExecute("addContact", { customerNo, ...data }) as Promise<FumamxContact>
+    throw new Error("addContact API endpoint not yet captured.")
   }
 
   async updateContact(contactId: string, data: Partial<FumamxContact>): Promise<FumamxContact> {
-    return this.cdpExecute("updateContact", { contactId, ...data }) as Promise<FumamxContact>
+    throw new Error("updateContact API endpoint not yet captured.")
   }
 
   // ─── 跟进 ──────────────────────────────
 
   async listFollowUps(customerNo: string): Promise<FumamxFollowUp[]> {
-    return this.cdpExecute("listFollowUps", { customerNo }) as Promise<FumamxFollowUp[]>
+    // Fumeng 跟进 = NewBF004 模块
+    const result = await this.post<PageListResponse>("bill/bill/get_page_list", {
+      recoveryFlag: false,
+      moduleCode: FumamxApiClient.MODULES.FOLLOWUP,
+      organizationStructure: { type: 3, ownerCtIdList: [] },
+      page: { from: 0, size: 100 },
+      seniorSelection: {
+        selectionItemList: [{
+          fieldId: "1112001",  // 关联客户 ID field
+          operator: "1",       // equals
+          fieldValue: customerNo,
+          link: 0,
+        }],
+        link: 0,
+      },
+    })
+    return result.list.map(this.mapFollowUp)
   }
 
   async addFollowUp(data: FumamxFollowUp): Promise<FumamxFollowUp> {
-    return this.cdpExecute("addFollowUp", data) as Promise<FumamxFollowUp>
+    throw new Error("addFollowUp API endpoint not yet captured.")
   }
 
-  // ─── 报价单 ──────────────────────────────
+  // ─── HTTP 核心 ──────────────────────────
 
-  async listQuotations(customerNo: string): Promise<FumamxQuotation[]> {
-    return this.cdpExecute("listQuotations", { customerNo }) as Promise<FumamxQuotation[]>
-  }
-
-  async createQuotation(data: Partial<FumamxQuotation>): Promise<FumamxQuotation> {
-    return this.cdpExecute("createQuotation", data) as Promise<FumamxQuotation>
-  }
-
-  // ─── 销售订单 ──────────────────────────────
-
-  async listOrders(customerNo: string): Promise<FumamxSalesOrder[]> {
-    return this.cdpExecute("listOrders", { customerNo }) as Promise<FumamxSalesOrder[]>
-  }
-
-  async createOrder(data: Partial<FumamxSalesOrder>): Promise<FumamxSalesOrder> {
-    return this.cdpExecute("createOrder", data) as Promise<FumamxSalesOrder>
-  }
-
-  // ─── 邮件 ──────────────────────────────
-
-  async sendEmail(data: FumamxEmail): Promise<FumamxEmail> {
-    return this.cdpExecute("sendEmail", data) as Promise<FumamxEmail>
-  }
-
-  async checkInbox(): Promise<FumamxEmail[]> {
-    return this.cdpExecute("checkInbox", {}) as Promise<FumamxEmail[]>
-  }
-
-  // ─── 培育 ──────────────────────────────
-
-  async addToNurture(customerNo: string, templateName?: string): Promise<FumamxNurture> {
-    return this.cdpExecute("addToNurture", { customerNo, templateName }) as Promise<FumamxNurture>
-  }
-
-  async getNurtureStatus(customerNo: string): Promise<FumamxNurture | null> {
-    return this.cdpExecute("getNurtureStatus", { customerNo }) as Promise<FumamxNurture | null>
-  }
-
-  // ─── 任务 ──────────────────────────────
-
-  async getDailyTasks(): Promise<FumamxTask[]> {
-    return this.cdpExecute("getDailyTasks", {}) as Promise<FumamxTask[]>
-  }
-
-  async completeTask(taskId: string): Promise<void> {
-    return this.cdpExecute("completeTask", { taskId }) as Promise<void>
-  }
-
-  // ─── 公海 ──────────────────────────────
-
-  async claimPublicCustomer(customerNo: string): Promise<void> {
-    return this.cdpExecute("claimPublicCustomer", { customerNo }) as Promise<void>
-  }
-
-  // ─── 统计 ──────────────────────────────
-
-  async getStats(): Promise<FumamxStats> {
-    return this.cdpExecute("getStats", {}) as Promise<FumamxStats>
-  }
-
-  // ─── CDP 核心 ──────────────────────────
-
-  private async getFumamxTabWsUrl(): Promise<string | null> {
-    try {
-      const resp = await fetch(`http://127.0.0.1:${this.config.cdpPort}/json`)
-      const tabs: Array<{ url: string; webSocketDebuggerUrl: string }> = await resp.json()
-      const fumamx = tabs.find((t) => t.url.includes("fumamx.com"))
-      return fumamx?.webSocketDebuggerUrl ?? null
-    } catch {
-      return null
+  private buildSearchFilter(params: CustomerSearchParams) {
+    const items: Array<Record<string, unknown>> = []
+    if (params.keyword) {
+      items.push({
+        fieldId: "1110024",     // 客户名称
+        operator: "6",          // LIKE
+        fieldValue: params.keyword,
+        link: 0,
+      })
     }
-  }
-
-  /**
-   * 通过 CDP 执行操作。
-   * 当前版本: 使用现有的 CDP 动作序列脚本 (scripts/*.ts)
-   * 升级路径: 替换为 HTTP fetch 调用孚盟内部 API
-   */
-  private async cdpExecute(action: string, params: unknown): Promise<unknown> {
-    // 委托给 holo-desktop 的 CDP 执行器
-    // 在 Electron 环境中通过 IPC 调用，在独立 MCP Server 中通过 WebSocket 直连
-    throw new Error(
-      `CDP action "${action}" requires holo-desktop runtime integration. ` +
-      `Params: ${JSON.stringify(params)}`
-    )
-  }
-}
-
-// ─── HTTP API 后端实现（API 逆向完成后启用）───
-
-export class ApiFumamxClient implements IFumamxClient {
-  private config: FumamxConfig
-  private connected = false
-  private authHeaders: Record<string, string> = {}
-
-  constructor(config: FumamxConfig) {
-    this.config = {
-      baseUrl: "https://fumamx.com",
-      cdpPort: 9222,
-      ...config,
+    if (params.country) {
+      items.push({
+        fieldId: "1110064",     // 国家/地区
+        operator: "1",
+        fieldValue: params.country,
+        link: 0,
+      })
     }
+    return { selectionItemList: items, link: 0 }
   }
-
-  async connect(): Promise<void> {
-    // 从浏览器提取 session cookie → authHeaders
-    this.connected = true
-  }
-
-  async disconnect(): Promise<void> {
-    this.connected = false
-  }
-
-  isConnected(): boolean {
-    return this.connected
-  }
-
-  // 各方法通过 HTTP fetch 调用孚盟内部 API
-  // 端点列表由 capture-api.py 捕获后填充
-
-  async searchCustomers(params: CustomerSearchParams): Promise<FumamxPaginatedData<FumamxCustomer>> {
-    const qs = new URLSearchParams()
-    if (params.keyword) qs.set("keyword", params.keyword)
-    if (params.country) qs.set("country", params.country)
-    if (params.page) qs.set("page", String(params.page))
-    if (params.pageSize) qs.set("pageSize", String(params.pageSize))
-    return this.get(`/api/client/list?${qs}`)
-  }
-
-  async getCustomer(customerNo: string): Promise<FumamxCustomer | null> {
-    return this.get(`/api/client/detail/${customerNo}`)
-  }
-
-  async createCustomer(data: Partial<FumamxCustomer>): Promise<FumamxCustomer> {
-    return this.post("/api/client/create", data)
-  }
-
-  async updateCustomer(customerNo: string, data: Partial<FumamxCustomer>): Promise<FumamxCustomer> {
-    return this.post(`/api/client/update/${customerNo}`, data)
-  }
-
-  async deleteCustomer(customerNo: string): Promise<void> {
-    return this.post(`/api/client/delete/${customerNo}`, {})
-  }
-
-  async listContacts(customerNo: string): Promise<FumamxContact[]> {
-    return this.get(`/api/contact/list/${customerNo}`)
-  }
-
-  async addContact(customerNo: string, data: Partial<FumamxContact>): Promise<FumamxContact> {
-    return this.post(`/api/contact/create`, { customerNo, ...data })
-  }
-
-  async updateContact(contactId: string, data: Partial<FumamxContact>): Promise<FumamxContact> {
-    return this.post(`/api/contact/update/${contactId}`, data)
-  }
-
-  async listFollowUps(customerNo: string): Promise<FumamxFollowUp[]> {
-    return this.get(`/api/followup/list/${customerNo}`)
-  }
-
-  async addFollowUp(data: FumamxFollowUp): Promise<FumamxFollowUp> {
-    return this.post("/api/followup/create", data)
-  }
-
-  async listQuotations(customerNo: string): Promise<FumamxQuotation[]> {
-    return this.get(`/api/quotation/list/${customerNo}`)
-  }
-
-  async createQuotation(data: Partial<FumamxQuotation>): Promise<FumamxQuotation> {
-    return this.post("/api/quotation/create", data)
-  }
-
-  async listOrders(customerNo: string): Promise<FumamxSalesOrder[]> {
-    return this.get(`/api/order/list/${customerNo}`)
-  }
-
-  async createOrder(data: Partial<FumamxSalesOrder>): Promise<FumamxSalesOrder> {
-    return this.post("/api/order/create", data)
-  }
-
-  async sendEmail(data: FumamxEmail): Promise<FumamxEmail> {
-    return this.post("/api/email/send", data)
-  }
-
-  async checkInbox(): Promise<FumamxEmail[]> {
-    return this.get("/api/email/inbox")
-  }
-
-  async addToNurture(customerNo: string, templateName?: string): Promise<FumamxNurture> {
-    return this.post("/api/nurture/add", { customerNo, templateName })
-  }
-
-  async getNurtureStatus(customerNo: string): Promise<FumamxNurture | null> {
-    return this.get(`/api/nurture/status/${customerNo}`)
-  }
-
-  async getDailyTasks(): Promise<FumamxTask[]> {
-    return this.get("/api/task/daily")
-  }
-
-  async completeTask(taskId: string): Promise<void> {
-    return this.post(`/api/task/complete/${taskId}`, {})
-  }
-
-  async claimPublicCustomer(customerNo: string): Promise<void> {
-    return this.post(`/api/public/claim/${customerNo}`, {})
-  }
-
-  async getStats(): Promise<FumamxStats> {
-    return this.get("/api/stats/overview")
-  }
-
-  // ─── HTTP 辅助 ──────────────────────────
 
   private async get<T>(path: string): Promise<T> {
-    const resp = await fetch(`${this.config.baseUrl}${path}`, {
-      headers: { ...this.authHeaders, "Content-Type": "application/json" },
+    const url = `${this.config.baseUrl}/pcapi/${path}`
+    const resp = await fetch(url, {
+      headers: {
+        Cookie: this.cookies,
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      },
       credentials: "include",
     })
     if (!resp.ok) throw new Error(`GET ${path} → ${resp.status}`)
-    return resp.json()
+    const json: FumamxResponse<T> = await resp.json()
+    if (json.code !== "0" && json.code !== 0) {
+      throw new Error(`API error: ${json.code} ${json.msg || ""}`)
+    }
+    return json.data
   }
 
-  private async post<T>(path: string, body: unknown): Promise<T> {
-    const resp = await fetch(`${this.config.baseUrl}${path}`, {
+  private async post<T>(path: string, body: Record<string, unknown>): Promise<T> {
+    const url = `${this.config.baseUrl}/pcapi/${path}`
+    const fullBody = {
+      ...COMMON_PARAMS,
+      _filterCompanyId: this.config.companyId,
+      accessToken: this.config.accessToken || "",
+      ...body,
+    }
+    const resp = await fetch(url, {
       method: "POST",
-      headers: { ...this.authHeaders, "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: this.cookies,
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      },
       credentials: "include",
-      body: JSON.stringify(body),
+      body: JSON.stringify(fullBody),
     })
     if (!resp.ok) throw new Error(`POST ${path} → ${resp.status}`)
-    return resp.json()
+    const json: FumamxResponse<T> = await resp.json()
+    if (json.code !== "0" && json.code !== 0) {
+      throw new Error(`API error: ${json.code} ${json.msg || ""}`)
+    }
+    return json.data
+  }
+
+  // ─── 数据映射 ────────────────────────────
+
+  private mapCustomer(raw: Record<string, unknown>): FumamxCustomer {
+    return {
+      customerCode: raw["billCode"] as string,
+      customerNo: raw["key_id"] as string,
+      customerName: raw["custName"] as string,
+      shortName: raw["shortName"] as string,
+      country: raw["country"] as string,
+      address: raw["address"] as string,
+      website: raw["website"] as string,
+      creditCode: raw["creditCode"] as string,
+      customerType: raw["custType"] as string,
+      customerSource: raw["source"] as string,
+      industry: raw["industry"] as string,
+      valueLevel: raw["valueLevel"] as FumamxCustomer["valueLevel"],
+      dealStage: raw["dealStage"] as string,
+      dealStatus: raw["dealStatus"] as string,
+      customerScore: raw["custScore"] as number,
+      dataCompleteness: raw["integrityScore"] as number,
+      businessDescription: raw["businessDesc"] as string,
+      equipmentDemand: raw["equipmentDemand"] as string,
+      customsData: raw["customsData"] as string,
+      backgroundCheck: raw["backgroundCheck"] as string,
+      latestProgress: raw["latestProgress"] as string,
+      paymentCredit: raw["paymentCredit"] as string,
+      totalDealAmountUSD: raw["totalDealAmountUSD"] as number,
+      totalDealAmountCNY: raw["totalDealAmountCNY"] as number,
+      contactCount: raw["contactNum"] as number,
+      dealOrderCount: raw["dealOrderCount"] as number,
+      owner: raw["ownerName"] as string,
+      department: raw["deptName"] as string,
+      creator: raw["createName"] as string,
+      firstDealTime: raw["firstDealTime"] as string,
+      lastFollowUp: raw["lastTrackInfo"] as string,
+      nextFollowUp: raw["nextFollowUp"] as string,
+      createTime: raw["createDate"] as string,
+      modifyTime: raw["modifyDate"] as string,
+      remark: raw["remark"] as string,
+    }
+  }
+
+  private mapFollowUp(raw: Record<string, unknown>): FumamxFollowUp {
+    return {
+      id: raw["key_id"] as string,
+      customerNo: raw["custId"] as string,
+      type: (raw["activityType"] as string || "other") as FumamxFollowUp["type"],
+      content: raw["activityDesc"] as string,
+      nextPlan: raw["nextPlan"] as string,
+      nextFollowUpTime: raw["nextFollowUp"] as string,
+      createdAt: raw["createDate"] as string,
+      createdBy: raw["createName"] as string,
+    }
   }
 }
+
+// CDP 降级方案保留在 scripts/ 中
+// export { CdpFumamxClient } — 不再通过此处导出

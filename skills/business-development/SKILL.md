@@ -9,22 +9,28 @@ triggers:
   - BD
 ---
 
-# Business Development Skill 🤝
+# Business Development Skill — 红龙工业设备商务拓展
 
-**Turn your AI agent into a strategic growth partner.**
+**红龙工业设备外贸商务拓展。** 找经销商、分析竞品、市场扩张、展会策略。
 
-Research markets, identify partnerships, analyze competitors, and generate compelling proposals that open doors.
+> 核心参考：`docs/全球大客户战略地图.md` — 11家竞品、9大区域优先级、利润底线
+
+## 红龙核心策略
+- **先做经销商的供应商** — 成为已有分销网络的设备供货商
+- **整套方案切入** — 接头机+打齿机+分层机组合，提高客单价
+- **对标 Flexco/Almex 做替代** — TCO算账，"同样的品质，省60%"
+- **Beltwin 是合作伙伴** — 温州同行十年合作，不攻击不抢客户
+- **展会+拜访** — 美国/欧洲展会是接触大客户最佳途径
 
 ---
 
 ## What This Skill Does
 
-✅ **Partnership Outreach** — Identify, research, and approach potential partners
-✅ **Market Research** — Analyze market size, trends, and opportunities
-✅ **Competitor Analysis** — Track competitors and identify advantages
-✅ **Proposal Generation** — Create compelling partnership and business proposals
-✅ **Opportunity Tracking** — Manage BD pipeline from lead to deal
-✅ **Strategic Planning** — Support business expansion decisions
+✅ **Dealer Discovery** — 找海外经销商/代理商/分销商
+✅ **Market Research** — 分析目标市场规模、趋势、机会
+✅ **Competitor Analysis** — 跟踪竞品动态（Flexco/Almex/ContiTech etc.）
+✅ **Proposal Generation** — 商业提案和合作提案
+✅ **Strategic Planning** — 支持市场扩张决策
 
 ---
 

@@ -1,83 +1,63 @@
 """
-孚盟 MX API 流量捕获工具
-通过 Chrome CDP Network 域监听所有孚盟内部 API 请求。
-输出结构化 JSON，供后续 MCP Server 构建。
+孚盟 MX API 流量捕获工具 v2
+通过 Chrome DevToolsActivePort 直连 CDP WebSocket，捕获所有内部 API 请求。
 
 用法:
-  1. Chrome 开启远程调试: chrome.exe --remote-debugging-port=9222
-  2. 在 Chrome 中登录 https://fumamx.com/#/login
-  3. python capture-api.py
-  4. 操作孚盟各个模块（查客户、建报价单、发邮件...）
-  5. Ctrl+C 停止，自动保存到 captured-apis.json
+  python scripts/capture-api.py
 
-依赖: pip install websocket-client
+前置:
+  1. Chrome 已启动（无需 --remote-debugging-port，通过 DevToolsActivePort 发现）
+  2. Chrome 中已打开 https://fumamx.com 并登录
+  3. 运行后操作孚盟各模块，Ctrl+C 停止
+
+依赖: websockets (browser-harness 已安装) + pip install aiofiles
 """
 
+import asyncio
 import json
+import os
 import re
-import sys
-import time
 import signal
-import threading
+import sys
 from datetime import datetime, timezone
-from urllib.request import urlopen
-from urllib.error import URLError
+from pathlib import Path
 
-import websocket
+import websockets
 
 # ─── 配置 ────────────────────────────────────────────
-CDP_HOST = "127.0.0.1"
-CDP_PORT = 9222
 TARGET_DOMAIN = "fumamx.com"
 OUTPUT_FILE = "captured-apis.json"
-SKIP_EXTENSIONS = (
+SKIP_PATH_PATTERNS = (
     ".js", ".css", ".png", ".jpg", ".jpeg", ".gif", ".svg",
     ".ico", ".woff", ".woff2", ".ttf", ".map", ".mp4", ".webm",
+    "hot-update",
 )
 
-# ─── 全局状态 ────────────────────────────────────────
-captured: list[dict] = []
-pending: dict[str, dict] = {}           # requestId -> entry
-body_requests: dict[int, str] = {}      # cmdId -> requestId
-running = True
-cmd_seq = 0
-wsa: websocket.WebSocketApp | None = None
 
+def get_ws_url() -> str:
+    """从 DevToolsActivePort 读取 Chrome CDP 地址"""
+    profiles = [
+        Path.home() / "AppData/Local/Google/Chrome/User Data",
+        Path.home() / "AppData/Local/Microsoft/Edge/User Data",
+        Path.home() / "AppData/Local/Chromium/User Data",
+        Path.home() / "AppData/Local/Microsoft/Edge Beta/User Data",
+        Path.home() / "AppData/Local/Microsoft/Edge Dev/User Data",
+    ]
+    for profile in profiles:
+        dtap = profile / "DevToolsActivePort"
+        if dtap.exists():
+            port, path = dtap.read_text().strip().split("\n", 1)
+            return f"ws://127.0.0.1:{port.strip()}{path.strip()}"
 
-def next_cmd_id() -> int:
-    global cmd_seq
-    cmd_seq += 1
-    return cmd_seq
-
-
-def get_tabs() -> list[dict]:
-    try:
-        with urlopen(f"http://{CDP_HOST}:{CDP_PORT}/json") as resp:
-            return json.loads(resp.read())
-    except URLError as e:
-        print(f"[FATAL] 无法连接 Chrome 调试端口 {CDP_PORT}")
-        print(f"  启动: chrome.exe --remote-debugging-port={CDP_PORT}")
-        print(f"  错误: {e}")
-        sys.exit(1)
-
-
-def find_fumamx_tab(tabs: list[dict]) -> dict | None:
-    for t in tabs:
-        if TARGET_DOMAIN in t.get("url", ""):
-            return t
-    return None
-
-
-def cdp(method: str, params: dict | None = None):
-    """发送 CDP 命令"""
-    if wsa is None:
-        return
-    cid = next_cmd_id()
-    msg = {"id": cid, "method": method}
-    if params:
-        msg["params"] = params
-    wsa.send(json.dumps(msg))
-    return cid
+    # fallback: 直接探测常用端口
+    import urllib.request
+    for port in (9222, 9223):
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{port}/json/version", timeout=1) as r:
+                return json.loads(r.read())["webSocketDebuggerUrl"]
+        except Exception:
+            continue
+    raise RuntimeError("无法找到 Chrome CDP。请确认 Chrome 已启动")
 
 
 def should_capture(url: str) -> bool:
@@ -86,240 +66,276 @@ def should_capture(url: str) -> bool:
     if url.startswith("ws"):
         return False
     lower = url.lower()
-    for ext in SKIP_EXTENSIONS:
-        if ext in lower:
-            return False
+    if any(p in lower for p in SKIP_PATH_PATTERNS):
+        return False
     return True
 
 
 def normalize_url(url: str) -> str:
-    """去除 URL 中的动态参数（ID/UUID）用于分组"""
     u = re.sub(r'/[0-9a-f]{8,}', '/{id}', url)
     u = re.sub(r'/\d{6,}', '/{id}', u)
     u = re.sub(r'/\d{4}-\d{2}-\d{2}', '/{date}', u)
     return u
 
 
-def on_message(_ws, raw: str):
-    global captured, pending, body_requests
+class CaptureSession:
+    def __init__(self):
+        self.browser_ws = None  # type: websockets.ClientConnection
+        self.session_id: str | None = None
+        self.captured: list[dict] = []
+        self.pending: dict[str, dict] = {}
+        self.running = True
+        self.cmd_seq = 0
+
+    def next_id(self) -> int:
+        self.cmd_seq += 1
+        return self.cmd_seq
+
+    async def browser_cdp(self, method: str, **params) -> dict:
+        """发送 CDP 命令到 browser 级 WebSocket (带 sessionId)"""
+        cid = self.next_id()
+        msg = {"id": cid, "method": method, "params": params or {}}
+        if self.session_id:
+            msg["sessionId"] = self.session_id
+        await self.browser_ws.send(json.dumps(msg))
+        while True:
+            raw = await self.browser_ws.recv()
+            data = json.loads(raw)
+            if data.get("id") == cid:
+                if "error" in data:
+                    print(f"[CDP ERROR] {method}: {data['error']}")
+                return data.get("result", {})
+
+    async def connect(self):
+        browser_url = get_ws_url()
+        print(f"[CDP] Browser: {browser_url[:80]}...")
+        self.browser_ws = await websockets.connect(browser_url, max_size=50_000_000)
+
+        # 找孚盟标签页
+        targets = await self.browser_cdp("Target.getTargets")
+        fumamx_target = None
+        for t in targets.get("targetInfos", []):
+            if t["type"] == "page" and TARGET_DOMAIN in t.get("url", ""):
+                fumamx_target = t
+                break
+
+        if not fumamx_target:
+            pages = [t for t in targets.get("targetInfos", []) if t["type"] == "page"]
+            print(f"[WARN] 未找到孚盟标签页。当前 {len(pages)} 个页面:")
+            for p in pages:
+                print(f"  - {p.get('title','?')[:60]}")
+            print(f"\n请打开 https://fumamx.com/#/login 并登录后重新运行")
+            return False
+
+        print(f"[OK] 找到孚盟: {fumamx_target.get('title','?')[:60]}")
+        target_id = fumamx_target["targetId"]
+
+        # Attach 到孚盟标签页
+        result = await self.browser_cdp("Target.attachToTarget", targetId=target_id, flatten=True)
+        self.session_id = result["sessionId"]
+        print(f"[OK] Attached to session: {self.session_id[:30]}...")
+
+        # 需要创建新的 WS 连接来接收 session events
+        # Flatten 模式下事件通过 browser WS 发送，带 session_id 字段
+        # 不用另外 connect
+
+        # 启用 Network (sessionId 由 browser_cdp 自动附加)
+        await self.browser_cdp(
+            "Network.enable",
+            maxTotalBufferSize=100_000_000,
+            maxResourceBufferSize=50_000_000,
+        )
+        print("[OK] Network enabled on Fumeng session")
+        return True
+
+    async def capture_loop(self):
+        """持续监听 browser WS 的事件"""
+        while self.running:
+            try:
+                raw = await asyncio.wait_for(self.browser_ws.recv(), timeout=0.5)
+            except asyncio.TimeoutError:
+                continue
+            except websockets.ConnectionClosed:
+                print("[CDP] Connection closed")
+                break
+
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+
+            method = data.get("method", "")
+            params = data.get("params", {})
+
+            # 只关心 session 内的 Network 事件
+            req_id = params.get("requestId", "")
+            sid = data.get("sessionId", "")
+
+            if method == "Network.requestWillBeSent":
+                req = params.get("request", {})
+                url = req.get("url", "")
+                if not should_capture(url):
+                    continue
+
+                post_data = req.get("postData", "")
+                m = req.get("method", "GET")
+                entry = {
+                    "requestId": req_id,
+                    "url": url,
+                    "method": m,
+                    "headers": req.get("headers", {}),
+                    "postData": post_data,
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "response": None,
+                }
+                self.pending[req_id] = entry
+                print(f"[REQ] {m} {url[:120]}")
+                if post_data:
+                    try:
+                        body = json.loads(post_data)
+                        print(f"      Body: {json.dumps(body, ensure_ascii=False)[:300]}")
+                    except (json.JSONDecodeError, TypeError):
+                        print(f"      Body: {post_data[:300]}")
+
+            elif method == "Network.responseReceived":
+                if req_id not in self.pending:
+                    continue
+                resp = params.get("response", {})
+                status = resp.get("status", 0)
+                headers = resp.get("headers", {})
+                ct = headers.get("content-type", headers.get("Content-Type", ""))
+                self.pending[req_id]["response"] = {
+                    "status": status,
+                    "statusText": resp.get("statusText", ""),
+                    "headers": dict(headers),
+                    "contentType": ct,
+                    "mimeType": resp.get("mimeType", ""),
+                    "body": None,
+                }
+                print(f"[RES] {status} {self.pending[req_id]['url'][:100]}")
+
+            elif method == "Network.loadingFinished":
+                if req_id not in self.pending:
+                    continue
+                entry = self.pending[req_id]
+                resp = entry.get("response") or {}
+                ct = (resp.get("contentType") or "").lower()
+                mime = (resp.get("mimeType") or "").lower()
+                is_text = any(t in ct or t in mime for t in
+                              ["json", "xml", "text", "html", "javascript"])
+                if is_text:
+                    try:
+                        body_result = await self.browser_cdp(
+                            "Network.getResponseBody",
+                            requestId=req_id,
+                        )
+                        body = body_result.get("body", "")
+                        if body and len(body) < 200_000:
+                            resp["body"] = body
+                        elif body:
+                            resp["body"] = f"[TRUNCATED:{len(body)}]"
+                        print(f"      Body: {len(body or '')} bytes")
+                    except Exception:
+                        pass
+                self.pending.pop(req_id, None)
+                self.captured.append(entry)
+
+            elif method == "Network.loadingFailed":
+                if req_id in self.pending:
+                    self.pending[req_id]["response"] = {
+                        "status": 0,
+                        "error": params.get("errorText", "Unknown"),
+                    }
+                    self.captured.append(self.pending.pop(req_id))
+                    print(f"[FAIL] {params.get('errorText', '?')} {self.pending.get(req_id, {}).get('url', '?')[:100]}")
+
+
+    def save(self):
+        if not self.captured:
+            print("\n[WARN] 未捕获到 API 请求")
+            return
+
+        endpoints: dict[str, list[dict]] = {}
+        for req in self.captured:
+            nu = normalize_url(req["url"])
+            endpoints.setdefault(nu, []).append(req)
+
+        output = {
+            "capturedAt": datetime.now(timezone.utc).isoformat(),
+            "targetDomain": TARGET_DOMAIN,
+            "totalRequests": len(self.captured),
+            "uniqueEndpoints": len(endpoints),
+            "requests": self.captured,
+            "endpoints": {
+                url: {
+                    "methods": list(set(r["method"] for r in reqs)),
+                    "count": len(reqs),
+                    "firstSeen": reqs[0]["timestamp"],
+                    "examples": [
+                        {
+                            "method": r["method"],
+                            "url": r["url"],
+                            "postData": r["postData"],
+                            "responseStatus": (r.get("response") or {}).get("status"),
+                            "responseBody": (r.get("response") or {}).get("body", "")[:3000],
+                        }
+                        for r in reqs[:5]
+                    ],
+                }
+                for url, reqs in sorted(endpoints.items())
+            },
+        }
+
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+
+        print(f"\n{'='*60}")
+        print(f"[OK] 捕获 {len(self.captured)} 个请求, {len(endpoints)} 个唯一端点 → {OUTPUT_FILE}")
+        print(f"\n端点一览:")
+        for url, info in output["endpoints"].items():
+            methods = ",".join(info["methods"])
+            examples = info.get("examples", [])
+            first_resp = next((r for r in examples if r.get("responseStatus")), None) or examples[0] if examples else {}
+            print(f"  {methods:6s} | {info['count']:3d}x | {first_resp.get('responseStatus','?'):3d} | {url}")
+
+
+async def main():
+    session = CaptureSession()
+
+    # 信号处理
+    loop = asyncio.get_running_loop()
+    stop_event = asyncio.Event()
+
+    def signal_handler():
+        print("\n[STOP] 停止捕获...")
+        session.running = False
+        stop_event.set()
 
     try:
-        data = json.loads(raw)
-    except json.JSONDecodeError:
+        loop.add_signal_handler(signal.SIGINT, signal_handler)
+    except NotImplementedError:
+        # Windows 上使用 signal
+        signal.signal(signal.SIGINT, lambda s, f: signal_handler())
+
+    # 连接
+    ok = await session.connect()
+    if not ok:
         return
 
-    msg_id = data.get("id")
-    method = data.get("method", "")
-    params = data.get("params", {})
-
-    # ─── 命令响应（包含 id，不含 method）───
-    if msg_id is not None and not method:
-        result = data.get("result", {})
-        # getResponseBody 响应
-        if msg_id in body_requests:
-            req_id = body_requests.pop(msg_id)
-            body = result.get("body", "")
-            base64 = result.get("base64Encoded", False)
-            if req_id in pending and body:
-                entry = pending[req_id]
-                if entry.get("response"):
-                    if len(body) < 200_000:
-                        entry["response"]["body"] = body if not base64 else f"[base64:{len(body)}]"
-                    else:
-                        entry["response"]["body"] = f"[TRUNCATED:{len(body)}]"
-                print(f"      Body: {len(body)} bytes")
-        return
-
-    # ─── Network.requestWillBeSent ─────────
-    if method == "Network.requestWillBeSent":
-        req = params.get("request", {})
-        url = req.get("url", "")
-        if not should_capture(url):
-            return
-
-        request_id = params.get("requestId", "")
-        post_data = req.get("postData", "")
-        m = req.get("method", "GET")
-
-        entry = {
-            "requestId": request_id,
-            "url": url,
-            "method": m,
-            "headers": req.get("headers", {}),
-            "postData": post_data,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "response": None,
-        }
-        pending[request_id] = entry
-
-        print(f"[REQ] {m} {url[:120]}")
-        if post_data:
-            try:
-                body = json.loads(post_data)
-                print(f"      Body: {json.dumps(body, ensure_ascii=False)[:300]}")
-            except (json.JSONDecodeError, TypeError):
-                print(f"      Body: {post_data[:300]}")
-
-    # ─── Network.responseReceived ──────────
-    elif method == "Network.responseReceived":
-        req_id = params.get("requestId", "")
-        if req_id not in pending:
-            return
-
-        resp = params.get("response", {})
-        status = resp.get("status", 0)
-        headers = resp.get("headers", {})
-        ct = headers.get("content-type", headers.get("Content-Type", ""))
-        mime = resp.get("mimeType", "")
-
-        pending[req_id]["response"] = {
-            "status": status,
-            "statusText": resp.get("statusText", ""),
-            "headers": dict(headers),
-            "contentType": ct,
-            "mimeType": mime,
-            "encodedDataLength": resp.get("encodedDataLength", 0),
-            "body": None,
-        }
-        print(f"[RES] {status} {pending[req_id]['url'][:100]}")
-
-    # ─── Network.loadingFinished ───────────
-    elif method == "Network.loadingFinished":
-        req_id = params.get("requestId", "")
-        if req_id not in pending:
-            return
-
-        entry = pending[req_id]
-        resp = entry.get("response")
-
-        # 尝试获取文本类型的响应体
-        if resp:
-            ct = (resp.get("contentType") or "").lower()
-            mime = (resp.get("mimeType") or "").lower()
-            is_text = any(t in ct or t in mime for t in
-                          ["json", "xml", "text", "html", "javascript", "x-www-form-urlencoded"])
-            if is_text:
-                cid = cdp("Network.getResponseBody", {"requestId": req_id})
-                if cid is not None:
-                    body_requests[cid] = req_id
-
-        # 完成并归档
-        pending.pop(req_id, None)
-        captured.append(entry)
-
-
-def on_error(_ws, err):
-    if "Connection refused" not in str(err):
-        print(f"[CDP ERR] {err}")
-
-
-def on_close(_ws, code, _msg):
-    global running
-    print(f"[CDP] 连接关闭 (code={code})")
-    running = False
-
-
-def on_open(_ws):
-    print("[CDP] 已连接，启用 Network 域...")
-    cdp("Network.enable", {
-        "maxTotalBufferSize": 100_000_000,
-        "maxResourceBufferSize": 50_000_000,
-    })
-    print("\n[READY] 监听孚盟 API 流量中...")
-    print("  操作孚盟各模块，完成后按 Ctrl+C\n")
+    print("\n[READY] 开始捕获孚盟 API 流量...")
+    print("  在 Chrome 中操作孚盟（查客户、建报价单、发邮件...）")
+    print("  按 Ctrl+C 停止\n")
     print("=" * 60)
 
-
-def save():
-    if not captured:
-        print("\n[WARN] 未捕获到 API 请求")
-        return
-
-    endpoints: dict[str, list[dict]] = {}
-    for req in captured:
-        nu = normalize_url(req["url"])
-        endpoints.setdefault(nu, []).append(req)
-
-    output = {
-        "capturedAt": datetime.now(timezone.utc).isoformat(),
-        "targetDomain": TARGET_DOMAIN,
-        "totalRequests": len(captured),
-        "uniqueEndpoints": len(endpoints),
-        "requests": captured,
-        "endpoints": {
-            url: {
-                "methods": list(set(r["method"] for r in reqs)),
-                "count": len(reqs),
-                "firstSeen": reqs[0]["timestamp"],
-                "examples": [
-                    {"method": r["method"], "url": r["url"], "postData": r["postData"],
-                     "responseStatus": (r.get("response") or {}).get("status"),
-                     "responseBody": (r.get("response") or {}).get("body", "")[:3000]}
-                    for r in reqs[:5]
-                ],
-            }
-            for url, reqs in sorted(endpoints.items())
-        },
-    }
-
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
-
-    print(f"\n[OK] 捕获 {len(captured)} 个请求, {len(endpoints)} 个唯一端点 → {OUTPUT_FILE}")
-    print("\n端点一览:")
-    for url, info in output["endpoints"].items():
-        methods = ",".join(info["methods"])
-        first_resp = next((r for r in info["examples"] if r.get("responseStatus")), info["examples"][0])
-        print(f"  {methods:6s} | {info['count']:3d}x | {first_resp.get('responseStatus','?'):3d} | {url}")
-
-
-def sig_handler(_sig, _frame):
-    global running
-    print("\n\n[STOP] 捕获停止中...")
-    running = False
-
-
-def main():
-    global wsa, running
-
-    signal.signal(signal.SIGINT, sig_handler)
-
-    tabs = get_tabs()
-    fumamx_tab = find_fumamx_tab(tabs)
-
-    if not fumamx_tab:
-        print("[WARN] 未找到孚盟标签页。当前标签页:")
-        for i, t in enumerate(tabs):
-            print(f"  [{i}] {t.get('title','?')[:60]}")
-        print(f"\n请先在 Chrome 中打开 https://fumamx.com/#/login 并登录")
-        sys.exit(0)
-
-    ws_url = fumamx_tab.get("webSocketDebuggerUrl", "")
-    if not ws_url:
-        print("[FATAL] 无法获取 CDP WebSocket URL")
-        sys.exit(1)
-
-    print(f"[TAB] {fumamx_tab.get('title','?')[:60]}")
-    print(f"[CDP] 连接 {ws_url[:80]}...")
-
-    wsa = websocket.WebSocketApp(
-        ws_url,
-        on_open=on_open,
-        on_message=on_message,
-        on_error=on_error,
-        on_close=on_close,
+    # 捕获循环
+    await asyncio.gather(
+        session.capture_loop(),
+        stop_event.wait(),
+        return_exceptions=True,
     )
 
-    t = threading.Thread(target=wsa.run_forever, daemon=True)
-    t.start()
-
-    while running:
-        time.sleep(0.3)
-
-    if wsa:
-        wsa.close()
-    save()
+    session.save()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
