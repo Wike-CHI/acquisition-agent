@@ -357,6 +357,34 @@ mcporter call exa.web_search_exa 'query="{company}" jobs procurement OR buyer OR
 # 失败 → 返回 {success: false, error: "NAS mount failed"}
 ```
 
+#### 背调报告保存为 Word（推荐）
+
+背调报告是叙事性长文本，应保存为 .docx 格式供业务员打印、分享：
+
+```python
+from docx import Document
+from docx.shared import Pt, Cm
+from docx.oxml.ns import qn
+
+doc = Document()
+# 中文字体设置
+style = doc.styles['Normal']
+style.font.name = 'Microsoft YaHei'
+style.element.rPr.rFonts.set(qn('w:eastAsia'), 'Microsoft YaHei')
+style.font.size = Pt(11)
+style.paragraph_format.line_spacing = 1.5
+
+# 填充报告内容...
+doc.add_heading(f'公司背调报告 — {company_name}', level=0)
+# ... 完整报告内容 ...
+
+# 保存到工作区
+workspace = r'C:\Users\Administrator\.holo-desktop\workspace'
+doc.save(f'{workspace}\\背调报告_{company_name}_{date}.docx')
+```
+
+> .docx 生成详情见 `word-docx` 技能。
+
 #### 降级逻辑（NAS 不可用时强制执行）
 
 NAS 挂载失败的降级路径：

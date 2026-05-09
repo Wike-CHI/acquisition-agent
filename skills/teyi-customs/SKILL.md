@@ -1,7 +1,7 @@
 ---
 name: teyi-customs
-version: 2.1.0
-description: 特易海关数据搜索技能。通过特易平台查询海关进出口数据，获取潜在客户采购记录。当用户需要：(1) 查海关数据 (2) 找采购商 (3) 查进出口记录 (4) 海关数据分析 (5) 特易搜搜 时使用此技能。
+version: 3.0.0
+description: 特易海关数据搜索技能。通过 teyi_customs 工具查询海关进出口数据 + Exa 决策人挖掘，覆盖233国4100万+企业。当用户需要查海关数据、找采购商、查进出口记录、海关数据分析时使用。actions: search(搜索进口商), multi_search(并行多关键词+自动去重), enrich(Exa找决策人), detail(公司详情页), check(验证登录)。
 always: false
 triggers:
   - 海关数据
@@ -13,240 +13,256 @@ triggers:
   - 特易搜搜
 ---
 
-# 特易海关数据搜索技能
+# 特易海关数据搜索技能 v3.0
 
-通过特易平台查询海关进出口数据，获取潜在客户的采购记录、供应商信息、交易频次等关键情报。
+> 底层工具: `teyi_customs` (`teyiCustoms.ts`) — BrowserSession + CDP 自动化, 零外部依赖
+> 搜索入口: `https://et.topease.net/gt/company?wlf=sou6_search` (特易搜搜, 非 /gt/search TradeGPT)
 
 ## 一、平台信息
 
-**特易(Teyi)** - 外贸资讯宝GT7.0
-- 登录链接: https://et.topease.net/login?product=gt
-- 账户配置: 首次使用需要用户输入账户名和密码
-- 数据覆盖: 200+国家/地区
-- 更新频率: 实时更新
-- 数据类型: 进出口报关单、提单、商业发票
+- **平台**: 特易(Teyi) 外贸资讯宝GT7.0
+- **登录**: https://et.topease.net/login?product=gt
+- **数据覆盖**: 233 国家/地区, 4100万+ 企业, 实时更新
+- **数据类型**: 进出口报关单、提单、商业发票
 
-## 二、数据库统计
+## 二、工具 Actions 速查
 
-| 数据库 | 数量 |
-|--------|------|
-| 国际贸易企业数量 | 41,162,257 |
-| 采购商数量 | 27,283,382 |
-| 供应商数量 | 13,878,875 |
-| 海外商业企业库 | 16,957,315 |
-| 社交媒体企业库 | 25,155,108 |
-| 海外会展企业库 | 290,888 |
-| 广交会采购商 | 1,628,786 |
-| 海外KYC报告库 | 329,316,159 |
-| 国家及地区 | 233 |
+所有操作通过 `teyi_customs` 工具完成，**不要手动操作浏览器**（浏览器工具仅在登录时使用）。
 
-## 三、搜索参数详解
+### 2.1 search — 单关键词搜索
 
-### 3.1 基础搜索
+```
+teyi_customs action=search keyword="conveyor belt" country="巴西" hscode="4010" max_pages=3 auto_enrich=true enrich_limit=10
+```
 
-**搜索类型**：
-- 产品关键词（默认）
-- HS编码
-- 公司名称
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| action | string | 是 | `"search"` |
+| keyword | string | 是 | 英文产品关键词 |
+| country | string | 否 | 目标国家中文名 (如 "巴西", "秘鲁") |
+| hscode | string | 否 | HS编码过滤 (如 "4010") |
+| max_pages | number | 否 | 翻页数, 默认1, 最多10 (~20条/页) |
+| auto_enrich | boolean | 否 | 是否自动 Exa 补全决策人信息 (默认false) |
+| enrich_limit | number | 否 | 最多 enrich 几家公司 (默认5) |
+| session | string | 否 | 浏览器 session 名 (子代理自动分配) |
 
-**搜索入口**：
-1. 简单搜索：输入框 + "搜公司"按钮
-2. 高级搜索：点击"高级搜索"按钮
+### 2.2 multi_search — 并行多关键词搜索 ⭐
 
-### 3.2 高级搜索参数
+```
+teyi_customs action=multi_search keyword_variants=[
+  {"keyword":"conveyor belt rubber","hscode":"4010"},
+  {"keyword":"belt vulcanizer splicing","hscode":"8477"},
+  {"keyword":"correia transportadora emenda"}
+] country="巴西" max_pages=2 auto_enrich=true
+```
 
-#### A. 目标国家或地区位置
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| action | string | 是 | `"multi_search"` |
+| keyword_variants | array | 是 | `[{keyword, hscode?}]` — 至少2个变体 |
+| country | string | 否 | 目标国家中文名 |
+| max_pages | number | 否 | 每个 variant 翻页数, 默认1, 最多5 |
+| auto_enrich | boolean | 否 | 去重后是否 enrich |
+| enrich_limit | number | 否 | 最多 enrich 几家 (默认5, 最多20) |
 
-| 参数 | 类型 | 说明 |
+**自动功能**:
+- 每个 variant 独立 browser session 并行执行
+- 结果按 `detail_url` 去重合并
+- 每条结果标注 `sources` — 被哪个关键词命中
+- 自动检测大厂噪音 (CAT, Scania 等21个品牌)
+- 返回 `noise_warning` + `next_step` 建议
+
+### 2.3 enrich — Exa 补全决策人
+
+```
+teyi_customs action=enrich company_name="Warbel do Brasil" country="巴西"
+```
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| action | string | 是 | `"enrich"` |
+| company_name | string | 是 | 公司名 (英文) |
+| country | string | 否 | 国家上下文, 提升搜索精度 |
+
+通过 Exa 搜索 10亿+ LinkedIn 个人资料, 返回:
+- `decision_makers`: 决策人姓名/职位/LinkedIn URL
+- `exa_company_info`: 公司描述/官网
+
+### 2.4 detail — 公司详情
+
+```
+teyi_customs action=detail detail_url="https://et.topease.net/gt/company/detail/..."
+```
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| action | string | 是 | `"detail"` |
+| detail_url | string | 是 | 公司详情页完整URL (从 search/multi_search 结果中获取) |
+
+从特易详情页提取: 公司基本信息、联系方式(email/电话/网站)、采购记录。
+
+### 2.5 check — 验证登录状态
+
+```
+teyi_customs action=check
+```
+
+返回 `logged_in`, `url`, `state`, `screenshot`。
+
+## 三、⭐ 搜索策略（必读）
+
+
+### 3.1 核心原则
+
+**特易擅长找"进口商"，不擅长找"服务商"。**
+
+海关数据记录的是**跨境货物流动**。以下企业在特易中很难找到:
+- 皮带接头/硫化服务公司 (不进口设备，只提供服务)
+- 小型维修服务商
+- 纯贸易中间商
+
+以下企业在特易中容易找到:
+- 大型进口商 (Caterpillar, Scania 等)
+- 设备进口分销商
+- 矿业/港口/钢厂 (自用设备进口)
+
+**铁律: 特易搜不到不代表不存在。特易 + Web 双通道互补。**
+
+### 3.2 三层搜索漏斗
+
+每次搜索必须按此漏斗逐层进行:
+
+```
+第1层: search — 精准英文关键词 + HS编码 + 目标国家
+  ├── 命中 >20 条 → 检查质量
+  │   ├── 大部分是目标客户 → 直接使用
+  │   └── 大部分是大厂杂音 → 进入第2层
+  └── 命中 0 条 → 进入第2层
+
+第2层: multi_search — 英文 + 本地语言 + 不同HS编码并行
+  ├── 自动去重 + 噪音标记
+  ├── 结果质量OK → 筛选用 enrich 补全决策人
+  └── 大部分杂音 → 进入第3层
+
+第3层: web_search — 服务商/分销商搜索 (特易外补充)
+  ├── 搜索"产品名 + 国家 + empresa/serviço"
+  ├── 识别皮带服务公司、分销商
+  └── 找到后回特易 search keyword="公司名" 查进口记录
+```
+
+### 3.3 工业皮带设备关键词矩阵
+
+| 层级 | 英文 | 葡萄牙语(巴西) | 西班牙语(拉美) | HS编码 |
+|------|------|---------------|---------------|--------|
+| 产品层 | `conveyor belt`, `rubber belt` | `correia transportadora` | `correa transportadora`, `cinta transportadora`, `banda transportadora` | 4010 |
+| 设备层 | `belt vulcanizer`, `belt splicing machine`, `belt joint machine`, `finger puncher` | `vulcanizador de correia`, `emendadeira de correia` | `vulcanizadora de correa`, `empalmadora de correa`, `prensa de vulcanizado` | 8477 |
+| 服务层 | `belt splicing service`, `vulcanization service`, `belt repair` | `serviço de emenda de correia`, `vulcanização de correia` | `servicio de empalme de correa`, `reparación de correas`, `mantenimiento de fajas transportadoras` | — |
+| 配件层 | `belt fastener`, `belt clamp`, `belt gripper`, `belt repair kit` | `grampo para correia` | `sujetador de correa`, `grampa para correa`, `kit de reparación` | 7318 |
+
+**优先顺序**: 产品层 (最多结果) → 设备层 (精准客户) → 服务层 (web补充) → 配件层 (交叉销售)
+
+### 3.3.1 秘鲁/南美西班牙语市场特殊关键词
+
+> 秘鲁的皮带服务公司常用 `fajas transportadoras` 而非 `correas transportadoras`。
+> 加上行业词 `minería`(矿业)、`industrial` 有助于过滤杂音。
+
+**秘鲁专用搜索组合**:
+```
+multi_search keyword_variants=[
+  {keyword:"faja transportadora", hscode:"4010"},
+  {keyword:"banda transportadora empalme"},
+  {keyword:"servicio mantenimiento fajas transportadoras"},
+  {keyword:"vulcanizadora prensa correa"},
+  {keyword:"reparacion correas transportadoras"},
+  {keyword:"correa transportadora industrial"}
+] country="秘鲁"
+```
+
+**秘鲁高价值信号** (公司名包含以下关键词时重点关注):
+- `servicios`, `servicio` — 服务公司（会用设备）
+- `industrial`, `industria` — 工业供应商
+- `fajas`, `bandas`, `correas` — 皮带相关
+- `reparación`, `mantenimiento`, `empalme` — 维修/接头
+- `ingeniería`, `soluciones` — 工程/解决方案公司
+
+**秘鲁矿业终端客户（排除：不是我们的直接客户）**:
+会搜出大量矿业公司（Southern Peru Copper, Buenaventura 等）。这些是**终端用户**，买设备自用，不是我们的经销商/服务商目标。标记为杂音排除。
+
+### 3.4 结果质量判断
+
+**立刻排除的杂音**:
+
+大厂噪音黑名单 (工具自动标记):
+CATERPILLAR, SCANIA, RENAULT, YAMAHA, ZARA, AMAZON, VOLVO, MERCEDES, TOYOTA, HONDA, NISSAN, FORD, GM, SAMSUNG, LG, APPLE, MICROSOFT, SIEMENS, BOSCH
+
+矿业终端用户 (需人工判断排除 — 他们不是我们的经销商/服务商目标):
+Southern Peru Copper, Buenaventura, Antamina, Cerro Verde, Las Bambas, Anglo American, Glencore, Freeport-McMoRan, Newmont, Barrick, Gold Fields, Hochschild, Minsur, Volcan, Nexa Resources
+
+百货/零售 (与工业皮带无关):
+SAGA FALABELLA, RIPLEY, CENCOSUD, SODIMAC, TOTTUS, WONG, METRO
+
+工程机械代理商 (需判断 — 如果他们也有皮带服务部门则可保留):
+FERREYROS (CAT代理), KOMATSU-MITSUI, UNIMAQ, IPESA
+
+`multi_search` 会自动检测大厂噪音并返回 `noise_list`。矿业/百货/工程机械需人工判断。
+
+**重点关注**:
+- 公司名包含 `borracha`/`correia`/`vulcanização`/`belt`/`rubber`
+- HS编码集中在 4010/4016/8477/5910
+- 采购频次 ≥5次/年, 供应商集中3-8家
+
+### 3.5 禁止行为
+
+- 只用一个宽泛关键词就下结论
+- 反复点击平台AI功能 (小易AI等)
+- 看到 CAT/Scania 就认为搜对了
+- 用浏览器手动操作可被工具自动化的步骤
+
+## 四、标准获客工作流
+
+```
+teyi_customs action=search (或 multi_search)
+    │
+    ├── 结果 >0 ──→ 筛选去噪
+    │       │
+    │       ├── teyi_customs action=enrich company_name="目标公司"
+    │       │   └── 获取决策人姓名/职位/LinkedIn
+    │       │
+    │       └── teyi_customs action=detail detail_url="详情URL"
+    │           └── 提取联系方式 + 采购记录
+    │
+    └── 结果 =0 ──→ web_search (本地语言找服务商)
+            │
+            └── teyi_customs action=search keyword="找到的公司名" country="国家"
+                └── 用公司名回特易查进口记录
+```
+
+## 五、国家-大洲映射
+
+| 大洲 | 国家 |
+|------|------|
+| 南美洲 | 秘鲁、巴西、阿根廷、智利、哥伦比亚 |
+| 非洲 | 埃及、南非、尼日利亚、肯尼亚、摩洛哥 |
+| 亚洲 | 沙特、阿联酋、印度、越南、印尼、泰国、马来西亚、菲律宾 |
+| 北美洲 | 美国、加拿大、墨西哥 |
+| 欧洲 | 德国、英国、法国、意大利、西班牙、波兰 |
+| 大洋洲 | 澳大利亚、新西兰 |
+
+## 六、常用HS编码
+
+| 编码 | 产品 | 用途 |
 |------|------|------|
-| 完整地址模糊匹配 | textbox | 输入国家、城市、地区名称 |
+| 4010 | 硫化橡胶制输送带/传动带 | conveyor belt, rubber belt |
+| 4010.10 | 金属增强输送带 | steel cord belt |
+| 4010.20 | 纺织增强输送带 | fabric belt |
+| 4016 | 硫化橡胶制品 | rubber products, belt repair materials |
+| 5910 | 纺织材料制传动带/输送带 | textile belt |
+| 8477 | 橡胶/塑料加工机械 | vulcanizer, splicing press, joint machine |
+| 7318 | 钢铁制螺钉/螺栓/铆钉 | belt fasteners, clamps |
 
-**支持的大洲**：
-- 北美洲：墨西哥、美国、加拿大、牙买加、格陵兰
-- 南美洲：阿根廷、厄瓜多尔、巴西、秘鲁、哥斯达黎加、哥伦比亚、智利、巴拿马、玻利维亚、巴拉圭、乌拉圭、委内瑞拉等（共37个国家/地区）
-- 亚洲：印度、越南、土耳其、印度尼西亚、马来西亚、菲律宾、哈萨克斯坦、泰国、孟加拉国、巴基斯坦、中国、韩国、日本等（共49个国家/地区）
-- 欧洲：俄罗斯联邦、欧亚经济联盟、乌克兰、英国、德国、法国、荷兰、意大利、西班牙等（共49个国家/地区）
-- 非洲：纳米比亚、坦桑尼亚、乌干达、加纳、尼日利亚、肯尼亚、埃及、南非等（共55个国家/地区）
-- 大洋洲：澳大利亚、新西兰、斐济、瓦努阿图、巴布亚新几内亚等（共21个国家/地区）
+## 七、数据质量指标
 
-#### B. 产品名称与行业类型
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| 产品关键词 | textbox | 支持自动翻译（开/关） |
-| HS编码 | textbox | 6-10位海关编码，支持编码查询 |
-| 行业分类 | combobox | 8-Digit_SIC（默认） |
-| 行业分类代码 | textbox | 可添加多个代码 |
-
-**常用HS编码**：
-- 4010: 橡胶输送带
-- 4010.10: 输送带（金属增强）
-- 4010.20: 输送带（纺织增强）
-- 5910: 橡胶传动带
-- 5901: 纺织输送带
-- 8431: 塑料输送带
-
-**产品关键词示例**：
-- `conveyor belt` - 输送带
-- `timing belt` - 同步带
-- `v belt` - V带
-- `flat belt` - 平皮带
-- `rubber belt` - 橡胶带
-- `industrial belt` - 工业皮带
-- `power transmission belt` - 动力传输带
-- `PVC conveyor belt` - PVC输送带
-- `PU conveyor belt` - PU输送带
-
-#### C. 公司信息条件
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| 公司名称 | textbox | 支持模糊匹配 |
-| 公司税号 | textbox | 营业执照号/注册号 |
-| 公司网址 | textbox | 官网URL |
-| 采购商名称 | textbox | 具体采购商名称 |
-| 供应商名称 | textbox | 具体供应商名称 |
-
-### 3.3 搜索过滤器
-
-**过滤器类型**：
-- 全部（默认）
-- 采购商
-- 供应商
-- 其他条件
-
-**过滤器搜索**：
-- 支持搜索过滤器名称
-- 快速定位特定过滤条件
-
-## 四、搜索流程
-
-### 方式1: 简单搜索
-
-```
-1. 打开 https://et.topease.net/login?product=gt
-2. 输入账号密码登录
-3. 选择搜索类型（产品关键词/HS编码/公司名称）
-4. 输入关键词（如 "conveyor belt"）
-5. 点击"搜公司"
-6. 查看结果
-```
-
-### 方式2: 高级搜索
-
-```
-1. 点击"高级搜索"按钮
-2. 设置目标国家或地区
-   - 输入国家名称（如 "秘鲁"）
-   - 或从左侧地区列表点击选择
-3. 输入产品关键词
-   - 产品关键词（如 "conveyor belt"）
-   - HS编码（如 "4010"）
-   - 行业分类代码
-4. 设置公司信息条件（可选）
-   - 公司名称
-   - 公司税号
-   - 采购商/供应商名称
-5. 查看搜索结果条数
-6. 点击"确定"执行搜索
-7. 查看并导出结果
-```
-
-### 方式3: 地区导航搜索
-
-```
-1. 从左侧"企业分布地区列表"
-2. 选择大洲（如"南美洲"）
-3. 点击具体国家（如"秘鲁"）
-4. 自动筛选该国家的企业
-5. 输入产品关键词进一步筛选
-```
-
-### 方式4: 特易搜搜 + JS自动化（推荐，已实战验证）⭐
-
-> 适用于：需要用 agent-browser 自动操作时。本方式经过 2026-03-31 实战，成功提取埃及 139 家买家。
-
-**完整步骤（以埃及 + conveyor belt 为例）**：
-
-#### Step 1：登录并进入特易搜搜
-```bash
-agent-browser open "https://et.topease.net/gt/search"
-agent-browser wait --load networkidle
-```
-
-#### Step 2：在特易搜搜页找关键词框并输入
-```bash
-# snapshot -i 查看元素，找到 textbox（ref=e43 左右，关键词框）
-agent-browser snapshot -i
-
-# 填入关键词并按Enter创建标签
-agent-browser fill "@e43" "conveyor belt"
-```
-
-#### Step 3：用 JS 点击国家（关键！填写国家搜索框无效，必须用 JS）
-```bash
-# 搜索页：用 JS 直接点击地区列表里的国家 span
-agent-browser eval "Array.from(document.querySelectorAll('.country span')).find(el=>el.textContent.trim()==='埃及').closest('.country').click()"
-agent-browser wait --load networkidle
-# ✅ URL 会变成 /gt/company/result，自动进入结果页
-```
-
-#### Step 4：进入结果页后设置关键词
-```bash
-# 进入 /gt/company/result 后，找关键词输入框（第一个 vue-input-tag-wrapper）
-agent-browser snapshot -i
-# 找到 textbox ref（通常是 e92 或 e94）
-agent-browser fill "@e92" "conveyor belt"
-agent-browser press Enter
-agent-browser wait 500
-
-# 点击"查询"按钮（snapshot找到的查询按钮ref，通常是 e16）
-agent-browser click "@e16"
-agent-browser wait --load networkidle
-```
-
-#### Step 5：切换到"采购商"标签
-```bash
-# 结果页默认显示全部，点击"采购商"tab筛选
-agent-browser find text "采购商" click
-agent-browser wait 1000
-# ✅ 显示"采购商 (139)"即成功
-```
-
-#### Step 6：提取公司列表
-```bash
-# 提取当前页所有公司名和详情链接（去重）
-agent-browser eval "[...new Map(Array.from(document.querySelectorAll('a[href*=detail]')).map(el => [el.textContent.trim(), el.href])).entries()].map(([name, href]) => name + ' | ' + href).join('\n')"
-
-# 翻到下一页（snapshot找到"下一页"按钮ref，通常是 e22）
-agent-browser click "@e22"
-agent-browser wait --load networkidle
-```
-
-#### Step 7：查看公司详情
-```bash
-# 直接 open 详情页URL（从Step 6获取的href）
-agent-browser open "[detail_url]"
-agent-browser wait --load networkidle
-
-# 获取公司基本信息 + 采购数据
-agent-browser eval "document.body.innerText.slice(0, 2000)"
-```
-
-### ⚠️ 已知陷阱与解决方案
-
-| 陷阱 | 原因 | 解决方案 |
-|------|------|----------|
-| 国家搜索框输入无效 | Vue input tag 组件，纯填写不触发过滤/选择 | **用 JS `querySelectorAll('.country span').find().click()` 直接点击** |
-| 结果页国家弹窗无法选择 | `.gt-country--dialog` 内的国家列表需特定点击逻辑 | 先用 `.country-item` 打开弹窗，再用 JS 找 span 点击 |
-| 返回搜索页后条件丢失 | SPA 路由，`/gt/search` 页回来后参数清空 | 不要 `back()`，直接 `open` 到 `/gt/company/result?wlf=CompanyIndex` 后重新设置 |
-| `find text "埃及" click` 点错位置 | 会点国家搜索输入框文字而非国家选项 | 必须用 `agent-browser eval` + JS 精确定位 |
-| 详情页 `document.body.innerText` 为空 | SPA 内容动态加载，`wait --load networkidle` 不够 | 用 `eval "document.body.innerText.slice(0, 2000)"` 分段读取 |
-| ref 编号每次加载后变化 | Playwright accessibility tree 动态分配 | 每次操作前重新 `snapshot -i`，不要硬编码 ref |
-
-## 五、筛选标准
-
-### 5.1 采购商质量评估
+### 采购商评分
 
 | 指标 | 高质量 | 中等 | 低质量 |
 |------|--------|------|--------|
@@ -255,24 +271,24 @@ agent-browser eval "document.body.innerText.slice(0, 2000)"
 | 采购连续性 | 连续3年+ | 1-3年 | <1年 |
 | 供应商数量 | 3-5家 | 5-10家 | >10家或1家 |
 
-### 5.2 目标客户画像
+### 排除条件
 
-**理想客户特征**:
-- ✅ 采购频次高（≥5次/年）
-- ✅ 采购金额大（>$50k/年）
-- ✅ 供应商集中（3-5家）
-- ✅ 采购连续（≥2年）
-- ✅ 非竞争对手
+- 采购金额 <$10k/年
+- 采购频次 <2次/年
+- 供应商 >15家 (价格敏感)
+- 采购断档 >6个月
 
-**排除条件**:
-- ❌ 采购金额过小（<$10k/年）
-- ❌ 采购频次过低（<2次/年）
-- ❌ 供应商过多（>15家）- 价格敏感
-- ❌ 采购不连续（断档>6个月）
+## 八、注意事项
 
-## 六、数据导出格式
+- 海关数据有1-3个月延迟
+- 金额为申报值, 可能与实际有差异
+- 公司名称可能为简称或别名
+- Session 超时后 cookies 持久化自动恢复, 不需重新登录
+- 并行搜索时每个 variant 独立 session, 互不干扰
+- 仅用于商业开发, 遵守数据使用协议
 
-### 6.1 标准导出字段
+## 九、结果导出格式
+
 ```json
 {
   "company_name": "ABC Industrial",
@@ -283,219 +299,39 @@ agent-browser eval "document.body.innerText.slice(0, 2000)"
   "purchase_amount": "$150,000",
   "suppliers": ["Chinese Supplier A", "German Supplier B"],
   "last_purchase": "2026-03-04",
-  "first_purchase": "2023-01-10",
   "trend": "increasing",
-  "company_tax_id": "20607792187",
-  "total_transactions": 416
+  "sources": ["conveyor belt (HS4010)", "correia transportadora"]
 }
 ```
 
-### 6.2 批量导出
-```
-用户: 导出50个秘鲁采购商数据
-→ 筛选条件: 秘鲁 + HS编码4010 + 采购≥3次/年
-→ 导出格式: Excel/CSV
-→ 包含字段: 公司名称/国家/采购频次/金额/供应商/趋势/税号
-```
-
-## 七、分析报告模板
+## 十、分析报告模板
 
 ```markdown
-## 海关数据分析报告
+## 海关数据分析报告 — {产品} / {国家}
 
 ### 搜索条件
-- 产品: conveyor belt
-- 目标国家: Peru
-- 时间范围: 2025-01 至 2026-03
-- 数据量: 887条采购记录
+- 关键词变体: [keyword1, keyword2, ...]
+- 目标国家: {国家}
+- 结果数: {total} (去重后)
 
-### 高价值客户 (Top 10)
+### 噪音排除
+- 大厂杂音: {noise_count}条 (已排除)
+- 有效客户: {valid_count}条
 
-| 排名 | 公司名称 | 采购次数 | 总交易次数 | 采购金额 | 主要供应商 | 最新交易 | 推荐 |
-|------|----------|----------|-----------|----------|------------|----------|------|
-| 1 | INDUSTRIA DE BANDAS MODULARES S.A.C. | 80 | 416 | $180k | 中国供应商A | 2026-03-04 | ⭐⭐⭐ |
-| 2 | CODIZA S.A. | 397 | 8,496 | $2.5M | 德国供应商B | 2026-03-14 | ⭐⭐⭐ |
-| 3 | SEDECO COMERCIAL S.A.C. | 149 | 1,869 | $800k | 中国供应商C | 2026-03-18 | ⭐⭐⭐ |
+### 高价值客户 Top 10
+| # | 公司 | 来源 | 推荐 |
+|---|------|------|------|
+| 1 | ... | belt vulcanizer | ⭐⭐⭐ |
 
-### 市场洞察
-1. 秘鲁市场采购趋势: 上升15%
-2. 主要供应国: 中国(60%), 德国(20%), 意大利(10%)
-3. 平均采购频次: 6次/年
-4. 平均采购金额: $85k/年
-
-### 建议
-1. 重点开发: CODIZA S.A. (采购频次高, 金额大)
-2. 次重点: INDUSTRIA DE BANDAS MODULARES (活跃采购商)
-3. 观察名单: 其他中小型采购商
+### 下一步
+1. 对Top10用 enrich 补齐决策人
+2. 用 cold-email-generator 生成开发信
+3. 特易搜不到的公司用 web_search 找联系方式
 ```
-
-## 八、注意事项
-
-### 8.1 数据使用规范
-- ✅ 仅用于商业开发
-- ✅ 不透露给第三方
-- ✅ 遵守数据使用协议
-- ❌ 不用于非法用途
-
-### 8.2 数据准确性
-- 海关数据有1-3个月延迟
-- 金额为申报值, 可能与实际有差异
-- 公司名称可能为简称或别名
-
-### 8.3 账号安全
-- 使用公司统一账号
-- 不共享账号密码
-- 定期更换密码
-- 会话超时后需重新登录
-
-## 九、快速命令
-
-### 搜索命令
-```
-用户: 从特易查 [国家] 的 [产品] 采购商
-例: 从特易查秘鲁的输送带采购商
-例: 从特易查美国的industrial belt进口商
-```
-
-### 导出命令
-```
-用户: 导出 [数量] 个 [国家] 采购商
-例: 导出50个秘鲁采购商
-例: 导出100个美国工业皮带采购商
-```
-
-### 分析命令
-```
-用户: 分析这些采购商数据
-→ 生成分析报告
-→ 筛选高价值客户
-→ 评分排序
-```
-
-### HS编码查询
-```
-用户: 查询 [产品] 的HS编码
-例: 查询输送带的HS编码
-→ 返回: 4010（橡胶输送带）
-```
-
-## 十、常见问题
-
-### Q1: 如何搜索特定国家的采购商？
-**A**: 两种方式：
-1. 高级搜索 → 输入目标国家名称
-2. 从左侧地区列表点击国家名称
-
-### Q2: 如何按HS编码搜索？
-**A**: 高级搜索 → 产品名称与行业类型 → HS编码输入框
-
-### Q3: 如何查看采购商的详细信息？
-**A**: 点击公司名称进入详情页，可查看：
-- 基本信息
-- 采购历史
-- 供应商列表
-- 交易趋势
-
-### Q4: 数据更新频率？
-**A**: 不同国家更新频率不同：
-- 快版数据：实时更新
-- 关单数据：1-3个月延迟
-- 页面显示最新更新时间
-
-### Q5: 如何导出数据？
-**A**: 搜索结果页 → 勾选目标公司 → 点击"导出" → 选择Excel/CSV格式
-
-## 十一、⭐ 获取客户联系方式（重要）
-
-> **核心规范**：在特易海关搜到客户后，**必须**通过以下方式获取真实联系方式，不能只靠网上猜测或通用邮箱。
-
-### 方法一：点击公司详情页直接获取（首选）
-
-```
-1. 在搜索结果中点击公司名称，进入公司详情页
-2. 左侧导航栏 → 「商业数据」→「联系方式」栏目
-3. 可直接查看：
-   - 📧 邮箱（直接复制）
-   - 📞 电话 / WhatsApp
-   - 🌐 官网URL
-   - 📍 公司地址
-4. 若有多个联系方式，优先选择"决策人"或"采购部"邮箱
-```
-
-**Agent Browser 操作方式**：
-```bash
-# 点击公司链接进入详情页
-agent-browser open "[detail_url]"
-agent-browser wait --load networkidle
-
-# 提取联系方式区域文本
-agent-browser eval "document.querySelector('.contact') ? document.querySelector('.contact').innerText : document.body.innerText.slice(0, 3000)"
-```
-
-### 方法二：易搜邮（EaseSearch Mail）深度挖掘
-
-> 适用场景：详情页联系方式不完整，或需要获取决策人（CEO/采购经理）的个人邮箱
-
-**工具信息**：
-- 名称：易搜邮（EaseSearch Mail）v6.0（2025年9月最新）
-- 入口：特易资讯平台 → 易搜邮
-- 备用入口：特易搜搜（EaseSearch）
-
-**核心功能**：
-| 功能 | 说明 |
-|------|------|
-| 🔍 企业联系人挖掘 | 输入公司名/网站，10秒返回邮箱、社交账号、手机 |
-| 📧 AI智能邮件营销 | 多轮自动化跟进，配置后自动发送 |
-| 🔗 CRM打通 | 与特易E平台同步，客户状态自动更新 |
-| ⚡ 多源聚合 | 整合Google/Facebook/B2B/展会/黄页数据 |
-
-**使用步骤**：
-```
-1. 进入特易平台 → 点击「易搜邮」
-2. 输入目标公司名称 或 官网URL
-3. 等待10秒 → 获取决策人邮箱列表
-4. 选择"采购部"或"总经理"级别联系人
-5. 导出到开发信发送列表
-```
-
-### 标准工作流程（搜索→获取联系方式→发送）
-
-```
-特易海关搜索
-    │
-    ▼
-进入公司详情页 → 「联系方式」栏目
-    │
-    ├── ✅ 有邮箱 → 直接使用
-    │
-    └── ❌ 无邮箱 → 启用易搜邮
-            │
-            ▼
-        输入公司名/网站 → 挖掘决策人邮箱
-            │
-            ▼
-        获取邮箱 → 填入发件脚本
-            │
-            ▼
-        发送开发信（email-sender 技能）
-```
-
-### 联系方式质量评级
-
-| 等级 | 条件 | 说明 |
-|------|------|------|
-| ⭐⭐⭐ S级 | 决策人/采购经理邮箱 + 电话 | 最高优先级，立即触达 |
-| ⭐⭐ A级 | 公司通用邮箱（info@/sales@）| 可发，需个性化开场 |
-| ⭐ B级 | 仅网站表单 / 仅电话 | 发送前需额外核实 |
-| ❌ 不可用 | 无联系方式 | 用易搜邮补充或暂缓 |
 
 ---
-*相关技能*:
-- global-customer-acquisition: 全网获客主控
-- company-research: 企业背调
-- customer-intelligence: 客户情报
-- email-sender: 邮件发送
-
+*底层工具*: teyi_customs (teyiCustoms.ts) — BrowserSession + CDP + Exa
 *平台*: 特易外贸资讯宝GT7.0
 *登录*: https://et.topease.net/login?product=gt
-*更新时间*: 2026-03-31（v2.1.0 新增第十一节「获取客户联系方式」，含详情页+易搜邮两种方法及标准工作流程）
+*搜索入口*: https://et.topease.net/gt/company?wlf=sou6_search
+*版本*: 3.0.0 (2026-05-08 — 全面对齐 teyiCustoms.ts 工具实现)

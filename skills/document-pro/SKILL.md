@@ -58,6 +58,8 @@ with pdfplumber.open("document.pdf") as pdf:
 
 ### Word 文档
 
+**读取：**
+
 ```python
 from docx import Document
 
@@ -70,6 +72,35 @@ for table in doc.tables:
     for row in table.rows:
         print([cell.text for cell in row.cells])
 ```
+
+**生成：**
+
+```python
+from docx import Document
+from docx.shared import Pt, Cm
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+doc = Document()
+
+# 标题
+doc.add_heading('报告标题', level=0)
+doc.add_heading('第一节', level=1)
+
+# 段落
+p = doc.add_paragraph('正文内容...')
+p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+
+# 表格
+table = doc.add_table(rows=3, cols=3, style='Light Grid Accent 1')
+table.cell(0, 0).text = '列1'
+table.cell(0, 1).text = '列2'
+table.cell(0, 2).text = '列3'
+
+# 保存
+doc.save('output.docx')
+```
+
+> 完整的 .docx 生成指南见 `word-docx` 技能，包含中文文档、开发信模板、报告模板等最佳实践。
 
 ### PowerPoint
 

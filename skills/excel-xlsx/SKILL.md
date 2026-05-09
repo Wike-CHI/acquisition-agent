@@ -17,7 +17,19 @@ On first use, read `setup.md` for integration guidelines. Ask user preferences n
 
 ## When to Use
 
-User needs to read, write, or generate Excel files (.xlsx, .xls, .xlsm). Agent handles type coercion, date serialization, formula evaluation, and cross-platform quirks.
+User needs to read, write, or generate Excel files (.xlsx, .xls, .xlsm) for **tabular/structured data**. Agent handles type coercion, date serialization, formula evaluation, and cross-platform quirks.
+
+### ✅ 使用 Excel
+- 客户清单、报价明细、对比表
+- 数字计算、筛选、排序、数据透视
+- Pipeline 数据、数据库导出
+- 行列结构的结构化数据
+
+### ❌ 不使用 Excel
+- 叙事文本、段落、标题为主的报告 → 用 `word-docx` 生成 .docx
+- 背调报告、市场分析、ICP 分析 → 用 `word-docx`
+- 开发信、商务函件 → 用 `word-docx` 或对话中展示
+- 简短文本（不足 1 页）→ 直接在对话中展示
 
 ## Architecture
 

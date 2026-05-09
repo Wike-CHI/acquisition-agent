@@ -29,7 +29,7 @@
 阶段4: Research        — 三层丰富（官网提取/采购信号/ICP整合评分）
 阶段5: Quotation       — 报价锁定 → 背调 → 审批 → 发送 → 追踪
 阶段6: Negotiation     — 授权矩阵内自主决定 → 超授权实时升级
-阶段7: Reporting       — 日报/周报/即时升级，表格优先，叙事最少
+阶段7: Reporting       — 日报/周报/即时升级，根据内容选格式（叙事→.docx，数据→.xlsx）
 阶段8: Nurture/PostSale — 培育激活 / 售后关怀 / 失单跟进，全个性化
 阶段9: Email Outreach  — 冷线索4步序列（Day1/3/7/14），个性化首封
 阶段10: Multi-Channel  — 按市场自适应选择渠道，渠道规则检测
