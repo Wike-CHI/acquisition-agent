@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-05-06",
+  "updatedAt": "2026-05-09",
   "categories": [
     {
       "id": "system",
@@ -263,6 +263,12 @@
           "name": "sdr-training-ground",
           "description": "B2B工业设备销售新兵训练场。 AI扮演海外采购商/技术决策人，新业务员扮演HOLO销售，双方模拟真实销售对话。 系统全程记录、实时评分、对话结束后输出改进报告。 适用场景：新业务员入职培训、销售话术演练、异议处理练习、跨文化销售准备。\n",
           "hash": "7782a0f1630ebbce051d77065aee5b7e6a4c6fa79af3cb90a0b9a1318330b7d2"
+        },
+        {
+          "id": "sales-champion",
+          "name": "sales-champion",
+          "description": "销冠决策引擎 — SPIN需求判断 + 影响力说服 + 挑战者谈判 + 信号识别词典。帮业务员做出销冠级别的判断。",
+          "hash": "8016d1d3091371bd7f88c2b466fe6b06765f52fb5e56f61c5af3c03269affb67"
         }
       ]
     },
