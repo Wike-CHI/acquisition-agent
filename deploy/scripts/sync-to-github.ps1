@@ -1,7 +1,7 @@
 # =============================================================
 # sync-to-github.ps1 - 红龙获客系统本地→GitHub 增量同步脚本
 # =============================================================
-# 用途：将本地 ~/.workbuddy/skills/ 中红龙系统相关技能同步到 GitHub 仓库
+# 用途：将本地 acquisition-agent/skills/ 中红龙系统相关技能同步到 GitHub 仓库
 # 用法：.\scripts\sync-to-github.ps1 [-CommitMessage "自定义提交信息"]
 # =============================================================
 
@@ -15,7 +15,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # --- 配置 ---
-$LocalSkillsDir = Join-Path $env:USERPROFILE ".workbuddy\skills"
+$LocalSkillsDir = Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) "skills"
 $RepoDir = Join-Path $env:TEMP "acquisition-agent-sync"
 
 # 红龙获客系统保留的技能清单

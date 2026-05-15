@@ -12,30 +12,21 @@ from typing import Any, Dict, List, Optional
 def _resolve_skill_dir() -> str:
     """尝试多种方式定位 holo-social-gen 技能根目录"""
     
-    # 策略1：基于 __file__ 的标准方式（正常 import 时有效）
+    # 基于 __file__ 的标准方式
     this_file = os.path.abspath(__file__)
     parent = os.path.dirname(this_file)          # i18n/
     grandparent = os.path.dirname(parent)         # data/
     ggparent = os.path.dirname(grandparent)       # holo-social-gen/
     if "holo-social-gen" in ggparent or "skills" in ggparent:
         return ggparent
-    
-    # 策略2：直接硬编码绝对路径作为最终兜底
-    hardcoded = r"C:\Users\Administrator\.workbuddy\skills\holo-social-gen"
-    if os.path.isdir(hardcoded):
-        return hardcoded
-    
-    # 策略3：返回 grandparent 作为最后尝试
+
+    # 兜底：返回 grandparent
     return ggparent
 
 _SKILL_DIR = _resolve_skill_dir()
 _LOCALES_PATH = os.path.join(_SKILL_DIR, "data", "i18n", "locales.yaml")
 
-# 如果默认路径不存在，尝试硬编码路径作为兜底
-if not os.path.exists(_LOCALES_PATH):
-    _FALLBACK_PATH = r"C:\Users\Administrator\.workbuddy\skills\holo-social-gen\data\i18n\locales.yaml"
-    if os.path.exists(_FALLBACK_PATH):
-        _LOCALES_PATH = _FALLBACK_PATH
+# 如果默认路径不存在，无需额外兜底（策略1已足够）
 
 # 全局缓存
 _cache: Optional[Dict[str, Any]] = None

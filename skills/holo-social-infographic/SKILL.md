@@ -200,7 +200,7 @@ python holo_infographic.py applications
 ### 脚本位置
 
 ```
-~/.workbuddy/skills/holo-social-infographic/
+skills/holo-social-infographic/
 ├── holo_infographic.py           # 统一生成器（入口）
 └── templates/
     ├── HOLO_竞品对比长图_国际版_v2.html    # ✅ 竞品对比

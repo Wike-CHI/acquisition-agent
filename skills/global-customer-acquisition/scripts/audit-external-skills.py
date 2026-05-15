@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """audit-external-skills.py"""
 import os, re
+from pathlib import Path
 
-SKILL = r'C:\Users\Administrator\.workbuddy\skills\global-customer-acquisition'
-SKILLS_ROOT = r'C:\Users\Administrator\.workbuddy\skills'
+SKILL = str(Path(__file__).resolve().parent.parent)
+SKILLS_ROOT = str(Path(__file__).resolve().parent.parent.parent)
 
 EXTERNAL_SKILLS = {
     'cold-email-generator', 'email-sender', 'humanize-ai-text',

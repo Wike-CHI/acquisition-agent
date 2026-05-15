@@ -36,7 +36,8 @@ function Show-Banner {
 
 # 检测技能路径
 function Get-SkillPath {
-    $skillPath = "$env:USERPROFILE\.workbuddy\skills\global-customer-acquisition"
+    # 脚本位于 global-customer-acquisition/scripts/，向上两层即技能根目录
+    $skillPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
     
     if (-not (Test-Path $skillPath)) {
         Write-ColorOutput "❌ 错误: 未找到红龙获客系统技能目录" "Red"
@@ -179,7 +180,8 @@ function Test-SkillDependencies {
     $present = @()
     
     foreach ($dep in $dependencies) {
-        $depPath = "$env:USERPROFILE\.workbuddy\skills\$($dep.Name)"
+        # 技能目录在 acquisition-agent/skills/ 下
+        $depPath = Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) "..\$($dep.Name)"
         
         if (Test-Path $depPath) {
             $present += $dep.Name

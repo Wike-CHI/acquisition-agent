@@ -135,19 +135,19 @@ allowed-tools: Bash,Read,Write
 
 ```powershell
 # 查询产品知识库
-exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "skills\\knowledge-base\\scripts"})
 
 # 查询市场调研
-exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type market -Name '东南亚市场'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type market -Name '东南亚市场'\"", workdir: "skills\\knowledge-base\\scripts"})
 
 # 查询企业档案
-exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type company -Name 'ABC Corp'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type company -Name 'ABC Corp'\"", workdir: "skills\\knowledge-base\\scripts"})
 
 # 查询开发信记录
-exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type email -Name 'ABC Corp'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type email -Name 'ABC Corp'\"", workdir: "skills\\knowledge-base\\scripts"})
 
 # 搜索关键词
-exec({command: "powershell -Command \". '.\\search-knowledge.ps1' -Query '风冷机 规格'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\search-knowledge.ps1' -Query '风冷机 规格'\"", workdir: "skills\\knowledge-base\\scripts"})
 ```
 
 ### 2.2 write-knowledge.ps1
@@ -160,7 +160,7 @@ exec({command: "powershell -Command \". '.\\search-knowledge.ps1' -Query '风冷
 ```
 exec({
   command: "powershell -Command \"[System.IO.File]::WriteAllText('C:\\Users\\Administrator\\temp_kb_report.txt', @'\n# 报告标题\n\n报告内容...\n'@.Replace('\\n', \"`n\"), [System.Text.Encoding]::UTF8)\"",
-  workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"
+  workdir: "skills\\knowledge-base\\scripts"
 })
 ```
 
@@ -168,7 +168,7 @@ exec({
 ```
 exec({
   command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name 'Flexco' -ContentFile 'C:\\Users\\Administrator\\temp_kb_report.txt' -Overwrite yes\"",
-  workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"
+  workdir: "skills\\knowledge-base\\scripts"
 })
 ```
 
@@ -284,7 +284,7 @@ Type=products, Name="风冷接头机三代", ContentFile=临时文件路径
 ## 四、知识库脚本位置
 
 ```
-C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\
+skills/knowledge-base/scripts/
 ├── read-knowledge.ps1      # 读取知识库
 ├── write-knowledge.ps1     # 写入知识库
 ├── search-knowledge.ps1    # 搜索知识库
@@ -295,10 +295,10 @@ C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\
 
 ```powershell
 # 读取知识库（通过 exec 工具）
-exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\read-knowledge.ps1' -Type products -Name '风冷机三代'\"", workdir: "skills\\knowledge-base\\scripts"})
 
 # 写入知识库（通过 exec 工具）
-exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name '东南亚市场' -ContentFile 'C:\\Users\\Administrator\\temp_report.txt'\"", workdir: "C:\\Users\\Administrator\\.workbuddy\\skills\\knowledge-base\\scripts"})
+exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name '东南亚市场' -ContentFile 'C:\\Users\\Administrator\\temp_report.txt'\"", workdir: "skills\\knowledge-base\\scripts"})
 ```
 
 ⚠️ **禁止**只输出路径不执行！必须调用 exec 工具实际保存。

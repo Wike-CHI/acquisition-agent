@@ -293,7 +293,7 @@
 - [ ] **SMTP配置完成**：确保邮件发送功能可用
 - [ ] **Exa服务可用**：`mcporter list exa` 确认服务正常
 - [ ] **Pipeline文件存在**：确保 `sales-pipeline.xlsx` 文件存在
-- [ ] **记忆系统正常**：检查 `.workbuddy/memory/MEMORY.md` 是否存在
+- [ ] **记忆系统正常**：检查 `acquisition-agent/memory/MEMORY.md` 是否存在
 
 ---
 

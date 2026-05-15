@@ -19,7 +19,7 @@ $ErrorActionPreference = "Stop"
 # 智能推断：从 release-manager 的 scripts/ 向上找到 workspace 根目录
 # skills/release-manager/scripts -> skills/release-manager -> workspace root
 #
-# 红龙获客系统的打包源是整个 workspace，而非 ~/.workbuddy/skills/
+# 红龙获客系统的打包源是整个 workspace，而非外部目录
 # 正确的 workspace 结构：
 #   workspace/
 #   ├── *.md (7层上下文 + 架构文档)
@@ -163,9 +163,9 @@ $readmeContent = @"
 
 ### 安装
 
-解压 ZIP 到 `~/.workbuddy/workspace` 或任意位置：
+解压 ZIP 到任意位置：
 \`\`\`bash
-unzip $zipFileName -d ~/.workbuddy/workspace
+unzip $zipFileName -d ./acquisition-agent
 \`\`\`
 
 ### 配置（首次使用）
@@ -235,7 +235,7 @@ cd deploy
 
 ### 方法2: 手动安装
 
-解压 ZIP，复制所有内容到 \`~/.workbuddy/workspace/\`
+解压 ZIP，复制所有内容到项目目录
 
 ## 首次配置（9步）
 
@@ -369,7 +369,7 @@ $installScript = @"
 # install.ps1 - 一键安装脚本
 
 param(
-    [string]`$TargetPath = "`$env:USERPROFILE\.workbuddy\workspace"
+    [string]`$TargetPath = ".\acquisition-agent"
 )
 
 Write-Host "安装到: `$TargetPath" -ForegroundColor Cyan

@@ -454,7 +454,7 @@ Y:\1.HOLO机器目录（最终资料存放）\
 
 ```powershell
 # 调研前：先查知识库
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\read-knowledge.ps1" -Type market -Name "东南亚市场"
+. "skills/knowledge-base/scripts/read-knowledge.ps1" -Type market -Name "东南亚市场"
 ```
 
 ### 调研后保存（自动）
@@ -463,7 +463,7 @@ Y:\1.HOLO机器目录（最终资料存放）\
 
 ```powershell
 # 调研后：保存到知识库
-. "C:\Users\Administrator\.workbuddy\skills\knowledge-base\scripts\write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent -Overwrite "yes"
+. "skills/knowledge-base/scripts/write-knowledge.ps1" -Type market -Name "东南亚市场" -Content $reportContent -Overwrite "yes"
 ```
 
 ### 钩子2：调研后保存（自动）

@@ -40,8 +40,8 @@ if (Test-Path ".git") {
 
 # 创建 .gitignore
 $gitignore = @"
-# WorkBuddy
-.workbuddy/
+# Runtime data
+data/
 *.log
 
 # 敏感配置

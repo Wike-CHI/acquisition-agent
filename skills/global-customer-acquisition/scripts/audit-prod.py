@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """快速验证生产文件"""
 import os, re
+from pathlib import Path
 
-SKILL = r'C:\Users\Administrator\.workbuddy\skills\global-customer-acquisition'
+SKILL = str(Path(__file__).resolve().parent.parent)
 MISSING = ['tianyancha','jina-reader','quotation-generator']
 issues = []
 count = 0

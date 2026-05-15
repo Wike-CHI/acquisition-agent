@@ -42,7 +42,7 @@ triggers:
 
 ```powershell
 # 检测凭据文件是否存在
-$wb = "$env:USERPROFILE\.workbuddy"
+$wb = "$env:USERPROFILE\.acquisition-agent"
 $nas_cred   = Test-Path "$wb\.nas_credentials"
 $teyi_cred  = Test-Path "$wb\.teyi_credentials"
 $email_cfg  = Test-Path "$wb\.email_config.json"
@@ -137,7 +137,7 @@ if (Test-Path "$wb\.email_signatures.json") {
 > **关键要求**：
 > - **禁止**使用硬编码的 `✅/⚠️` 状态，必须基于实际文件检测结果
 > - **禁止**跳过检测直接显示"需要配置"，必须先执行上面的 PowerShell 检测
-> - 凭据文件路径：`%USERPROFILE%\.workbuddy\`（**不是** `.openclaw\`）
+> - 凭据文件路径：`acquisition-agent/` 项目根目录下
 > - 如果所有凭据已配置，显示"🎉 所有核心配置已完成"并直接进入 Step 4 完整检查
 
 
@@ -416,17 +416,17 @@ foreach ($f in $files) {
 
 ### Step 4: 完成检查
 
-> **动态检测**：不再硬编码技能列表，改为自动扫描 `~/.workbuddy/skills/` 目录。
+> **动态检测**：不再硬编码技能列表，改为自动扫描 `acquisition-agent/skills/` 目录。
 
 **检测逻辑**：
-1. 扫描 `~/.workbuddy/skills/` 下所有子目录
+1. 扫描 `acquisition-agent/skills/` 下所有子目录
 2. 检查每个子目录是否存在 `SKILL.md`（有 = 已安装）
 3. 读取每个 SKILL.md 的 frontmatter 获取技能名和版本
 4. 对比 `global-customer-acquisition/dependencies/README.md` 中的 12 个核心依赖，标记缺失项
 
 ```bash
 # 扫描已安装技能
-ls ~/.workbuddy/skills/*/SKILL.md
+ls acquisition-agent/skills/*/SKILL.md
 
 # 检查核心依赖是否齐全
 # 核心技能清单来自: global-customer-acquisition/dependencies/README.md

@@ -10,7 +10,7 @@
 
 ```powershell
 # 进入技能目录
-cd $env:USERPROFILE\.workbuddy\skills\global-customer-acquisition
+cd acquisition-agent/skills/global-customer-acquisition
 
 # 运行初始化脚本
 .\scripts\init.ps1
@@ -247,7 +247,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
    - 区分必需/可选凭据
 
 3. **技能依赖检测**
-   - 扫描 `~/.workbuddy/skills/`
+   - 扫描 `acquisition-agent/skills/`
    - 检查必需技能是否安装
    - 列出可选技能缺失项
 

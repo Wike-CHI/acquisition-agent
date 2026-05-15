@@ -42,7 +42,7 @@ python scripts/queue_manager.py clean
 python scripts/queue_manager.py segment --channel whatsapp --body "长消息内容..."
 ```
 
-> 队列数据存储在 `~/.workbuddy/delivery_queue/queue.json`。脚本使用标准库，无需 `pip install`。
+> 队列数据存储在 `acquisition-agent/skills/delivery-queue/data/queue.json`。脚本使用标准库，无需 `pip install`。
 
 ---
 

@@ -1,8 +1,8 @@
 # =============================================================
 # sync-to-github.ps1 - 红龙获客系统本地→GitHub 增量同步脚本
 # =============================================================
-# 用途：将本地 ~/.workbuddy/skills/ 中红龙系统相关技能同步到 GitHub 仓库
-# 用法：cd "C:\Users\Administrator\.workbuddy\skills"; .\release-manager\scripts\sync-to-github.ps1 [-CommitMessage "..."]
+# 用途：将本地 acquisition-agent/skills/ 中红龙系统相关技能同步到 GitHub 仓库
+# 用法：cd acquisition-agent; .\skills\release-manager\scripts\sync-to-github.ps1 [-CommitMessage "..."]
 #
 # v2.1 (2026-04-11) 修复：
 #   - P0: 强制预检（gh auth / 网络连通性）
@@ -23,7 +23,8 @@ param(
 $ErrorActionPreference = "Continue"
 
 # --- 配置 ---
-$LocalSkillsDir = Join-Path $env:USERPROFILE ".workbuddy\skills"
+# release-manager/scripts → release-manager → skills → acquisition-agent
+$LocalSkillsDir = Join-Path (Split-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) -Parent) "skills"
 $RepoDir = Join-Path $env:TEMP "acquisition-agent-sync"
 
 # 红龙获客系统保留的技能清单

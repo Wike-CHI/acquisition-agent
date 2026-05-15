@@ -1,7 +1,7 @@
 # 红龙获客系统完整架构（学习指南版）
 
 > 本文件是主技能 `HOLO-AGENT` references/ARCHITECTURE.md 的精简学习版。
-> 完整版请参考：`C:\Users\Administrator\.workbuddy\skills\global-customer-acquisition\references\ARCHITECTURE.md`
+> 完整版请参考：`acquisition-agent/skills/global-customer-acquisition/references/ARCHITECTURE.md`
 
 ---
 

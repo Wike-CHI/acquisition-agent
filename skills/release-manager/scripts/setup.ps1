@@ -60,13 +60,13 @@ if (-not $Silent) {
 # Step 1: 检查环境
 Write-Step "Step 1: 检查系统环境"
 
-# 检查 WorkBuddy
-$wbPath = "$env:USERPROFILE\.workbuddy"
-if (Test-Path $wbPath) {
-    Write-Success "WorkBuddy 已安装: $wbPath"
+# 检查项目目录
+$projectRoot = Split-Path (Split-Path (Split-Path (Split-Path $scriptDir -Parent) -Parent) -Parent) -Parent
+if (Test-Path (Join-Path $projectRoot "skills")) {
+    Write-Success "项目目录: $projectRoot"
 } else {
-    Write-Error "WorkBuddy 未安装"
-    Write-Info "请先安装 WorkBuddy: https://workbuddy.dev"
+    Write-Error "未找到 acquisition-agent 项目目录"
+    Write-Info "请确认在正确的目录运行此脚本"
     exit 1
 }
 
@@ -91,7 +91,7 @@ try {
 # Step 2: 选择安装位置
 Write-Step "Step 2: 选择安装位置"
 
-$defaultWorkspace = "$env:USERPROFILE\.workbuddy\workspace"
+$defaultWorkspace = $projectRoot
 
 if (-not $Silent) {
     Write-Host "默认位置: $defaultWorkspace"

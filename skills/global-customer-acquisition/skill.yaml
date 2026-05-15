@@ -33,7 +33,7 @@ requires:
   api_keys:
     - EXA_API_KEY
   env:
-    WORKSPACE: .workbuddy
+    WORKSPACE: acquisition-agent
 capability: core
 priority: 50
 compatibility:

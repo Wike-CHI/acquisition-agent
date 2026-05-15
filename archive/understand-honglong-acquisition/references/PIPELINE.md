@@ -1,7 +1,7 @@
 # 红龙获客系统11步流程详解（学习指南版）
 
 > 本文件是主技能 `HOLO-AGENT` references/PIPELINE.md 的精简学习版。
-> 完整版请参考：`C:\Users\Administrator\.workbuddy\skills\global-customer-acquisition\references\PIPELINE.md`
+> 完整版请参考：`acquisition-agent/skills/global-customer-acquisition/references/PIPELINE.md`
 
 ---
 

@@ -196,9 +196,9 @@
 - ✅ `skill://honglong-products`
 
 **错误做法**：
-- ❌ `.workbuddy/skills/acquisition-coordinator`
-- ❌ `C:\Users\...\.workbuddy\skills\...`
-- ❌ `/home/user/.workbuddy/skills/...`
+- ❌ `acquisition-agent/skills/acquisition-coordinator`
+- ❌ `C:\Users\...\.workbuddy\skills\...`（旧路径）
+- ❌ `/home/user/.workbuddy/skills/...`（旧路径）
 
 **后果**：
 - 违反：技能无法在其他 Agent 应用中使用

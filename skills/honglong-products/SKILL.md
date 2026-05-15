@@ -80,10 +80,10 @@ triggers:
 **读取方式**：
 ```powershell
 # 直接读本地结构化文档（快）
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\tech-specs.md"
+Get-Content "skills/honglong-products/references/tech-specs.md"
 
 # 不确定找什么 → 先读 INDEX
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\INDEX.md"
+Get-Content "skills/honglong-products/references/INDEX.md"
 ```
 
 ---
@@ -138,10 +138,10 @@ Y:\14.展会照片视频海报 素材.邀请函 促销海报节日海报\  # 展
 
 ```powershell
 # ★ 第一步：先查本地结构化文档（快）
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\tech-specs.md"
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\customers.md"
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\products.md"
-Get-Content "C:\Users\Administrator\.workbuddy\skills\honglong-products\references\INDEX.md"
+Get-Content "skills/honglong-products/references/tech-specs.md"
+Get-Content "skills/honglong-products/references/customers.md"
+Get-Content "skills/honglong-products/references/products.md"
+Get-Content "skills/honglong-products/references/INDEX.md"
 
 # ★ 查不到时 → 第二步：挂载NAS读原始文件
 net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}

@@ -81,7 +81,7 @@ GitHub 仓库结构与本地完全一致，克隆到 `/tmp/acquisition-agent/`�
 
 ### 模式 A：GitHub 仓库同步（推荐）
 
-将本地 `~/.workbuddy/skills/` 中红龙系统相关技能同步到 GitHub 仓库。
+将本地 `acquisition-agent/skills/` 中红龙系统相关技能同步到 GitHub 仓库。
 
 - **增量同步** - 只传输有变化的技能，跳过无变化的
 - **Submodule 检测** - 自动发现并修复嵌套 `.git/` 导致的 submodule 引用
@@ -100,7 +100,7 @@ GitHub 仓库结构与本地完全一致，克隆到 `/tmp/acquisition-agent/`�
 
 ## 使用方式
 
-> ⚠️ **强制约束：禁止直接在 `~/.workbuddy/skills/` 目录执行 git add/commit/push**
+> ⚠️ **强制约束：禁止直接在 `acquisition-agent/skills/` 目录执行 git add/commit/push**
 >
 > 所有 GitHub 同步操作必须通过 `scripts/sync-to-github.ps1` 脚本。
 > 直接操作会绕过 TEMP 同步仓库（`%TEMP%\acquisition-agent-sync`）的协调机制，
@@ -108,8 +108,8 @@ GitHub 仓库结构与本地完全一致，克隆到 `/tmp/acquisition-agent/`�
 >
 > **唯一正确的操作**：
 > ```powershell
-> cd "C:\Users\Administrator\.workbuddy\skills"
-> .\release-manager\scripts\sync-to-github.ps1 -CommitMessage "你的提交信息"
+> cd acquisition-agent
+> .\skills\release-manager\scripts\sync-to-github.ps1 -CommitMessage "你的提交信息"
 > ```
 
 ### GitHub 同步
@@ -125,8 +125,8 @@ GitHub 仓库结构与本地完全一致，克隆到 `/tmp/acquisition-agent/`�
 运行：
 ```powershell
 # ★ 必须从 skills 根目录运行（不是 release-manager 目录！）
-cd "C:\Users\Administrator\.workbuddy\skills"
-.\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
+cd acquisition-agent
+.\skills\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
 ```
 
 ### ZIP 打包

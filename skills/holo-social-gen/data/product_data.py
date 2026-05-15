@@ -15,7 +15,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # ── 路径常量 ──
-HONG_LONG_PRODUCTS = Path("C:/Users/Administrator/.workbuddy/skills/honglong-products")
+# holo-social-gen/data/ → holo-social-gen/ → skills/ → honglong-products/
+_SKILLS_DIR = Path(__file__).resolve().parent.parent.parent
+HONG_LONG_PRODUCTS = _SKILLS_DIR / "honglong-products"
 REFERENCES_DIR = HONG_LONG_PRODUCTS / "references"
 
 # ── 延迟导入（避免循环依赖）─────────────────────────────── #

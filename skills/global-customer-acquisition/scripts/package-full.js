@@ -7,7 +7,7 @@
  *
  * 更新日志：
  * - 添加 .openclaw/skills 所有外部技能（23个）
- * - 添加 ~/.workbuddy/skills 所有工作台技能（145个）
+ * - 添加 acquisition-agent/skills 所有技能（145个）
  * - 完整的三层架构打包
  */
 
@@ -73,7 +73,8 @@ function checkPrerequisites() {
 
   // 检查外部技能目录
   const openclawSkills = 'C:\\Users\\Administrator\\.openclaw\\skills';
-  const workbenchSkills = 'C:\\Users\\Administrator\\.workbuddy\\skills';
+  // skills/ 在 acquisition-agent 下，向上三级到达项目根目录
+  const workbenchSkills = path.join(__dirname, '..', '..', '..');
 
   if (!fs.existsSync(openclawSkills)) {
     error(`外部技能目录不存在: ${openclawSkills}`);

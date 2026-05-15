@@ -328,7 +328,7 @@ mcporter call "exa.web_search_exa(query: 'linkedin profile procurement manager p
 |------|------|------|
 | FLSmidth 专版报告 | `美国FLSmidth获客报告.md` | `c:\Users\Administrator\WorkBuddy\20260331162256\` |
 | 3 家客户完整报告 | `美国市场完整获客报告.md` | `c:\Users\Administrator\WorkBuddy\20260331162256\` |
-| 案例记忆 | `usa-market-case-2026-04-01.md` | `c:\Users\Administrator\.workbuddy\skills\global-customer-acquisition\context\memory\` |
+| 案例记忆 | `usa-market-case-2026-04-01.md` | `acquisition-agent/skills/global-customer-acquisition/context/memory/` |
 
 ---
 

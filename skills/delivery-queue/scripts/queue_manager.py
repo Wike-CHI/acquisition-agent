@@ -27,7 +27,7 @@
   # 清空已发送消息
   python queue_manager.py clean
 
-队列存储：JSON 文件（~/.workbuddy/delivery_queue/queue.json）
+队列存储：JSON 文件（acquisition-agent/skills/delivery-queue/data/queue.json）
 
 依赖：Python 3.8+ 标准库（无第三方依赖）
 """
@@ -61,7 +61,7 @@ DEFAULT_CONFIG = {
     "quiet_hours_end": 8,         # 静默时段结束（本地时间）
 }
 
-QUEUE_DIR = Path.home() / ".workbuddy" / "delivery_queue"
+QUEUE_DIR = Path(__file__).resolve().parent.parent / "data"
 QUEUE_FILE = QUEUE_DIR / "queue.json"
 
 

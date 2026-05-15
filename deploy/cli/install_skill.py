@@ -30,7 +30,7 @@ except ImportError:
     _yaml = None
 
 
-SKILLS_ROOT = Path.home() / ".workbuddy" / "skills"
+SKILLS_ROOT = Path(__file__).resolve().parent.parent.parent / "skills"
 GITHUB_REPO = "https://github.com/Wike-CHI/acquisition-agent.git"
 GITHUB_RAW = "https://raw.githubusercontent.com/Wike-CHI/acquisition-agent/main/skills"
 

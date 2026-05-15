@@ -1,7 +1,7 @@
 # 常见错误与排错指南（学习指南版）
 
 > 本文件是主技能 `HOLO-AGENT` references/TROUBLESHOOT.md 的精简学习版。
-> 完整版请参考：`C:\Users\Administrator\.workbuddy\skills\global-customer-acquisition\references\TROUBLESHOOT.md`
+> 完整版请参考：`acquisition-agent/skills/global-customer-acquisition/references/TROUBLESHOOT.md`
 
 ---
 
@@ -77,7 +77,7 @@
 
 **解决**：
 - ✅ `skill://acquisition-coordinator`
-- ❌ `.workbuddy/skills/acquisition-coordinator`
+- ❌ `.workbuddy/skills/acquisition-coordinator`（旧路径，已废弃）
 
 ---
 

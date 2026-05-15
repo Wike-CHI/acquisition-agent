@@ -312,7 +312,7 @@ US的5家公司是当前最高优先级（ICP 86-95，全部A级），D7是最�
 - **建议**：优先批量发送 Day 1 首封，再一次性补充 Day 3/7 跟进
 
 **记忆层系统性失效**：
-- 所有 `.workbuddy/memory/MEMORY.md` 文件大小为 0 字节
+- 所有 `acquisition-agent/memory/MEMORY.md` 文件大小为 0 字节
 - ChromaDB 和 LanceDB 目录不存在（未初始化）
 - L3/L4 层记忆从未写入，CRM 快照无数据可用
 - **建议**：重建记忆写入流程，先填充 L1 MemOS 再同步 L3/L4

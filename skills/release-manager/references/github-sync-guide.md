@@ -9,14 +9,14 @@
 
 ## ⚠️ 强制约束
 
-> **禁止直接在 `~/.workbuddy/skills/` 执行 git add/commit/push**
+> **禁止直接在 `acquisition-agent/skills/` 执行 git add/commit/push**
 >
 > 所有同步必须通过 `sync-to-github.ps1` 脚本，否则会破坏 TEMP 仓库与本地仓库的协调机制。
 
 ## 同步流程
 
 ```
-本地 ~/.workbuddy/skills/
+本地 acquisition-agent/skills/
         │
         ▼ 预检（gh auth / 网络连通性）
         │
@@ -37,7 +37,7 @@ GitHub: Wike-CHI/acquisition-agent (main)
 
 ```powershell
 # ★ 必须从 skills 根目录运行
-cd "C:\Users\Administrator\.workbuddy\skills"
+cd acquisition-agent
 .\release-manager\scripts\sync-to-github.ps1 -CommitMessage "feat: 新增XX技能"
 ```
 

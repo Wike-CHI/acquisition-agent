@@ -191,7 +191,7 @@ L7. TOOLS     → 工具使用指南、权限
 
 ## 7. 技能集群（外部独立部署）
 
-> v2.5.0 重构：所有子技能已从 `skills/` 内嵌迁移为外部独立技能（`~/.workbuddy/skills/<name>/`）。
+> v2.5.0 重构：所有子技能已从 `skills/` 内嵌迁移为外部独立技能（`acquisition-agent/skills/<name>/`）。
 > Agent 通过 `skill://<name>` 协议加载。内嵌 `skills/` 目录已清空。
 
 | 技能 | 功能 | 加载协议 |
@@ -245,7 +245,7 @@ global-customer-acquisition/
 
 | 旧方案 | v2.1.0 | 优势 |
 |--------|---------|------|
-| IDENTITY.md（分散在~/.workbuddy/）| `context/identity.md` | ✅ 可打包，✅ 已知值写死 |
+| IDENTITY.md（分散在acquisition-agent/）| `context/identity.md` | ✅ 可打包，✅ 已知值写死 |
 | SOUL.md / USER.md（含个人信息）| `context/*.md` | ✅ 只有 user.md 需填个人信息 |
 | 无HEARTBEAT规范 | `context/heartbeat.md` | ✅ 13个任务完整定义 |
 | 无4层抗遗忘规范 | ANTI-AMNESIA.md | ✅ 完整技术规范 |

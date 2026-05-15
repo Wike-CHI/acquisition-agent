@@ -2,10 +2,10 @@
 
 ## 打包目标：整个 workspace
 
-**红龙获客系统的打包源是整个 workspace 根目录**，而不是 `~/.workbuddy/skills/`。
+**红龙获客系统的打包源是整个 workspace 根目录**，而不是单个 `skills/` 目录。
 
 ```
-~/.workbuddy/workspace/          ← 打包源
+acquisition-agent/               ← 打包源
 ├── IDENTITY.md                ← 7层上下文
 ├── SOUL.md
 ├── AGENTS.md
@@ -35,7 +35,7 @@
 
 | | 错误（v1.0.0） | 正确（workspace-root） |
 |--|--|--|
-| 打包源 | `~/.workbuddy/skills/` | workspace 根目录 |
+| 打包源 | 单个 `skills/` 目录 | workspace 根目录 |
 | 7层上下文 | ❌ 丢失 | ✅ 完整保留 |
 | 架构文档 | ❌ 丢失 | ✅ 完整保留 |
 | 自定义脚本 | ❌ 丢失 | ✅ 完整保留 |
