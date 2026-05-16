@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-05-13",
+  "updatedAt": "2026-05-15",
   "categories": [
     {
       "id": "automation",
@@ -491,6 +491,18 @@
           "name": "holo-social-infographic",
           "description": "HOLO社媒信息图生成技能 - 使用 Draw.io CLI 生成技术参数图、流程图、对比图。所有数据必须来自 NAS 共享盘真实产品资料，禁止捏造。",
           "hash": "5708c7e5b37368300336a298816a228e6263dc58f1f35941e8b9be0d1dad1785"
+        },
+        {
+          "id": "social-publish",
+          "name": "social-publish",
+          "description": "社媒自动发布技能。通过浏览器自动化将内容发布到 LinkedIn、Facebook 等平台。当用户说\"发布到LinkedIn\"、\"发社媒\"、\"自动发布\"时使用。",
+          "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "id": "geo-content-gen",
+          "name": "geo-content-gen",
+          "description": "多语言 SEO/GEO 内容生成器。生成 AI 搜索引擎友好的产品内容，覆盖 LinkedIn、Facebook、Alibaba 等平台，5 种目标市场语言。当用户说\"生成SEO内容\"、\"GEO内容\"、\"多语言产品内容\"时使用。",
+          "hash": "0000000000000000000000000000000000000000000000000000000000000000"
         },
         {
           "id": "linkedin",

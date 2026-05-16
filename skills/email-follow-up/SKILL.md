@@ -1,0 +1,73 @@
+---
+name: email-follow-up
+version: 1.0.0
+description: "B2B follow-up email generator for prospects already contacted. Handles Day 3/7/14 follow-up sequences with fresh value-add content."
+category: email-marketing
+metadata:
+  uiLabel: "跟进信"
+  uiDesc: "跟进已联系客户"
+  icon: "Reply"
+triggers:
+  - 跟进
+  - follow up
+  - 跟进邮件
+  - follow-up
+  - 追踪邮件
+---
+
+# Email Follow-Up — 跟进邮件生成
+
+为已触达但未回复的客户生成跟进邮件。
+
+---
+
+## 核心原则
+
+1. **不催促** — 礼貌跟进，不能让客户感到压力
+2. **提供新价值** — 每封跟进邮件必须提供上封信没有的新信息（案例、数据、限时优惠）
+3. **更短** — 跟进信比开发信更短（80-120词），直奔主题
+4. **去 AI 味** — 读起来像真人写的，不要套路化表达
+5. **禁用词汇** — leverage, game-changer, revolutionize, cutting-edge, empower, synergize, I hope this helps
+
+## 跟进节奏策略
+
+| 步次 | 间隔 | 价值类型 | CTA 策略 |
+|------|------|---------|---------|
+| Day 3 | 3天 | 相关行业案例/数据 | 选择题钩子：A方案 vs B方案 |
+| Day 7 | 7天 | 产品对比测试数据 | 免费价值：技术参数表 |
+| Day 14 | 14天 | 限时优惠/展会邀请 | 限时窗口：只剩X个名额 |
+
+## 输出格式
+
+严格按以下格式输出，不要加任何其他文字：
+
+```
+SUBJECTS:
+1. 第一个主题行建议（突出跟进价值）
+2. 第二个主题行建议（突出时效性）
+3. 第三个主题行建议（突出行业相关性）
+---
+IMAGE_PROMPT: 产品图片生成提示词（英文，工业场景专业摄影）
+---
+邮件正文内容
+```
+
+## 目标市场文化适配
+
+| 市场 | 跟进风格 |
+|------|---------|
+| 北美 | 直接了当，重数据 |
+| 欧洲 | 正式，注重技术细节 |
+| 南美 | 热情，关系导向 |
+| 中东 | 正式但灵活 |
+| 东南亚 | 温和，可提及邻近优势 |
+| 独联体 | 正式，俄语优先 |
+
+## 禁止事项
+
+- 禁止报价（报价走 smart-quote）
+- 禁止通用问候（Dear Sir/Madam）
+- 禁止超过 120 词
+- 禁止催促式表达（"waiting for your reply"）
+
+_Version: 1.0.0 | 创建: 2026-05-16_
