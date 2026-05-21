@@ -12,6 +12,9 @@ triggers:
 
 # Skill 查找器 v1.0.1
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 帮助用户发现和安装 ClawHub 上的 Skills。
 
 ## 功能

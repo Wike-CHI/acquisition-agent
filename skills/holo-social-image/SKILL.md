@@ -17,6 +17,9 @@ triggers:
 
 # HOLO 社媒图片预处理 (holo-social-image)
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
+
 > **更新记录 v2.0 (2026-04-13):** 移除所有嵌入式 GIMP Script-Fu（因 GIMP 2.10 Windows console
 > 版 PDB 参数签名不一致导致无法工作）。改用 `gimp_backend` 模块（PIL 实现）+ PIL
 > 原生操作。背景去除已验证可用。

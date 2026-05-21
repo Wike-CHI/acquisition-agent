@@ -16,6 +16,9 @@ tools:
 
 # Social Content Review — B2B 社媒内容复盘
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 对已生成的社媒内容进行多维度质量评估，输出具体改进建议。
 
 > 本技能是复盘环节的方法论驱动器，不是静态 prompt。复盘 Agent 应加载本技能后，结合 `web_search` 工具进行事实核查和竞品对比。

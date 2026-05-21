@@ -19,6 +19,9 @@ metadata:
 
 # web-access Skill
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]]
+
+
 ## 前置检查
 
 在开始联网操作前，先检查 CDP 模式可用性：

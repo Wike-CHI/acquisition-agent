@@ -14,6 +14,9 @@ triggers:
 
 # Fumamx Update & Nurture Automation v1.0
 
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[fumamx-crm|孚盟CRM]] ← [[_index-conversion|转化领域]] | 下游 → 培育序列自动化
+
+
 客户信息更新和添加到培育流程自动化。Feature Flag `FUMAMX_ENABLE_UPDATE=true` 控制是否启用（默认关闭）。
 
 ---

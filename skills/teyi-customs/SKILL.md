@@ -15,6 +15,9 @@ triggers:
 
 # 特易海关数据搜索技能 v3.0
 
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[company-research|企业背调]]（发现采购商后）
+
+
 > 底层工具: `teyi_customs` (`teyiCustoms.ts`) — BrowserSession + CDP 自动化, 零外部依赖
 > 搜索入口: `https://et.topease.net/gt/company?wlf=sou6_search` (特易搜搜, 非 /gt/search TradeGPT)
 

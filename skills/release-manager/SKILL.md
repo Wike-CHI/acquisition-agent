@@ -16,6 +16,9 @@ triggers:
 
 # release-manager
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 发布管理技能 - 双模式：ZIP 打包发布 + GitHub 仓库同步。
 
 ## 红龙获客系统目录结构（正确版）

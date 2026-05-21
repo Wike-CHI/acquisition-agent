@@ -19,6 +19,9 @@ memory: null
 
 # 路由表审计 v1.0.0
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]]
+
+
 ## 关键概念：路由表是双层结构
 
 ROUTING-TABLE.yaml 包含两层完全不同的内容：

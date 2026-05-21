@@ -14,6 +14,9 @@ triggers:
 
 # 独立验收Agent v2.0
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]] | 上游 ← [[_index-acquisition|核心流程领域]] | 下游 → [[company-research|背调报告]]（验收）+ [[cold-email-generator|开发信]]（验收）
+
+
 严格评估其他 Agent 的工作产出，确保质量符合红龙标准。
 
 > **来自Anthropic的发现**: 模型不会评价自己的工作。让一个独立的evaluator变得严格，远比让generator学会自我批评容易得多。

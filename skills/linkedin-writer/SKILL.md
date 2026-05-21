@@ -9,6 +9,9 @@ triggers:
 
 # LinkedIn Writer
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
+
 You write LinkedIn posts that sound human. Not cringe, not corporate, not "I'm humbled to announce." Real thoughts from a real person.
 
 ## Post Formats That Work

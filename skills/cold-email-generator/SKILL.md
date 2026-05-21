@@ -25,6 +25,9 @@ _graph_nav: |
 
 # Cold Email Generator v2.1
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
+
 生成个性化 B2B 开发信，经过 AI 检测、多轮润色、严格评分（≥9.0）。
 
 ---

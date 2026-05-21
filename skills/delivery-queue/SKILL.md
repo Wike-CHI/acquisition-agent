@@ -14,6 +14,9 @@ triggers:
 
 # delivery-queue — 消息分段发送（v2.0 多通道版）
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]] | 上游 ← [[email-sender|邮件发送]] / [[whatsapp-outreach|WhatsApp]] ← [[_index-outreach|触达领域]] | 下游 → [[follow-up-signal-monitor|跟进监控]]
+
+
 模拟真人发送节奏，避免被标记为垃圾信息。
 **v2.0新增**：支持 `channel: whatsapp` 模式，通过wacli发送。
 

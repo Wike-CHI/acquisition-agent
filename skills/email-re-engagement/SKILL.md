@@ -18,6 +18,9 @@ triggers:
 
 # Email Re-Engagement — 沉睡客户激活邮件
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 重新激活长期未互动的沉睡客户或过期线索。
 
 ---

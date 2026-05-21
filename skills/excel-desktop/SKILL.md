@@ -14,6 +14,9 @@ triggers:
 
 # Excel 桌面操作技能
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 通过 desktop_screenshot + desktop_click + desktop_type + desktop_key 等工具操控 Excel。
 
 ## 核心原则

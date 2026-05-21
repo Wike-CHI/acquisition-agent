@@ -17,6 +17,9 @@ triggers:
 
 # Email Product Recommendation — 产品推荐邮件
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 向现有或潜在客户推荐新产品、升级方案或限时促销。
 
 ---

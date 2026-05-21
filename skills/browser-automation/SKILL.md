@@ -9,6 +9,9 @@ triggers:
 
 # Browser Automation
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 Automate browser interactions using Stagehand CLI with Claude.
 
 ### First: Environment Selection (Local vs Remote)

@@ -13,6 +13,9 @@ triggers:
 
 # Deep Research - 深度多源调研
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[customer-intelligence|客户情报整合]]
+
+
 系统性调研，不是表面搜索 — 通过方法论追踪、来源评估、迭代深入来回答问题。
 
 > **注意**：本技能是 `in-depth-research` 的别名入口，确保 `global-customer-acquisition` 中声明的 `deep-research` 依赖可正确解析。

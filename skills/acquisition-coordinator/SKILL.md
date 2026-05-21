@@ -12,6 +12,9 @@ triggers:
 
 # 获客工作流参考 v3.0
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]] | 上游 ← [[_index-acquisition|核心流程领域]] | 下游 → [[global-customer-acquisition|获客总入口]] → 各子技能
+
+
 > **执行引擎已内置** — 不再需要手动 `mcporter call exa.xxx` 逐步骤执行。
 > 使用 `create_agent` + `spawn_agent` 动态编排，参考 `prompts/tools/team.md`。
 
