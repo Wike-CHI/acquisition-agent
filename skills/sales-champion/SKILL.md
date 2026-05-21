@@ -24,7 +24,7 @@ tags: [sales, methodology, SPIN, psychology, negotiation, champion]
 
 # 销冠决策引擎 v1.0.0
 
-> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]]
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[smart-quote|智能报价]]（异议处理/谈判策略）| 下游 → [[quotation-generator|报价单生成]]（成交后）| 平行 → [[inquiry-response|询盘应答]]（话术库）
 
 
 基于三大经典销售方法论，编码为可执行决策规则。帮业务员在关键判断时刻做出销冠级别的选择。

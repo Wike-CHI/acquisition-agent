@@ -31,7 +31,7 @@ triggers:
 
 # inquiry-response - 询盘应答技能
 
-> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[email-inbox|邮件监控]] / [[cold-email-generator|开发信]]（客户回复触发）| 下游 → [[smart-quote|智能报价]]（如需报价）/ [[crm|CRM更新]]
 
 
 客户回复邮件后的智能应答系统。从获客的"单向输出"转为"双向对话"。
