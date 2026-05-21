@@ -10,7 +10,7 @@ author: openclaw
 
 # Sales Skill 💼
 
-> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]]
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[sales-pipeline-tracker|Pipeline数据]] | 下游 → [[smart-quote|智能报价]] / [[holo-sales-trainer|销售培训]]
 
 
 **Turn your AI agent into an elite sales operations partner.**
