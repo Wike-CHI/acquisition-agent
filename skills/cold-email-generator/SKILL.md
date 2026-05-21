@@ -18,6 +18,8 @@ triggers:
   - 起草邮件
   - follow up
   - 跟进邮件
+_graph_nav: |
+  上游 ← [[company-research|企业背调]]（个性化素材） → 并行 → [[humanize-ai-text|AI拟人化]] → 输出 → [[email-sender|邮件发送]] → 后续 → [[follow-up-signal-monitor|跟进监控]]
   - 邮件序列
 ---
 

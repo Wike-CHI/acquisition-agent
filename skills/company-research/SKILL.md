@@ -18,6 +18,8 @@ triggers:
 
 红龙获客系统的海外客户企业背调工具。输入企业名称（英文），自动搜索公开信息并输出结构化背调报告。
 
+> **导航链：** 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[cold-email-generator|开发信生成]]（个性化）→ [[smart-quote|智能报价]]（ICP评分驱动） | 存储 → [[knowledge-base|团队知识库]] | 快速初筛 → [[five-step-bg-check|5招背调法]]
+
 > v3.1 变更：修复 NAS 保存路径；NAS 挂载失败时强制降级存本地并告知用户；脚本路径修正为相对于知识库根目录。
 > v3.0 变更：搜索工具从 agent-browser 切换为 Exa MCP（mcporter），不再依赖浏览器。
 

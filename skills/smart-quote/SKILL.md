@@ -17,6 +17,8 @@ triggers:
 
 # 红龙工业 - 智能报价技能 v2.0
 
+> **导航链：** 上游 ← [[company-research|企业背调]]（ICP评分输入）→ 下游 → [[quotation-generator|PDF报价单生成]] | 异议处理 → [[sales-champion|销冠决策引擎]] | Pipeline → [[sales-pipeline-tracker]]
+
 ## ⚡ 核心原则（业务员必读）
 
 > **❌ 以前**：AI直接给价格 → 价格固化 → 不会变通
