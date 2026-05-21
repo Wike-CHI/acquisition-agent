@@ -17,10 +17,28 @@ triggers:
 
 ---
 
-## 前置读取
+## 前置读取（必须按顺序）
 
-- `docs/全球大客户战略地图.md` — 区域优先级 + 竞品格局 + 利润底线
-- 涉及的具体子技能 SKILL.md（按需读取）
+1. **`references/HOLO-ICP-PROFILE.md`** — 目标客户画像（A/B/C类），识别信号，排除规则
+2. **`references/ICP.md`** — 15,885家客户数据验证的 ICP 分类和搜索关键词
+3. **`../../CLAUDE.md` 铁律** — 矿业禁止铁律、伙伴保护铁律、报价锁定铁律
+4. **`../excel-xlsx/SKILL.md`** — Excel 生成技能（含 Python/openpyxl 代码模板）。**每次客户清单任务必须加载。**
+5. 涉及的具体子技能 SKILL.md（按需读取）
+
+> ⚠️ 不要依赖 `honglong-products` 技能的行业列表来判断目标客户。产品应用场景 ≠ 目标客户画像。ICP 画像才是客户筛选的唯一权威来源。
+
+---
+
+## 输出格式要求
+
+**客户清单必须输出为 Excel (.xlsx) 文件**。禁止输出 JSON、CSV、Markdown 表格作为最终交付物。
+
+**生成方式（必须遵守）：**
+1. 先把合并后的数据用 `write_file` 保存为 JSON（如 `reports/merged.json`）
+2. 再用 `shell` 执行 `python` 调用 openpyxl，读取 JSON 生成 .xlsx，包含表头样式、自动筛选、列宽适配
+3. 参考 `excel-xlsx` 技能的 Python 代码模板
+
+Excel 应包含列：公司名、国家、行业、网站、LinkedIn公司页、决策人姓名、决策人职位、决策人LinkedIn、邮箱、匹配产品、ICP评分、优先级。
 
 ---
 
@@ -30,13 +48,20 @@ triggers:
 搜索 ──→ 验证 ──→ 背调 ──→ 筛选 ──→ 触达
 ```
 
-### 阶段1: 搜索（并行）
+### 阶段1: 搜索（真正并行 — 使用 delegate_task）
 
-创建 lead-finder 代理，按市场并行搜索。同一市场的不同搜索词也用独立代理。
+**必须用 `delegate_task` 一次性创建 3-4 个真正并行的子代理**，每个负责一个区域。不要分多次调用——一次调用把所有区域全部覆盖。
 
-推荐代理角色：`lead-finder`（见 team.md 角色模板）
-推荐工具白名单：`web_search`, `web_fetch`, `read_file`
-每代理步数上限：8
+推荐任务划分（4 并行）：
+- 任务1：南美（巴西、智利、秘鲁、阿根廷）
+- 任务2：北美+欧洲（美国、加拿大、德国、意大利、土耳其、英国）
+- 任务3：亚太（印尼、泰国、越南、澳洲、印度）
+- 任务4：中东+非洲（沙特、阿联酋、南非、摩洛哥）
+
+每个子代理：
+- 工具：`web_search`, `write_file`
+- 步数：8
+- 输出：将本区域客户列表写入 `workspace/{region}_leads.xlsx`
 
 ### 阶段2: 验证
 
@@ -64,7 +89,7 @@ triggers:
 |--------|------|----------|
 | ICP 评分 | ≥ 75 分 | 标记暂缓，移入培育池 |
 | 竞品检查 | 非 Flexco/Almex/ContiTech 等直接竞品 | 排除 |
-| 矿业过滤 | 非矿业终端客户（贸易商除外） | 排除，标记 mining_blocked |
+| **矿业过滤** | **非矿业终端客户（贸易商除外）。有输送带硫化维修团队的矿业公司OK，纯采矿作业企业禁止。** | 排除，标记 mining_blocked |
 | 伙伴保护 | 非 Beltwin 已有客户 | 排除，不抢伙伴客户 |
 
 输出：高价值客户列表（2-5 家）
@@ -80,22 +105,20 @@ triggers:
 
 ## 委派方式
 
-```
-// 批量搜索（示例：开发巴西市场）
-create_agent("lead-finder", ...)
-create_agent("customer-researcher", ...)
-create_agent("email-composer", ...)
-
-// 阶段1+3 合并：搜索 + 背调并行
-spawn_agent({
-  agents: [
-    { name: "lead-finder", prompt: "搜索巴西输送带相关企业..." },
-    { name: "customer-researcher", prompt: "背调已找到的客户A..." },
-    { name: "customer-researcher", prompt: "背调已找到的客户B..." },
+```bash
+# ⭐ 阶段1：真正并行搜索（一次性创建4个并行子代理）
+delegate_task({
+  max_steps: 8,
+  tasks: [
+    { prompt: "搜索南美输送带客户: 巴西、智利、秘鲁...搜索关键词参考 ICP.md" },
+    { prompt: "搜索北美+欧洲输送带客户..." },
+    { prompt: "搜索亚太输送带客户..." },
+    { prompt: "搜索中东+非洲输送带客户..." },
   ]
 })
+# 4个子代理在独立线程中同时运行，互不阻塞
 
-// 阶段5：开发信
+# 阶段5：开发信
 spawn_agent({
   agents: [
     { name: "email-composer", prompt: "给客户A写开发信: [背调结果]" },
@@ -117,15 +140,9 @@ spawn_agent({
 - 发现 X 家
 - 有效联系方式：Y 家
 
-### 背调
-| 公司 | ICP | 等级 | 状态 |
-|------|-----|------|------|
-| A | 85 | A | ✅ 进入触达 |
-| B | 68 | B | ⏭️ 培育池 |
-
-### 触达
-- 已发送：N 封
-- 跟进：D3/D7/D14
+### 交付文件
+- 📊 `workspace/{region}_leads.xlsx` — 完整客户清单（Excel）
+- 📊 `workspace/all_leads_summary.xlsx` — 汇总表
 
 ### 建议
 - [下一步行动]
@@ -133,4 +150,4 @@ spawn_agent({
 
 ---
 
-*版本: 3.0.0 | 变更: 从手动 mcporter 引擎退化为工作流参考；执行交给内置团队工具*
+*版本: 3.1.0 | 变更: 强制 Excel 输出；ICP画像唯一权威；delegate_task 4并行；矿业过滤细化*

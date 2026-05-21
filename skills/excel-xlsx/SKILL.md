@@ -15,15 +15,56 @@ triggers:
 
 On first use, read `setup.md` for integration guidelines. Ask user preferences naturally during conversation.
 
+## holo-desktop 执行方式
+
+**本环境已安装 openpyxl 和 xlsxwriter。生成 Excel 文件的方法：**
+
+使用 `shell` 工具执行 Python 脚本，用 openpyxl 创建 .xlsx 文件。示例：
+
+```python
+python -c "
+import json, sys
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment
+
+wb = Workbook()
+ws = wb.active
+ws.title = '客户清单'
+
+# Header
+headers = ['公司名', '国家', 'LinkedIn', '决策人', '职位', '邮箱']
+for col, h in enumerate(headers, 1):
+    cell = ws.cell(row=1, column=col, value=h)
+    cell.font = Font(bold=True, color='FFFFFF')
+    cell.fill = PatternFill(start_color='1F4E79', fill_type='solid')
+
+# Data rows (从 JSON 文件读取或内联)
+data = json.load(open('reports/input.json'))
+for i, row in enumerate(data, 2):
+    ws.cell(row=i, column=1, value=row['company'])
+    # ... more columns
+
+wb.save('reports/output.xlsx')
+print('Saved: reports/output.xlsx')
+"
+```
+
+**关键点：**
+- 先用 `write_file` 把数据写成 JSON → 再用 `shell` + Python 把 JSON 转成 .xlsx
+- 表头加粗、背景色、自动筛选 (`ws.auto_filter.ref`)
+- 数字列右对齐、文本列左对齐
+- 完成后告知用户 .xlsx 文件路径
+
 ## When to Use
 
 User needs to read, write, or generate Excel files (.xlsx, .xls, .xlsm) for **tabular/structured data**. Agent handles type coercion, date serialization, formula evaluation, and cross-platform quirks.
 
-### ✅ 使用 Excel
-- 客户清单、报价明细、对比表
-- 数字计算、筛选、排序、数据透视
-- Pipeline 数据、数据库导出
-- 行列结构的结构化数据
+### ✅ 使用 Excel（必须生成 .xlsx 文件）
+- **客户清单** — 必须 Excel，禁止 JSON/CSV/Markdown
+- **报价明细、对比表**
+- **数字计算、筛选、排序、数据透视**
+- **Pipeline 数据、数据库导出**
+- **行列结构的结构化数据**
 
 ### ❌ 不使用 Excel
 - 叙事文本、段落、标题为主的报告 → 用 `word-docx` 生成 .docx
