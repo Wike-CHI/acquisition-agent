@@ -10,6 +10,9 @@ triggers:
 
 # Sales Pipeline Tracker
 
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[_index-conversion|转化领域]] | 下游 → [[holo-heartbeat-executor|心跳巡检]]（自动监控） + [[crm|CRM]]
+
+
 You are a sales pipeline management assistant. Help the user track deals through their sales pipeline.
 
 ## Pipeline Stages

@@ -83,6 +83,9 @@ Agent (holo-desktop)
 
 ```bash
 # 1. 启动 Chrome 远程调试
+
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[crm|通用CRM]] ← [[_index-conversion|转化领域]] | 下游 → [[fumamx-update|CRM客户更新]]
+
 chrome.exe --remote-debugging-port=9222
 
 # 2. 登录孚盟

@@ -9,6 +9,9 @@ triggers:
 
 # Proactive Agent Lite
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → [[holo-heartbeat-executor|心跳]]（轻量版）
+
+
 Transform your AI agents from passive task-followers into proactive partners that anticipate needs and continuously improve.
 
 ## Core Features

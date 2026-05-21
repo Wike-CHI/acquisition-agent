@@ -11,6 +11,9 @@ triggers:
 
 # Bash 脚本安全 Patch 指南
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 ## 三大常见误伤
 
 ### 1. 函数定义了，但永远没被调用

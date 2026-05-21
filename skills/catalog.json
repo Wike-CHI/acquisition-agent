@@ -1,26 +1,69 @@
 {
-  "version": "1.0.0",
-  "updatedAt": "2026-05-15",
-  "categories": [
+  "version": "2.0.0",
+  "updatedAt": "2026-05-21",
+  "architecture": "skill-graph",
+  "graph_entry": "_index.md",
+  "domains": [
     {
-      "id": "automation",
-      "name": "Automation",
-      "nameZh": "自动化",
-      "icon": "Bot",
-      "description": "浏览器自动化、网页抓取",
+      "id": "acquisition",
+      "name": "Core Acquisition",
+      "nameZh": "核心获客",
+      "icon": "Target",
+      "description": "任务编排、初始化、工作流定义——所有获客任务的编排层",
+      "moc": "_index-acquisition.md",
       "skills": [
         {
-          "id": "browser-automation",
-          "name": "browser-automation",
-          "description": "浏览器自动化技能。通过自然语言控制浏览器：浏览网页、填表、截图、提取数据。当用户说\"帮我打开网页\"、\"自动化网页操作\"、\"抓取网页数据\"、\"浏览器\"时使用。",
-          "hash": "34ca1ab2297574c59fa9faa980b5fbae0b5da63ef22680aba71a4566f31e6a47"
+          "id": "fumamx-update",
+          "name": "fumamx-update",
+          "description": "Fumamx CRM 客户更新与培育流程自动化 — 更新已有客户信息、添加到培育序列。Feature Flag: FUMAMX_ENABLE_UPDATE=true 时启用。",
+          "hash": "a87c8d55100821e7ef498a8ca9131a5ae02742f06af0fedd152f08b3e5e6aa09"
         },
         {
-          "id": "composio",
-          "name": "composio",
-          "description": "第三方应用集成技能。通过 Composio",
-          "hash": "0374972dd6351853a0de861e062d50f01af8c5f6e91a9e2513e5acc56cddf728"
+          "id": "holo-activity-log",
+          "name": "holo-activity-log",
+          "description": "记录业务操作日志到NAS共享活动日志（CSV），供Boss监控页面读取",
+          "hash": "8a3d075305694e4eb8a46087c9861c86aef37fdff647edfe5f02bfff8bd8e878"
         },
+        {
+          "id": "holo-heartbeat-executor",
+          "name": "holo-heartbeat-executor",
+          "description": "HOLO心跳执行器 — 执行14项Pipeline自动巡检任务，每15分钟检查客户跟进状态、邮件回复、WhatsApp消息、CRM同步等。触发：心跳巡检、自动检查、定时任务。",
+          "hash": "e11b2936ac3c047598fc2fe21e8d549771c8e04cd33f32912bffb3d114056aec"
+        },
+        {
+          "id": "holo-updater",
+          "name": "holo-updater",
+          "description": "HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本到本地。一键更新红龙获客系统到最新代码。",
+          "hash": "979aae1a95b1398e2fc6027864d106b82f69ce2b4e9f274976915a38aa977edf"
+        },
+        {
+          "id": "honglong-assistant",
+          "name": "honglong-assistant",
+          "description": "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。",
+          "hash": "2a128ce394b50f93678efa6858060079da9a8f6a4a8aa32d163f7397fdc47380"
+        },
+        {
+          "id": "honglong-products",
+          "name": "honglong-products",
+          "description": "红龙(HOLO)工业皮带设备产品知识库。优先读取技能本地结构化文档，NAS原始文件作为兜底权威来源，支持产品型号查询、技术参数、BOM、选型建议等。",
+          "hash": "172f65cbc2cbcbd1a53e2ecf3bd796c8d72f69b6172f82d1b40b4e9e2c3a6164"
+        },
+        {
+          "id": "teyi-customs",
+          "name": "teyi-customs",
+          "description": "特易海关数据搜索技能。通过 teyi_customs 工具查询海关进出口数据 + Exa 决策人挖掘，覆盖233国4100万+企业。当用户需要查海关数据、找采购商、查进出口记录、海关数据分析时使用。actions: search(搜索进口商), multi_search(并行多关键词+自动去重), enrich(Exa找决策人), detail(公司详情页), check(验证登录)。",
+          "hash": "c48c9597dc198692ab4f982cc62b86490aaca9dfcb57d2b394916c17f683a273"
+        }
+      ]
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery & Research",
+      "nameZh": "客户发现与调研",
+      "icon": "Search",
+      "description": "搜索潜在客户、企业背调、市场研究、海关数据——找到客户并判断价值",
+      "moc": "_index-discovery.md",
+      "skills": [
         {
           "id": "exa-web-search-free",
           "name": "exa-web-search-free",
@@ -28,21 +71,9 @@
           "hash": "2da66cc47074375245215c9fd36445e39b4d798fbdc54694b1f0f4726999ecc0"
         },
         {
-          "id": "graphify",
-          "name": "graphify",
-          "description": "从红龙产品目录、客户对话、市场调研中构建知识图谱，发现隐藏关联、交叉销售机会和竞争洞察。",
-          "hash": "60227a5ea7de9e8a34193770b050760a41cbadfc18c809b1cb3b40a0de169601"
-        },
-        {
-          "id": "playwright",
-          "name": "playwright",
-          "description": "Playwright浏览器自动化。通过MCP控制真实浏览器：导航、点击、填表、截图、提取数据。当用户说\"Playwright\"、\"浏览器自动化\"、\"真实浏览器\"时使用。",
-          "hash": "2805de63c78ce6f1e76317933656fa4bd8d9945d9901e478a9fa09b423466090"
-        },
-        {
           "id": "web-access",
           "name": "web-access",
-          "description": ">",
+          "description": "网页访问技能 — 通过多种后端（Jina AI / 直接fetch / Playwright）获取网页内容，处理反爬和动态页面。触发：打开网页、访问网站、抓取页面、获取网页内容。",
           "hash": "b07eaf5f242918cc11b0ec2e16f4274a69d83510a9a1595d026f9ae62cdc0f1b"
         },
         {
@@ -50,15 +81,164 @@
           "name": "web-content-fetcher",
           "description": "网页内容获取工具 | 当常规爬虫被过滤时，使用替代服务获取网页内容。支持：1) r.jina.ai - 最稳定 2)",
           "hash": "3467063684a94654f252a60aaa4a3c5c076720dea37bc1ac48cf2210909a5c3a"
+        },
+        {
+          "id": "five-step-bg-check",
+          "name": "five-step-bg-check",
+          "description": "外贸客户5招背调法 — 输入海外企业名称，按5步递进式搜集公开信息并输出结构化背调报告。从平台信息、海关数据、社媒决策人、谷歌地图到官网分析层层递进。当用户提到'5招背调'、'市场背调'、'背调法'、'five step'时使用。适合快速判断客户是否值得开发，区别于 company-research 的深度背调。",
+          "hash": "4966aec2881a619d9b1290de7b5947caf80351baeceefd6eca69e6a70de35085"
+        },
+        {
+          "id": "company-research",
+          "name": "company-research",
+          "description": "红龙获客系统·海外B2B企业背景调查 —",
+          "hash": "28ef157b36cb0f5dc5aaed24b55400724b9a1aaed71b831bf626ce93e648ff0d"
+        },
+        {
+          "id": "customer-intelligence",
+          "name": "customer-intelligence",
+          "description": "客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。",
+          "hash": "50341a9f5415025591edfe0bb5e00b848a7b03fb5e24bd8295903480f33aadca"
+        },
+        {
+          "id": "deep-research",
+          "name": "deep-research",
+          "description": "深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入。是 in-depth-research 的别名入口。",
+          "hash": "0c08ec704e29f76814161e61780c154f1d0ad4be79d646fd46974d5d5432a9a0"
+        },
+        {
+          "id": "market-development-report",
+          "name": "market-development-report",
+          "description": "市场开发调研报告技能。当用户说「开发XX市场」「开发南美」「开发非洲」等时，自动生成结构化的目标市场分析报告，包含市场规模、竞争格局、关税政策、开发优先级、获客关键词。",
+          "hash": "8527b30f62cd6c8af5910b6655ca6191920c1b870139b0adb79e81fdefa784ec"
+        },
+        {
+          "id": "market-research",
+          "name": "market-research",
+          "description": "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。六维度市场分析框架：市场规模、市场增长、市场细分、竞争格局、客户画像、进入策略。",
+          "hash": "1cdbc5c874681d1df02cf731f371b410890384e0d38914eb5b7c96c0a832351e"
         }
       ]
     },
     {
-      "id": "crm",
-      "name": "CRM",
-      "nameZh": "客户管理",
-      "icon": "Users",
-      "description": "客户管理、销售管道、去重",
+      "id": "outreach",
+      "name": "Multi-Channel Outreach",
+      "nameZh": "多渠道触达",
+      "icon": "Send",
+      "description": "开发信生成、邮件发送、WhatsApp/Telegram/LinkedIn触达——通过最佳渠道联系客户",
+      "moc": "_index-outreach.md",
+      "skills": [
+        {
+          "id": "cold-email-generator",
+          "name": "cold-email-generator",
+          "description": "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling.",
+          "hash": "9f61c1f7ec5a290b18425f76dda73c9ec8a7d24a07121dfe5a5060648c1b16b1"
+        },
+        {
+          "id": "email-inbox",
+          "name": "email-inbox",
+          "description": "邮件收件检测技能。通过IMAP连接企业邮箱，检测客户回复和询价，自动触发CRM更新和日志记录。当用户需要：(1) 检查邮箱 (2) 查看新邮件 (3) 监听客户回复 时使用此技能。",
+          "hash": "4c59b62c469ceffe49c74d26b90b266424ee452c9bffb9070e6b9be0042e7be7"
+        },
+        {
+          "id": "email-sender",
+          "name": "email-sender",
+          "description": "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能。",
+          "hash": "923302a8bd260442f54e382b8ddd50bc80e7790e49bb48f5634babcfae5b1f72"
+        },
+        {
+          "id": "facebook-acquisition",
+          "name": "facebook-acquisition",
+          "description": "Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。",
+          "hash": "c73e0c61617386a2a2db7fef51ae81cafa876318928bc9697854fc3103d7b6ac"
+        },
+        {
+          "id": "instagram-acquisition",
+          "name": "instagram-acquisition",
+          "description": "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。",
+          "hash": "99101bb8e156b90c11a2d706f850cf04a4d80b3ae0cae5c94e3f151c4ffdc425"
+        },
+        {
+          "id": "telegram-toolkit",
+          "name": "telegram-toolkit",
+          "description": "Telegram SDR 最佳实践与模板，覆盖俄罗斯/独联体/伊朗等 Telegram-first 市场。",
+          "hash": "9d99b8a07e1e70f626e73aa194a223d7673ffdec772eefcabbc2fb35bd6cc6c7"
+        },
+        {
+          "id": "whatsapp-outreach",
+          "name": "whatsapp-outreach",
+          "description": "WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送。适用于有WhatsApp号码的海外客户。",
+          "hash": "6d38b074b540cfd09d6733b39407c3f2f923ce15edb52747556a8a00602e409c"
+        },
+        {
+          "id": "humanize-ai-text",
+          "name": "humanize-ai-text",
+          "description": "AI文本拟人化技能 — 检测并转化AI生成文本为自然人性化的表达，降低AI检测率至2%以下。冷邮件开发信必经流程。",
+          "hash": "1f2de98cc832601a70c1ced3825ef399aba16235c3693802429c65eb98b47191"
+        },
+        {
+          "id": "inquiry-response",
+          "name": "inquiry-response",
+          "description": "询盘应答系统 — 客户询价后的智能应答，54条多语种话术（6语种×9场景），覆盖异议处理+技术问题+竞品对比。触发：询盘、客户询价、技术问题、客户回复。",
+          "hash": "6394dd8f211ebf2669396ff6e7513a9eaba267cc82197c953a8c5e9ec7e4e279"
+        },
+        {
+          "id": "ai-social-media-content",
+          "name": "ai-social-media-content",
+          "description": "AI 社媒营销内容生成器。一次主题，自动生成 9",
+          "hash": "68d67cda06215ca460a8c38bb6b50ff6508b234fe08bac226bf7984c7cf656ed"
+        },
+        {
+          "id": "holo-social-gen",
+          "name": "holo-social-gen",
+          "description": "HOLO社媒图片生成器 v7.2。AI-First设计模式，Agent直接手写HTML生成多语种社媒图片（Instagram/Facebook/LinkedIn等）。",
+          "hash": "088fd919ba91fc26138040078de635932ff0d65cb3a539938773224bcd80f44a"
+        },
+        {
+          "id": "holo-social-image",
+          "name": "holo-social-image",
+          "description": "社媒图片处理技能 — 使用 GIMP CLI + PIL 进行产品图片裁剪、抠图、调色、品牌一致性处理。触发：产品图片、社媒配图、图片处理、修图。",
+          "hash": "cd498fe21f5d990afe11f40a73fd229227ecd5248675db2e1992a22d227aef84"
+        },
+        {
+          "id": "holo-social-infographic",
+          "name": "holo-social-infographic",
+          "description": "HOLO社媒信息图生成技能 - 使用 Draw.io CLI 生成技术参数图、流程图、对比图。所有数据必须来自 NAS 共享盘真实产品资料，禁止捏造。",
+          "hash": "5708c7e5b37368300336a298816a228e6263dc58f1f35941e8b9be0d1dad1785"
+        },
+        {
+          "id": "social-publish",
+          "name": "social-publish",
+          "description": "社媒自动发布技能 — 通过浏览器自动化将内容发布到 LinkedIn、Facebook 等平台。触发：发布到LinkedIn、发社媒、自动发布。",
+          "hash": "__AWAITING_RECOMPUTE__"
+        },
+        {
+          "id": "geo-content-gen",
+          "name": "geo-content-gen",
+          "description": "多语言 SEO/GEO 内容生成器 — 生成 AI 搜索引擎友好的产品内容，覆盖 LinkedIn、Facebook、Alibaba 等平台，5 种目标市场语言。触发：生成SEO内容、GEO内容、多语言产品内容。",
+          "hash": "__AWAITING_RECOMPUTE__"
+        },
+        {
+          "id": "linkedin",
+          "name": "linkedin",
+          "description": "LinkedIn客户拓展技能。搜索决策人、发送连接请求和InMail。当用户说\"LinkedIn找客户\"、\"领英开发\"、\"LinkedIn拓展\"时使用。",
+          "hash": "a341d1f5da417047f1b56609c77df947fc1cc97826bc1909efc7814b4e6d3664"
+        },
+        {
+          "id": "linkedin-writer",
+          "name": "linkedin-writer",
+          "description": "Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加工业设备行业内容模板。",
+          "hash": "2a384ecbca856a2970ddbf91e849929701e2530e972f2332c0b4a4062040d457"
+        }
+      ]
+    },
+    {
+      "id": "conversion",
+      "name": "Quote & Conversion",
+      "nameZh": "报价与转化",
+      "icon": "TrendingUp",
+      "description": "智能报价、提案生成、Pipeline管理、CRM操作——把兴趣变成订单",
+      "moc": "_index-conversion.md",
       "skills": [
         {
           "id": "crm",
@@ -89,67 +269,199 @@
           "name": "sales-pipeline-tracker",
           "description": "销售管线跟踪技能。从线索到成交的全阶段管理、状态更新、收入预测、瓶颈识别。当用户说\"管管线\"、\"销售漏斗\"、\"deal跟踪\"时使用。",
           "hash": "e919741774bda00d602ec3c9e24c7b77c84a78ab07d83a1c23ffda6051cc09fb"
+        },
+        {
+          "id": "daily-report-writer",
+          "name": "daily-report-writer",
+          "description": "根据输入生成日报 Markdown 草稿并写入 reports 目录",
+          "hash": "f8764cfe5bf9ab6be0a1858f78952095fe2859ee45ecf44e671420e9387decd5"
+        },
+        {
+          "id": "holo-proposal-generator",
+          "name": "holo-proposal-generator",
+          "description": "HOLO数字提案包生成器 — 将「智能报价指引」升级为专业提案PDF。包含封面、客户摘要、方案对比、案例、报价、CTA，一套顶过去十张表格。",
+          "hash": "54dfd948b1aee1e67eefec80871854bb5bc6e118ee680153ae3d92454825da48"
+        },
+        {
+          "id": "quotation-generator",
+          "name": "quotation-generator",
+          "description": "生成红龙公司标准 QUOTATION FORM PDF，完全匹配公司实际报价单模板（CNY EX-Factory，含产品照片位和详细规格参数）。",
+          "hash": "50062ec8b3aa8132b6473b0cc6bfb4e753aec1d6e3962f109af5f267e345f6bc"
+        },
+        {
+          "id": "smart-quote",
+          "name": "smart-quote",
+          "description": "智能报价技能 — 先背调后报价，锁对话审批流程，ICP评分驱动利润率区间。当客户问价时自动触发。触发：报价、询价、价格、多少钱。",
+          "hash": "9a25321aea1453c6764b85001873b8d2de8808997db4b8219604555f21aef131"
+        },
+        {
+          "id": "business-development",
+          "name": "business-development",
+          "description": "商务拓展技能。合作伙伴外联、市场研究、竞品分析、提案生成。当用户说\"找合作伙伴\"、\"做市场分析\"、\"写商务提案\"时使用。",
+          "hash": "7bb95b9291660ea4bf69353eb5efd28ea70f7bc29d046d124adbcbab8b2623dd"
+        },
+        {
+          "id": "holo-sales-trainer",
+          "name": "holo-sales-trainer",
+          "description": "HOLO销售训练场 — AI模拟真实客户对话 + 话术评估。降低业务员成长曲线，让系统扮演永不疲倦的师父。",
+          "hash": "936ffc1d66de8196e680622f3238afc3cfeae4824e7b6b49165add55e96e163e"
+        },
+        {
+          "id": "sales",
+          "name": "sales",
+          "description": "销售助手技能。CRM集成、线索跟踪、外联自动化、Pipeline管理。当用户说\"销售管理\"、\"跟踪客户\"、\"销售自动化\"时使用。",
+          "hash": "b77e973664681e893576b767c000eca413ac067b433b7aca48b4620e8c6979c2"
+        },
+        {
+          "id": "sales-champion",
+          "name": "sales-champion",
+          "description": "销冠决策引擎 — SPIN需求判断 + 影响力说服 + 挑战者谈判 + 信号识别词典。帮业务员做出销冠级别的判断。当用户说\"销售策略\"、\"怎么跟进\"、\"客户犹豫\"、\"怎么谈价\"、\"异议处理\"、\"客户心理\"时使用。",
+          "hash": "8016d1d3091371bd7f88c2b466fe6b06765f52fb5e56f61c5af3c03269affb67"
+        },
+        {
+          "id": "sdr-humanizer",
+          "name": "sdr-humanizer",
+          "description": "拟人化销售对话技能。将AI生成的销售消息转化为自然、人性化的对话。支持文化适配、时区感知、消息节奏控制。",
+          "hash": "b955cbb73b6413360f6e2f35e97d4618cfaa96c641e1765e148f27024e159eb6"
+        },
+        {
+          "id": "sdr-training-ground",
+          "name": "sdr-training-ground",
+          "description": "SDR培训场 — AI模拟真实客户对话 + 话术评估，降低业务员成长曲线。触发：销售培训、模拟对话、话术练习。",
+          "hash": "7782a0f1630ebbce051d77065aee5b7e6a4c6fa79af3cb90a0b9a1318330b7d2"
         }
       ]
     },
     {
-      "id": "custom",
-      "name": "Custom",
-      "nameZh": "定制技能",
-      "icon": "Wrench",
-      "description": "红龙/HOLO 定制化技能",
+      "id": "intelligence",
+      "name": "Intelligence & Knowledge",
+      "nameZh": "情报与知识",
+      "icon": "Brain",
+      "description": "产品知识库、记忆系统、知识图谱——Agent的长期记忆和企业知识",
+      "moc": "_index-intelligence.md",
       "skills": [
         {
-          "id": "fumamx-update",
-          "name": "fumamx-update",
-          "description": "Fumamx CRM 客户更新与培育流程自动化 — 更新已有客户信息、添加到培育序列。Feature Flag: FUMAMX_ENABLE_UPDATE=true 时启用。",
-          "hash": "a87c8d55100821e7ef498a8ca9131a5ae02742f06af0fedd152f08b3e5e6aa09"
+          "id": "graphify",
+          "name": "graphify",
+          "description": "从红龙产品目录、客户对话、市场调研中构建知识图谱，发现隐藏关联、交叉销售机会和竞争洞察。",
+          "hash": "60227a5ea7de9e8a34193770b050760a41cbadfc18c809b1cb3b40a0de169601"
         },
         {
-          "id": "holo-activity-log",
-          "name": "holo-activity-log",
-          "description": "记录业务操作日志到NAS共享活动日志（CSV），供Boss监控页面读取",
-          "hash": "8a3d075305694e4eb8a46087c9861c86aef37fdff647edfe5f02bfff8bd8e878"
+          "id": "humanoid-memory",
+          "name": "humanoid-memory",
+          "description": "AI记忆系统。基于人脑模型的V-score记忆整合和艾宾浩斯遗忘曲线。当用户说\"记忆管理\"、\"记忆系统\"时使用。",
+          "hash": "0af9a7129af8b8eeacdee9f53d5587ac82d9eace1aff37af452738d0f7dd2393"
         },
         {
-          "id": "holo-heartbeat-executor",
-          "name": "holo-heartbeat-executor",
-          "description": "|",
-          "hash": "e11b2936ac3c047598fc2fe21e8d549771c8e04cd33f32912bffb3d114056aec"
+          "id": "knowledge-base",
+          "name": "knowledge-base",
+          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！NAS目标：K:\\knowledge\\（\\\\192.168.0.194\\home）。被 company-research/cold-email-generator/smart-quote 调用。",
+          "hash": "806ab2089edd53fbecf8960725d410fa358dba36004744d11d8065e333963346"
         },
         {
-          "id": "holo-updater",
-          "name": "holo-updater",
-          "description": "HOLO-AGENT 更新技能 - 从 GitHub 拉取最新版本到本地。一键更新红龙获客系统到最新代码。",
-          "hash": "979aae1a95b1398e2fc6027864d106b82f69ce2b4e9f274976915a38aa977edf"
+          "id": "smart-memory",
+          "name": "smart-memory",
+          "description": "持久化认知记忆系统。基于本地向量存储的长期记忆管理。当用户说\"保存记忆\"、\"回忆\"、\"长期记忆\"时使用。",
+          "hash": "023a1986cd423ac9c1fcd1abddd602cb531711051de00f5cb78c067018366f6e"
         },
         {
-          "id": "honglong-assistant",
-          "name": "honglong-assistant",
-          "description": "红龙小助手人格技能。获客技能集群的人格层，自动激活红龙助手身份。",
-          "hash": "2a128ce394b50f93678efa6858060079da9a8f6a4a8aa32d163f7397fdc47380"
+          "id": "supermemory",
+          "name": "supermemory",
+          "description": "增强记忆引擎，基于 LanceDB 向量存储，用于非对话类知识管理",
+          "hash": "02bf933f2ee21e2131ef098166bb76e1e46a2629f09e7bc668d8dc2f942d60ea"
         },
         {
-          "id": "honglong-products",
-          "name": "honglong-products",
-          "description": "红龙(HOLO)工业皮带设备产品知识库。优先读取技能本地结构化文档，NAS原始文件作为兜底权威来源，支持产品型号查询、技术参数、BOM、选型建议等。",
-          "hash": "172f65cbc2cbcbd1a53e2ecf3bd796c8d72f69b6172f82d1b40b4e9e2c3a6164"
-        },
-        {
-          "id": "teyi-customs",
-          "name": "teyi-customs",
-          "description": "特易海关数据搜索技能。通过 teyi_customs 工具查询海关进出口数据 + Exa 决策人挖掘，覆盖233国4100万+企业。当用户需要查海关数据、找采购商、查进出口记录、海关数据分析时使用。actions: search(搜索进口商), multi_search(并行多关键词+自动去重), enrich(Exa找决策人), detail(公司详情页), check(验证登录)。",
-          "hash": "c48c9597dc198692ab4f982cc62b86490aaca9dfcb57d2b394916c17f683a273"
+          "id": "nas-file-reader",
+          "name": "nas-file-reader",
+          "description": "快速读取NAS共享盘文件，支持PDF OCR识别、图片分析。当用户需要：(1) 挂载/连接NAS (2) 读取NAS文件 (3) OCR识别PDF (4) 搜索NAS文件 时使用此技能。",
+          "hash": "a66d1babde772352a0d73bb1b24b6edfea1da4a27c951d8218d1d0784cfb21bc"
         }
       ]
     },
     {
-      "id": "document",
-      "name": "Document",
-      "nameZh": "文档处理",
-      "icon": "FileText",
-      "description": "PDF、Excel、Office 文档处理",
+      "id": "operations",
+      "name": "Operations & Automation",
+      "nameZh": "运营自动化",
+      "icon": "Zap",
+      "description": "心跳巡检、主动Agent、日程调度、报告生成——让系统自己运行",
+      "moc": "_index-operations.md",
       "skills": [
+        {
+          "id": "composio",
+          "name": "composio",
+          "description": "第三方应用集成技能。通过 Composio",
+          "hash": "0374972dd6351853a0de861e062d50f01af8c5f6e91a9e2513e5acc56cddf728"
+        },
+        {
+          "id": "data-automation-service",
+          "name": "data-automation-service",
+          "description": "數據處理同自動化 Workflow 服務",
+          "hash": "0795a8997a849ba9437664e4919eeba9fbbaf43a4ac6aa8ae13d1307270de3d4"
+        },
+        {
+          "id": "hot-monitor",
+          "name": "hot-monitor",
+          "description": "热点话题监控 — 监控行业热点话题和技术趋势，发现获客新机会。触发：热点监控、行业趋势、市场动态。",
+          "hash": "07b30bc0013eb45164a76ed618f3e7de6cfe4eea80af01ad8d69184d964a57f4"
+        },
+        {
+          "id": "agent-reach-setup",
+          "name": "agent-reach-setup",
+          "description": "agent-reach 的安装和配置引导",
+          "hash": "0683e665e4f7e359e171d6f8fb0218ca8b3dcbf70ea67f612174171644a82e93"
+        },
+        {
+          "id": "delivery-queue",
+          "name": "delivery-queue",
+          "description": "消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。",
+          "hash": "30b5d7ab21d271e2c48c510ce2ddd974a65ce29503fcecfd92b8fac65e661e83"
+        },
+        {
+          "id": "follow-up-signal-monitor",
+          "name": "follow-up-signal-monitor",
+          "description": "跟进信号监控系统 — 提案/邮件发出后自动感知客户动静：沉默检测（3/7/14/30天分级）+ 价值型跟进 + IMAP邮件监控。触发：检查跟进信号、客户没回复、沉默检测。",
+          "hash": "dfd9d8b5d41daaa2f06813c4aa22c2c86cb747100edca859c840e1432fb3e14d"
+        },
+        {
+          "id": "proactive-agent",
+          "name": "proactive-agent",
+          "description": "主动式AI代理框架。将被动AI转变为主动合作伙伴，含WAL协议、工作缓冲区、自主定时任务。当用户说\"主动代理\"、\"自动化巡检\"时使用。",
+          "hash": "d7148921ac30f2a2969482a225c03259cadcd95a59f336b8852bdebcb71ffa69"
+        },
+        {
+          "id": "proactive-agent-lite",
+          "name": "proactive-agent-lite",
+          "description": "轻量级主动式AI代理。记忆架构、反向提示、自愈模式。当用户说\"轻量主动代理\"时使用。",
+          "hash": "913094b530529bac03febb589c48c8b3e362c4185e2c5fd0c91343ec54aefcf4"
+        },
+        {
+          "id": "routing-table-audit",
+          "name": "routing-table-audit",
+          "description": "路由表审计 — 检查 ROUTING-TABLE.yaml 路由规则完整性，发现未归档技能和路由冲突。触发：审计路由、路由检查、路由冲突。",
+          "hash": "bf5ecc05a82e2029eaaa83d4c9a306d4a9a50a4e93e4e6d7fcff12294d3a261a"
+        }
+      ]
+    },
+    {
+      "id": "meta",
+      "name": "System Meta",
+      "nameZh": "系统元技能",
+      "icon": "Settings",
+      "description": "技能创建、审计、发现、发布管理——技能系统的自我维护",
+      "moc": "_index-meta.md",
+      "skills": [
+        {
+          "id": "browser-automation",
+          "name": "browser-automation",
+          "description": "浏览器自动化技能。通过自然语言控制浏览器：浏览网页、填表、截图、提取数据。当用户说\"帮我打开网页\"、\"自动化网页操作\"、\"抓取网页数据\"、\"浏览器\"时使用。",
+          "hash": "34ca1ab2297574c59fa9faa980b5fbae0b5da63ef22680aba71a4566f31e6a47"
+        },
+        {
+          "id": "playwright",
+          "name": "playwright",
+          "description": "Playwright浏览器自动化。通过MCP控制真实浏览器：导航、点击、填表、截图、提取数据。当用户说\"Playwright\"、\"浏览器自动化\"、\"真实浏览器\"时使用。",
+          "hash": "2805de63c78ce6f1e76317933656fa4bd8d9945d9901e478a9fa09b423466090"
+        },
         {
           "id": "document-pro",
           "name": "document-pro",
@@ -191,109 +503,7 @@
           "name": "pdf-smart-tool-cn",
           "description": "PDF智能处理工具 v1.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。",
           "hash": "92d8520a38a7af9bfff5e4f9ec4820dff35d6360f5ac71e9268597c12b05c860"
-        }
-      ]
-    },
-    {
-      "id": "email",
-      "name": "Email",
-      "nameZh": "邮件营销",
-      "icon": "Mail",
-      "description": "开发信、邮件发送与管理",
-      "skills": [
-        {
-          "id": "cold-email-generator",
-          "name": "cold-email-generator",
-          "description": "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling.",
-          "hash": "9f61c1f7ec5a290b18425f76dda73c9ec8a7d24a07121dfe5a5060648c1b16b1"
         },
-        {
-          "id": "email-inbox",
-          "name": "email-inbox",
-          "description": "邮件收件检测技能。通过IMAP连接企业邮箱，检测客户回复和询价，自动触发CRM更新和日志记录。当用户需要：(1) 检查邮箱 (2) 查看新邮件 (3) 监听客户回复 时使用此技能。",
-          "hash": "4c59b62c469ceffe49c74d26b90b266424ee452c9bffb9070e6b9be0042e7be7"
-        },
-        {
-          "id": "email-sender",
-          "name": "email-sender",
-          "description": "邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能。",
-          "hash": "923302a8bd260442f54e382b8ddd50bc80e7790e49bb48f5634babcfae5b1f72"
-        }
-      ]
-    },
-    {
-      "id": "knowledge",
-      "name": "Knowledge",
-      "nameZh": "知识库",
-      "icon": "BookOpen",
-      "description": "记忆管理、知识存储",
-      "skills": [
-        {
-          "id": "humanoid-memory",
-          "name": "humanoid-memory",
-          "description": "AI记忆系统。基于人脑模型的V-score记忆整合和艾宾浩斯遗忘曲线。当用户说\"记忆管理\"、\"记忆系统\"时使用。",
-          "hash": "0af9a7129af8b8eeacdee9f53d5587ac82d9eace1aff37af452738d0f7dd2393"
-        },
-        {
-          "id": "knowledge-base",
-          "name": "knowledge-base",
-          "description": "团队共享情报中心与产品知识库。所有获客行为强制先查知识库，减少重复调研、提升效率。⚠️ 核心职责：收到报告后必须用 exec 工具实际保存到 NAS，不能只输出路径！NAS目标：K:\\knowledge\\（\\\\192.168.0.194\\home）。被 company-research/cold-email-generator/smart-quote 调用。",
-          "hash": "806ab2089edd53fbecf8960725d410fa358dba36004744d11d8065e333963346"
-        },
-        {
-          "id": "smart-memory",
-          "name": "smart-memory",
-          "description": "持久化认知记忆系统。基于本地向量存储的长期记忆管理。当用户说\"保存记忆\"、\"回忆\"、\"长期记忆\"时使用。",
-          "hash": "023a1986cd423ac9c1fcd1abddd602cb531711051de00f5cb78c067018366f6e"
-        },
-        {
-          "id": "supermemory",
-          "name": "supermemory",
-          "description": "增强记忆引擎，基于 LanceDB 向量存储，用于非对话类知识管理",
-          "hash": "02bf933f2ee21e2131ef098166bb76e1e46a2629f09e7bc668d8dc2f942d60ea"
-        }
-      ]
-    },
-    {
-      "id": "messaging",
-      "name": "Messaging",
-      "nameZh": "即时通讯",
-      "icon": "MessageCircle",
-      "description": "WhatsApp、Telegram、Facebook",
-      "skills": [
-        {
-          "id": "facebook-acquisition",
-          "name": "facebook-acquisition",
-          "description": "Facebook客户搜索技能。在Facebook上搜索潜在客户，挖掘行业群组，获取公司主页信息。当用户需要从Facebook获取客户时使用此技能。",
-          "hash": "c73e0c61617386a2a2db7fef51ae81cafa876318928bc9697854fc3103d7b6ac"
-        },
-        {
-          "id": "instagram-acquisition",
-          "name": "instagram-acquisition",
-          "description": "Instagram客户搜索技能。在Instagram上搜索潜在客户，挖掘行业标签，获取公司账号信息。当用户需要从Instagram获取客户时使用此技能。",
-          "hash": "99101bb8e156b90c11a2d706f850cf04a4d80b3ae0cae5c94e3f151c4ffdc425"
-        },
-        {
-          "id": "telegram-toolkit",
-          "name": "telegram-toolkit",
-          "description": "Telegram SDR 最佳实践与模板，覆盖俄罗斯/独联体/伊朗等 Telegram-first 市场。",
-          "hash": "9d99b8a07e1e70f626e73aa194a223d7673ffdec772eefcabbc2fb35bd6cc6c7"
-        },
-        {
-          "id": "whatsapp-outreach",
-          "name": "whatsapp-outreach",
-          "description": "WhatsApp触达技能。通过wacli发送WhatsApp消息触达客户，支持文本、文件、产品目录、批量发送。适用于有WhatsApp号码的海外客户。",
-          "hash": "6d38b074b540cfd09d6733b39407c3f2f923ce15edb52747556a8a00602e409c"
-        }
-      ]
-    },
-    {
-      "id": "other",
-      "name": "Other",
-      "nameZh": "其他",
-      "icon": "MoreHorizontal",
-      "description": "其他技能",
-      "skills": [
         {
           "id": "chrome-desktop",
           "name": "Chrome 桌面操作",
@@ -301,230 +511,11 @@
           "hash": "5ba9ca3af3dc2572a06234cf1fde724970e7b042a9b286e478b4c7434f4a25b4"
         },
         {
-          "id": "data-automation-service",
-          "name": "data-automation-service",
-          "description": "數據處理同自動化 Workflow 服務",
-          "hash": "0795a8997a849ba9437664e4919eeba9fbbaf43a4ac6aa8ae13d1307270de3d4"
-        },
-        {
-          "id": "five-step-bg-check",
-          "name": "five-step-bg-check",
-          "description": "外贸客户5招背调法 — 输入海外企业名称，按5步递进式搜集公开信息并输出结构化背调报告。从平台信息、海关数据、社媒决策人、谷歌地图到官网分析层层递进。当用户提到'5招背调'、'市场背调'、'背调法'、'five step'时使用。适合快速判断客户是否值得开发，区别于 company-research 的深度背调。",
-          "hash": "4966aec2881a619d9b1290de7b5947caf80351baeceefd6eca69e6a70de35085"
-        },
-        {
-          "id": "hot-monitor",
-          "name": "hot-monitor",
-          "description": ">",
-          "hash": "07b30bc0013eb45164a76ed618f3e7de6cfe4eea80af01ad8d69184d964a57f4"
-        },
-        {
-          "id": "humanize-ai-text",
-          "name": "humanize-ai-text",
-          "description": "AI文本拟人化技能 — 检测并转化AI生成文本为自然人性化的表达，降低AI检测率至2%以下。冷邮件开发信必经流程。",
-          "hash": "1f2de98cc832601a70c1ced3825ef399aba16235c3693802429c65eb98b47191"
-        },
-        {
-          "id": "inquiry-response",
-          "name": "inquiry-response",
-          "description": ">",
-          "hash": "6394dd8f211ebf2669396ff6e7513a9eaba267cc82197c953a8c5e9ec7e4e279"
-        },
-        {
-          "id": "nas-file-reader",
-          "name": "nas-file-reader",
-          "description": "快速读取NAS共享盘文件，支持PDF OCR识别、图片分析。当用户需要：(1) 挂载/连接NAS (2) 读取NAS文件 (3) OCR识别PDF (4) 搜索NAS文件 时使用此技能。",
-          "hash": "a66d1babde772352a0d73bb1b24b6edfea1da4a27c951d8218d1d0784cfb21bc"
-        },
-        {
           "id": "word-docx",
           "name": "word-docx",
           "description": "Word文档生成技能。创建、编辑、格式化Word文档(.docx)，支持标题、段落、表格、样式。当用户说\"生成Word\"、\"导出docx\"、\"保存为Word\"、\"写报告\"、\"背调报告\"、\"开发信保存\"时使用。",
           "hash": "766d139e49279418e7664e732013afd8430b9d4593d9b8dbe875bd73837da5b0"
-        }
-      ]
-    },
-    {
-      "id": "output",
-      "name": "Output",
-      "nameZh": "内容输出",
-      "icon": "FileOutput",
-      "description": "报告、报价单、提案生成",
-      "skills": [
-        {
-          "id": "daily-report-writer",
-          "name": "daily-report-writer",
-          "description": "根据输入生成日报 Markdown 草稿并写入 reports 目录",
-          "hash": "f8764cfe5bf9ab6be0a1858f78952095fe2859ee45ecf44e671420e9387decd5"
         },
-        {
-          "id": "holo-proposal-generator",
-          "name": "holo-proposal-generator",
-          "description": "HOLO数字提案包生成器 — 将「智能报价指引」升级为专业提案PDF。包含封面、客户摘要、方案对比、案例、报价、CTA，一套顶过去十张表格。",
-          "hash": "54dfd948b1aee1e67eefec80871854bb5bc6e118ee680153ae3d92454825da48"
-        },
-        {
-          "id": "quotation-generator",
-          "name": "quotation-generator",
-          "description": "生成红龙公司标准 QUOTATION FORM PDF，完全匹配公司实际报价单模板（CNY EX-Factory，含产品照片位和详细规格参数）。",
-          "hash": "50062ec8b3aa8132b6473b0cc6bfb4e753aec1d6e3962f109af5f267e345f6bc"
-        },
-        {
-          "id": "smart-quote",
-          "name": "smart-quote",
-          "description": "|",
-          "hash": "9a25321aea1453c6764b85001873b8d2de8808997db4b8219604555f21aef131"
-        }
-      ]
-    },
-    {
-      "id": "research",
-      "name": "Research",
-      "nameZh": "调研分析",
-      "icon": "Search",
-      "description": "企业背调、市场研究、客户情报",
-      "skills": [
-        {
-          "id": "company-research",
-          "name": "company-research",
-          "description": "红龙获客系统·海外B2B企业背景调查 —",
-          "hash": "28ef157b36cb0f5dc5aaed24b55400724b9a1aaed71b831bf626ce93e648ff0d"
-        },
-        {
-          "id": "customer-intelligence",
-          "name": "customer-intelligence",
-          "description": "客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。",
-          "hash": "50341a9f5415025591edfe0bb5e00b848a7b03fb5e24bd8295903480f33aadca"
-        },
-        {
-          "id": "deep-research",
-          "name": "deep-research",
-          "description": "深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入。是 in-depth-research 的别名入口。",
-          "hash": "0c08ec704e29f76814161e61780c154f1d0ad4be79d646fd46974d5d5432a9a0"
-        },
-        {
-          "id": "market-development-report",
-          "name": "market-development-report",
-          "description": "市场开发调研报告技能。当用户说「开发XX市场」「开发南美」「开发非洲」等时，自动生成结构化的目标市场分析报告，包含市场规模、竞争格局、关税政策、开发优先级、获客关键词。",
-          "hash": "8527b30f62cd6c8af5910b6655ca6191920c1b870139b0adb79e81fdefa784ec"
-        },
-        {
-          "id": "market-research",
-          "name": "market-research",
-          "description": "市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。六维度市场分析框架：市场规模、市场增长、市场细分、竞争格局、客户画像、进入策略。",
-          "hash": "1cdbc5c874681d1df02cf731f371b410890384e0d38914eb5b7c96c0a832351e"
-        }
-      ]
-    },
-    {
-      "id": "sales",
-      "name": "Sales",
-      "nameZh": "销售赋能",
-      "icon": "TrendingUp",
-      "description": "销售培训、SDR 工具",
-      "skills": [
-        {
-          "id": "business-development",
-          "name": "business-development",
-          "description": "商务拓展技能。合作伙伴外联、市场研究、竞品分析、提案生成。当用户说\"找合作伙伴\"、\"做市场分析\"、\"写商务提案\"时使用。",
-          "hash": "7bb95b9291660ea4bf69353eb5efd28ea70f7bc29d046d124adbcbab8b2623dd"
-        },
-        {
-          "id": "holo-sales-trainer",
-          "name": "holo-sales-trainer",
-          "description": "HOLO销售训练场 — AI模拟真实客户对话 + 话术评估。降低业务员成长曲线，让系统扮演永不疲倦的师父。",
-          "hash": "936ffc1d66de8196e680622f3238afc3cfeae4824e7b6b49165add55e96e163e"
-        },
-        {
-          "id": "sales",
-          "name": "sales",
-          "description": "销售助手技能。CRM集成、线索跟踪、外联自动化、Pipeline管理。当用户说\"销售管理\"、\"跟踪客户\"、\"销售自动化\"时使用。",
-          "hash": "b77e973664681e893576b767c000eca413ac067b433b7aca48b4620e8c6979c2"
-        },
-        {
-          "id": "sales-champion",
-          "name": "sales-champion",
-          "description": "销冠决策引擎 — SPIN需求判断 + 影响力说服 + 挑战者谈判 + 信号识别词典。帮业务员做出销冠级别的判断。当用户说\"销售策略\"、\"怎么跟进\"、\"客户犹豫\"、\"怎么谈价\"、\"异议处理\"、\"客户心理\"时使用。",
-          "hash": "8016d1d3091371bd7f88c2b466fe6b06765f52fb5e56f61c5af3c03269affb67"
-        },
-        {
-          "id": "sdr-humanizer",
-          "name": "sdr-humanizer",
-          "description": "拟人化销售对话技能。将AI生成的销售消息转化为自然、人性化的对话。支持文化适配、时区感知、消息节奏控制。",
-          "hash": "b955cbb73b6413360f6e2f35e97d4618cfaa96c641e1765e148f27024e159eb6"
-        },
-        {
-          "id": "sdr-training-ground",
-          "name": "sdr-training-ground",
-          "description": ">",
-          "hash": "7782a0f1630ebbce051d77065aee5b7e6a4c6fa79af3cb90a0b9a1318330b7d2"
-        }
-      ]
-    },
-    {
-      "id": "social",
-      "name": "Social",
-      "nameZh": "社交媒体",
-      "icon": "Share2",
-      "description": "LinkedIn、社交媒体内容生成",
-      "skills": [
-        {
-          "id": "ai-social-media-content",
-          "name": "ai-social-media-content",
-          "description": "AI 社媒营销内容生成器。一次主题，自动生成 9",
-          "hash": "68d67cda06215ca460a8c38bb6b50ff6508b234fe08bac226bf7984c7cf656ed"
-        },
-        {
-          "id": "holo-social-gen",
-          "name": "holo-social-gen",
-          "description": "HOLO社媒图片生成器 v7.2。AI-First设计模式，Agent直接手写HTML生成多语种社媒图片（Instagram/Facebook/LinkedIn等）。",
-          "hash": "088fd919ba91fc26138040078de635932ff0d65cb3a539938773224bcd80f44a"
-        },
-        {
-          "id": "holo-social-image",
-          "name": "holo-social-image",
-          "description": ">",
-          "hash": "cd498fe21f5d990afe11f40a73fd229227ecd5248675db2e1992a22d227aef84"
-        },
-        {
-          "id": "holo-social-infographic",
-          "name": "holo-social-infographic",
-          "description": "HOLO社媒信息图生成技能 - 使用 Draw.io CLI 生成技术参数图、流程图、对比图。所有数据必须来自 NAS 共享盘真实产品资料，禁止捏造。",
-          "hash": "5708c7e5b37368300336a298816a228e6263dc58f1f35941e8b9be0d1dad1785"
-        },
-        {
-          "id": "social-publish",
-          "name": "social-publish",
-          "description": "社媒自动发布技能。通过浏览器自动化将内容发布到 LinkedIn、Facebook 等平台。当用户说\"发布到LinkedIn\"、\"发社媒\"、\"自动发布\"时使用。",
-          "hash": "0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "id": "geo-content-gen",
-          "name": "geo-content-gen",
-          "description": "多语言 SEO/GEO 内容生成器。生成 AI 搜索引擎友好的产品内容，覆盖 LinkedIn、Facebook、Alibaba 等平台，5 种目标市场语言。当用户说\"生成SEO内容\"、\"GEO内容\"、\"多语言产品内容\"时使用。",
-          "hash": "0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        {
-          "id": "linkedin",
-          "name": "linkedin",
-          "description": "LinkedIn客户拓展技能。搜索决策人、发送连接请求和InMail。当用户说\"LinkedIn找客户\"、\"领英开发\"、\"LinkedIn拓展\"时使用。",
-          "hash": "a341d1f5da417047f1b56609c77df947fc1cc97826bc1909efc7814b4e6d3664"
-        },
-        {
-          "id": "linkedin-writer",
-          "name": "linkedin-writer",
-          "description": "Writes LinkedIn posts that sound like a real person, not a content mill. 红龙定制版增加工业设备行业内容模板。",
-          "hash": "2a384ecbca856a2970ddbf91e849929701e2530e972f2332c0b4a4062040d457"
-        }
-      ]
-    },
-    {
-      "id": "system",
-      "name": "System",
-      "nameZh": "系统工具",
-      "icon": "Settings",
-      "description": "技能管理、系统维护",
-      "skills": [
         {
           "id": "acquisition-coordinator",
           "name": "acquisition-coordinator",
@@ -600,7 +591,7 @@
         {
           "id": "release-manager",
           "name": "release-manager",
-          "description": ">",
+          "description": "发布管理器 — 管理 acquisition-agent 的版本发布流程，生成 CHANGELOG，标记版本号。触发：发布、发版、release、版本更新。",
           "hash": "b1ac1790d30a4cfa11aa05b56252f2608822811e60d95c4e298531c4c25034a3"
         },
         {
@@ -630,167 +621,14 @@
         {
           "id": "skill-onboarding-checklist",
           "name": "skill-onboarding-checklist",
-          "description": ">",
+          "description": "技能入职检查清单 — 新技能的标准化检查流程：格式合规、描述完整、触发词准确、依赖声明。触发：检查新技能、技能审核、onboarding。",
           "hash": "97d196ce07b8cfa598d52de1635ce0624ad243bef6e076aa573440e401cb431b"
         },
         {
           "id": "skill-system-audit",
           "name": "skill-system-audit",
-          "description": ">",
+          "description": "技能系统审计 — 全面审查技能库健康度：冗余检测、触发冲突、描述质量、使用频率统计。触发：审计技能、技能健康度、系统检查。",
           "hash": "7d31bd05544624d095cc757a48a16bceefa35894a66d8fd969e7543742cfa0a2"
-        },
-        {
-          "id": "test-detail-skill-1778562640177",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778563491299",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778563553340",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778564336983",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778570598781",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778570699618",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778571013470",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778653546693",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-detail-skill-1778661176758",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778562638356",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778563489299",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778563551400",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778564335007",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778570596037",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778570697710",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778571011644",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778653544737",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        },
-        {
-          "id": "test-skill-1778661174700",
-          "name": "test-skill-for-admin",
-          "description": "A test skill for admin API testing",
-          "hash": "e66a112303d07ed89190a4d520e7f184dd9876cd3bdb56d6fe9c0a40b46b7d25"
-        }
-      ]
-    },
-    {
-      "id": "workflow",
-      "name": "Workflow",
-      "nameZh": "工作流",
-      "icon": "Workflow",
-      "description": "自动化工作流、跟进信号",
-      "skills": [
-        {
-          "id": "agent-reach-setup",
-          "name": "agent-reach-setup",
-          "description": "agent-reach 的安装和配置引导",
-          "hash": "0683e665e4f7e359e171d6f8fb0218ca8b3dcbf70ea67f612174171644a82e93"
-        },
-        {
-          "id": "delivery-queue",
-          "name": "delivery-queue",
-          "description": "消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。",
-          "hash": "30b5d7ab21d271e2c48c510ce2ddd974a65ce29503fcecfd92b8fac65e661e83"
-        },
-        {
-          "id": "follow-up-signal-monitor",
-          "name": "follow-up-signal-monitor",
-          "description": ">",
-          "hash": "dfd9d8b5d41daaa2f06813c4aa22c2c86cb747100edca859c840e1432fb3e14d"
-        },
-        {
-          "id": "proactive-agent",
-          "name": "proactive-agent",
-          "description": "主动式AI代理框架。将被动AI转变为主动合作伙伴，含WAL协议、工作缓冲区、自主定时任务。当用户说\"主动代理\"、\"自动化巡检\"时使用。",
-          "hash": "d7148921ac30f2a2969482a225c03259cadcd95a59f336b8852bdebcb71ffa69"
-        },
-        {
-          "id": "proactive-agent-lite",
-          "name": "proactive-agent-lite",
-          "description": "轻量级主动式AI代理。记忆架构、反向提示、自愈模式。当用户说\"轻量主动代理\"时使用。",
-          "hash": "913094b530529bac03febb589c48c8b3e362c4185e2c5fd0c91343ec54aefcf4"
-        },
-        {
-          "id": "routing-table-audit",
-          "name": "routing-table-audit",
-          "description": ">",
-          "hash": "bf5ecc05a82e2029eaaa83d4c9a306d4a9a50a4e93e4e6d7fcff12294d3a261a"
         }
       ]
     }

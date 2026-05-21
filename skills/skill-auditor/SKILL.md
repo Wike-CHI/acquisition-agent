@@ -12,6 +12,9 @@ triggers:
 
 # Skill Auditor - 技能系统审查技能
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 ## 何时使用
 
 - 用户说"审查技能"、"审计技能"、"检查技能系统"

@@ -11,6 +11,9 @@ user-invocable: true
 
 # Daily Report Writer
 
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → 日报写入 reports/ → Boss监控
+
+
 ## Use when
 - 用户要求生成“日报/工作总结草稿”
 

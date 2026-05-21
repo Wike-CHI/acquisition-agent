@@ -18,10 +18,15 @@ triggers:
   - 起草邮件
   - follow up
   - 跟进邮件
+_graph_nav: |
+  上游 ← [[company-research|企业背调]]（个性化素材） → 并行 → [[humanize-ai-text|AI拟人化]] → 输出 → [[email-sender|邮件发送]] → 后续 → [[follow-up-signal-monitor|跟进监控]]
   - 邮件序列
 ---
 
 # Cold Email Generator v2.1
+
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
 
 生成个性化 B2B 开发信，经过 AI 检测、多轮润色、严格评分（≥9.0）。
 

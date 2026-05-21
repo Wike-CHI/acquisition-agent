@@ -42,6 +42,9 @@ triggers:
 
 # 红龙产品知识库 v3.1
 
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → [[knowledge-base|团队知识库]] + [[smart-quote|智能报价]]（产品→报价）+ [[quotation-generator|报价单]]
+
+
 > ⭐ **双层架构：结构化文档优先，NAS原始文件兜底**
 
 ---

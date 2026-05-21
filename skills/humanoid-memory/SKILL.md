@@ -10,6 +10,9 @@ triggers:
 
 # Humanoid Memory System
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → 对话记忆 → 客户交互历史
+
+
 **Brain-inspired memory for AI agents with V-score consolidation and Ebbinghaus forgetting.**
 
 ## What is it?

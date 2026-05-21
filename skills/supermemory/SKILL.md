@@ -10,6 +10,9 @@ triggers:
 
 # supermemory — 增强记忆引擎
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → 大规模语义搜索 → [[deep-research|深度调研]]
+
+
 > 版本: v1.0 | 日期: 2026-03-31
 > 实现 4层抗遗忘系统的 L1 增强层
 > 专注文工业皮带 B2B 外贸场景，基于 LanceDB 向量存储。

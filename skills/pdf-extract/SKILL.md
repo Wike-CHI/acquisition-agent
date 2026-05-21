@@ -9,6 +9,9 @@ triggers:
 
 # PDF Extract
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 Extract text from PDF files for LLM processing. Uses `pdftotext` from the poppler-utils package to convert PDF documents into plain text.
 
 ## Commands

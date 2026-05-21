@@ -13,6 +13,9 @@ author: Boss
 
 # 网页内容获取工具
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]]
+
+
 当常规 web_fetch/web_search 无法获取内容时，使用替代服务获取网页 Markdown 格式内容。
 
 ## 支持的服务

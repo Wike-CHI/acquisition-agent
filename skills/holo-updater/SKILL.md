@@ -13,6 +13,9 @@ triggers:
 
 # HOLO-AGENT 更新技能
 
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]]
+
+
 ## 快速使用
 
 用户说「更新HOLO-AGENT」等触发词时，Agent自动执行：

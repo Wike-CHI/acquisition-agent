@@ -12,6 +12,9 @@ triggers:
 
 # humanize-ai-text — AI文本拟人化
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[company-research|企业背调]]（个性化素材） ← [[_index-outreach|触达领域]] | 下游 → [[email-sender|邮件发送]]
+
+
 将 AI 生成的文本（尤其是冷开发信）转化为自然、人性化的表达，通过 AI 检测和智能转化双重流程，确保输出内容的 AI 密度 < 2%。
 
 ---

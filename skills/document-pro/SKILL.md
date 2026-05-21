@@ -10,6 +10,9 @@ triggers:
 
 # Document Pro - 文档处理技能
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 ## 概述
 
 赋予 AI 强大的文档处理能力：

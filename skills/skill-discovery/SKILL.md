@@ -9,6 +9,9 @@ triggers:
 
 # Skill Discovery
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 Discover and browse skills from OpenSpace's local and cloud skill library.
 
 ## When to use

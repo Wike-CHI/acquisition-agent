@@ -15,6 +15,9 @@ triggers:
 
 # 客户情报整合技能
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[knowledge-base|团队知识库]]（存档） + [[smart-quote|智能报价]]（ICP评分→利润率）
+
+
 ---
 
 ## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️

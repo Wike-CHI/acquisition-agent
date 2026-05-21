@@ -11,6 +11,9 @@ triggers:
 
 # LinkedIn 私信外联（AI 浏览器驱动）
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[linkedin-writer|LinkedIn文案]]（触达内容）
+
+
 > **搜索功能** → 改用 `exa` skill（Exa 索引 LinkedIn 公开档案，更稳定）
 > **私信/连接请求** → 本 skill 负责，底层用 `agent-browser` CLI，由 AI 实时操控浏览器
 

@@ -132,6 +132,9 @@ triggers:
 
 # 🧬 Capability Evolver
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 **"Evolution is not optional. Adapt or die."**
 
 The **Capability Evolver** is a meta-skill that allows OpenClaw agents to inspect their own runtime history, identify failures or inefficiencies, and autonomously write new code or update their own memory to improve performance.

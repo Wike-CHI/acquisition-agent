@@ -12,6 +12,9 @@ triggers:
 
 # mcporter
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 Use `mcporter` to work with MCP servers directly.
 
 Quick start

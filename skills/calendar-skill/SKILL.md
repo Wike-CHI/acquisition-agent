@@ -15,6 +15,9 @@ triggers:
 
 # Calendar Skill - 日历提醒与任务调度
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → [[holo-heartbeat-executor|心跳]]（日程触发）
+
+
 管理获客相关的日程安排和提醒，确保不遗漏任何跟进节点。
 
 ## 功能

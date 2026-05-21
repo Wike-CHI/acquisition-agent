@@ -21,6 +21,9 @@ always: false
 
 # 市场开发调研报告技能 v1.0.0
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[market-research|市场研究]] + [[teyi-customs|海关数据]]
+
+
 当业务员说「开发XX市场」时，先生成一份结构化市场调研报告，再进入获客流程。
 
 ## 触发条件

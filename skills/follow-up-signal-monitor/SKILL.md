@@ -22,6 +22,9 @@ memory: null
 
 # 跟进信号监控 v1.0.0
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]] | 上游 ← [[email-sender|邮件发送]] / [[delivery-queue|发送队列]] ← [[_index-outreach|触达领域]]
+
+
 ## 核心定位
 
 提案发了、邮件发了，客户没回复——之前是干等，现在是系统自动感知。

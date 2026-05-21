@@ -27,6 +27,9 @@ allowed-tools: Bash,Read,Write
 
 # Knowledge Base Skill - 红龙知识库管理
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]] | 上游 ← [[company-research|背调报告]] / [[cold-email-generator|开发信]] / [[smart-quote|报价]] ← [[_index-intelligence|情报领域]] | 下游 → NAS持久化 → 全员复用
+
+
 > ⭐ **团队共享情报中心 + 产品知识库**
 
 ---

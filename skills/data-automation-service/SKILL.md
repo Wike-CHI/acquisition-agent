@@ -10,6 +10,9 @@ triggers:
 
 # Data Automation Service
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]]
+
+
 數據處理同自動化Workflow服務
 
 ## 功能

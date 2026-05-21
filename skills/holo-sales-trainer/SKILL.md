@@ -23,6 +23,9 @@ memory: null
 
 # HOLO销售训练场 v1.0.0
 
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[sales|销售技能]] / [[sales-champion|销冠引擎]] | 下游 → [[sdr-training-ground|SDR训练场]]（初阶训练）
+
+
 ## 核心定位
 
 扮演永不疲倦的销售教练，模拟真实客户对话场景，让业务员在无风险环境中反复练习，直到内化为止。

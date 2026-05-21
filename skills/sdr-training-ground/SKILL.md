@@ -24,6 +24,9 @@ triggers:
 
 # SDR Training Ground — 新兵训练场
 
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]]
+
+
 > **一句话定位：** AI扮演客户，新业务员练手，系统评分。
 
 ---
