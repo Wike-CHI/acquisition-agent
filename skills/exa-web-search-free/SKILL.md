@@ -10,6 +10,9 @@ triggers:
 
 # Exa Web Search (Free) v2.2
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[company-research|企业背调]] + [[deep-research|深度调研]]
+
+
 ## 强制要求：使用 web_search 工具
 
 > **✅ 正确：调用 web_search 工具，search_type 选 company/people/deep/general**

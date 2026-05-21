@@ -16,6 +16,9 @@ triggers:
 
 # whatsapp-outreach — WhatsApp触达 v2.0
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[company-research|企业背调]] ← [[_index-outreach|触达领域]] | 下游 → [[delivery-queue|发送队列]] → [[follow-up-signal-monitor|跟进监控]]
+
+
 > 基于wacli CLI的WhatsApp消息触达能力，集成进HOLO获客系统的触达层。
 > v2.0 更新：加入实战验证的批量发送流程、JID格式优化、号码搜索脚本。
 

@@ -15,6 +15,9 @@ triggers:
 
 # HOLO-AGENT 技能安装检查清单 v1.0.0
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 > 新技能装错位置（holo-acquisition/ 而非 acquisition/）+ 路由表未注册 = 技能"消失"。
 > 本清单防止这类问题重复发生。
 

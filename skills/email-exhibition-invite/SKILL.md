@@ -18,6 +18,9 @@ triggers:
 
 # Email Exhibition Invite — 展会邀请邮件
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 邀请潜在或现有客户参观展会、预约现场演示。
 
 ---

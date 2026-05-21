@@ -13,6 +13,9 @@ triggers:
 
 # credential-manager
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 > 统一凭据管理技能。支持对话式配置各平台账号密码，使用Windows DPAPI安全加密存储。
 
 ## 功能

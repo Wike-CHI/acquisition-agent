@@ -12,6 +12,9 @@ triggers:
 
 # sdr-humanizer — 拟人化销售对话
 
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]]
+
+
 将AI生成的销售消息转化为自然、人性化的对话，建立信任和关系。
 
 ---

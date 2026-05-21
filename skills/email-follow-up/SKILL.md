@@ -17,6 +17,9 @@ triggers:
 
 # Email Follow-Up — 跟进邮件生成
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 为已触达但未回复的客户生成跟进邮件。
 
 ---

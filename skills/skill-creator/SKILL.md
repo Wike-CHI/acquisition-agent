@@ -12,6 +12,9 @@ triggers:
 
 # Skill Creator
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 This skill provides guidance for creating effective skills.
 
 ## About Skills

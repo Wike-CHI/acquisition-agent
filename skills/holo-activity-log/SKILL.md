@@ -17,6 +17,9 @@ triggers:
 
 # holo-activity-log
 
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → [[daily-report-writer|日报生成]]（数据源）
+
+
 > **系统技能** — 被 acquisition-workflow 及其他业务技能自动调用，不直接面向用户。
 
 记录每个业务动作到 NAS 共享活动日志，供团队主管在 BOSS 监控页面查看。

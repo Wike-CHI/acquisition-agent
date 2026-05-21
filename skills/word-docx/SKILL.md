@@ -13,6 +13,9 @@ triggers:
 
 # Word 文档生成技能
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 赋予 AI 生成专业 Word (.docx) 文档的能力。当需要输出叙事性、段落性内容时优先选择 Word 而非 Excel。
 
 ## 何时使用

@@ -20,6 +20,9 @@ tools:
 
 # 社媒自动发布
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
+
 通过 HOLO browserTools 将内容发布到各平台。
 
 ## 前置条件

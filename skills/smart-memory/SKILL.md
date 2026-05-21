@@ -9,6 +9,9 @@ triggers:
 
 # Smart Memory v2 Skill
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → 向量检索 → [[company-research|背调]] + [[knowledge-base|知识库]]
+
+
 Smart Memory v2 is a persistent cognitive memory runtime, not a legacy vector-memory CLI.
 
 Core runtime:

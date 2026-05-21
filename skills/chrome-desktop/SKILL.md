@@ -13,6 +13,9 @@ triggers:
 
 # Chrome 桌面操作技能
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 通过 desktop_screenshot + desktop_click + desktop_type + desktop_key 等工具操控 Chrome 浏览器。
 
 ## 核心原则

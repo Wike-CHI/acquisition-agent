@@ -18,6 +18,9 @@ triggers:
 
 # Hot Monitor — AI 热点监控技能
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]]
+
+
 Search and analyze trending topics across 8+ sources without any server or database. Scripts handle data collection; use your own AI capabilities for analysis.
 
 ## Quick Start

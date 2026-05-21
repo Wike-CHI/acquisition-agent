@@ -12,6 +12,9 @@ triggers:
 
 # CLI-Hub Meta-Skill
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 CLI-Hub is a marketplace of agent-native command-line interfaces that make professional software accessible to AI agents.
 
 ## Live Catalog

@@ -10,6 +10,9 @@ homepage: https://pypi.org/project/nano-pdf/
 
 # nano-pdf
 
+> **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]]
+
+
 Use `nano-pdf` to apply edits to a specific page in a PDF using a natural-language instruction.
 
 ## Quick start

@@ -20,6 +20,9 @@ triggers:
 
 # 邮件收件检测技能
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[_index-outreach|触达领域]] | 下游 → [[inquiry-response|询盘应答]]（客户回复）→ [[crm|CRM]]（更新）
+
+
 通过IMAP连接企业邮箱，检测客户回复，自动记录日志并更新CRM。
 
 ---

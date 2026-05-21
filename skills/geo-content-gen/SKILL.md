@@ -30,6 +30,9 @@ tools:
 
 # GEO Content Engine v2.0
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]]
+
+
 > 全栈 SEO/GEO 内容引擎 — 关键词研究到 AI 搜索引擎引用监控
 
 ## References 目录

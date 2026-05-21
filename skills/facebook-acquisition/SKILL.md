@@ -11,6 +11,9 @@ triggers:
 
 # Facebook 客户搜索技能
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[company-research|企业背调]]（找到公司后）
+
+
 利用Facebook平台搜索潜在客户，挖掘行业群组，获取公司信息。
 
 ## 一、agent-browser 自动化 SOP

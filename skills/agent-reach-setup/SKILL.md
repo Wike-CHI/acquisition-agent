@@ -9,6 +9,9 @@ triggers:
 
 # Agent Reach 完整安装与配置解决方案
 
+> **Skill Graph：** 领域 → [[_index-operations|运营自动化领域]]
+
+
 ## 概述
 本技能包提供Agent Reach的完整安装和配置流程，基于实际部署经验，包含问题诊断和解决方案。适用于OpenClaw、Claude Code等AI Agent环境。
 

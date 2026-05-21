@@ -14,6 +14,9 @@ triggers:
 
 # NAS 文件快速读取技能
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → [[honglong-products|产品知识库]]（兜底数据源）
+
+
 快速访问 HOLO 公司 NAS 共享盘文件，支持 PDF OCR 识别、图片分析、文本读取
 
 ---

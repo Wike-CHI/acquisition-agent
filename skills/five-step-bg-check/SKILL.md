@@ -15,6 +15,9 @@ triggers:
 
 # 外贸客户5招背调法 v2.0
 
+> **Skill Graph：** 领域 → [[_index-discovery|客户发现与调研领域]] | 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[company-research|深度背调]]（初筛通过后）
+
+
 输入海外企业名称（英文），5步递进式搜集公开信息，输出结构化背调报告。
 
 适合**快速判断客户是否值得投入精力开发**，不是深度背调（深度背调用 `company-research`）。

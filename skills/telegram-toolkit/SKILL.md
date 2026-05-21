@@ -11,6 +11,9 @@ triggers:
 
 # telegram-toolkit — 红龙获客 Telegram 渠道技能
 
+> **Skill Graph：** 领域 → [[_index-outreach|多渠道触达领域]] | 上游 ← [[_index-outreach|触达领域]] | 下游 → [[cold-email-generator|开发信生成]]（双通道）
+
+
 > Telegram SDR 最佳实践与模板。覆盖：Bot commands、inline keyboards、大文件处理、Telegram-first 市场策略。
 > **适用市场**：俄罗斯/独联体/伊朗（这些市场 Telegram 是主渠道）
 

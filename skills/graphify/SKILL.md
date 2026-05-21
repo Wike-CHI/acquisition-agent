@@ -11,6 +11,9 @@ triggers:
 
 # graphify — 红龙知识图谱技能
 
+> **Skill Graph：** 领域 → [[_index-intelligence|情报与知识领域]]
+
+
 > 从红龙产品目录、客户对话、市场调研中构建知识图谱，发现隐藏关联、交叉销售机会和竞争洞察。
 > 基于 graphify 库，适配红龙工业皮带设备销售场景。
 
