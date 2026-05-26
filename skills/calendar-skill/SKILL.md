@@ -1,7 +1,7 @@
 ---
 name: calendar-skill
 version: 1.0.0
-description: "日历提醒与任务调度技能。管理客户跟进日程、邮件发送提醒、会议安排。支持创建、查看、删除日历事件。"
+description: "Use when 需要管理客户跟进日程、设置邮件发送提醒或安排会议时。路由：日程管理走此技能（内置跟进周期计算+时区感知），不要直接调 schedule_task 创建任务"
 always: false
 triggers:
   - 日历

@@ -1,9 +1,7 @@
 ---
 name: social-publish
 version: "1.0.0"
-description: |
-  社媒自动发布技能。通过 HOLO 浏览器自动化将内容发布到 LinkedIn、Facebook 等平台。
-  支持纯文本帖子、带图帖子。当用户说"发布到LinkedIn"、"发社媒"、"自动发布"、"post to LinkedIn"时使用。
+description: Use when 需要将社媒内容发布到LinkedIn/Facebook等平台（含自动发布和效果追踪）时。路由：社媒发布走此技能（内置平台适配+发布节奏控制+效果追踪），禁止直接调 social_publish 工具绕过内容审核。
 triggers:
   - 发布到LinkedIn
   - 发布到Facebook

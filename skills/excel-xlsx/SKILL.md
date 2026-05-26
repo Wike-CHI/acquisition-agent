@@ -3,7 +3,7 @@ name: excel-xlsx
 slug: excel-xlsx
 version: 1.0.1
 homepage: https://clawic.com/skills/excel-xlsx
-description: Excel文件处理技能。读取、写入、生成Excel文件，支持类型、日期、公式、跨平台。当用户说"处理Excel"、"读Excel"、"生成表格"、"xlsx"时使用。
+description: Use when 需要读取/写入/生成Excel文件（含类型检测+日期格式化）时。路由：Excel处理走此技能（内置类型检测+日期格式化+跨平台兼容），不要直接调 office_* 或 generate_file 生成Excel
 changelog: Added Core Rules and modern skill structure
 triggers:
   - Excel

@@ -1,7 +1,7 @@
 ---
 name: quotation-generator
 version: "2.0.0"
-description: 生成红龙公司标准 QUOTATION FORM PDF，完全匹配公司实际报价单模板（CNY EX-Factory，含产品照片位和详细规格参数）。
+description: Use when 需要生成标准PDF报价单时。路由：生成PDF报价单走此技能（内置产品价格表和利润率校验），禁止跳过 smart-quote 直接生成报价单
 triggers:
   - 报价单
   - PDF报价

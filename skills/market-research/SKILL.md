@@ -2,7 +2,7 @@
 name: market-research
 slug: market-research
 version: 1.2.0
-description: 市场研究技能的红龙定制包装入口。检测到 HONGLONG-OVERRIDE.md 时优先使用定制内容。六维度市场分析框架：市场规模、市场增长、市场细分、竞争格局、客户画像、进入策略。
+description: Use when 需要做市场研究、市场规模分析、竞品分析或开发新市场时。路由：市场研究走此技能（内置六维度分析框架+竞品格局），不要直接用 web_search 搜几条链接就交差
 triggers:
   - 市场分析
   - 竞争分析

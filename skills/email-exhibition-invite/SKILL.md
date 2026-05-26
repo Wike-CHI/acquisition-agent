@@ -1,7 +1,7 @@
 ---
 name: email-exhibition-invite
 version: 1.0.0
-description: "B2B exhibition/trade show invitation email. Invites prospects to visit booth, schedule demos, or attend industry events."
+description: "Use when 需要发送展会邀请邮件给客户时。路由：展会邀请邮件走此技能（内置展会模板+时间线管理），禁止直接调 send_email_smtp。"
 category: email-marketing
 metadata:
   uiLabel: "展会邀请"

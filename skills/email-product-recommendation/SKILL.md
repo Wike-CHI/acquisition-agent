@@ -1,7 +1,7 @@
 ---
 name: email-product-recommendation
 version: 1.0.0
-description: "B2B product recommendation email for new products, upgrades, or promotions. Highlights specific improvements and customer-relevant value."
+description: "Use when 需要向客户推荐新产品/升级/促销时。路由：产品推荐邮件走此技能（内置产品匹配+推荐策略），禁止直接调 send_email_smtp。"
 category: email-marketing
 metadata:
   uiLabel: "产品推荐"

@@ -1,7 +1,7 @@
 ---
 name: sales-pipeline-tracker
 version: 1.0.0
-description: 销售管线跟踪技能。从线索到成交的全阶段管理、状态更新、收入预测、瓶颈识别。当用户说"管管线"、"销售漏斗"、"deal跟踪"时使用。
+description: Use when 需要管理销售管线、更新线索状态、做收入预测时。路由：线索状态流转和Pipeline管理走此技能（内置状态机规则），不要直接 PATCH leads API 修改状态
 triggers:
   - Pipeline
   - 销售管线

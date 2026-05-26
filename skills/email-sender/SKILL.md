@@ -1,7 +1,7 @@
 ---
 name: email-sender
 version: 1.0.0
-description: 邮件自动发送技能。引导式配置SMTP，自动发送开发信和跟进邮件。当用户需要：(1) 配置邮箱 (2) 发送邮件 (3) 批量发送 (4) 自动跟进 时使用此技能。
+description: Use when 用户需要发送邮件、批量发送开发信或跟进邮件时。路由：发送邮件必须用此技能（内置ICP校验、邮箱铁律、联系记录），禁止直接调 send_email_smtp 或 whatsapp_send 绕过质量门控。
 always: false
 triggers:
   - 发送邮件

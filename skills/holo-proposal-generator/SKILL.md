@@ -1,7 +1,7 @@
 ---
 name: holo-proposal-generator
 version: 1.0.0
-description: HOLO数字提案包生成器 — 将「智能报价指引」升级为专业提案PDF。包含封面、客户摘要、方案对比、案例、报价、CTA，一套顶过去十张表格。
+description: Use when 需要生成包含封面+客户摘要+方案对比+案例+报价+CTA的专业数字提案包时
 triggers:
   - 生成提案
   - 提案包

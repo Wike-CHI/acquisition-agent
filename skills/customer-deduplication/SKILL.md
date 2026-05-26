@@ -1,7 +1,7 @@
 ---
 name: customer-deduplication
 version: 1.0.0
-description: 客户去重技能。跨平台合并重复客户，按公司名称、域名、联系方式匹配。当用户需要：(1) 合并多个平台的客户列表 (2) 去除重复客户 (3) 统一客户信息 (4) 客户数据清洗 时使用此技能。
+description: Use when 需要跨平台合并重复客户记录时
 always: false
 triggers:
   - 去重

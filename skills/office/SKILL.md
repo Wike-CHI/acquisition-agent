@@ -1,7 +1,7 @@
 ---
 name: office
-description: Office办公技能。Excel、Word、PowerPoint、Google
-  Workspace操作。当用户说"处理Office"、"Word文档"、"PPT"时使用。
+description: Use when 需要操作办公文档（Excel/Word/PPT/Google
+  Workspace）时。路由：办公文档操作走此技能（内置格式兼容+样式管理+跨应用调度），不要直接调 office_* 系列工具（会绕过格式校验）
 version: 1.0.0
 triggers:
   - 办公文档

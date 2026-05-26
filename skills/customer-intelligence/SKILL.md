@@ -1,7 +1,7 @@
 ---
 name: customer-intelligence
 version: 2.0.0
-description: 客户情报整合技能。整合市场调研、客户背调、竞争对手分析。支持动态ICP评分。当用户需要深入了解特定市场、公司或竞争对手时使用。
+description: Use when 需要整合市场调研+客户背调+竞品分析生成客户情报报告时。路由：客户情报整合走此技能（内置动态ICP评分+竞品分析），内部数据先用 lead_query 查CRM再用此技能做深度分析。
 always: false
 triggers:
   - 市场调研

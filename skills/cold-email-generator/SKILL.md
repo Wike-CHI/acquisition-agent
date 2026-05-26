@@ -1,7 +1,7 @@
 ---
 name: cold-email-generator
 version: 2.2.0
-description: "B2B cold email generator with AI detection, multi-round polishing, and strict scoring (≥9.0). MUST USE when user says '开发信', 'cold email', '写邮件', '起草邮件', '给XX公司发邮件', 'follow up email', or needs to write any outbound sales email — even if they don't explicitly say 'cold email'. Also triggers for email sequence management and follow-up scheduling."
+description: "Use when 用户需要写开发信、cold email、外联邮件、起草销售邮件时。路由：此技能只生成邮件内容不发送，生成后必须交给 email-sender 技能发送（email-sender 内置ICP校验、邮箱铁律、联系记录），禁止直接调 send_email_smtp 发送开发信。"
 category: email-marketing
 metadata:
   uiLabel: "开发信"

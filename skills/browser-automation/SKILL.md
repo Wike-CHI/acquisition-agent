@@ -1,6 +1,6 @@
 ---
 name: browser-automation
-description: 浏览器自动化技能。通过自然语言控制浏览器：浏览网页、填表、截图、提取数据。当用户说"帮我打开网页"、"自动化网页操作"、"抓取网页数据"、"浏览器"时使用。
+description: Use when 需要通过浏览器自动化完成网页操作（填表/截图/数据提取/登录后操作）时。路由：浏览器自动化走此技能（内置会话管理+反检测+错误恢复），不要直接调 computer_use 做浏览器操作
 version: 1.0.0
 triggers:
   - browser-use

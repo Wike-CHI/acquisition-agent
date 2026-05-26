@@ -1,7 +1,7 @@
 ---
 name: fumamx-update
 version: 1.0.0
-description: "Fumamx CRM 客户更新与培育流程自动化 — 更新已有客户信息、添加到培育序列。Feature Flag: FUMAMX_ENABLE_UPDATE=true 时启用。"
+description: "Use when 需要更新孚盟MX CRM中的客户信息或批量添加到培育时。路由：孚盟客户更新走此技能（内置培育流程+数据校验），禁止直接调 fumamx_* 工具修改客户数据。"
 triggers:
   - "更新孚盟客户"
   - "修改客户信息"

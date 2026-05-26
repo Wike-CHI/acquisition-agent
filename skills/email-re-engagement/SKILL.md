@@ -1,7 +1,7 @@
 ---
 name: email-re-engagement
 version: 1.0.0
-description: "B2B dormant lead re-engagement email. Win back cold prospects with fresh industry insights, new product launches, or personalized value propositions."
+description: "Use when 需要重新激活沉睡/流失客户时。路由：再激活邮件走此技能（内置流失判断和重激活策略），禁止直接调 send_email_smtp。"
 category: email-marketing
 metadata:
   uiLabel: "重新激活"

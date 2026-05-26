@@ -1,7 +1,7 @@
 ---
 name: email-follow-up
 version: 1.0.0
-description: "B2B follow-up email generator for prospects already contacted. Handles Day 3/7/14 follow-up sequences with fresh value-add content."
+description: "Use when 需要对已发开发信的客户进行 Day3/7/14 跟进序列时。路由：跟进邮件走此技能（内置跟进序列和发送时机判断），禁止直接调 send_email_smtp。"
 category: email-marketing
 metadata:
   uiLabel: "跟进信"

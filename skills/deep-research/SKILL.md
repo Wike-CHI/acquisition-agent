@@ -1,7 +1,7 @@
 ---
 name: deep-research
 version: 1.0.0
-description: "深度多源调研技能。系统性调研公司、市场、行业，方法论追踪、来源评估、迭代深入。是 in-depth-research 的别名入口。"
+description: "Use when 需要对某个主题做深度多源调研（方法论追踪+来源评估+迭代深入）时。路由：深度调研走此技能（内置方法论追踪+来源评估+迭代深入），不要直接用 web_search 做一次性搜索就结束"
 always: false
 triggers:
   - 深度调研

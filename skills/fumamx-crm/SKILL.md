@@ -1,7 +1,7 @@
 ---
 name: fumamx-crm
 version: 2.0.0
-description: 孚盟MX CRM AI Agent 操作技能。B+C 双轨架构：MCP Server (23 tools) + CDP 浏览器自动化。覆盖客户/联系人/跟进/报价单/销售订单/邮件/培育/公海/任务/统计 10 大模块。
+description: Use when 需要操作孚盟MX CRM（查客户/创建客户/查报价/查订单/同步数据）时。路由：孚盟CRM同步走此技能（内置去重+数据映射），禁止直接调 fumamx_* 工具（会绕过同步逻辑）
 always: false
 triggers:
   - 孚盟CRM

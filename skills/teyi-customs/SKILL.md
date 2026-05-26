@@ -1,7 +1,7 @@
 ---
 name: teyi-customs
 version: 3.0.0
-description: 特易海关数据搜索技能。通过 teyi_customs 工具查询海关进出口数据 + Exa 决策人挖掘，覆盖233国4100万+企业。当用户需要查海关数据、找采购商、查进出口记录、海关数据分析时使用。actions: search(搜索进口商), multi_search(并行多关键词+自动去重), enrich(Exa找决策人), detail(公司详情页), check(验证登录)。
+description: Use when 需要查询海关进出口数据、采购记录或开发新供应商时。路由：海关数据查询走此技能（内置多模式搜索+决策人挖掘+数据格式化），不要直接调 teyi_customs 工具。
 always: false
 triggers:
   - 海关数据

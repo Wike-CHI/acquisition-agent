@@ -1,7 +1,7 @@
 ---
 name: email-content-review
 version: 1.0.0
-description: "B2B 开发信复盘 Agent。基于冷邮件最佳实践和反垃圾规则，多维度评分 + 具体改进建议。使用 web_search 验证产品声明和竞品邮件策略。"
+description: "Use when 需要对已写的开发信进行质量复盘和评分时"
 category: content-review
 triggers:
   - 复盘邮件

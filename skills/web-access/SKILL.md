@@ -4,7 +4,7 @@ version: "1.0.0"
 license: MIT
 github: https://github.com/eze-is/web-access
 description: >
-  所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
+  Use when 需要联网搜索、网页抓取、登录后操作或任何网络交互时。路由：所有联网操作必须通过此技能（内置登录态保持+反爬策略+内容过滤），不要直接调 web_search 或 web_fetch
 triggers:
   - 搜索
   - 联网

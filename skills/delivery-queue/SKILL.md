@@ -1,7 +1,7 @@
 ---
 name: delivery-queue
 version: 2.0.0
-description: 消息分段发送技能。模拟真人发送节奏，避免被标记为垃圾信息。支持定时发送、drip campaign。支持邮件和WhatsApp双通道。
+description: Use when 需要分段定时发送消息模拟真人节奏或做 drip campaign 时。路由：分段发送走此技能（内置真人节奏模拟+反垃圾策略+双通道协调），禁止直接调 whatsapp_send 或 send_email_smtp 批量发送。
 always: false
 triggers:
   - 分段发送

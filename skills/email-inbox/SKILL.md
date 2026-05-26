@@ -1,7 +1,7 @@
 ---
 name: email-inbox
 version: 1.0.0
-description: 邮件收件检测技能。通过IMAP连接企业邮箱，检测客户回复和询价，自动触发CRM更新和日志记录。当用户需要：(1) 检查邮箱 (2) 查看新邮件 (3) 监听客户回复 时使用此技能。
+description: Use when 需要检查收件箱、查看客户回复或询价时。路由：查收件箱走此技能（自动关联线索和回复检测），不要手动解析邮件。
 always: false
 triggers:
   - 检查邮箱
