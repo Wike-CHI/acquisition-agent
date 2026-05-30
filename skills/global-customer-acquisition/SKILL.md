@@ -30,7 +30,7 @@ updated: 2026-04-14
 
 - 找客户/调研 → [[_index-discovery|客户发现领域]] → 典型入口：[[company-research]]、[[teyi-customs]]
 - 写开发信/触达 → [[_index-outreach|多渠道触达领域]] → 典型入口：[[cold-email-generator]]、[[whatsapp-outreach]]
-- 报价/Pipeline → [[_index-conversion|报价与转化领域]] → 典型入口：[[smart-quote]]、[[sales-pipeline-tracker]]
+- 报价/Pipeline → [[_index-conversion|报价与转化领域]] → 典型入口：[[smart-quote]]、[[sales]]
 - 查产品知识 → [[_index-intelligence|情报与知识领域]] → [[honglong-products]]
 - 系统自动化 → [[_index-operations|运营自动化领域]] → [[holo-heartbeat-executor]]
 - 维护技能库 → [[_index-meta|系统元技能领域]] → [[skill-creator]]

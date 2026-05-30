@@ -15,8 +15,6 @@ priority: 90
 ### 搜索与发现
 - **[[teyi-customs]]** — 特易海关数据。查采购记录，发现从中国进口工业皮带设备的海外买家。覆盖 233 国 4100 万+企业。**发现客户的第一来源。**
 - **[[exa-web-search-free]]** — 免费 AI 语义搜索。通过 Exa MCP 搜索企业和决策人。⚠️ 必须通过 mcporter 调用。
-- **[[facebook-acquisition]]** — Facebook 客户搜索。挖掘行业群组、获取公司主页和联系方式。
-- **[[instagram-acquisition]]** — Instagram 客户搜索。挖掘行业标签、获取公司账号信息。
 
 ### 调研与分析
 - **[[company-research]]** — 海外 B2B 企业背调（红龙定制）。6 维度 ICP 评分，输出结构化报告，用于客户筛选和开发信个性化。**背调的标准入口。**

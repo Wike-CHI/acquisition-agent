@@ -18,7 +18,7 @@ priority: 80
 - **[[holo-proposal-generator]]** — HOLO 数字提案包。包含封面、客户摘要、方案对比、案例、报价、CTA 的专业 PDF 提案。
 
 ### Pipeline 与 CRM
-- **[[sales-pipeline-tracker]]** — Pipeline 阶段追踪。从线索到成交的全阶段管理、状态更新、收入预测、瓶颈识别。
+- **[[sales]]** — 通用销售助手（取代 sales-pipeline-tracker）。Pipeline 阶段追踪 + CRM 集成 + 线索跟踪 + 外联自动化 + 收入预测 + 瓶颈识别。
 - **[[crm]]** — 个人 CRM。结构化客户数据库，支持搜索、分类、标签、跟进记录。
 - **[[fumamx-crm]]** — 孚盟 MX CRM 集成。B+C 双轨架构（MCP Server 23 tools + CDP 浏览器自动化），覆盖客户/联系人/跟进/报价单/销售订单/邮件/培育/公海/任务/统计。
 - **[[fumamx-update]]** — 孚盟 CRM 客户更新。更新已有客户信息、添加到培育序列。
@@ -36,7 +36,7 @@ priority: 80
 - 客户问价 → [[smart-quote]]（先调 [[company-research]] 获取 ICP 评分）
 - 生成报价单 PDF → [[quotation-generator]]
 - 做提案包 → [[holo-proposal-generator]]
-- 查 Pipeline → [[sales-pipeline-tracker]]
+- 查 Pipeline → [[sales]]
 - 操作用 CRM → [[fumamx-crm]]
 - 处理异议 → [[sales-champion]]
 - 新人培训 → [[holo-sales-trainer]] + [[sdr-training-ground]]

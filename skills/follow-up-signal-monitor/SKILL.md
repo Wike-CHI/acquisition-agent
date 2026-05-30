@@ -58,7 +58,7 @@ memory: null
 
            ↓
 
-CRM更新（sales-pipeline-tracker）
+CRM更新（sales）
   ├─ 沉默第7天
   ├─ 已发送价值型跟进
   └─ 弱信号标记
@@ -301,7 +301,7 @@ def generate_followup_tier(tier, client_info):
 
 ## CRM集成
 
-每次触发跟进后，更新 sales-pipeline-tracker 中的客户状态：
+每次触发跟进后，更新 sales 中的客户状态：
 
 ```
 客户 Belttech (Brazil)
@@ -348,7 +348,7 @@ def generate_followup_tier(tier, client_info):
 ## 依赖
 
 - Python标准库：imaplib、email、datetime、json
-- CRM集成：sales-pipeline-tracker
+- CRM集成：sales
 - 邮件发送：email-sender（163 SMTP）
 
 ---

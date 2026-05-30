@@ -1,7 +1,10 @@
 ---
+obsolete: true
+superseded_by: sales
+deprecated_at: 2026-05-29
 name: sales-pipeline-tracker
 version: 1.0.0
-description: Use when 需要管理销售管线、更新线索状态、做收入预测时。路由：线索状态流转和Pipeline管理走此技能（内置状态机规则），不要直接 PATCH leads API 修改状态
+description: [已过时] Use when 需要管理销售管线、更新线索状态、做收入预测时。路由：线索状态流转和Pipeline管理走此技能（内置状态机规则），不要直接 PATCH leads API 修改状态。已被 sales 取代。
 triggers:
   - Pipeline
   - 销售管线

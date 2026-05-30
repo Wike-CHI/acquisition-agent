@@ -15,10 +15,8 @@ priority: 60
 ### 心脏起搏
 - **[[holo-heartbeat-executor]]** — 心跳执行器。执行 14 项 Pipeline 自动巡检：客户跟进状态、邮件回复、WhatsApp 消息、CRM 同步等。每 15 分钟自动触发一次。**系统自动运行的核心。**
 - **[[proactive-agent]]** — 主动式 AI Agent 框架。将被动 AI 转变为主动合作伙伴，含 WAL 协议、工作缓冲区、自主定时任务。
-- **[[proactive-agent-lite]]** — 轻量级主动 Agent。记忆架构、反向提示、自愈模式。
 
 ### 调度与监控
-- **[[calendar-skill]]** — 日历提醒与任务调度。管理客户跟进日程、邮件发送提醒、会议安排。
 - **[[hot-monitor]]** — 热点话题监控。监控行业热点和技术趋势，发现获客新机会。
 
 ### 日志与报告
@@ -27,15 +25,13 @@ priority: 60
 - **[[market-development-report]]** — 市场开发报告 → 详见 [[_index-discovery]]。
 
 ### 自动化工具
-- **[[data-automation-service]]** — 数据处理与自动化 Workflow 服务。自动化数据处理流程。
 - **[[routing-table-audit]]** — 路由表审计。检查 ROUTING-TABLE.yaml 路由规则完整性和冲突。
-- **[[composio]]** — 第三方应用集成。通过 Composio 平台集成外部 SaaS 工具。
 
 ## 遍历指引
 
 - 启动心跳 → [[holo-heartbeat-executor]]
 - 查看 Pipeline 健康 → [[holo-heartbeat-executor]] → [[sales-pipeline-tracker]]
-- 查看日程 → [[calendar-skill]]
+- 查看日程 → [[hot-monitor]]
 - 写日报 → [[daily-report-writer]]
 - 记录操作 → [[holo-activity-log]]
 - 启用主动模式 → [[proactive-agent]]

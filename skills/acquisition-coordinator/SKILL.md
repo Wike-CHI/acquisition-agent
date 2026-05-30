@@ -15,8 +15,8 @@ triggers:
 > **Skill Graph：** 领域 → [[_index-meta|系统元技能领域]] | 上游 ← [[_index-acquisition|核心流程领域]] | 下游 → [[global-customer-acquisition|获客总入口]] → 各子技能
 
 
-> **执行引擎已内置** — 不再需要手动 `mcporter call exa.xxx` 逐步骤执行。
-> 使用 `create_agent` + `spawn_agent` 动态编排，参考 `prompts/tools/team.md`。
+> **执行引擎已内置** — 不再需要手动逐步骤执行。
+> 使用 holo-desktop 内置工具编排流程：web_search + web_fetch 搜索，company-research 调研，email-sender 发邮件，smart-quote 报价。
 
 ---
 
@@ -51,20 +51,17 @@ Excel 应包含列：公司名、国家、行业、网站、LinkedIn公司页、
 搜索 ──→ 验证 ──→ 背调 ──→ 筛选 ──→ 触达
 ```
 
-### 阶段1: 搜索（真正并行 — 使用 delegate_task）
+### 阶段1: 搜索
 
-**必须用 `delegate_task` 一次性创建 3-4 个真正并行的子代理**，每个负责一个区域。不要分多次调用——一次调用把所有区域全部覆盖。
+使用 web_search + web_fetch 批量搜索各区域潜在客户。可依次搜索不同区域。
 
-推荐任务划分（4 并行）：
-- 任务1：南美（巴西、智利、秘鲁、阿根廷）
-- 任务2：北美+欧洲（美国、加拿大、德国、意大利、土耳其、英国）
-- 任务3：亚太（印尼、泰国、越南、澳洲、印度）
-- 任务4：中东+非洲（沙特、阿联酋、南非、摩洛哥）
+推荐搜索区域划分：
+- 南美（巴西、智利、秘鲁、阿根廷）
+- 北美+欧洲（美国、加拿大、德国、意大利、土耳其、英国）
+- 亚太（印尼、泰国、越南、澳洲、印度）
+- 中东+非洲（沙特、阿联酋、南非、摩洛哥）
 
-每个子代理：
-- 工具：`web_search`, `write_file`
-- 步数：8
-- 输出：将本区域客户列表写入 `workspace/{region}_leads.xlsx`
+每个区域搜索完成后，将本区域客户列表写入 `workspace/{region}_leads.xlsx`。
 
 ### 阶段2: 验证
 
@@ -106,29 +103,17 @@ Excel 应包含列：公司名、国家、行业、网站、LinkedIn公司页、
 
 ---
 
-## 委派方式
+## 执行方式
 
-```bash
-# ⭐ 阶段1：真正并行搜索（一次性创建4个并行子代理）
-delegate_task({
-  max_steps: 8,
-  tasks: [
-    { prompt: "搜索南美输送带客户: 巴西、智利、秘鲁...搜索关键词参考 ICP.md" },
-    { prompt: "搜索北美+欧洲输送带客户..." },
-    { prompt: "搜索亚太输送带客户..." },
-    { prompt: "搜索中东+非洲输送带客户..." },
-  ]
-})
-# 4个子代理在独立线程中同时运行，互不阻塞
+使用 holo-desktop 内置技能和工具依次执行各阶段，无需创建子代理：
 
-# 阶段5：开发信
-spawn_agent({
-  agents: [
-    { name: "email-composer", prompt: "给客户A写开发信: [背调结果]" },
-    { name: "email-composer", prompt: "给客户B写开发信: [背调结果]" },
-  ]
-})
-```
+1. **搜索**：web_search + web_fetch 搜索各区域客户
+2. **验证**：web_fetch 访问官网、LinkedIn 验证联系方式
+3. **背调**：company-research 技能深度调研
+4. **筛选**：按照 ICP 评分标准筛选
+5. **触达**：email-sender 发送开发信 + cold-email-generator 润色
+
+各步骤所需工具均为 holo-desktop 运行时内置，可直接调用。
 
 ---
 

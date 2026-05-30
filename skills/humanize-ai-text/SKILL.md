@@ -1,7 +1,10 @@
 ---
+obsolete: true
+superseded_by: sdr-humanizer
+deprecated_at: 2026-05-29
 name: humanize-ai-text
 version: 1.0.0
-description: AI文本拟人化技能 — 检测并转化AI生成文本为自然人性化的表达，降低AI检测率至2%以下。冷邮件开发信必经流程。
+description: [已过时] AI文本拟人化技能 — 检测并转化AI生成文本为自然人性化的表达，降低AI检测率至2%以下。冷邮件开发信必经流程。已被 sdr-humanizer 取代。
 always: false
 triggers:
   - 去AI味

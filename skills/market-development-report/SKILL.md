@@ -73,7 +73,7 @@ always: false
 
 ## 搜索指令
 
-**必须使用 mcporter call exa**，禁止使用内置 web_search。
+优先使用内置 web_search；如需更专业搜索能力，可使用 mcporter call exa（若 mcporter 可用）。
 
 ```bash
 # 搜索1: 市场规模

@@ -7,7 +7,7 @@
 
 ## 项目定位
 
-acquisition-agent 是 **HOLO Agent 的内置获客技能库**，包含 84 个活跃技能 + 33 个归档技能，通过 SKILL.md 格式定义 AI 技能的行为和提示词。
+acquisition-agent 是 **HOLO Agent 的内置获客技能库**，包含 82 个活跃技能 + 50 个归档技能，通过 SKILL.md 格式定义 AI 技能的行为和提示词。
 
 ---
 
@@ -15,13 +15,13 @@ acquisition-agent 是 **HOLO Agent 的内置获客技能库**，包含 84 个活
 
 ```
 acquisition-agent/
-├── skills/              84个活跃技能（SKILL.md 格式）
+├── skills/              82个活跃技能（SKILL.md 格式）
 │   ├── acquisition-coordinator/   任务编排器
 │   ├── company-research/           企业背调
 │   ├── cold-email-generator/       开发信生成
 │   ├── smart-quote/                智能报价
-│   └── ...（共84个）
-├── archive/              33个已归档技能
+│   └── ...（共82个）
+├── archive/              50个已归档技能
 ├── workspace/            工作空间模板
 │   ├── AGENTS.template.md       AI SDR Pipeline
 │   ├── HEARTBEAT.template.md     心跳巡检

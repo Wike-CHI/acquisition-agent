@@ -1,9 +1,12 @@
 ---
+obsolete: true
+superseded_by: skill-discovery
+deprecated_at: 2026-05-29
 name: skill-finder-cn
 version: 1.0.1
-description: Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills | Discover and
+description: [已过时] Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills | Discover and
   install ClawHub Skills. 回答'有什么技能可以X'、'找一个技能' | Answers 'what skill can X',
-  'find a skill'. 触发词：找 skill、find skill、搜索 skill.
+  'find a skill'. 触发词：找 skill、find skill、搜索 skill. 已被 skill-discovery 取代。
 author: 赚钱小能手
 triggers:
   - 技能查找

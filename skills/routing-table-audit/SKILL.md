@@ -157,7 +157,7 @@ full_pipeline:
 
 ## known_issues
 
-- `sales-pipeline-tracker` 的 monitor.py 引用路径 `~/.hermes/skills/acquisition/sales-pipeline-tracker/data/clients.json` 不存在（目录结构问题），CRM数据会写入失败。需要修复脚本中的路径或创建对应目录。
+- `sales`（原 sales-pipeline-tracker）的 monitor.py 引用路径 `~/.hermes/skills/acquisition/sales-pipeline-tracker/data/clients.json` 不存在（目录结构问题），CRM数据会写入失败。需要修复脚本中的路径或创建对应目录。
 - `playwright` 目录下有 `ci-cd.md` 多余文档（不影响功能）
 
 ## 版本历史

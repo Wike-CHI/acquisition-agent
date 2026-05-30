@@ -17,8 +17,7 @@ priority: 40
 - **[[skill-auditor]]** — 技能审计。审查并优化 Hermes Agent 技能，检查格式、冗余、触发冲突。
 - **[[skill-system-audit]]** — 技能系统全面审计。冗余检测、触发冲突、描述质量、使用频率统计——全库健康检查。
 - **[[skill-onboarding-checklist]]** — 新技能入职检查清单。格式合规、描述完整、触发词准确、依赖声明——标准化检查流程。
-- **[[skill-discovery]]** — 技能发现。搜索本地和云端技能库，发现可复用技能。
-- **[[skill-finder-cn]]** — 技能查找器（中文）。发现和安装 ClawHub Skills，中文优先。
+- **[[skill-discovery]]** — 技能发现（取代 skill-finder-cn）。搜索本地和云端技能库，发现可复用技能。
 
 ### 发布管理
 - **[[release-manager]]** — 发布管理器。管理版本发布流程，生成 CHANGELOG，标记版本号。
@@ -30,9 +29,6 @@ priority: 40
 - **[[bash-patch-safe]]** — Bash 脚本安全 patch 指南。防止误伤函数定义、调用丢失、参数解析缺失。
 
 ### 开发工具
-- **[[evolver]]** — 记忆图谱服务 API key 配置。用于远程记忆图谱服务。
-- **[[agent-reach-setup]]** — agent-reach 安装配置引导。深度网络搜索和数据采集工具。
-- **[[cli-anything-hub]]** — CLI 工具发现。搜索和发现专业软件的命令行工具。
 - **[[MCP管理器]]** — MCP 服务器管理。通过 mcporter CLI 列出、配置、认证、调用 MCP 服务器。
 
 ## 遍历指引

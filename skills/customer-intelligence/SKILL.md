@@ -20,26 +20,23 @@ triggers:
 
 ---
 
-## ⚠️⚠️⚠️ 强制搜索规则 ⚠️⚠️⚠️
+## 搜索工具选择（按可用性优先级）
 
-**❌ 禁止使用：内置 web_search 工具**
-**✅ 必须使用：mcporter call exa.xxx（MCP）**
+| 优先级 | 工具 | 说明 |
+|--------|------|------|
+| 1 | 内置 web_search（本运行时可用） | 优先使用 |
+| 2 | MCP Exa（仅当 mcporter 可用时） | 备选，提供更专业的搜索能力 |
+| 3 | web_fetch 直接爬取 | 最后手段，直接访问目标 URL |
 
-如果AI不知道如何使用MCP，参考：
+当 web_search 不可用或不满足需求时，可按以下方式使用 mcporter：
 ```bash
-# 第一步：配置MCP
+# 配置MCP（如需）
 mcporter config add exa "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,deep_search_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
 
-# 第二步：验证
-mcporter list  # 应显示 exa: 8 tools online
-
-# 第三步：执行搜索（参数必须加引号！）
+# 执行搜索
 mcporter call exa.people_search_exa query="procurement manager mining cement" numResults=8
 mcporter call exa.company_research_exa companyName=Votorantim numResults=3
 mcporter call exa.crawling_exa urls=["https://example.com"]
-
-# ⚠️ PowerShell必须用cmd/c
-cmd /c "mcporter call exa.people_search_exa query=procurement manager numResults=5"
 ```
 
 ---

@@ -19,7 +19,7 @@ triggers:
   - follow up
   - 跟进邮件
 _graph_nav: |
-  上游 ← [[company-research|企业背调]]（个性化素材） → 并行 → [[humanize-ai-text|AI拟人化]] → 输出 → [[email-sender|邮件发送]] → 后续 → [[follow-up-signal-monitor|跟进监控]]
+  上游 ← [[company-research|企业背调]]（个性化素材） → 并行 → [[sdr-humanizer|拟人化]] → 输出 → [[email-sender|邮件发送]] → 后续 → [[follow-up-signal-monitor|跟进监控]]
   - 邮件序列
 ---
 
@@ -51,7 +51,7 @@ _graph_nav: |
 
 | 你要做的 | 执行 |
 |---------|------|
-| 给新客户写开发信 | ① 检查 NAS 档案 ② 用初稿模板生成 ③ 调用 humanize-ai-text 润色 ④ 评分 ≥9.0 |
+| 给新客户写开发信 | ① 检查 NAS 档案 ② 用初稿模板生成 ③ 调用 sdr-humanizer 润色 ④ 评分 ≥9.0 |
 | 写跟进邮件 | 查 `references/email-sequence.md` 对应步次的要素和 CTA 策略 |
 | 客户已回复 | 切换到 `inquiry-response`，不再用本技能 |
 | 需要 NAS 资料 | 查 `references/nas-paths.md` |
@@ -64,7 +64,7 @@ _graph_nav: |
 2. **简洁** — 150 词以内，3-4 段
 3. **价值导向** — 强调客户获得什么，不是我们卖什么
 4. **文化适配** — 根据目标国家调整语气（查 `cultural-profiles.md`）
-5. **去 AI 味** — 强制调用 `humanize-ai-text`，AI 密度 < 2%
+5. **去 AI 味** — 强制调用 `sdr-humanizer` 进行拟人化处理，AI 密度 < 2%
 6. **绝对禁止报价** — 不得出现具体金额（$、¥、€），只能用 "competitive pricing" 等定性描述。报价走 `smart-quote`
 
 ## 输出格式
@@ -82,7 +82,7 @@ _graph_nav: |
        ↓
 未发送 → 初稿生成（下方模板）
        ↓
-调用 humanize-ai-text 润色（detect → transform → 验证）
+调用 sdr-humanizer 润色（检测 → 拟人化 → 验证）
        ↓
 评分 ≥ 9.0？→ 否 → 第2轮润色 → 再评分
        ↓

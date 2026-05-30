@@ -14,8 +14,7 @@ priority: 85
 
 ### 内容生成
 - **[[cold-email-generator]]** — 开发信生成 v2.0。AI 检测 + 多轮润色 + 评分 ≥ 9.0。⚠️ 必须过此技能，不得直接写开发信。生成后自动调用 [[email-sender]] 发送。
-- **[[humanize-ai-text]]** — AI 文本拟人化。检测并转化 AI 生成文本为自然人性化表达，降低 AI 检测率至 2% 以下。开发信必经流程。
-- **[[sdr-humanizer]]** — 拟人化销售对话。将 AI 生成消息转为自然人类风格，支持文化适配 + 时区感知 + 消息节奏控制。
+- **[[sdr-humanizer]]** — 拟人化销售对话（取代 humanize-ai-text）。将 AI 生成消息转为自然人类风格，支持文化适配 + 时区感知 + 消息节奏控制。
 
 ### 邮件通道
 - **[[email-sender]]** — SMTP 邮件发送。163 邮箱 via nodemailer，支持配置、批量发送、自动跟进节奏。
@@ -28,7 +27,6 @@ priority: 85
 
 ### 即时通讯
 - **[[whatsapp-outreach]]** — WhatsApp 触达。通过 wacli 发送，支持文本/文件/产品目录。⚠️ 72h 窗口铁律：最后一次交互后 72h 外禁止主动推送。
-- **[[telegram-toolkit]]** — Telegram SDR 最佳实践。覆盖俄罗斯/独联体/伊朗等 Telegram-first 市场。
 - **[[linkedin]]** — LinkedIn AI 触达。搜索决策人、发送连接请求和 InMail。
 - **[[linkedin-writer]]** — LinkedIn 帖子写作。生成自然人性化的文章，红龙定制版含工业设备行业内容模板。
 
@@ -39,9 +37,9 @@ priority: 85
 
 ## 遍历指引
 
-- 生成开发信 → [[cold-email-generator]] → [[humanize-ai-text]] → [[email-sender]]
+- 生成开发信 → [[cold-email-generator]] → [[sdr-humanizer]] → [[email-sender]]
 - 发 WhatsApp → [[whatsapp-outreach]] → [[delivery-queue]]
-- 俄罗斯市场 → [[telegram-toolkit]] + [[cold-email-generator]]
+- 俄罗斯市场 → [[cold-email-generator]]
 - LinkedIn 开发 → [[linkedin]] + [[linkedin-writer]] + [[sdr-humanizer]]
 - 客户询价 → [[inquiry-response]] → [[_index-conversion]]
 - 客户沉默 → [[follow-up-signal-monitor]] → [[email-re-engagement]]

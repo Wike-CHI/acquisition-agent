@@ -16,10 +16,9 @@ priority: 70
 - **[[honglong-products]]** — 红龙产品知识库（主入口）。8 品类 40+ 产品，结构化本地文档，NAS 原始文件为兜底权威来源。优先读取技能本地文档。**产品查询的唯一入口。**
 - 产品目录位于 `product-kb/catalog.json`
 
-### 记忆系统（3 层并行，互补使用）
+### 记忆系统（双轨并行）
 - **[[humanoid-memory]]** — 类人脑记忆系统。基于 V-score 的记忆整合 + 艾宾浩斯遗忘曲线。适用于对话状态记忆和客户交互历史。
 - **[[smart-memory]]** — 本地向量记忆。基于向量存储的持久化记忆，适用于非结构化的长期知识检索。
-- **[[supermemory]]** — 增强记忆引擎。LanceDB 向量存储，用于非对话类知识管理和大规模语义搜索。
 - **[[knowledge-base]]** — 团队共享情报中心。⚠️ 核心职责：收到调研报告后必须实际保存到 NAS，不能只输出路径！NAS 目标：`\\192.168.0.194\home`。被 [[company-research]]、[[cold-email-generator]]、[[smart-quote]] 调用。
 
 ### 文件读取
@@ -31,7 +30,7 @@ priority: 70
 - 查客户历史 → [[humanoid-memory]] + [[knowledge-base]]
 - 存储调研报告 → [[knowledge-base]]（必须实际写入 NAS）
 - 读取技术文档 → [[nas-file-reader]]
-- 大规模记忆搜索 → [[supermemory]]
+- 大规模记忆搜索 → [[smart-memory]]
 
 ---
 

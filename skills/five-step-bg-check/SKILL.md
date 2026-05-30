@@ -72,12 +72,13 @@ triggers:
 
 ## 搜索工具
 
-主力：Exa MCP。不可用时降级到内置 web_search + web_fetch。
+主力：内置 web_search + web_fetch（本运行时可用）。如需 Exa MCP 专业搜索能力且 mcporter 可用时使用。
 
 ```bash
-# 检测连通性
+# 优先使用内置 web_search
+web_search({query: "test", numResults: 1})
+# 如需专业搜索能力，尝试：
 mcporter call exa.web_search_exa 'query=test&numResults=1'
-# 报错 → 降级到 web_search，并告知用户"Exa 不可用，使用内置搜索"
 ```
 
 URL 拼接规则：所有输出 URL 必须包含 `https://` 前缀。

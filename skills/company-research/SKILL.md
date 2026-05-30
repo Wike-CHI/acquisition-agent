@@ -19,31 +19,8 @@ triggers:
 
 > **导航链：** 上游 ← [[_index-discovery|客户发现领域]] | 下游 → [[cold-email-generator|开发信生成]]（个性化）→ [[smart-quote|智能报价]]（ICP评分驱动） | 存储 → [[knowledge-base|团队知识库]] | 快速初筛 → [[five-step-bg-check|5招背调法]]
 
-> v3.1 变更：修复 NAS 保存路径；NAS 挂载失败时强制降级存本地并告知用户；脚本路径修正为相对于知识库根目录。
-> v3.0 变更：搜索工具从 agent-browser 切换为 Exa MCP（mcporter），不再依赖浏览器。
-
----
-
-## 前置条件：NAS 凭据配置（首次使用必须）
-
-知识库脚本需要 NAS 访问凭据，**仅需配置一次**：
-
-```powershell
-# 创建凭据文件（只需运行一次，IP 已写死为 192.168.0.194）
-$cred = Get-Credential -Message "输入 NAS 登录账号（格式: 用户名 或 域名\用户名）"
-$cred | Select-Object -ExpandProperty UserName | Out-File "$env:USERPROFILE\.openclaw\.nas_credentials" -Encoding UTF8
-$pass = $cred.Password | ConvertFrom-SecureString
-@{User=$cred.UserName; Pass=$pass} | ConvertTo-Json | Out-File "$env:USERPROFILE\.openclaw\.nas_credentials" -Encoding UTF8
-```
-
-或者手动创建 `C:\Users\你的用户名\.openclaw\.nas_credentials`，内容为：
-```json
-{"User":"你的NAS账号","Pass":"加密密码（由上面脚本生成）"}
-```
-
-> 技能执行时会自动尝试挂载 K: 盘指向 `\\192.168.0.194\home`，无需手动挂载。
-
----
+> v3.1 变更：移除 NAS 前置配置要求，简化执行流程。
+> v3.0 变更：搜索工具从 agent-browser 切换为内置 web_search，不再依赖浏览器。
 
 ## 执行流程（强制顺序）
 
@@ -63,7 +40,18 @@ $pass = $cred.Password | ConvertFrom-SecureString
 
 ## 搜索工具
 
-### 主力工具：Exa MCP（通过 mcporter）
+### 主力工具：内置 web_search / web_fetch（本运行时可用）
+
+```
+web_search({query: "搜索关键词"})
+web_fetch({url: "https://目标URL"})
+```
+
+优先使用内置搜索工具，覆盖通用搜索和网页抓取需求。
+
+### 备选工具：Exa MCP（通过 mcporter）
+
+当 web_search 无法满足需求（如需专业的人物搜索或公司调研），且 mcporter 可用时：
 
 ```bash
 # 通用搜索
@@ -79,22 +67,13 @@ mcporter call exa.company_research_exa 'query={公司名}&numResults=5'
 mcporter call exa.people_search_exa 'query={姓名} {公司名}&numResults=5'
 ```
 
-### 降级工具：内置 web_search / web_fetch
-
-当 mcporter 不可用时，使用内置工具：
+### 工具选择逻辑
 
 ```
-web_search({query: "搜索关键词"})
-web_fetch({url: "https://目标URL"})
-```
-
-### 降级判断
-
-```
-1. 先执行 mcporter call exa.web_search_exa 测试连通性
-2. 如果返回正常结果 → 使用 Exa MCP 完成所有搜索
-3. 如果报错或超时 → 降级到 web_search + web_fetch
-4. 降级时告知用户："Exa 搜索暂不可用，使用内置搜索工具"
+1. 优先使用内置 web_search + web_fetch 完成所有搜索
+2. 如需更专业的搜索能力且 mcporter 可用 → 使用 Exa MCP
+3. 如果报错或超时 → 使用另一工具重试
+4. 所有工具均不可用时告知用户
 ```
 
 ## URL 拼接规则（严格遵守）

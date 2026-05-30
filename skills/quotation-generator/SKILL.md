@@ -13,7 +13,7 @@ triggers:
 
 # quotation-generator — 红龙 QUOTATION FORM 报价单生成技能
 
-> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[smart-quote|智能报价]]（价格确认后）← [[_index-conversion|转化领域]] | 下游 → [[sales-pipeline-tracker|Pipeline更新]]
+> **Skill Graph：** 领域 → [[_index-conversion|报价与转化领域]] | 上游 ← [[smart-quote|智能报价]]（价格确认后）← [[_index-conversion|转化领域]] | 下游 → [[sales|Pipeline更新]]
 
 
 > 生成红龙公司标准 QUOTATION FORM PDF，完全匹配公司实际模板格式。

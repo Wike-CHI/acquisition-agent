@@ -33,7 +33,7 @@ triggers:
 |------|-----|--------|---------|
 | 🎯 核心流程 | [[_index-acquisition]] | 编排、初始化、工作流定义 | 开始任何获客任务前 |
 | 🔍 客户发现 | [[_index-discovery]] | 搜索、背调、市场研究、海关数据 | 需要"找客户"或"调研公司" |
-| 📨 多渠道触达 | [[_index-outreach]] | 开发信、邮件、WhatsApp、LinkedIn、Telegram | 客户已发现，需要触达 |
+| 📨 多渠道触达 | [[_index-outreach]] | 开发信、邮件、WhatsApp、LinkedIn | 客户已发现，需要触达 |
 | 💰 报价与转化 | [[_index-conversion]] | 智能报价、提案生成、Pipeline 管理、CRM | 客户询价或需要推进 |
 | 🧠 情报与知识 | [[_index-intelligence]] | 产品知识、记忆系统、知识图谱 | 需要查产品信息或调取记忆 |
 | ⚡ 运营自动化 | [[_index-operations]] | 心跳巡检、主动Agent、日程、报告 | 自动化运维和监控 |
@@ -48,9 +48,9 @@ triggers:
 | 任务 | 遍历路径 |
 |------|---------|
 | 开发新市场 | [[_index-discovery]] → [[market-development-report]] → [[company-research]] → [[market-research]] |
-| 发送开发信 | [[company-research]] → [[cold-email-generator]] → [[humanize-ai-text]] → [[email-sender]] → [[follow-up-signal-monitor]] |
+| 发送开发信 | [[company-research]] → [[cold-email-generator]] → [[sdr-humanizer]] → [[email-sender]] → [[follow-up-signal-monitor]] |
 | 客户询价 | [[inquiry-response]] → [[company-research]](ICP评分) → [[smart-quote]] → [[quotation-generator]] |
-| Pipeline 检查 | [[_index-operations]] → [[holo-heartbeat-executor]] → [[sales-pipeline-tracker]] → [[crm]] |
+| Pipeline 检查 | [[_index-operations]] → [[holo-heartbeat-executor]] → [[sales]] → [[crm]] |
 | WhatsApp 触达 | [[company-research]] → [[whatsapp-outreach]] → [[delivery-queue]] → [[follow-up-signal-monitor]] |
 | LinkedIn 开发 | [[_index-discovery]] → [[linkedin]] → [[linkedin-writer]] → [[sdr-humanizer]] |
 
@@ -76,11 +76,11 @@ triggers:
 
 - 搜索：[[exa-web-search-free]]、[[web-access]]、[[web-content-fetcher]]
 - 浏览器：[[browser-automation]]、[[playwright]]
-- 文档：[[document-pro]]、[[pdf-extract]]、[[pdf-smart-tool-cn]]、[[nano-pdf]]、[[office]]、[[excel-xlsx]]
-- 社媒内容：[[holo-social-gen]]、[[holo-social-image]]、[[holo-social-infographic]]、[[social-publish]]
-- 记忆：[[humanoid-memory]]、[[smart-memory]]、[[supermemory]]、[[knowledge-base]]
-- 基础设施：[[credential-manager]]、[[nas-file-reader]]、[[agent-reach-setup]]
+- 文档：[[pdf-extract]]、[[pdf-smart-tool-cn]]、[[excel-xlsx]]
+- 社媒内容：[[holo-social-gen]]、[[holo-social-image]]、[[holo-social-infographic]]
+- 记忆：[[humanoid-memory]]、[[smart-memory]]、[[knowledge-base]]
+- 基础设施：[[credential-manager]]、[[nas-file-reader]]
 
 ---
 
-_Version: 1.0.0 | 基于 Skill Graph 框架 | 2026-05-21_
+_Version: 1.0.0 | 基于 Skill Graph 框架 | 2026-05-29_

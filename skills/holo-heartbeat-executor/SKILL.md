@@ -14,7 +14,7 @@ version: 1.0.0
 
 # HOLO HEARTBEAT 执行器 v1.0
 
-> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → [[sales-pipeline-tracker|Pipeline]] + [[follow-up-signal-monitor|跟进]] + [[email-inbox|邮件]] 自动巡检
+> **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-operations|运营领域]] | 下游 → [[sales|Pipeline]] + [[follow-up-signal-monitor|跟进]] + [[email-inbox|邮件]] 自动巡检
 
 
 执行 Pipeline 自动巡检13项检查，有问题才报告，无问题回复 `HEARTBEAT_OK`。
