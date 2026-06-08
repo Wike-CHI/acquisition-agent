@@ -1,0 +1,2355 @@
+{
+  "version": "2026-05",
+  "source": "产品成本价（非直接销售价格记得加利润）.xlsx",
+  "generated": "2026-06-01",
+  "currency": "人民币 (CNY)",
+  "note": "成本价格为未税价，销售报价需加利润率和汇率换算",
+  "total_products": 244,
+  "categories": {
+    "硫化机": {
+      "count": 5,
+      "cost_range": [
+        29000.0,
+        92000.0
+      ]
+    },
+    "导条机": {
+      "count": 20,
+      "cost_range": [
+        800.0,
+        56246.0
+      ]
+    },
+    "磨头机": {
+      "count": 3,
+      "cost_range": [
+        3300.0,
+        19500.0
+      ]
+    },
+    "同步带设备": {
+      "count": 8,
+      "cost_range": [
+        432.0,
+        76500.0
+      ]
+    },
+    "其他设备": {
+      "count": 11,
+      "cost_range": [
+        0,
+        23800.0
+      ]
+    },
+    "钢扣机/耗材": {
+      "count": 7,
+      "cost_range": [
+        38.0,
+        5752.0
+      ]
+    },
+    "裁切机": {
+      "count": 20,
+      "cost_range": [
+        1328.0,
+        81000.0
+      ]
+    },
+    "高频焊接机": {
+      "count": 2,
+      "cost_range": [
+        4400.0,
+        80000.0
+      ]
+    },
+    "模具/配件": {
+      "count": 8,
+      "cost_range": [
+        280.0,
+        8500.0
+      ]
+    },
+    "打齿机": {
+      "count": 31,
+      "cost_range": [
+        30.0,
+        283186.0
+      ]
+    },
+    "风冷配件": {
+      "count": 12,
+      "cost_range": [
+        207.0,
+        1870.0
+      ]
+    },
+    "碰接机/接头机": {
+      "count": 10,
+      "cost_range": [
+        1550.0,
+        55000.0
+      ]
+    },
+    "风冷接头机": {
+      "count": 44,
+      "cost_range": [
+        2000.0,
+        71592.0
+      ]
+    },
+    "分层机": {
+      "count": 9,
+      "cost_range": [
+        265.0,
+        19911.0
+      ]
+    },
+    "料架": {
+      "count": 6,
+      "cost_range": [
+        1480.0,
+        50000.0
+      ]
+    },
+    "配件/耗材": {
+      "count": 1,
+      "cost_range": [
+        7200.0,
+        7200.0
+      ]
+    },
+    "刀片/齿板": {
+      "count": 1,
+      "cost_range": [
+        796.0,
+        796.0
+      ]
+    },
+    "封边机": {
+      "count": 4,
+      "cost_range": [
+        35365.0,
+        39736.0
+      ]
+    },
+    "打孔机": {
+      "count": 9,
+      "cost_range": [
+        2000.0,
+        62695.0
+      ]
+    },
+    "机架/底座": {
+      "count": 5,
+      "cost_range": [
+        2200.0,
+        8100.0
+      ]
+    },
+    "水冷接头机": {
+      "count": 28,
+      "cost_range": [
+        3000.0,
+        55385.0
+      ]
+    }
+  },
+  "products": [
+    {
+      "code": "WG-JQ-010",
+      "name_cn": "橡胶带皮带硫化机1400*830",
+      "spec": "1400*830",
+      "name_en": "rubber conveyor belt vulcanzing machine 1400*830mm",
+      "currency": "人民币",
+      "cost_price": 36284.0,
+      "category": "硫化机"
+    },
+    {
+      "code": "A3DTJ1000-00-00",
+      "name_cn": "二代焊枪型导条焊接机1000（单相220V）",
+      "spec": "-",
+      "name_en": "V-Guide Welding Machine for PVC PU Conveyor Belts 2.0",
+      "currency": "人民币",
+      "cost_price": 13500.0,
+      "category": "导条机"
+    },
+    {
+      "code": "WG-JQ-009",
+      "name_cn": "1012磨头机",
+      "spec": "1012",
+      "name_en": "Grinding head machine",
+      "currency": "人民币",
+      "cost_price": 3300.0,
+      "category": "磨头机"
+    },
+    {
+      "code": "WG-PD-00005",
+      "name_cn": "公制聚氨酯同步带（18齿销钉接口）",
+      "spec": "50AT10/14800-V-PAZ-PVC",
+      "name_en": "Metric Polyurethane timing belt",
+      "currency": "人民币",
+      "cost_price": 531.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-PD-00004",
+      "name_cn": "公制聚氨酯同步带（8mm）",
+      "spec": "50AT10/14800-V-PAZ-PVC",
+      "name_en": "Metric Polyurethane timing belt",
+      "currency": "人民币",
+      "cost_price": 432.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-PD-00003",
+      "name_cn": "公制聚氨酯同步带（9mm）",
+      "spec": "50AT10/14800-V-PAZ-PVC",
+      "name_en": "Metric Polyurethane timing belt",
+      "currency": "人民币",
+      "cost_price": 641.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WGJ1-000027",
+      "name_cn": "JT-1625片基带接头器（110V）",
+      "spec": "JT-1625",
+      "name_en": "Flat Belt Splicer",
+      "currency": "人民币",
+      "cost_price": 1239.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-JQ-007",
+      "name_cn": "橡胶带皮带硫化机2400*830",
+      "spec": "2400*830",
+      "name_en": "rubber conveyor belt vulcanzing machine",
+      "currency": "人民币",
+      "cost_price": 92000.0,
+      "category": "硫化机"
+    },
+    {
+      "code": "WG-JQ-006",
+      "name_cn": "橡胶带皮带硫化机800*830",
+      "spec": "800*830",
+      "name_en": "rubber conveyor belt vulcanzing machine",
+      "currency": "人民币",
+      "cost_price": 29000.0,
+      "category": "硫化机"
+    },
+    {
+      "code": "WG-PJ-00006",
+      "name_cn": "不锈钢钢丝扣",
+      "spec": "HG2-300mm",
+      "name_en": "Stainless Steel Wire Buckle",
+      "currency": "人民币",
+      "cost_price": 38.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "WG-PJ-00005",
+      "name_cn": "不锈钢狼牙扣",
+      "spec": "7-600mm",
+      "name_en": "Stainless Steel Wolf-Tooth Buckle",
+      "currency": "人民币",
+      "cost_price": 115.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "SQG40-00-05",
+      "name_cn": "手持橡胶带切割机刀片",
+      "spec": "-",
+      "name_en": "round blade",
+      "currency": "人民币",
+      "cost_price": 1870.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "WG-PD-00002",
+      "name_cn": "月牙齿形聚氨酯同步带",
+      "spec": "-",
+      "name_en": "Crescent-shaped polyurethane synchronous belt",
+      "currency": "人民币",
+      "cost_price": 1014.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-JQ-005",
+      "name_cn": "13KW高频机稳压器",
+      "spec": "-",
+      "name_en": "13kw High Frequency Machine Voltage Stabilizer",
+      "currency": "人民币",
+      "cost_price": 4400.0,
+      "category": "高频焊接机"
+    },
+    {
+      "code": "WG-PJ-00004",
+      "name_cn": "外购模具",
+      "spec": "-",
+      "name_en": "Standard Tooth Profile (Width 75–100), PPJ Fixture + Cutting Tool",
+      "currency": "人民币",
+      "cost_price": 2036.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "WG-PJ-00003",
+      "name_cn": "外购模具",
+      "spec": "-",
+      "name_en": "Standard Tooth Profile (Width 38–50), PPJ Fixture + Cutting Tool",
+      "currency": "人民币",
+      "cost_price": 1328.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "WG-PJ-00002",
+      "name_cn": "外购模具",
+      "spec": "-",
+      "name_en": "T5K6,T10K6,T10K13,AT10K6,AT10K10,AT10K13,AT20K13 Molds",
+      "currency": "人民币",
+      "cost_price": 3098.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WG-PJ-00001",
+      "name_cn": "外购模具",
+      "spec": "-",
+      "name_en": "T20,AT20,HTD14M Molds",
+      "currency": "人民币",
+      "cost_price": 2567.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WG-PJ-00000",
+      "name_cn": "外购模具",
+      "spec": "-",
+      "name_en": "XL,L,H,T2.5,T5,T10,AT5,AT10,HTD5M,HTD8M,RPP5,RPP8 Molds",
+      "currency": "人民币",
+      "cost_price": 2390.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "ZDJ1200-00-00",
+      "name_cn": "自动接驳打齿一体机",
+      "spec": "1200",
+      "name_en": "AUTOMATIC PUNCHING & SPLICING MACHINE",
+      "currency": "人民币",
+      "cost_price": 283186.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "00004",
+      "name_cn": "5mm (T5)双面绿布",
+      "spec": "-",
+      "name_en": "5mm (T5) Double-Sided Green Fabric",
+      "currency": "人民币",
+      "cost_price": 26.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "FM-QN-00003",
+      "name_cn": "气囊690*80mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 207.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-QN-00002",
+      "name_cn": "气囊1590*158mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 954.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-QN-00001",
+      "name_cn": "气囊690*150mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 414.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "A1TJ200-00-00",
+      "name_cn": "同步带气压式接驳机（按钮式）",
+      "spec": "-",
+      "name_en": "Pneumatic Timing Belt Joint Machine（button type）",
+      "currency": "人民币",
+      "cost_price": 13716.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "WGJ3-000014",
+      "name_cn": "同步带接驳机可调节模具",
+      "spec": "-",
+      "name_en": "Timing Belt Joint Machine Adjustable Mold",
+      "currency": "人民币",
+      "cost_price": 1550.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "WG-PD-00000",
+      "name_cn": "变速带",
+      "spec": "-",
+      "name_en": "Variable Speed​Belt",
+      "currency": "人民币",
+      "cost_price": 440.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "YF",
+      "name_cn": "运费",
+      "spec": "-",
+      "name_en": "shipping cost",
+      "currency": "人民币",
+      "cost_price": 0,
+      "category": "其他设备"
+    },
+    {
+      "code": "FM-W-JRP-00005",
+      "name_cn": "加热片700*227mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 794.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-JRP-00004",
+      "name_cn": "加热片1600*160mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 1280.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-JRP-00003",
+      "name_cn": "加热片700*160mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 560.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-JRP-00002",
+      "name_cn": "加热片1290*290mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 1870.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-JRP-00001",
+      "name_cn": "加热片1000*160mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 800.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-JRP-00000",
+      "name_cn": "加热片400*160mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryheating plate",
+      "currency": "人民币",
+      "cost_price": 320.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-QTXPJ-10077",
+      "name_cn": "气囊1290*85mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 387.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-QN-00000",
+      "name_cn": "气囊988*155mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 592.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "FM-W-QTXPJ-10078",
+      "name_cn": "气囊390*150mm",
+      "spec": "-",
+      "name_en": "Air coolingaffiliate accessoryair bag",
+      "currency": "人民币",
+      "cost_price": 234.0,
+      "category": "风冷配件"
+    },
+    {
+      "code": "WGJ1-000054",
+      "name_cn": "便携式接头机",
+      "spec": "-",
+      "name_en": "Flat belt welding machine",
+      "currency": "人民币",
+      "cost_price": 7500.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "C3FLJ3600-00-00",
+      "name_cn": "三代超宽幅风冷皮带接头机3600",
+      "spec": "PA3600-3H",
+      "name_en": "Extra-Wide Air Cooling Belt Splicing Press PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 71592.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FCJ130-00-00",
+      "name_cn": "立式分层机(单相220V)",
+      "spec": "-",
+      "name_en": "Vertical ply separator",
+      "currency": "人民币",
+      "cost_price": 19911.0,
+      "category": "分层机"
+    },
+    {
+      "code": "A2FCJ130-00-000",
+      "name_cn": "美式分层机(单相220V)",
+      "spec": "-",
+      "name_en": "American style type ply separator",
+      "currency": "人民币",
+      "cost_price": 16070.0,
+      "category": "分层机"
+    },
+    {
+      "code": "WG-JQ-004",
+      "name_cn": "高频焊接机13KW",
+      "spec": "QA2000",
+      "name_en": "High frequency belt welding machine",
+      "currency": "人民币",
+      "cost_price": 80000.0,
+      "category": "高频焊接机"
+    },
+    {
+      "code": "DZ-PJ-000",
+      "name_cn": "重型放料架",
+      "spec": "-",
+      "name_en": "Heavy duty roll material rock",
+      "currency": "人民币",
+      "cost_price": 50000.0,
+      "category": "料架"
+    },
+    {
+      "code": "DZ-JQ-000",
+      "name_cn": "窄风冷1200",
+      "spec": "PA1200",
+      "name_en": "Narrow width air cooling conveyor belt splicing machine",
+      "currency": "人民币",
+      "cost_price": 19475.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "WG-JQ-003",
+      "name_cn": "热风枪",
+      "spec": "WELDY1600W",
+      "name_en": "Hot air gun",
+      "currency": "人民币",
+      "cost_price": 745.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-JZ-00000",
+      "name_cn": "皮带架子",
+      "spec": "-",
+      "name_en": "Belt rock",
+      "currency": "人民币",
+      "cost_price": 7200.0,
+      "category": "配件/耗材"
+    },
+    {
+      "code": "WG-JQ-002",
+      "name_cn": "管道螺纹加工机",
+      "spec": "DN15-100",
+      "name_en": "Pipe threading machine",
+      "currency": "人民币",
+      "cost_price": 3990.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-JQ-001",
+      "name_cn": "卧式加热器",
+      "spec": "QX-P300F",
+      "name_en": "Bearing heater",
+      "currency": "人民币",
+      "cost_price": 23800.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-JQ-000",
+      "name_cn": "输送带硫化机",
+      "spec": "BSV001",
+      "name_en": "Conveyor Belt Vulcanizer",
+      "currency": "人民币",
+      "cost_price": 42000.0,
+      "category": "硫化机"
+    },
+    {
+      "code": "EZ-15+120",
+      "name_cn": "手动同步带打齿机冲头刀片",
+      "spec": "EZ-15+120冲头",
+      "name_en": "Manual Timing Belt Punching MachinePunch Head Blade",
+      "currency": "人民币",
+      "cost_price": 30.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "WG-MJ-000-005",
+      "name_cn": "高频机导条模具",
+      "spec": "-",
+      "name_en": "Guide Mould",
+      "currency": "人民币",
+      "cost_price": 800.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A1FCJ130-01-26",
+      "name_cn": "欧式分层机刀片",
+      "spec": "6-1-0-26-1",
+      "name_en": "European Separator Blade",
+      "currency": "人民币",
+      "cost_price": 800.0,
+      "category": "分层机"
+    },
+    {
+      "code": "WGJ3-000053",
+      "name_cn": "直条纹硅胶模具",
+      "spec": "-",
+      "name_en": "Straight Stripe Belt Silicone Mold",
+      "currency": "人民币",
+      "cost_price": 525.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WGJ1-000009",
+      "name_cn": "同步带数控雕铣机",
+      "spec": "1000mm",
+      "name_en": "Timing Belt CNC Engraver-Miller",
+      "currency": "人民币",
+      "cost_price": 76500.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-MJ-000-004",
+      "name_cn": "外购模具",
+      "spec": "WM-004",
+      "name_en": "XL, L, H, XH, T2,5, T5, T10, T20, AT5, AT10, AT20, HTD5M, HTD8M, HTD14M, RPP5 and RPP8",
+      "currency": "人民币",
+      "cost_price": 7300.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WG-MJ-000-003",
+      "name_cn": "外购模具",
+      "spec": "WM-003",
+      "name_en": "XL, L, H, T2,5, T5, T10, AT5, AT10, HTD5M and HTD8M",
+      "currency": "人民币",
+      "cost_price": 280.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WGJ1-000023",
+      "name_cn": "电热式胶带硫化机",
+      "spec": "XS/DGLJL-650-2800",
+      "name_en": "electric heating vulcanizing machine",
+      "currency": "人民币",
+      "cost_price": 56000.0,
+      "category": "硫化机"
+    },
+    {
+      "code": "C11-20*80-9",
+      "name_cn": "C11-20*80-9齿板",
+      "spec": "C11-20*80-9齿板",
+      "name_en": "punching board",
+      "currency": "人民币",
+      "cost_price": 796.0,
+      "category": "刀片/齿板"
+    },
+    {
+      "code": "WGJ1-000010",
+      "name_cn": "同步带挡板焊接机",
+      "spec": "WJ-0002",
+      "name_en": "Timing Belt Cleat Welding Machine",
+      "currency": "人民币",
+      "cost_price": 17500.0,
+      "category": "导条机"
+    },
+    {
+      "code": "WG-JQ-000-00",
+      "name_cn": "16吨压打口机",
+      "spec": "WJ-0001",
+      "name_en": "16-ton flaring machine",
+      "currency": "人民币",
+      "cost_price": 8500.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-ZC-000-00",
+      "name_cn": "钻床",
+      "spec": "WZ-0001",
+      "name_en": "drilling machine",
+      "currency": "人民币",
+      "cost_price": 2000.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-DJ-000-00",
+      "name_cn": "刀具",
+      "spec": "WD-0001",
+      "name_en": "38MTD8-PPJ movable fixture/48MTD8+cutting tool",
+      "currency": "人民币",
+      "cost_price": 1500.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WG-MJ-000-002",
+      "name_cn": "外购模具",
+      "spec": "WM-002",
+      "name_en": "T5K6, T10K6, T10K13, AT10K6, AT10K10, AT10K13, AT20K13 moulds",
+      "currency": "人民币",
+      "cost_price": 2300.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "A2FLJ2100-00-00",
+      "name_cn": "二代风冷皮带接头机2100",
+      "spec": "PA2100",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 36574.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "WG-TBGM-000-000",
+      "name_cn": "同步带研磨铣削机",
+      "spec": "WTB-005",
+      "name_en": "Timing belt grinding milling machine",
+      "currency": "人民币",
+      "cost_price": 63000.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-TBTC-000-000",
+      "name_cn": "同步带齿数计数机",
+      "spec": "WTB-004",
+      "name_en": "Timing belt teeth counting machine",
+      "currency": "人民币",
+      "cost_price": 27000.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "WG-AT-TBCT-000",
+      "name_cn": "全自动同步带切割机",
+      "spec": "WTB-003",
+      "name_en": "Full automatic timing belt cutting",
+      "currency": "人民币",
+      "cost_price": 81000.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "WG-MJ-000-001",
+      "name_cn": "外购模具",
+      "spec": "WM-001",
+      "name_en": "T5K6, T10K6, T10K13, AT10K6, AT10K10, AT10K13, AT20K13 moulds",
+      "currency": "人民币",
+      "cost_price": 8500.0,
+      "category": "模具/配件"
+    },
+    {
+      "code": "WGJ1-000006",
+      "name_cn": "液压同步带接驳机",
+      "spec": "WTB-002",
+      "name_en": "Hydraulic PU Synchronous Belt Splicing Machine",
+      "currency": "人民币",
+      "cost_price": 55000.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "WG-TBJB-000-000",
+      "name_cn": "便携式同步带接驳机",
+      "spec": "WTB-001",
+      "name_en": "Portable timing belt joint machine",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "同步带设备"
+    },
+    {
+      "code": "定制三代风冷2.4m航空箱",
+      "name_cn": "定制三代风冷2.4m航空箱",
+      "spec": "2400mm",
+      "name_en": "Air Cooling Press Affiliate Air box",
+      "currency": "人民币",
+      "cost_price": 3203.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "定制自动打齿机底座",
+      "name_cn": "定制自动打齿机底座",
+      "spec": "TB3500-SD",
+      "name_en": "Automatic Belt finger puncher machine Stand",
+      "currency": "人民币",
+      "cost_price": 4114.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "定制裁切机纠偏料架",
+      "name_cn": "定制裁切机纠偏料架",
+      "spec": "CA4000H",
+      "name_en": "Winder",
+      "currency": "人民币",
+      "cost_price": 40900.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "定制轴落刀裁切机4m",
+      "name_cn": "定制轴落刀裁切机4m",
+      "spec": "CA4000",
+      "name_en": "Conveyor Belt  Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 52734.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A3QDJ600-00-00+QDJ600-06-1000",
+      "name_cn": "卧式同步带切带机4m",
+      "spec": "TBC600",
+      "name_en": "Horizontal Timing Belt Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 30088.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "WGTFLBBJ64*152*160",
+      "name_cn": "特氟龙包边机64*152*160cm",
+      "spec": "WB-64152",
+      "name_en": "PTFE Edge Folding Machine",
+      "currency": "人民币",
+      "cost_price": 16000.0,
+      "category": "其他设备"
+    },
+    {
+      "code": "WGTFLJTJ7*150",
+      "name_cn": "特氟龙大型接头机7*150CM",
+      "spec": "WT-7150",
+      "name_en": "PTFE Welding Machine",
+      "currency": "人民币",
+      "cost_price": 19800.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "WGTFLJTJ10*150",
+      "name_cn": "特氟龙大型接头机10*150CM",
+      "spec": "WT-10150",
+      "name_en": "PTFE Welding Machine",
+      "currency": "人民币",
+      "cost_price": 20800.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "HDB3000-00-00",
+      "name_cn": "输送带挡板导条焊接机3000",
+      "spec": "QE3000",
+      "name_en": "Conveyor Belt Cleat Welding Machine",
+      "currency": "人民币",
+      "cost_price": 43016.0,
+      "category": "导条机"
+    },
+    {
+      "code": "WGJ4-000038",
+      "name_cn": "磨头机150*600CM",
+      "spec": "MT-1560",
+      "name_en": "Grinding head machine",
+      "currency": "人民币",
+      "cost_price": 19500.0,
+      "category": "磨头机"
+    },
+    {
+      "code": "WG-JQ-008",
+      "name_cn": "磨头机130*200CM",
+      "spec": "MT-1320",
+      "name_en": "Grinding head machine",
+      "currency": "人民币",
+      "cost_price": 6200.0,
+      "category": "磨头机"
+    },
+    {
+      "code": "WGJ1-000052",
+      "name_cn": "特氟龙大型接头机7*110CM",
+      "spec": "WT-7110",
+      "name_en": "PTFE Welding Machine",
+      "currency": "人民币",
+      "cost_price": 14800.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "T1DCJ260-00-00",
+      "name_cn": "液压式同步带打齿机",
+      "spec": "TBT260",
+      "name_en": "Hydraulic Timing Belt Finger Punching Machine",
+      "currency": "人民币",
+      "cost_price": 24779.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1HDT550-00-00",
+      "name_cn": "550 型小周长皮带打磨涂胶导条焊接一体机",
+      "spec": "CG002",
+      "name_en": "550 Small Loop Conveyor Belt Guide Strip Grinding, Gluing & Welding Machine",
+      "currency": "人民币",
+      "cost_price": 13274.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A1FQJ350-00-00",
+      "name_cn": "张紧式环带分切机",
+      "spec": "CF350",
+      "name_en": "Endless Belt Cutting Slitter",
+      "currency": "人民币",
+      "cost_price": 23894.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A1QDJ600-00-00",
+      "name_cn": "卧式同步带切带机",
+      "spec": "TBC600",
+      "name_en": "Horizontal Timing Belt Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 24779.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "DTDC-00-00",
+      "name_cn": "导条冲齿机",
+      "spec": "CG001",
+      "name_en": "V-Guide Punching Machine",
+      "currency": "人民币",
+      "cost_price": 19470.0,
+      "category": "导条机"
+    },
+    {
+      "code": "SQG40-00-00",
+      "name_cn": "手持橡胶带切割机",
+      "spec": "SQG40",
+      "name_en": "Rubber Conveyor Belt Portable Design Cutter",
+      "currency": "人民币",
+      "cost_price": 8274.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "DBCQ-01-00",
+      "name_cn": "输送带挡板裁切机（含机架）",
+      "spec": "CG02",
+      "name_en": "Conveyor Belt Cleat Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 3363.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "HDB2000-00-00",
+      "name_cn": "输送带挡板导条焊接机2000",
+      "spec": "QE2000",
+      "name_en": "Conveyor Belt Cleat Welding Machine",
+      "currency": "人民币",
+      "cost_price": 28678.0,
+      "category": "导条机"
+    },
+    {
+      "code": "H1DCJ1800-00-00",
+      "name_cn": "重型移动输送带打齿机1800",
+      "spec": "TC1800H",
+      "name_en": "Heavy-Duty Mobile PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 11271.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "H1DCJ1600-00-00",
+      "name_cn": "重型移动输送带打齿机1600",
+      "spec": "TC1600H",
+      "name_en": "Heavy-Duty Mobile PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 10765.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "H1DCJ1200-00-00",
+      "name_cn": "重型移动输送带打齿机1200",
+      "spec": "TC1200H",
+      "name_en": "Heavy-Duty Mobile PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 9754.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "H1DCJ1000-00-00",
+      "name_cn": "重型移动输送带打齿机1000",
+      "spec": "TC1000H",
+      "name_en": "Heavy-Duty Mobile PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 9248.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C1DTJ3000-00-00",
+      "name_cn": "三代导条焊接机（多功能款）3000",
+      "spec": "QB3000-3",
+      "name_en": "Multi-Function V-Guide Welding Machine 3.0",
+      "currency": "人民币",
+      "cost_price": 56246.0,
+      "category": "导条机"
+    },
+    {
+      "code": "C1DTJ2000-00-00",
+      "name_cn": "三代导条焊接机（多功能款）2000",
+      "spec": "QB2000-3",
+      "name_en": "Multi-Function V-Guide Welding Machine 3.0",
+      "currency": "人民币",
+      "cost_price": 37497.0,
+      "category": "导条机"
+    },
+    {
+      "code": "C1DTJ1000-00-00",
+      "name_cn": "三代导条焊接机（常规款）1000",
+      "spec": "QB1000-3",
+      "name_en": "V-Guide Welding Machine 3.0  (Standard Model)",
+      "currency": "人民币",
+      "cost_price": 18749.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A5FBJ1500-00-00",
+      "name_cn": "皮带封边机1500（新款加热片温控+普通气缸）",
+      "spec": "QD1500",
+      "name_en": "Belt Edge Sealing Welding Machine",
+      "currency": "人民币",
+      "cost_price": 39736.0,
+      "category": "封边机"
+    },
+    {
+      "code": "A5FBJ1200-00-00",
+      "name_cn": "皮带封边机1200（新款加热片温控+普通气缸）",
+      "spec": "QD1200",
+      "name_en": "Belt Edge Sealing Welding Machine",
+      "currency": "人民币",
+      "cost_price": 35365.0,
+      "category": "封边机"
+    },
+    {
+      "code": "A4FBJ1500-00-00",
+      "name_cn": "皮带封边机1500（老款加热片温控+普通气缸）",
+      "spec": "QD1500",
+      "name_en": "Belt Edge Sealing Welding Machine",
+      "currency": "人民币",
+      "cost_price": 39736.0,
+      "category": "封边机"
+    },
+    {
+      "code": "A4FBJ1200-00-00",
+      "name_cn": "皮带封边机1200（老款加热片温控+普通气缸）",
+      "spec": "QD1200",
+      "name_en": "Belt Edge Sealing Welding Machine",
+      "currency": "人民币",
+      "cost_price": 35366.0,
+      "category": "封边机"
+    },
+    {
+      "code": "C2DKJ3200-06-00",
+      "name_cn": "打孔机防护罩3200",
+      "spec": "3200",
+      "name_en": "Conveyor Belt Punch Safety Guard",
+      "currency": "人民币",
+      "cost_price": 3500.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ2100-06-00",
+      "name_cn": "打孔机防护罩2100",
+      "spec": "2100",
+      "name_en": "Conveyor Belt Punch Safety Guard",
+      "currency": "人民币",
+      "cost_price": 3000.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ1600-06-00",
+      "name_cn": "打孔机防护罩1600",
+      "spec": "1600",
+      "name_en": "Conveyor Belt Punch Safety Guard",
+      "currency": "人民币",
+      "cost_price": 2500.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ1100-06-00",
+      "name_cn": "打孔机防护罩1100",
+      "spec": "1100",
+      "name_en": "Conveyor Belt Punch Safety Guard",
+      "currency": "人民币",
+      "cost_price": 2000.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C3DKJ1100-00-00",
+      "name_cn": "橡胶带打孔机1100",
+      "spec": "TD1100H",
+      "name_en": "Rubber Conveyor Belt Perforating Machine",
+      "currency": "人民币",
+      "cost_price": 42265.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ3200-00-00",
+      "name_cn": "输送带打孔机3200",
+      "spec": "TD3200",
+      "name_en": "PVC/PU Conveyor Belt Perforating Machine",
+      "currency": "人民币",
+      "cost_price": 62695.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ2100-00-00",
+      "name_cn": "输送带打孔机2100",
+      "spec": "TD2100",
+      "name_en": "PVC/PU Conveyor Belt Perforating Machine",
+      "currency": "人民币",
+      "cost_price": 51562.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ1600-00-00",
+      "name_cn": "输送带打孔机1600",
+      "spec": "TD1600",
+      "name_en": "PVC/PU Conveyor Belt Perforating Machine",
+      "currency": "人民币",
+      "cost_price": 42265.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "C2DKJ1100-00-00",
+      "name_cn": "输送带打孔机1100",
+      "spec": "TD1100",
+      "name_en": "PVC/PU Conveyor Belt Perforating Machine",
+      "currency": "人民币",
+      "cost_price": 36076.0,
+      "category": "打孔机"
+    },
+    {
+      "code": "B1XDT2000-00-00S",
+      "name_cn": "悬臂式多功能导条焊接机2000（三相220V)",
+      "spec": "QB2000HS",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 36088.0,
+      "category": "导条机"
+    },
+    {
+      "code": "B1XDT2000-00-00",
+      "name_cn": "悬臂式多功能导条焊接机2000（三相380V带零线)",
+      "spec": "QB2000H",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 36088.0,
+      "category": "导条机"
+    },
+    {
+      "code": "B1XDT2000-00-00C",
+      "name_cn": "悬臂式多功能导条焊接机2000（单相220V带零线)",
+      "spec": "QB2000HC",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 36088.0,
+      "category": "导条机"
+    },
+    {
+      "code": "B1XDT1300-00-00",
+      "name_cn": "悬臂式多功能导条焊接机1300（三相380V带零线",
+      "spec": "QB1300H",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 32265.0,
+      "category": "导条机"
+    },
+    {
+      "code": "B1XDT1300-00-00S",
+      "name_cn": "悬臂式多功能导条焊接机1300（三相220V)",
+      "spec": "QB1300HS",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 32265.0,
+      "category": "导条机"
+    },
+    {
+      "code": "B1XDT1300-00-00C",
+      "name_cn": "悬臂式多功能导条焊接机1300（单相220V带零线)",
+      "spec": "QB1300HC",
+      "name_en": "Cantilever Multi-Function V-Guide Welding Machine",
+      "currency": "人民币",
+      "cost_price": 32265.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A1GKJ350-00-00",
+      "name_cn": "钢扣机350(铝)",
+      "spec": "TCD350",
+      "name_en": "Mechanical Fastener Installation Machine",
+      "currency": "人民币",
+      "cost_price": 3540.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "A1GKJ600-00-00",
+      "name_cn": "钢扣机600(铝)",
+      "spec": "TCD600",
+      "name_en": "Mechanical Fastener Installation Machine",
+      "currency": "人民币",
+      "cost_price": 4425.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "A1GKJ900-00-00",
+      "name_cn": "钢扣机900(铝)",
+      "spec": "TCD900",
+      "name_en": "Mechanical Fastener Installation Machine",
+      "currency": "人民币",
+      "cost_price": 4867.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "A1GKJ1200-00-00",
+      "name_cn": "钢扣机1200(铝)",
+      "spec": "TCD1200",
+      "name_en": "Mechanical Fastener Installation Machine",
+      "currency": "人民币",
+      "cost_price": 5310.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "A1GKJ1500-00-00",
+      "name_cn": "钢扣机1500(铝)",
+      "spec": "TCD1500",
+      "name_en": "Mechanical Fastener Installation Machine",
+      "currency": "人民币",
+      "cost_price": 5752.0,
+      "category": "钢扣机/耗材"
+    },
+    {
+      "code": "E1DCJ200-00-00",
+      "name_cn": "手动同步带打齿机200-15",
+      "spec": "MC0200-15",
+      "name_en": "Timing Belt Manual Finger Punching Machine",
+      "currency": "人民币",
+      "cost_price": 9000.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "E1DCJ200-00-00B",
+      "name_cn": "手动同步带打齿机2000-20",
+      "spec": "MC0200-20",
+      "name_en": "Timing Belt Manual Finger Punching Machine",
+      "currency": "人民币",
+      "cost_price": 9000.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DTJ2000-00-00",
+      "name_cn": "一代导条焊接机2000",
+      "spec": "QB2000",
+      "name_en": "V-Guide Welding Machine for PVC PU Conveyor Belts",
+      "currency": "人民币",
+      "cost_price": 20064.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A2DTJ1500-00-00",
+      "name_cn": "一代导条焊接机1500",
+      "spec": "QB1500",
+      "name_en": "V-Guide Welding Machine for PVC PU Conveyor Belts",
+      "currency": "人民币",
+      "cost_price": 17673.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A2DTJ1200-00-00",
+      "name_cn": "一代导条焊接机1200",
+      "spec": "QB1200",
+      "name_en": "V-Guide Welding Machine for PVC PU Conveyor Belts",
+      "currency": "人民币",
+      "cost_price": 11516.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A2DTJ1000-00-00",
+      "name_cn": "一代导条焊接机1000",
+      "spec": "QB1000",
+      "name_en": "V-Guide Welding Machine for PVC PU Conveyor Belts",
+      "currency": "人民币",
+      "cost_price": 10032.0,
+      "category": "导条机"
+    },
+    {
+      "code": "A1HYC2000-00-00D",
+      "name_cn": "定制换轴款易洁带裁切机2000(单相220V)",
+      "spec": "CA2000",
+      "name_en": "Belt Slitter for Conveyor Belt and PU homogeneous Belt",
+      "currency": "人民币",
+      "cost_price": 37168.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2CQJ3500-00-00",
+      "name_cn": "轴落刀输送带裁切机3500（单相220V）",
+      "spec": "CA3500Z",
+      "name_en": "Conveyor Belt  Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 33231.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2CQJ3200-00-00",
+      "name_cn": "轴落刀输送带裁切机3200（单相220V）",
+      "spec": "CA3200Z",
+      "name_en": "Conveyor Belt  Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 26752.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2CQJ2000-00-00",
+      "name_cn": "轴落刀输送带裁切机2000（单相220V）",
+      "spec": "CA2000Z",
+      "name_en": "Conveyor Belt  Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 20900.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2CQJ1500-00-00",
+      "name_cn": "轴落刀输送带裁切机1500（单相220V）",
+      "spec": "CA1500Z",
+      "name_en": "Conveyor Belt  Cutting Machine",
+      "currency": "人民币",
+      "cost_price": 16433.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2FQJ1200-00-00",
+      "name_cn": "电蜗输送带环切机1200（三相380V带零线）",
+      "spec": "CB1200",
+      "name_en": "Belt Slitter",
+      "currency": "人民币",
+      "cost_price": 12688.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2FQJ1200-00-00A",
+      "name_cn": "电蜗输送带环切机1200(单相220V)加高200带变频器面板带后罩",
+      "spec": "CB1200C",
+      "name_en": "Belt Slitter",
+      "currency": "人民币",
+      "cost_price": 12688.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2FQJ600-00-00",
+      "name_cn": "电蜗输送带环切机机600（三相380V带零线）",
+      "spec": "CB600",
+      "name_en": "Belt Slitter",
+      "currency": "人民币",
+      "cost_price": 8883.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "A2FQJ600-00-00A",
+      "name_cn": "电蜗输送带环切机600（单相220V）",
+      "spec": "CB600C",
+      "name_en": "Belt Slitter",
+      "currency": "人民币",
+      "cost_price": 8883.0,
+      "category": "裁切机"
+    },
+    {
+      "code": "C2DCJ4000-00-00",
+      "name_cn": "高速自动输送带打齿机 4000",
+      "spec": "TB4000",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 45301.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ3500-00-00",
+      "name_cn": "高速自动输送带打齿机 3500",
+      "spec": "TB3500",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 41148.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ3000-00-00",
+      "name_cn": "高速自动输送带打齿机 3000",
+      "spec": "TB3000",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 35387.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ2500-00-00",
+      "name_cn": "高速自动输送带打齿机 2500",
+      "spec": "TB2500",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 30183.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ2000-00-00",
+      "name_cn": "高速自动输送带打齿机 2000",
+      "spec": "TB2000",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 20844.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ1600-00-00",
+      "name_cn": "高速自动输送带打齿机 1600",
+      "spec": "TB1600",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 19339.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "C2DCJ1000-00-00",
+      "name_cn": "高速自动输送带打齿机 1000",
+      "spec": "TB1000",
+      "name_en": "High-Speed Automatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 14774.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "B1DCJ3200-00-00",
+      "name_cn": "气动输送带打齿机3200（标配机头B1DCJ1100-09-00）",
+      "spec": "TA3200S",
+      "name_en": "Pneumatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 19204.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "B1DCJ2100-00-00",
+      "name_cn": "气动输送带打齿机2100（标配机头B1DCJ1100-09-00）",
+      "spec": "TA2100S",
+      "name_en": "Pneumatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 11286.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "B1DCJ1600-00-00",
+      "name_cn": "气动输送带打齿机1600（标配机头B1DCJ1100-09-00）",
+      "spec": "TA1600S",
+      "name_en": "Pneumatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 8506.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "B1DCJ1100-00-00",
+      "name_cn": "气动输送带打齿机1100（标配机头B1DCJ1100-09-00）",
+      "spec": "TA1000S",
+      "name_en": "Pneumatic PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 7524.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1DCJ1500-00-00",
+      "name_cn": "手动输送带打齿机1500（标配机头A1DCJ300-06-00）",
+      "spec": "TC1500S",
+      "name_en": "Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 8033.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1DCJ1200-00-00",
+      "name_cn": "手动输送带打齿机1200（标配机头A1DCJ300-06-00）",
+      "spec": "TC1200S",
+      "name_en": "Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 7421.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1DCJ900-00-00",
+      "name_cn": "手动输送带打齿机900（标配机头A1DCJ300-06-00）",
+      "spec": "TC900S",
+      "name_en": "Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6962.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1DCJ600-00-00",
+      "name_cn": "手动输送带打齿机600（标配机头A1DCJ300-06-00）",
+      "spec": "TC600S",
+      "name_en": "Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6502.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1DCJ300-00-00",
+      "name_cn": "手动输送带打齿机300（标配机头A1DCJ300-06-00）",
+      "spec": "TC300S",
+      "name_en": "Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6120.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DCJ1500-00-00",
+      "name_cn": "美式手动输送带打齿机1500（标配机头A1DCJ300-06-00）",
+      "spec": "TC1500LS",
+      "name_en": "American-style Light Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 8033.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DCJ1200-00-00",
+      "name_cn": "美式手动输送带打齿机1200（标配机头A1DCJ300-06-00）",
+      "spec": "TC1200LS",
+      "name_en": "American-style Light Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 7421.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DCJ900-00-00",
+      "name_cn": "美式手动输送带打齿机900（标配机头A1DCJ300-06-00）",
+      "spec": "TC900LS",
+      "name_en": "American-style Light Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6962.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DCJ600-00-00",
+      "name_cn": "美式手动输送带打齿机600（标配机头A1DCJ300-06-00）",
+      "spec": "TC600LS",
+      "name_en": "American-style Light Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6502.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A2DCJ300-00-00",
+      "name_cn": "美式手动输送带打齿机300（标配机头A1DCJ300-06-00）",
+      "spec": "TC-300LS",
+      "name_en": "American-style Light Manual PVC PU Belt Finger Puncher",
+      "currency": "人民币",
+      "cost_price": 6120.0,
+      "category": "打齿机"
+    },
+    {
+      "code": "A1FCJ130-00-00C",
+      "name_cn": "欧式皮带分层机（单相220V ）",
+      "spec": "SC130U",
+      "name_en": "European-Style PVC/PU Conveyor Belt Ply Separator SC130(Single-phase 220V )",
+      "currency": "人民币",
+      "cost_price": 16070.0,
+      "category": "分层机"
+    },
+    {
+      "code": "A1FCJ130-00-00",
+      "name_cn": "欧式皮带分层机（三相380V ）",
+      "spec": "SC130S",
+      "name_en": "European-Style PVC/PU Conveyor Belt Ply Separator SC130（ Three-phase 380V ）",
+      "currency": "人民币",
+      "cost_price": 16070.0,
+      "category": "分层机"
+    },
+    {
+      "code": "A1FCJ130-00-00A",
+      "name_cn": "欧式分层机底座",
+      "spec": "SC130DZ",
+      "name_en": "European-Style Belt Ply Separator Base",
+      "currency": "人民币",
+      "cost_price": 1500.0,
+      "category": "分层机"
+    },
+    {
+      "code": "A1FCJ130-06-00A",
+      "name_cn": "分层机新立刀机构",
+      "spec": "SC130LD",
+      "name_en": "Belt Ply Separator New Vertical Cutter Mechanism",
+      "currency": "人民币",
+      "cost_price": 265.0,
+      "category": "分层机"
+    },
+    {
+      "code": "U1PDJ650-00-00",
+      "name_cn": "U型带辊轴皮带卷料架650",
+      "spec": "HJ650U",
+      "name_en": "Rack with Rollers for Rolls of PVC PU Conveyor Belt Material",
+      "currency": "人民币",
+      "cost_price": 1480.0,
+      "category": "料架"
+    },
+    {
+      "code": "U1PDJ2000-00-00",
+      "name_cn": "U型带辊轴皮带卷料架2000",
+      "spec": "HJ2000U",
+      "name_en": "Rack with Rollers for Rolls of PVC PU Conveyor Belt Material",
+      "currency": "人民币",
+      "cost_price": 4380.0,
+      "category": "料架"
+    },
+    {
+      "code": "U1PDJ1650-00-00",
+      "name_cn": "U型带辊轴皮带卷料架1650",
+      "spec": "HJ1650U",
+      "name_en": "Rack with Rollers for Rolls of PVC PU Conveyor Belt Material",
+      "currency": "人民币",
+      "cost_price": 3680.0,
+      "category": "料架"
+    },
+    {
+      "code": "U1PDJ1350-00-00",
+      "name_cn": "U型带辊轴皮带卷料架1350",
+      "spec": "HJ1350U",
+      "name_en": "Rack with Rollers for Rolls of PVC PU Conveyor Belt Material",
+      "currency": "人民币",
+      "cost_price": 2980.0,
+      "category": "料架"
+    },
+    {
+      "code": "U1PDJ1000-00-00",
+      "name_cn": "U型带辊轴皮带卷料架1000",
+      "spec": "HJ1000U",
+      "name_en": "Rack with Rollers for Rolls of PVC PU Conveyor Belt Material",
+      "currency": "人民币",
+      "cost_price": 2200.0,
+      "category": "料架"
+    },
+    {
+      "code": "B1PDJ4000-00-00",
+      "name_cn": "B型皮带卷料储物架4000",
+      "spec": "HJ4000B",
+      "name_en": "Heavy Duty Floor Standing Fabric belt Roll Storage Rack",
+      "currency": "人民币",
+      "cost_price": 8100.0,
+      "category": "机架/底座"
+    },
+    {
+      "code": "B1PDJ3500-00-00",
+      "name_cn": "B型皮带卷料储物架3500",
+      "spec": "HJ3500B",
+      "name_en": "Heavy Duty Floor Standing Fabric belt Roll Storage Rack",
+      "currency": "人民币",
+      "cost_price": 7200.0,
+      "category": "机架/底座"
+    },
+    {
+      "code": "B1PDJ3000-00-00",
+      "name_cn": "B型皮带卷料储物架2300",
+      "spec": "HJ3000B",
+      "name_en": "Heavy Duty Floor Standing Fabric belt Roll Storage Rack",
+      "currency": "人民币",
+      "cost_price": 7200.0,
+      "category": "机架/底座"
+    },
+    {
+      "code": "B1PDJ2100-00-00",
+      "name_cn": "B型皮带卷料储物架2100",
+      "spec": "HJ2100B",
+      "name_en": "Heavy Duty Floor Standing Fabric belt Roll Storage Rack",
+      "currency": "人民币",
+      "cost_price": 7200.0,
+      "category": "机架/底座"
+    },
+    {
+      "code": "A1PDJ-00-00",
+      "name_cn": "A型皮带放料架",
+      "spec": "HJ800A",
+      "name_en": "A Type Stand for PVC PU Conveyor Belt Roll",
+      "currency": "人民币",
+      "cost_price": 2200.0,
+      "category": "机架/底座"
+    },
+    {
+      "code": "A2JJS1600-00-00",
+      "name_cn": "二代水冷皮带接头机1600机架",
+      "spec": "PB1600W-2",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A2SLJ1600X200-00-00",
+      "name_cn": "二代水冷皮带接头机1600*200",
+      "spec": "PB1600-200",
+      "name_en": "PVC PU Belt Water Cooling Press  PB-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 16519.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A2SLJ1300X200-00-00",
+      "name_cn": "二代水冷皮带接头机1300*200",
+      "spec": "PB1300-200",
+      "name_en": "PVC PU Belt Water Cooling Press  PB-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 13766.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A2JJS1100-00-00",
+      "name_cn": "二代水冷皮带接头机1100机架",
+      "spec": "PB1100W-2",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 3500.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A2SLJ1100X200-00-00",
+      "name_cn": "二代水冷皮带接头机1100*200",
+      "spec": "PB1100-200",
+      "name_en": "PVC PU Belt Water Cooling Press  PB-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 11930.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ4200X200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）4200*200",
+      "spec": "PB4200-200",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 55385.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ3600X200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3600*200",
+      "spec": "PB3600-200",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 47548.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ3200X200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3200*200",
+      "spec": "PB3200-200",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 37620.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ2600X200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）2600*200",
+      "spec": "PB2600-200",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 25916.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ2100X200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）2100*200",
+      "spec": "PB2100-200",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 21546.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS4200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）4200机架",
+      "spec": "PB4200W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 12000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ4200X150-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）4200*150",
+      "spec": "PB4200-150",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 50160.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS3600-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3600机架",
+      "spec": "PB3600W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 10000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ3600X150-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3600*150",
+      "spec": "PB3600-150",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 42636.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS3200-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3200机架",
+      "spec": "PB3200W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 8000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ3200X150-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）3200*150",
+      "spec": "PB3200-150",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 30932.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ2600X150-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）2600*150",
+      "spec": "PB2600-150",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 24244.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS2100-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身2100机架",
+      "spec": "PB2100W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 5000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ2100X150-00-00",
+      "name_cn": "水冷皮带接头机（井字型机身）2100*150",
+      "spec": "PB2100-150",
+      "name_en": "Aluminum Body Water Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 19152.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS1600-00-00",
+      "name_cn": "水冷皮带接头机1600机架",
+      "spec": "PB1600W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ1600X150-00-00",
+      "name_cn": "水冷皮带接头机（不锈钢机身）1600*150",
+      "spec": "PB1600-150",
+      "name_en": "Water Cooling Belt Splicing Press (Stainless Steel)",
+      "currency": "人民币",
+      "cost_price": 13680.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ1300X150-00-00",
+      "name_cn": "水冷皮带接头机（不锈钢机身）1300*150",
+      "spec": "PB1300-150",
+      "name_en": "Water Cooling Belt Splicing Press (Stainless Steel)",
+      "currency": "人民币",
+      "cost_price": 10740.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS1100-00-00",
+      "name_cn": "水冷皮带接头机1100机架",
+      "spec": "PB1100W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 3500.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ1100X160-00-00",
+      "name_cn": "水冷皮带接头机（不锈钢机身）1100*160",
+      "spec": "PB1100-150",
+      "name_en": "Water Cooling Belt Splicing Press (Stainless Steel)",
+      "currency": "人民币",
+      "cost_price": 9880.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS900-00-00",
+      "name_cn": "水冷皮带接头机900机架",
+      "spec": "PB900W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 3000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ900X160-00-00",
+      "name_cn": "水冷皮带接头机（不锈钢机身）900*160",
+      "spec": "PB900-150",
+      "name_en": "Water Cooling Belt Splicing Press (Stainless Steel)",
+      "currency": "人民币",
+      "cost_price": 8360.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1JJS600-00-00",
+      "name_cn": "水冷皮带接头机600机架",
+      "spec": "PB600W",
+      "name_en": "Water-Cooled Splicing Machine Frame",
+      "currency": "人民币",
+      "cost_price": 3000.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "A1SLJ600X160-00-00",
+      "name_cn": "水冷皮带接头机（不锈钢机身）600*160",
+      "spec": "PB600-150",
+      "name_en": "Water Cooling Belt Splicing Press (Stainless Steel)",
+      "currency": "人民币",
+      "cost_price": 8208.0,
+      "category": "水冷接头机"
+    },
+    {
+      "code": "B1FCJ750X380-00-00",
+      "name_cn": "750W皮带分层机（380v)",
+      "spec": "SB130U",
+      "name_en": "PVC/PU Conveyor Belt Ply Separator SB130 (750W)（380v)",
+      "currency": "人民币",
+      "cost_price": 6384.0,
+      "category": "分层机"
+    },
+    {
+      "code": "B1FCJ750X220-00-00",
+      "name_cn": "750W皮带分层机（220v)",
+      "spec": "SB130S",
+      "name_en": "PVC/PU Conveyor Belt Ply Separator SB130 (750W)（220v)",
+      "currency": "人民币",
+      "cost_price": 6384.0,
+      "category": "分层机"
+    },
+    {
+      "code": "B1PJJ1200-00-00",
+      "name_cn": "易洁带碰接机1200",
+      "spec": "PD1200",
+      "name_en": "Homogeneous Belt Joint Machine",
+      "currency": "人民币",
+      "cost_price": 20710.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "B1PJJ900-00-00",
+      "name_cn": "易洁带碰接机900",
+      "spec": "PD900",
+      "name_en": "Homogeneous Belt Joint Machine",
+      "currency": "人民币",
+      "cost_price": 19230.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "B1PJJ600-00-00",
+      "name_cn": "易洁带碰接机600",
+      "spec": "PD600",
+      "name_en": "Homogeneous Belt Joint Machine",
+      "currency": "人民币",
+      "cost_price": 17100.0,
+      "category": "碰接机/接头机"
+    },
+    {
+      "code": "C2FLJ900X50-00-00",
+      "name_cn": "窄幅风冷皮带接头机（900-50）",
+      "spec": "PI900-50",
+      "name_en": "Narrow-Width Air Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 13775.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C2FLJ800X50-00-00",
+      "name_cn": "窄幅风冷皮带接头机（小周长专用）（800-50）",
+      "spec": "PI800-50",
+      "name_en": "Narrow-Width Air Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 13110.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3FLJ600X50-00-00",
+      "name_cn": "窄幅风冷皮带接头机（小周长专用）（600-50）",
+      "spec": "PI600-50",
+      "name_en": "Narrow-Width Air Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 11400.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "B2FLJ150X150-00-00",
+      "name_cn": "微型风冷皮带接头机（150X150）",
+      "spec": "PA150-150S",
+      "name_en": "Compact Air Cooling Belt Splicing Press",
+      "currency": "人民币",
+      "cost_price": 7600.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "B1FLJ120X20-00-00",
+      "name_cn": "手持风冷皮带接头机",
+      "spec": "PA80X40M",
+      "name_en": "Portable Air-Cooled Conveyor Belt Splicing Machine",
+      "currency": "人民币",
+      "cost_price": 2000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3FLJ3300-00-00",
+      "name_cn": "三代超宽幅风冷皮带接头机3300",
+      "spec": "PA3300-3H",
+      "name_en": "Extra-Wide Air Cooling Belt Splicing Press PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 64970.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3FLJ3000-00-00",
+      "name_cn": "三代超宽幅风冷皮带接头机3000",
+      "spec": "PA3000-3H",
+      "name_en": "Extra-Wide Air Cooling Belt Splicing Press PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 59660.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3FLJ2700-00-00",
+      "name_cn": "三代超宽幅风冷皮带接头机2700",
+      "spec": "PA2700-3H",
+      "name_en": "Extra-Wide Air Cooling Belt Splicing Press PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 53675.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3JJF2400-00-00",
+      "name_cn": "三代宽幅风冷皮带接头机2400机架",
+      "spec": "PA2400W-3H",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 5500.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "C3FLJ2400-00-00",
+      "name_cn": "三代超宽幅风冷皮带接头机2400",
+      "spec": "PA2400-3H",
+      "name_en": "Extra-Wide Air Cooling Belt Splicing Press PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 48450.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF2400-00-00",
+      "name_cn": "三代风冷皮带接头机2400机架",
+      "spec": "PA2400W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 5500.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ2400-00-00",
+      "name_cn": "三代风冷皮带接头机2400",
+      "spec": "PA2400-3",
+      "name_en": "Air Cooling Belt Splicing Press  (PVC / PU) PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 48450.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF2100-00-00",
+      "name_cn": "三代风冷皮带接头机2100机架",
+      "spec": "PA2100W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 5000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ2100-00-00",
+      "name_cn": "三代风冷皮带接头机2100",
+      "spec": "PA2100-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 42750.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF1800-00-00",
+      "name_cn": "三代风冷皮带接头机1800机架",
+      "spec": "PA1800W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 4500.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ1800-00-00",
+      "name_cn": "三代风冷皮带接头机1800",
+      "spec": "PA1800-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 38000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF1500-00-00",
+      "name_cn": "三代风冷皮带接头机1500机架",
+      "spec": "PA1500W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ1500-00-00",
+      "name_cn": "三代风冷皮带接头机1500",
+      "spec": "PA1500-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 33250.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF1200-00-00",
+      "name_cn": "三代风冷皮带接头机1200机架",
+      "spec": "PA1200W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ1200-00-00",
+      "name_cn": "三代风冷皮带接头机1200",
+      "spec": "PA1200-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 29450.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3JJF900-00-00",
+      "name_cn": "三代风冷皮带接头机900机架",
+      "spec": "PA900W-3",
+      "name_en": "Air Cooling Belt Splicing Press  Frame  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ900-00-00",
+      "name_cn": "三代风冷皮带接头机900",
+      "spec": "PA900-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 26600.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ600-00-00",
+      "name_cn": "三代风冷皮带接头机600",
+      "spec": "PA600-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 23750.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A3FLJ300-00-00",
+      "name_cn": "三代风冷皮带接头机300",
+      "spec": "PA300-3",
+      "name_en": "Air Cooling Belt Splicing Press  PA-Ⅲ",
+      "currency": "人民币",
+      "cost_price": 20901.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "Y2FLJ1500-00-00",
+      "name_cn": "二代风冷易洁带接头机1500",
+      "spec": "PA1500Y",
+      "name_en": "Homogeneous  Belt Splice Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 28504.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "Y2FLJ1200-00-00",
+      "name_cn": "二代风冷易洁带接头机1200",
+      "spec": "PA1200Y",
+      "name_en": "Homogeneous  Belt Splice Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 25844.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "Y2FLJ900-00-00",
+      "name_cn": "二代风冷易洁带接头机900",
+      "spec": "PA900Y",
+      "name_en": "Homogeneous  Belt Splice Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 23184.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "Y2FLJ600-00-00",
+      "name_cn": "二代风冷易洁带接头机600",
+      "spec": "PA600Y",
+      "name_en": "Homogeneous  Belt Splice Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 20524.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF1800-00-00",
+      "name_cn": "二代风冷皮带接头机1800机架",
+      "spec": "PA1800W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 4500.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ1800-00-00",
+      "name_cn": "二代风冷皮带接头机1800",
+      "spec": "PA1800",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 31350.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF1500-00-00",
+      "name_cn": "二代风冷皮带接头机1500机架",
+      "spec": "PA1500W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ1500-00-00",
+      "name_cn": "二代风冷皮带接头机1500",
+      "spec": "PA1500",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 26600.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF1200-00-00",
+      "name_cn": "二代风冷皮带接头机1200机架",
+      "spec": "PA1200W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 4000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ1200-00-00",
+      "name_cn": "二代风冷皮带接头机1200",
+      "spec": "PA1200",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 24225.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF900-00-00",
+      "name_cn": "二代风冷皮带接头机900机架",
+      "spec": "PA900W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 3500.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ900-00-00",
+      "name_cn": "二代风冷皮带接头机900",
+      "spec": "PA900",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 21850.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF600-00-00",
+      "name_cn": "二代风冷皮带接头机600机架",
+      "spec": "PA600W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 3200.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ600-00-00",
+      "name_cn": "二代风冷皮带接头机600",
+      "spec": "PA600",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 19475.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2JJF300-00-00",
+      "name_cn": "二代风冷皮带接头机300机架",
+      "spec": "PA300W",
+      "name_en": "Air Cooling Belt Splicing Press  Frame PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 3000.0,
+      "category": "风冷接头机"
+    },
+    {
+      "code": "A2FLJ300-00-00",
+      "name_cn": "二代风冷皮带接头机300",
+      "spec": "PA300",
+      "name_en": "Air Cooling Belt Splicing Press PA-Ⅱ",
+      "currency": "人民币",
+      "cost_price": 17100.0,
+      "category": "风冷接头机"
+    }
+  ]
+}

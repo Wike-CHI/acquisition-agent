@@ -1,7 +1,7 @@
 ---
 name: knowledge-base
-version: "1.2.0"
-description: Use when 需要读写HOLO团队共享知识库或查找已有的调研报告/企业档案时。路由：知识库读写走此技能（内置去重+版本管理+权限校验），不要直接调 kb_read/kb_write/kb_search 绕过版本控制
+version: "1.3.0"
+description: Use when 需要读写HOLO团队共享知识库或查找已有的调研报告/企业档案时。路由：知识库读写走此技能（内置去重+版本管理+权限校验），优先使用 kb_read/kb_write/kb_search/kb_list Agent 工具，PowerShell 脚本作为兜底。
 triggers:
   - 知识库
   - 查一下
@@ -18,11 +18,15 @@ allowed-tools: Bash,Read,Write
 
 > ⚠️ **【强制执行规则] 知识库不是文档，是必须执行的工具！**
 >
+> **任何获客行为前，必须执行两道检查：**
+> 1. `check_existing_customer` — 是否为成交客户黑名单（命中则禁止触达）
+> 2. `kb_search` / `kb_read` — 知识库是否已有档案（有则直接复用）
+>
 > 收到调研报告/背调报告/竞品分析后，**必须**：
-> 1. 用 `exec` 工具运行 `write-knowledge.ps1` 保存到 NAS
+> 1. 调用 `kb_write` 或 `write-knowledge.ps1` 保存到 NAS
 > 2. 返回保存结果（含实际路径），不能只说"已保存"
 >
-> **错误示例**：`报告保存路径: \\192.168.0.194\home\knowledge\...` ❌（只输出，没保存）
+> **错误示例**：`报告保存路径: \\192.168.0.98\home\knowledge\...` ❌（只输出，没保存）
 > **正确示例**：执行 `exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -Name 'Flexco' ...\"})` ✅
 
 # Knowledge Base Skill - 红龙知识库管理
@@ -100,7 +104,7 @@ allowed-tools: Bash,Read,Write
 ### 1.2 产品知识库结构
 
 ```
-\\192.168.0.194\home\knowledge\
+\\192.168.0.98\home\knowledge\
 ├── products/                    # ⭐ 产品知识库
 │   ├── index.md               # 产品总索引
 │   ├── 风冷接头机/
@@ -130,9 +134,35 @@ allowed-tools: Bash,Read,Write
 
 ---
 
-## 二、查询脚本
+## 二、查询接口（双层：Agent 工具优先，PowerShell 兜底）
 
-### 2.1 read-knowledge.ps1
+### 2.0 kb_* Agent 工具（首选 — holo-desktop 内置）
+
+> 在 holo-desktop Agent 运行时中，优先使用内置的 kb_* 工具，无需挂载 NAS。
+
+```typescript
+// 模糊搜索 — 不确定条目名时首选
+kb_search(query="风冷机 三代 规格", type="products")
+kb_search(query="Flexco 竞品", type="market")
+kb_search(query="cement", type="company")
+
+// 精确读取 — 已知条目名
+kb_read(type="products", name="风冷接头机-三代")
+kb_read(type="market", name="东南亚市场")
+kb_read(type="company", name="ABC-Corp")
+kb_read(type="email", name="ABC-Corp")
+
+// 浏览全貌 — 列出某类所有条目
+kb_list(type="products")
+kb_list(type="market")
+
+// 写入 — 调研完成后保存到 NAS
+kb_write(type="market", name="Flexco竞品分析", content="...", overwrite=false)
+```
+
+> kb_* 工具底层路径：`K:\knowledge\`（`\\192.168.0.98\home\knowledge`）
+
+### 2.1 read-knowledge.ps1（兜底 — 非 holo-desktop 环境使用）
 
 **⚠️ 必须用 exec 工具实际执行查询！**
 
@@ -215,35 +245,40 @@ Type=products, Name="风冷接头机三代", ContentFile=临时文件路径
 
 ## 三、知识库门卫执行流程
 
-### 3.1 产品相关查询
+### 3.1 产品相关查询（NAS 实时查询）
 
 ```
 用户问："风冷机三代有什么规格？"
          ↓
-执行查询：read-knowledge -Type products -Name "风冷机三代"
+首选：kb_search(query="风冷机 三代", type="products")   ← Agent 工具，秒级响应
          ↓
-┌─ 存在 → 返回产品规格上下文
-│         告知："已在知识库找到相关产品信息"
+┌─ 找到 → kb_read(type="products", name="风冷接头机-三代")   ← 读完整条目
+│         告知："已在知识库找到最新产品信息（NAS 实时数据）"
 │
-└─ 不存在 → 查询honglong-products技能获取产品信息
-            → **必须执行 exec 命令保存到 NAS（见2.2节）**
-            → 返回产品信息
+├─ 未找到 → kb_search 换关键词重试（"PA300"、"风冷接头机"）
+│
+└─ 仍未找到 → 考虑是否需要先录入该产品知识到 NAS
+              → 查询 honglong-products 技能获取产品目录参考
+              → **录入后调用 kb_write 保存到 NAS**
 ```
+
+> **产品知识是动态的。** NAS 知识库中产品条目的 `updated` 时间戳反映最新版本。
+> 每次产品查询都从 NAS 获取最新数据，不依赖本地缓存。
 
 ### 3.2 市场调研查询
 
 ```
 用户请求："分析东南亚市场"
          ↓
-执行查询：read-knowledge -Type market -Name "东南亚市场"
+首选：kb_search(query="东南亚", type="market")          ← Agent 工具
+      kb_read(type="market", name="东南亚市场")
          ↓
 ┌─ 存在 → 返回报告摘要 + 关键数据
-│         告知："已有2026-04-11调研报告，是否需要更新？"
-│         询问："补充最新数据？"
+│         告知："已有调研报告（最后更新: {updated}），是否需要补充？"
 │
 └─ 不存在 → 执行market-research技能调研
             → 生成六维度报告
-            → **必须执行 exec 命令保存到 NAS（见2.2节）**
+            → **调用 kb_write 保存到 NAS**
             → 返回完整报告
 ```
 
@@ -252,15 +287,15 @@ Type=products, Name="风冷接头机三代", ContentFile=临时文件路径
 ```
 用户请求："调研ABC公司"
          ↓
-执行查询：read-knowledge -Type company -Name "ABC Corp"
+首选：kb_search(query="ABC", type="company")           ← Agent 工具
+      kb_read(type="company", name="ABC-Corp")
          ↓
 ┌─ 存在 → 返回档案摘要 + ICP评分
-│         告知："该公司已在2026-04-10调研过"
-│         询问："是否需要补充更新？"
+│         告知："该公司已有档案（最后更新: {updated}），是否需要补充？"
 │
 └─ 不存在 → 执行company-research技能背调
             → 生成背调报告
-            → **必须执行 exec 命令保存到 NAS（见2.2节）**
+            → **调用 kb_write 保存到 NAS**
             → 返回完整报告
 ```
 
@@ -269,14 +304,14 @@ Type=products, Name="风冷接头机三代", ContentFile=临时文件路径
 ```
 用户请求："给ABC公司发开发信"
          ↓
-执行查询：
-  1. read-knowledge -Type company -Name "ABC Corp"  # 获取公司背景
-  2. read-knowledge -Type products -Name "风冷机"    # 获取产品信息
-  3. read-knowledge -Type email -Name "ABC Corp"    # 检查是否已发送
+并行查询（kb_* Agent 工具）：
+  1. kb_read(type="company", name="ABC-Corp")      # 获取公司背景
+  2. kb_search(query="风冷机", type="products")     # 获取最新产品信息
+  3. kb_read(type="email", name="ABC-Corp")         # 检查是否已发送
          ↓
 ┌─ 公司档案存在 → 使用公司信息个性化开发信
 │
-├─ 产品信息存在 → 使用产品知识
+├─ 产品信息来自 NAS → 使用最新产品数据（非本地缓存）
 │
 └─ 已发送过 → 告知："该公司已在X月X日发送过开发信"
              询问："是否要重新发送？"
@@ -312,15 +347,15 @@ exec({command: "powershell -Command \". '.\\write-knowledge.ps1' -Type market -N
 
 | 项目 | 值 |
 |------|-----|
-| IP | `192.168.0.194` |
+| IP | `192.168.0.98` |
 | Agent账号 | `HOLO-AGENT` |
-| 共享路径 | `\\192.168.0.194\home` |
-| 知识库目录 | `\\192.168.0.194\home\knowledge` |
+| 共享路径 | `\\192.168.0.98\home` |
+| 知识库目录 | `\\192.168.0.98\home\knowledge` |
 
 ### 挂载命令
 
 ```powershell
-net use K: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
+net use K: \\192.168.0.98\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ---
@@ -360,7 +395,23 @@ net use K: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 | 去重检查 | 每月 | 合并相似档案 |
 | 归档旧档 | 每季度 | 归档超过1年无更新的档案 |
 | 备份 | 每周 | 备份到本地 |
-| 产品知识更新 | 按需 | 产品升级后更新 |
+| 产品知识更新 | **按需（触发式）** | NAS 产品文件变更后同步更新 kb 条目 |
+
+### 产品知识刷新
+
+当 NAS 原始产品资料（PDF/Excel/图片）有更新时：
+1. 运行 `refresh-product-index.ps1` 检测变更
+2. 对比 `lastScanHash` 判断是否有新文件
+3. 如有变更 → 更新对应的 kb products 条目
+4. kb_write 覆盖旧条目（`overwrite: true`）
+
+```powershell
+# 检测产品目录变更
+powershell -File "skills\honglong-products\scripts\refresh-product-index.ps1"
+
+# 如有变更，更新 kb 条目
+kb_write(type="products", name="风冷接头机-三代", content="...", overwrite=true)
+```
 
 ---
 
@@ -368,7 +419,7 @@ net use K: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 
 | 版本 | 日期 | 更新内容 |
 |------|------|---------|
-| v1.1.0 | 2026-04-20 | **修复：显式要求AI用exec工具保存，禁止只输出路径** |
+| v1.3.0 | 2026-06-01 | **NAS 动态查询架构：新增 kb_* Agent 工具为首选接口，PowerShell 脚本降为兜底；NAS IP 统一为 192.168.0.98；产品知识改为实时查询不再依赖本地缓存** |
 | v1.2.0 | 2026-04-11 | **新增产品知识库 + 知识库门卫规则** |
 | v1.1.0 | 2026-04-10 | 更新NAS账号为HOLO-AGENT |
 | v1.0.0 | 2026-04-10 | 初始版本 |

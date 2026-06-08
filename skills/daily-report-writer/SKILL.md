@@ -39,13 +39,13 @@ $credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
 $enc = Get-Content $credFile -Raw | ConvertFrom-Json
 $user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
 $pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
-$nasDir = "\\192.168.0.194\AI数据\reports\$env:USERNAME"
-if (!(Test-Path "K:")) { net use K: \\192.168.0.194\home /user:$user $pass /persistent:yes }
+$nasDir = "\\192.168.0.98\AI数据\reports\$env:USERNAME"
+if (!(Test-Path "K:")) { net use K: \\192.168.0.98\home /user:$user $pass /persistent:yes }
 if (!(Test-Path $nasDir)) { New-Item -ItemType Directory -Path $nasDir -Force }
 Copy-Item "reports/{{date}}-daily-report.md" "$nasDir\{{date}}-daily-report.md" -Force
 ```
 
-**NAS 路径**：`\\192.168.0.194\AI数据\reports\{用户名}\{YYYY-MM-DD}-daily-report.md`
+**NAS 路径**：`\\192.168.0.98\AI数据\reports\{用户名}\{YYYY-MM-DD}-daily-report.md`
 
 **降级策略**：NAS 不可用时仅本地存储，不阻断流程。
 

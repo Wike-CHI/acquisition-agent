@@ -288,13 +288,13 @@ $credFile = "$env:USERPROFILE\.openclaw\.nas_credentials"
 $enc = Get-Content $credFile -Raw | ConvertFrom-Json
 $user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
 $pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
-$nasPath = "\\192.168.0.194\AI数据\proposals"
-if (!(Test-Path "K:")) { net use K: \\192.168.0.194\home /user:$user $pass /persistent:yes }
+$nasPath = "\\192.168.0.98\AI数据\proposals"
+if (!(Test-Path "K:")) { net use K: \\192.168.0.98\home /user:$user $pass /persistent:yes }
 if (!(Test-Path $nasPath)) { New-Item -ItemType Directory -Path $nasPath -Force }
 Copy-Item "{本地PDF路径}" "$nasPath\{报价单号}.pdf" -Force
 ```
 
-**NAS 路径**：`\\192.168.0.194\AI数据\proposals\{报价单号}.pdf`
+**NAS 路径**：`\\192.168.0.98\AI数据\proposals\{报价单号}.pdf`
 
 **降级策略**：NAS 不可用时仅本地存储，不阻断流程。
 

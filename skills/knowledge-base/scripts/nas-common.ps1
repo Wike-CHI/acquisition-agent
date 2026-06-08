@@ -2,7 +2,7 @@
 # 被 write-knowledge.ps1 / read-knowledge.ps1 / log-activity.ps1 dot-source
 
 $CREDENTIAL_FILE = "$env:USERPROFILE\.openclaw\.nas_credentials"
-$NAS_IP = "192.168.0.194"
+$NAS_IP = "192.168.0.98"
 
 function Get-NasCredential {
     if (-not (Test-Path $CREDENTIAL_FILE)) {

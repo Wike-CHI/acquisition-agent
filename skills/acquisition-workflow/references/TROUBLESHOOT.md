@@ -361,7 +361,7 @@ const anchor = {
 **使用前检查**：
 - [ ] 已填写 `context/user.md`（姓名/邮箱/电话/职位）
 - [ ] 已配置凭据（SMTP / Exa API / DeepSeek API）
-- [ ] 已挂载 NAS（192.168.0.194）
+- [ ] 已挂载 NAS（192.168.0.98）
 - [ ] ChromaDB 服务已启动（如需要）
 
 **执行时监控**：

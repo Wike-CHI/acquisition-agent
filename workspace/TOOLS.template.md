@@ -451,7 +451,7 @@ python3 -m graphify query "Brazil fleet customer" --dfs --budget 1000
 
 ### 挂载命令（Windows）
 ```powershell
-net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
+net use Y: \\192.168.0.98\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ### 用途

@@ -187,7 +187,7 @@ external_skills:
 | **nas-file-reader** | `nas-file-reader/` | NAS共享盘访问、文件读取、PDF OCR | 读取产品资料、查看企业画册、挂载NAS盘 | SKILL.md, scripts/mount-nas.ps1 |
 
 **NAS配置信息**:
-- 主NAS地址: 192.168.0.194
+- 主NAS地址: 192.168.0.98
 - 用户: HOLO / 密码: ${env.NAS_PASSWORD}
 - 共享目录: 市场营销
 - 映射盘符: Y:

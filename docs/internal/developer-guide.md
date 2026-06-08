@@ -4,7 +4,7 @@
 
 - Node.js 18+ (for /tmp/sender.mjs)
 - Python 3.10+ (for skills)
-- NAS: \192.168.0.194 (通过 `config/infrastructure.json` 管理)
+- NAS: \192.168.0.98 (通过 `config/infrastructure.json` 管理)
 
 ## 技能开发规范
 

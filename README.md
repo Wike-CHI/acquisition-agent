@@ -149,7 +149,7 @@ cd ~/acquisition-agent
 | WhatsApp | ✅ 可用 | wacli |
 | Telegram | ⚠️ 待配置 | Bot Token未设置 |
 | 孚盟CRM | ⚠️ 待登录 | 未连通 |
-| NAS知识库 | ⚠️ 待挂载 | 192.168.0.194 |
+| NAS知识库 | ⚠️ 待挂载 | 192.168.0.98 |
 | LinkedIn | ⚠️ 待配置 | Cookie未注入 |
 
 ---

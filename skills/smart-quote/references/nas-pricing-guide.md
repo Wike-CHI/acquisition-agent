@@ -12,7 +12,7 @@ if (Test-Path $credFile) {
     $enc = Get-Content $credFile -Raw | ConvertFrom-Json
     $user = $enc.User | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
     $pass = $enc.Pass | ConvertTo-SecureString | ForEach-Object { [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($_)) }
-    net use W: \\192.168.0.194\公司报价资料 /user:$user $pass /persistent:yes
+    net use W: \\192.168.0.98\公司报价资料 /user:$user $pass /persistent:yes
 } else {
     Write-Warning "NAS credentials not found. Run mount-nas.ps1 -Setup first."
 }

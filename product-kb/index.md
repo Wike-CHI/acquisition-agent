@@ -1,11 +1,13 @@
 # 产品知识库 — HOLO Industrial Equipment
 
-> 来源：honglong-products 技能 + NAS 原始文件
-> 更新：2026-04-17
+> 来源：honglong-products 技能 + NAS 原始文件 + 成本价目表
+> 更新：2026-06-01
 
 ## 目录
 
 - [产品总览](products.md) — 12大类设备完整型号列表
+- [成本价目表](cost-prices.md) — 244个产品成本底价（2026-05版），报价基础
+- [成本价 JSON](cost-prices.json) — 结构化数据，供程序/Agent查询
 - [质量检验标准](inspection-standards.md) — 出厂检验规程
 - （更多章节待填充）
 

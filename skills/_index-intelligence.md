@@ -19,7 +19,7 @@ priority: 70
 ### 记忆系统（双轨并行）
 - **[[humanoid-memory]]** — 类人脑记忆系统。基于 V-score 的记忆整合 + 艾宾浩斯遗忘曲线。适用于对话状态记忆和客户交互历史。
 - **[[smart-memory]]** — 本地向量记忆。基于向量存储的持久化记忆，适用于非结构化的长期知识检索。
-- **[[knowledge-base]]** — 团队共享情报中心。⚠️ 核心职责：收到调研报告后必须实际保存到 NAS，不能只输出路径！NAS 目标：`\\192.168.0.194\home`。被 [[company-research]]、[[cold-email-generator]]、[[smart-quote]] 调用。
+- **[[knowledge-base]]** — 团队共享情报中心。⚠️ 核心职责：收到调研报告后必须实际保存到 NAS，不能只输出路径！NAS 目标：`\\192.168.0.98\home`。被 [[company-research]]、[[cold-email-generator]]、[[smart-quote]] 调用。
 
 ### 文件读取
 - **[[nas-file-reader]]** — NAS 共享盘文件读取。快速读取 NAS 文件，支持 PDF OCR 识别、图片分析。⚠️ NAS 可能未挂载。

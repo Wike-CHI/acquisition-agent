@@ -12,13 +12,13 @@ TESSDATA_PATH = r'C:\Program Files\Tesseract-OCR\tessdata'
 
 # NAS 连接信息
 NAS_CONFIG = {
-    "host": "192.168.0.194",
+    "host": "192.168.0.98",
     "user": "HOLO",
     "password": os.environ.get("NAS_PASSWORD", ""),  # 通过环境变量或凭据管理器配置
     "drives": {
-        "Y": r"\\192.168.0.194\市场营销",
-        "X": r"\\192.168.0.194\销售",
-        "Z": r"\\192.168.0.194\home"
+        "Y": r"\\192.168.0.98\市场营销",
+        "X": r"\\192.168.0.98\销售",
+        "Z": r"\\192.168.0.98\home"
     }
 }
 

@@ -76,7 +76,7 @@ license: proprietary
 - **本地系统**: `~/.openclaw/skills/acquisition/`
 - **Pipeline 数据**: `C:/Users/Administrator/WorkBuddy/`
 - **邮件发送**: `/tmp/sender.mjs`
-- **NAS 视频库**: `\\192.168.0.194`（未挂载）
+- **NAS 视频库**: `\\192.168.0.98`（未挂载）
 
 ## 版本
 

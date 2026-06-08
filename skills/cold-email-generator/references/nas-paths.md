@@ -9,15 +9,15 @@
 
 | 项目 | 值 |
 |------|-----|
-| NAS IP | `192.168.0.194` |
-| 共享路径 | `\\192.168.0.194\home` |
-| 知识库根目录 | `\\192.168.0.194\home\knowledge` |
+| NAS IP | `192.168.0.98` |
+| 共享路径 | `\\192.168.0.98\home` |
+| 知识库根目录 | `\\192.168.0.98\home\knowledge` |
 | 脚本目录 | `{{SKILL_DATA_DIR}}/knowledge-base/scripts/` |
 
 ### 挂载命令
 
 ```powershell
-net use K: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
+net use K: \\192.168.0.98\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ---

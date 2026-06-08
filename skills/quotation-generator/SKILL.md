@@ -35,10 +35,11 @@ triggers:
 
 ### 必须完成
 
-1. **smart-quote 已运行** — 获取利润率区间和参考价格
-2. **MEMORY.md 客户会话已读取** — 获取 BANT 数据
-3. **NAS 产品资料已读取** — 获取产品规格参数（Heating Area, Max width, Voltage, HS CODE 等）
-4. **老板已审批** — 报价锁定流程已完成
+1. **smart-quote v3.0 已运行** — 从知识库查成本底价 + 利润率 + 汇率计算销售价格
+2. **成本价已确认** — kb_read(type="products", name="cost-prices") 获取产品未税成本
+3. **MEMORY.md 客户会话已读取** — 获取 BANT 数据
+4. **NAS 产品资料已读取** — 获取产品规格参数（Heating Area, Max width, Voltage, HS CODE 等）
+5. **老板已审批** — 报价锁定流程已完成
 
 ### 禁止条件
 

@@ -1,7 +1,7 @@
 ---
 name: honglong-products
-version: 3.1.0
-description: 红龙(HOLO)工业皮带设备产品知识库。优先读取技能本地结构化文档，NAS原始文件作为兜底权威来源，支持产品型号查询、技术参数、BOM、选型建议等。
+version: 4.0.0
+description: 红龙(HOLO)工业皮带设备产品知识库 — 动态查询 NAS 知识库，始终获取最新产品数据。优先通过 kb_read/kb_search/kb_list Agent 工具实时查询 NAS，本地 references/ 仅作离线兜底缓存。
 always: false
 triggers:
   - 产品
@@ -40,64 +40,112 @@ triggers:
   - 规格怎么选
 ---
 
-# 红龙产品知识库 v3.1
+# 红龙产品知识库 v4.0
 
 > **Skill Graph：** 领域 → [[_index-acquisition|核心获客领域]] | 上游 ← [[_index-intelligence|情报领域]] | 下游 → [[knowledge-base|团队知识库]] + [[smart-quote|智能报价]]（产品→报价）+ [[quotation-generator|报价单]]
 
-
-> ⭐ **双层架构：结构化文档优先，NAS原始文件兜底**
-
----
-
-## 📐 双层读取架构
-
-```
-① 技能 references/（结构化文档，秒级读取）
-   references/tech-specs.md          → 技术规格总表
-   references/customers.md            → 客户痛点/案例
-   references/inspection-standards.md → 检验标准摘要
-   references/products.md             → 产品分类/选型对照
-   references/applications.md        → 应用场景/话术
-   references/INDEX.md               → 完整文件索引
-        ↓ 查不到时
-② NAS 共享盘（原始文件，权威兜底）
-   Y:\1.HOLO机器目录（最终资料存放）\  → Excel/PDF/图片
-   W:\公司报价资料\                   → 报价参考表.xlsx
-```
-
-> ⚠️ **不要重复造轮子**：references/ 里已有结构化内容，直接读；只有在 references/ 查不到时才去 NAS 翻原始文件。
+> **v4.0 架构革新：NAS 实时查询为主，本地缓存仅为离线兜底。产品知识是活的，每次查询都从 NAS 拿最新数据。**
 
 ---
 
-## 🗂️ references/ 本地文档速查
+## 架构原则
 
-| 文件 | 内容 | 何时读 |
-|------|------|--------|
-| `INDEX.md` | references/ 完整文件清单 | 不确定要找什么时先读这个 |
-| `tech-specs.md` | 全产品线技术规格/BOM | 问参数、规格、型号、BOM时 |
-| `customers.md` | 客户痛点、案例、产品匹配 | 问选型、适合什么客户时 |
-| `products.md` | 产品分类/选型对照表 | 不知道选哪款时 |
-| `inspection-standards.md` | 检验标准摘要 | 问质量标准时 |
-| `applications.md` | 应用场景/话术/快速问答 | 问用途、对话场景时 |
-
-**读取方式**：
-```powershell
-# 直接读本地结构化文档（快）
-Get-Content "skills/honglong-products/references/tech-specs.md"
-
-# 不确定找什么 → 先读 INDEX
-Get-Content "skills/honglong-products/references/INDEX.md"
 ```
+┌─────────────────────────────────────────────────────────────┐
+│                    产品知识查询流程 (v4.0)                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  用户问产品 → 第一步：kb_search/kb_read 实时查 NAS            │
+│                    ↓                                         │
+│         ┌─────────────────────────┐                         │
+│         │   NAS 知识库可用？       │                         │
+│         └─────────────────────────┘                         │
+│              ↓ yes              ↓ no                         │
+│     kb_search 查产品知识    references/ 本地缓存              │
+│     kb_read 读具体条目      离线模式工作                      │
+│              ↓                    ↓                          │
+│         返回最新数据          返回缓存数据                     │
+│         (始终新鲜)            (标注"离线缓存")                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+> **核心转变：NAS 是主数据源，不再是"兜底"。本地 references/ 降级为 NAS 不可用时的离线缓存。**
 
 ---
 
-## 🔴 NAS 资料路径（权威兜底来源）
+## 查询方式（按优先级排列）
 
-### 主产品目录
+### 方式一：kb_search — 模糊搜索产品（首选）
+
+当用户问产品相关问题但不确定具体条目名时：
+
+```
+kb_search(query="风冷机 三代 规格", type="products", limit=5)
+kb_search(query="分层机 皮带厚度", type="products", limit=5)
+kb_search(query="PA300 参数", type="products", limit=5)
+```
+
+### 方式二：kb_read — 读取具体产品条目
+
+当已知产品条目名时：
+
+```
+kb_read(type="products", name="风冷接头机-三代")
+kb_read(type="products", name="水冷接头机")
+kb_read(type="products", name="分层机")
+```
+
+### 方式三：kb_list — 浏览产品知识库全貌
+
+```
+kb_list(type="products")
+```
+
+### 方式四：本地 references/ 离线缓存（仅 NAS 不可用时）
+
+```
+Read: skills/honglong-products/references/tech-specs.md
+Read: skills/honglong-products/references/products.md
+```
+
+> 离线使用时必须在回复中标注"**当前为离线缓存数据，可能与 NAS 最新版本不一致**"
+
+---
+
+## NAS 知识库结构
+
+知识库通过 kb_* 工具访问，底层路径：
+
+```
+K:\knowledge\products\          ← kb_read/kb_search 的 products 类型
+├── 风冷接头机/
+│   ├── 二代.md
+│   ├── 三代.md
+│   ├── 四代.md
+│   └── 规格参数.md
+├── 水冷接头机/
+├── 分层机/
+├── 导条机/
+├── 打齿机/
+├── 裁切机/
+├── 碰接机/
+├── 钢扣机/
+└── 配套设备/
+```
+
+> NAS 连接：`\\192.168.0.98\home\knowledge`（K: 盘），与 holo-desktop Electron 配置一致
+
+---
+
+## 产品目录结构参考（NAS 原始文件）
+
+以下为 NAS 共享盘 `Y:\1.HOLO机器目录（最终资料存放）\` 的目录结构，
+用于定位原始产品资料（PDF、图片、视频等非结构化文件）：
 
 ```
 Y:\1.HOLO机器目录（最终资料存放）\
-├── 1.风冷皮带接头机\
+├── 1.风冷皮带接头机\        ← 主力产品，PA300~PA2100 系列
 ├── 2.水冷式接头机 Water Cooling Conveyor Belt Splicing Machine\
 ├── 3.易洁带碰接机 Food Grade Easy-Clean Belt Splicing Machine\
 ├── 4.输送带分层机 Conveyor Belt Ply Separator\
@@ -118,101 +166,76 @@ Y:\1.HOLO机器目录（最终资料存放）\
 └── 20.非常规的机器日常试机视频\
 ```
 
-### 企业宣传资料
+---
+
+## 产品分类速查
+
+| 产品类别 | NAS 知识库条目 | 原始资料目录 | 负责人 |
+|---------|---------------|-------------|--------|
+| **风冷接头机** | `风冷接头机/` | `1.风冷皮带接头机\` | 吴植材 |
+| **水冷接头机** | `水冷接头机/` | `2.水冷式接头机\` | 吴植财 |
+| **易洁带碰接机** | `碰接机/` | `3.易洁带碰接机\` | 吴植材 |
+| **分层机** | `分层机/` | `4.输送带分层机\` | 黄燕平 |
+| **打齿机** | `打齿机/` | `5.打齿机\` | 郑锋 |
+| **打孔机** | `配套设备/` | `6.C类打孔机\` | 赵金仓 |
+| **裁切机** | `裁切机/` | `7.裁切 切割、环切、分切机\` | 郑锋 |
+| **导条机** | `导条机/` | `8.焊接 导条机\` | 赵金仓/黄燕平 |
+| **封边机** | `配套设备/` | `9.封边机\` | 赵金仓 |
+| **硫化机** | `配套设备/` | `15.橡胶带硫化机\` | 外购 |
+
+---
+
+## 查询示例
+
+### 场景1：客户问风冷机三代参数
 
 ```
-Y:\7.企业介绍宣传视频  企业宣传手册\
-├── 企业宣传画册 中文\
-├── 企业宣传画册 英文（含进口配件供应商）\
-└── 产品册\
+1. kb_search(query="风冷机 三代", type="products")     ← 先搜索
+2. kb_read(type="products", name="风冷接头机-三代")     ← 再读详情
+3. 如 NAS 不可用 → Read references/tech-specs.md       ← 离线兜底
 ```
 
-### 营销宣传资料
+### 场景2：不确定选风冷还是水冷
 
 ```
-Y:\3..产品图册.产品单页.折页 产品海报\        # 产品图册/折页/海报
-Y:\7.企业介绍宣传视频  企业宣传手册\           # 宣传视频/画册
-Y:\14.展会照片视频海报 素材.邀请函 促销海报节日海报\  # 展会物料
+1. kb_search(query="风冷 水冷 区别 选型", type="products")
+2. kb_read(type="products", name="风冷接头机")
+3. kb_read(type="products", name="水冷接头机")
+4. 对比后给出选型建议
+```
+
+### 场景3：了解所有产品线
+
+```
+1. kb_list(type="products")                              ← 先看有哪些条目
+2. kb_read(type="products", name="分层机")               ← 按需深入
+```
+
+### 场景4：查找原始产品资料（图片/PDF）
+
+```
+如需要产品实物图、技术图纸、宣传册等非文本资料：
+→ 挂载 Y: 盘后浏览对应产品目录
+→ 或使用 nas-file-reader 技能读取 PDF/图片
 ```
 
 ---
 
-## 📂 读取脚本（双层优先级）
+## 产品索引刷新
+
+NAS 知识库文件变更后，运行索引脚本更新本地缓存：
 
 ```powershell
-# ★ 第一步：先查本地结构化文档（快）
-Get-Content "skills/honglong-products/references/tech-specs.md"
-Get-Content "skills/honglong-products/references/customers.md"
-Get-Content "skills/honglong-products/references/products.md"
-Get-Content "skills/honglong-products/references/INDEX.md"
-
-# ★ 查不到时 → 第二步：挂载NAS读原始文件
-net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
-
-# 查看产品目录
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）" -Depth 2
-
-# 读取风冷机资料
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机" -Recurse
-
-# 读取特定文件
-Get-Content "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\三代风冷皮带接头机.pdf"
+powershell -File "skills\honglong-products\scripts\refresh-product-index.ps1"
 ```
+
+索引文件 `references/.product-index.json` 记录：
+- 扫描时间、文件数量、目录结构
+- `lastScanHash` — 用于检测 NAS 是否有变更
 
 ---
 
-## 📊 产品分类速查
-
-| 产品类别 | NAS目录 | 负责人 |
-|---------|---------|--------|
-| **风冷接头机** | `1.风冷皮带接头机\` | 吴植材 |
-| **水冷接头机** | `2.水冷式接头机\` | 吴植财 |
-| **易洁带碰接机** | `3.易洁带碰接机\` | 吴植材 |
-| **分层机** | `4.输送带分层机\` | 黄燕平 |
-| **打齿机** | `5.打齿机\` | 郑锋 |
-| **打孔机** | `6.C类打孔机\` | 赵金仓 |
-| **裁切机** | `7.裁切 切割、环切、分切机\` | 郑锋 |
-| **导条机** | `8.焊接 导条机\` | 赵金仓/黄燕平 |
-| **封边机** | `9.封边机\` | 赵金仓 |
-| **硫化机** | `15.橡胶带硫化机\` | 外购 |
-
----
-
-## 🔍 快速查询
-
-### 查询产品目录结构
-
-```powershell
-# 查看所有产品目录
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）" | Select-Object Name
-
-# 查看风冷机子目录
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机" -Depth 2
-```
-
-### 查询产品参数
-
-```powershell
-# 查找风冷机参数文件
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机" -Recurse -Include "*.xlsx","*.pdf" | Select-Object Name
-
-# 查找水冷机参数文件
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\2.水冷式接头机" -Recurse -Include "*.xlsx","*.pdf" | Select-Object Name
-```
-
-### 查询产品图片
-
-```powershell
-# 查看产品图片目录
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\图片" -Depth 2 | Select-Object Name
-
-# 查看产品海报
-Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接头机\海报" | Select-Object Name
-```
-
----
-
-## 🏢 企业信息
+## 企业信息
 
 | 项目 | 内容 |
 |------|------|
@@ -224,9 +247,7 @@ Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接�
 | **销售邮箱** | sale@18816.cn |
 | **WhatsApp** | +86 18057753889 |
 
----
-
-## 🌐 官网矩阵
+## 官网矩阵
 
 | 网站 | 定位 | URL |
 |------|------|-----|
@@ -237,20 +258,15 @@ Get-ChildItem "Y:\1.HOLO机器目录（最终资料存放）\1.风冷皮带接�
 
 ---
 
-## 📋 产品导航索引
+## 相关技能
 
-NAS上有 `产品导航.xlsx` 文件，包含完整的产品分类索引。
-
----
-
-## 🔗 相关技能
-
-| 技能 | 用途 |
-|------|------|
-| `nas-file-reader` | 读取NAS文件 |
-| `company-research` | 客户背景调查 |
-| `cold-email-generator` | 开发信生成 |
+| 技能 | 用途 | 数据流 |
+|------|------|--------|
+| `knowledge-base` | 知识库门卫，统一管理 NAS 读写 | ← 本技能通过 kb_* 工具走 knowledge-base |
+| `nas-file-reader` | 读取 NAS 原始文件（PDF/图片） | ← 非结构化资料时使用 |
+| `smart-quote` | 智能报价，需要产品规格输入 | → 本技能提供产品参数 |
+| `quotation-generator` | PDF 报价单生成 | → 本技能提供 HS CODE、规格 |
 
 ---
 
-*本知识库 v3.1 采用双层架构：references/ 结构化文档优先响应，NAS 原始文件兜底保障权威性*
+*本知识库 v4.0 采用动态查询架构：NAS 知识库为主数据源（始终新鲜），本地 references/ 为离线缓存*

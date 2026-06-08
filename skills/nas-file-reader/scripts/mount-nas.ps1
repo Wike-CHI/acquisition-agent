@@ -17,7 +17,7 @@ param(
 $NAS_SERVERS = @(
     @{
         Name = "主NAS"
-        Host = "192.168.0.194"
+        Host = "192.168.0.98"
         Share = "市场营销"
         Drive = "Y"
         Description = "HOLO公司NAS - 产品资料/图片/视频"

@@ -25,7 +25,7 @@ version: 1.0.0
 
 ```bash
 # 1. 检查 NAS 是否挂载
-net use 2>/dev/null | grep -q "192.168.0.194" && echo "NAS在线" || echo "NAS离线"
+net use 2>/dev/null | grep -q "192.168.0.98" && echo "NAS在线" || echo "NAS离线"
 
 # 2. 检查本地 CRM 数据
 find ~/.hermes/skills/acquisition -name "*.db" -o -name "customers.json" -o -name "Pipeline*.xlsx" 2>/dev/null
@@ -93,10 +93,10 @@ Channel(11), Status(12), Notes(13)
 
 ```powershell
 # NAS 共享盘（公司资料）
-net use Y: \\192.168.0.194\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
+net use Y: \\192.168.0.98\home /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 
 # 报价资料盘
-net use W: \\192.168.0.194\公司报价资料 /user:${env.NAS_USER} ${env.NAS_PASSWORD}
+net use W: \\192.168.0.98\公司报价资料 /user:${env.NAS_USER} ${env.NAS_PASSWORD}
 ```
 
 ## 13项检查执行顺序

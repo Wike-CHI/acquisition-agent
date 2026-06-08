@@ -189,7 +189,7 @@ GET /health
     "dependencies": {
       "nas": {
         "status": "ok",
-        "address": "192.168.0.194",
+        "address": "192.168.0.98",
         "response_time_ms": 45
       },
       "teyi": {

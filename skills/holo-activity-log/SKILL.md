@@ -26,7 +26,7 @@ triggers:
 
 ## 功能
 
-- 将操作记录追加到 `\\192.168.0.194\AI数据\activity\YYYY-MM-DD.csv`
+- 将操作记录追加到 `\\192.168.0.98\AI数据\activity\YYYY-MM-DD.csv`
 - 自动检测设备标识（`用户名@IP`）
 - NAS 不可用时降级到本地 `~/.openclaw/activity/`
 

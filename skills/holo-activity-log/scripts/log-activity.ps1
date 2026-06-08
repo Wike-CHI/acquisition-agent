@@ -34,7 +34,7 @@ if (-not (Ensure-NasMount -DriveLetter $DriveLetter -SharePath $mountPath)) {
     $logFile = "$logDir\$(Get-Date -Format 'yyyy-MM-dd').csv"
 } else {
     $logDir = "$DriveLetter\..\AI数据\activity"
-    # \\192.168.0.194\home\..\AI数据\activity = \\192.168.0.194\AI数据\activity
+    # \\192.168.0.98\home\..\AI数据\activity = \\192.168.0.98\AI数据\activity
     if (!(Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
     $logFile = "$logDir\$(Get-Date -Format 'yyyy-MM-dd').csv"
 }
